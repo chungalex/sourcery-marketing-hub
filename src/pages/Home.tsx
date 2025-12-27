@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
+import { SEO } from "@/components/SEO";
+import { Newsletter } from "@/components/Newsletter";
+import { Testimonials } from "@/components/Testimonials";
 import { ArrowRight, CheckCircle, Factory, Shield, TrendingUp, Package, Globe, Users } from "lucide-react";
 
 const features = [
@@ -56,6 +59,12 @@ const logos = [
 export default function Home() {
   return (
     <Layout>
+      <SEO
+        title="Sourcery | Premium Manufacturing Sourcing for Modern Brands"
+        description="From factory vetting to final delivery. We handle sourcing, quality control, and production tracking so you can focus on building your brand."
+        canonical="/"
+      />
+
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-[var(--hero-gradient)]" />
@@ -174,17 +183,26 @@ export default function Home() {
       {/* Logos Section */}
       <section className="section-padding">
         <div className="container-wide">
-          <p className="text-center text-sm text-muted-foreground mb-8">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center text-sm text-muted-foreground mb-8"
+          >
             Trusted by growing brands worldwide
-          </p>
+          </motion.p>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-            {logos.map((logo) => (
-              <div
+            {logos.map((logo, index) => (
+              <motion.div
                 key={logo}
-                className="text-muted-foreground/60 font-heading font-medium text-lg"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                className="text-muted-foreground/50 font-heading font-medium text-lg hover:text-muted-foreground transition-colors cursor-default"
               >
                 {logo}
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -229,6 +247,47 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="section-padding">
+        <div className="container-wide">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center max-w-2xl mx-auto mb-12"
+          >
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+              What Our Clients Say
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Hear from brands who've transformed their production with Sourcery.
+            </p>
+          </motion.div>
+          
+          <Testimonials />
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="section-padding bg-card/50">
+        <div className="container-tight">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center max-w-xl mx-auto"
+          >
+            <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
+              Stay in the Loop
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              Get industry insights, sourcing tips, and Sourcery updates delivered to your inbox.
+            </p>
+            <Newsletter className="max-w-md mx-auto" />
+          </motion.div>
         </div>
       </section>
 
