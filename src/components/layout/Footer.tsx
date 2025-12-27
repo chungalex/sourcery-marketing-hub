@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Newsletter } from "@/components/Newsletter";
 
 const footerLinks = {
   product: [
@@ -14,9 +15,8 @@ const footerLinks = {
     { label: "FAQ", href: "/faq" },
   ],
   legal: [
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
-    { label: "Cookie Policy", href: "#" },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of Service", href: "/terms" },
   ],
 };
 
@@ -24,9 +24,9 @@ export function Footer() {
   return (
     <footer className="bg-card border-t border-border">
       <div className="container-wide section-padding">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
+          <div className="col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
                 <span className="text-primary-foreground font-heading font-bold text-lg">S</span>
@@ -35,9 +35,10 @@ export function Footer() {
                 Sourcery
               </span>
             </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed mb-6">
               Premium sourcing, vetted factories, quality control, and production tracking for modern brands.
             </p>
+            <Newsletter variant="compact" />
           </div>
 
           {/* Product Links */}
