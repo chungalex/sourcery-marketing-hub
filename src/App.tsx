@@ -16,6 +16,8 @@ import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
+import Directory from "./pages/Directory";
+import FactoryProfile from "./pages/FactoryProfile";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +40,8 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/directory" element={<Directory />} />
+            <Route path="/directory/:slug" element={<FactoryProfile />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
