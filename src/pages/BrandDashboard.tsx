@@ -6,6 +6,8 @@ import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FactoryCard } from "@/components/marketplace/FactoryCard";
+import { EscrowPaymentTracker } from "@/components/platform/EscrowPaymentTracker";
+import { QualityDashboard } from "@/components/platform/QualityDashboard";
 import { mockFactories } from "@/data/mockData";
 import { 
   Building2, 
@@ -16,7 +18,8 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  ArrowRight
+  ArrowRight,
+  Package
 } from "lucide-react";
 
 /**
@@ -168,8 +171,12 @@ export default function BrandDashboard() {
           </div>
 
           {/* Main Content */}
-          <Tabs defaultValue="saved" className="space-y-6">
+          <Tabs defaultValue="orders" className="space-y-6">
             <TabsList>
+              <TabsTrigger value="orders" className="flex items-center gap-2">
+                <Package className="h-4 w-4" />
+                Orders
+              </TabsTrigger>
               <TabsTrigger value="saved" className="flex items-center gap-2">
                 <Heart className="h-4 w-4" />
                 Saved Factories
@@ -183,6 +190,20 @@ export default function BrandDashboard() {
                 Settings
               </TabsTrigger>
             </TabsList>
+
+            {/* Orders Tab */}
+            <TabsContent value="orders" className="space-y-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-4">Payment Tracking</h3>
+                  <EscrowPaymentTracker />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-4">Quality Assurance</h3>
+                  <QualityDashboard />
+                </div>
+              </div>
+            </TabsContent>
 
             {/* Saved Factories Tab */}
             <TabsContent value="saved" className="space-y-6">
