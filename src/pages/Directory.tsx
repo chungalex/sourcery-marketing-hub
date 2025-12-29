@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Search, ArrowUpDown } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -12,9 +12,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { FactoryCard } from "@/components/marketplace/FactoryCard";
+import { FactoryTableRow } from "@/components/marketplace/FactoryTableRow";
+import { FactoryMapView } from "@/components/marketplace/FactoryMapView";
 import { FilterSidebar, FilterState, initialFilters } from "@/components/marketplace/FilterSidebar";
-import { FactoryTypeBadge } from "@/components/marketplace/FactoryTypeBadge";
+import { ActiveFilters } from "@/components/marketplace/ActiveFilters";
+import { RecentlyViewed } from "@/components/marketplace/RecentlyViewed";
+import { ViewToggle, ViewMode } from "@/components/marketplace/ViewToggle";
 import { mockFactories, FactoryType } from "@/data/mockData";
 
 const quickFilters: { label: string; type: FactoryType | 'all' }[] = [
@@ -26,11 +37,44 @@ const quickFilters: { label: string; type: FactoryType | 'all' }[] = [
 
 type SortOption = 'newest' | 'completeness' | 'moq_low' | 'moq_high' | 'lead_time';
 
+// LocalStorage key for recently viewed
+const RECENTLY_VIEWED_KEY = 'sourcery_recently_viewed';
+
 export default function Directory() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState<FilterState>(initialFilters);
   const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [savedFactories, setSavedFactories] = useState<string[]>([]);
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
+  const [recentlyViewed, setRecentlyViewed] = useState<string[]>([]);
+
+  // Load recently viewed from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem(RECENTLY_VIEWED_KEY);
+    if (stored) {
+      try {
+        setRecentlyViewed(JSON.parse(stored));
+      } catch {
+        // Invalid JSON, reset
+        localStorage.removeItem(RECENTLY_VIEWED_KEY);
+      }
+    }
+  }, []);
+
+  // Check if any filters are active
+  const hasActiveFilters = useMemo(() => {
+    return (
+      filters.types.length > 0 ||
+      filters.categories.length > 0 ||
+      filters.countries.length > 0 ||
+      filters.certifications.length > 0 ||
+      filters.verifiedOnly ||
+      filters.moqRange[0] !== 0 ||
+      filters.moqRange[1] !== 10000 ||
+      filters.leadTimeRange[0] !== 1 ||
+      filters.leadTimeRange[1] !== 12
+    );
+  }, [filters]);
 
   // Filter and sort factories
   const filteredFactories = useMemo(() => {
@@ -127,6 +171,11 @@ export default function Directory() {
     );
   };
 
+  const handleClearRecentlyViewed = () => {
+    setRecentlyViewed([]);
+    localStorage.removeItem(RECENTLY_VIEWED_KEY);
+  };
+
   return (
     <Layout>
       <SEO
@@ -199,6 +248,16 @@ export default function Directory() {
       {/* Directory */}
       <section className="section-padding">
         <div className="container-wide">
+          {/* Recently Viewed */}
+          {recentlyViewed.length > 0 && (
+            <RecentlyViewed
+              factoryIds={recentlyViewed}
+              allFactories={mockFactories}
+              onClear={handleClearRecentlyViewed}
+              className="mb-6"
+            />
+          )}
+
           <div className="flex gap-8">
             {/* Filters Sidebar */}
             <FilterSidebar
@@ -210,51 +269,115 @@ export default function Directory() {
             {/* Main Content */}
             <div className="flex-1 min-w-0">
               {/* Toolbar */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                <div className="flex items-center gap-4">
-                  {/* Mobile filter button is inside FilterSidebar */}
-                  <div className="lg:hidden">
-                    <FilterSidebar
-                      filters={filters}
-                      onFiltersChange={setFilters}
-                      onReset={() => setFilters(initialFilters)}
-                    />
+              <div className="flex flex-col gap-4 mb-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    {/* Mobile filter button is inside FilterSidebar */}
+                    <div className="lg:hidden">
+                      <FilterSidebar
+                        filters={filters}
+                        onFiltersChange={setFilters}
+                        onReset={() => setFilters(initialFilters)}
+                      />
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      <span className="font-semibold text-foreground">{filteredFactories.length}</span>
+                      {' '}of{' '}
+                      <span className="font-medium">{mockFactories.length}</span>
+                      {' '}factories
+                    </p>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    <span className="font-medium text-foreground">{filteredFactories.length}</span> factories found
-                  </p>
+
+                  <div className="flex items-center gap-3">
+                    {/* View Toggle */}
+                    <ViewToggle value={viewMode} onChange={setViewMode} />
+
+                    {/* Sort */}
+                    <div className="flex items-center gap-2">
+                      <ArrowUpDown className="w-4 h-4 text-muted-foreground hidden sm:block" />
+                      <Select value={sortBy} onValueChange={(v) => setSortBy(v as SortOption)}>
+                        <SelectTrigger className="w-[160px]">
+                          <SelectValue placeholder="Sort by" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="newest">Newest</SelectItem>
+                          <SelectItem value="completeness">Best Match</SelectItem>
+                          <SelectItem value="moq_low">MOQ: Low to High</SelectItem>
+                          <SelectItem value="moq_high">MOQ: High to Low</SelectItem>
+                          <SelectItem value="lead_time">Lead Time</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <ArrowUpDown className="w-4 h-4 text-muted-foreground" />
-                  <Select value={sortBy} onValueChange={(v) => setSortBy(v as SortOption)}>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Sort by" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="newest">Newest</SelectItem>
-                      <SelectItem value="completeness">Best Match</SelectItem>
-                      <SelectItem value="moq_low">MOQ: Low to High</SelectItem>
-                      <SelectItem value="moq_high">MOQ: High to Low</SelectItem>
-                      <SelectItem value="lead_time">Lead Time</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                {/* Active Filters */}
+                {hasActiveFilters && (
+                  <ActiveFilters
+                    filters={filters}
+                    onFiltersChange={setFilters}
+                    onReset={() => setFilters(initialFilters)}
+                  />
+                )}
               </div>
 
-              {/* Results Grid */}
+              {/* Results */}
               {filteredFactories.length > 0 ? (
-                <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {filteredFactories.map((factory, index) => (
-                    <FactoryCard
-                      key={factory.id}
-                      factory={factory}
-                      index={index}
+                <>
+                  {/* Grid View */}
+                  {viewMode === 'grid' && (
+                    <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                      {filteredFactories.map((factory, index) => (
+                        <FactoryCard
+                          key={factory.id}
+                          factory={factory}
+                          index={index}
+                          onSave={handleSave}
+                          isSaved={savedFactories.includes(factory.id)}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Table View */}
+                  {viewMode === 'table' && (
+                    <div className="bg-card rounded-xl border border-border overflow-hidden">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Factory</TableHead>
+                            <TableHead>Type</TableHead>
+                            <TableHead>Categories</TableHead>
+                            <TableHead>MOQ</TableHead>
+                            <TableHead>Lead Time</TableHead>
+                            <TableHead>Certifications</TableHead>
+                            <TableHead>Status</TableHead>
+                            <TableHead></TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {filteredFactories.map((factory) => (
+                            <FactoryTableRow
+                              key={factory.id}
+                              factory={factory}
+                              onSave={handleSave}
+                              isSaved={savedFactories.includes(factory.id)}
+                            />
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  )}
+
+                  {/* Map View */}
+                  {viewMode === 'map' && (
+                    <FactoryMapView
+                      factories={filteredFactories}
                       onSave={handleSave}
-                      isSaved={savedFactories.includes(factory.id)}
+                      savedFactories={savedFactories}
                     />
-                  ))}
-                </div>
+                  )}
+                </>
               ) : (
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -280,7 +403,7 @@ export default function Directory() {
               )}
 
               {/* Load More */}
-              {filteredFactories.length > 0 && (
+              {filteredFactories.length > 0 && viewMode !== 'map' && (
                 <div className="text-center mt-10">
                   <Button variant="outline" size="lg">
                     Load More Factories
