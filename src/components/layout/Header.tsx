@@ -5,13 +5,12 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
+  { label: "Directory", href: "/directory" },
   { label: "How it Works", href: "/how-it-works" },
   { label: "Brands", href: "/brands" },
   { label: "Factories", href: "/factories" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Case Studies", href: "/case-studies" },
   { label: "About", href: "/about" },
-  { label: "FAQ", href: "/faq" },
 ];
 
 export function Header() {
