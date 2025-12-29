@@ -56,6 +56,23 @@ const sections = [
     content: `We use cookies and similar tracking technologies to collect and track information and to improve and analyze our service. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.`,
   },
   {
+    title: "Data Retention",
+    content: `We retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required by law. Specifically:
+
+• Account data is retained while your account is active
+• Transaction records are kept for 7 years for tax and legal compliance
+• Communication logs are retained for 2 years
+• You may request deletion of your data at any time, subject to legal requirements`,
+  },
+  {
+    title: "International Data Transfers",
+    content: `Your information may be transferred to and processed in countries other than your country of residence, including the United States. These countries may have different data protection laws. We ensure appropriate safeguards are in place for such transfers, including standard contractual clauses approved by relevant authorities.`,
+  },
+  {
+    title: "Children's Privacy",
+    content: `Our platform and services are intended for business use and are not directed at individuals under 18 years of age. We do not knowingly collect personal information from children. If you believe we have inadvertently collected information from a minor, please contact us immediately so we can delete it.`,
+  },
+  {
     title: "Contact Us",
     content: `If you have any questions about this Privacy Policy, please contact us at:
 
