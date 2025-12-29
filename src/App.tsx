@@ -24,6 +24,7 @@ import BrandDashboard from "./pages/BrandDashboard";
 import FactoryDashboard from "./pages/FactoryDashboard";
 import Admin from "./pages/Admin";
 import Checkout from "./pages/Checkout";
+import AITools from "./pages/AITools";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,7 @@ const App = () => (
             <Route path="/dashboard/factory" element={<FactoryDashboard />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/ai-tools" element={<AITools />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
