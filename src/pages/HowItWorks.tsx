@@ -19,17 +19,17 @@ import {
 const steps = [
   {
     number: "01",
-    icon: Sparkles,
-    title: "AI-Powered Matching",
-    description: "Describe your product needs in plain language. Our AI analyzes your requirements and matches you with the best factories from our verified network.",
-    highlight: "AI Factory Matcher",
+    icon: Factory,
+    title: "Curated Factory Selection",
+    description: "Tell us about your product, budget, and timeline. Our team reviews your requirements and handpicks factories from our verified network that are the perfect fit for you.",
+    highlight: "Personalized for You",
   },
   {
     number: "02",
     icon: Eye,
     title: "Review & Compare",
-    description: "Browse detailed factory profiles, certifications, and past work. Use our AI Quote Analyzer to compare offers and spot hidden costs.",
-    highlight: "AI Quote Analyzer",
+    description: "Browse detailed factory profiles, certifications, and past work. We help you compare quotes side-by-side, highlighting key differences and flagging potential concerns.",
+    highlight: "Expert Guidance",
   },
   {
     number: "03",
@@ -89,7 +89,7 @@ export default function HowItWorks() {
     <Layout>
       <SEO 
         title="How It Works | Manufactory"
-        description="AI-powered factory matching, escrow payment protection, and quality assurance at every step. See how we make manufacturing sourcing safe and simple."
+        description="Personalized factory matching, escrow payment protection, and quality assurance at every step. See how we make manufacturing sourcing safe and simple."
       />
 
       {/* Hero */}
@@ -108,7 +108,7 @@ export default function HowItWorks() {
               Source with Confidence
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              From AI-powered factory matching to escrow-protected payments, we've built a platform that puts your interests first at every step.
+              From personalized factory matching to escrow-protected payments, we've built a platform that puts your interests first at every step.
             </p>
           </motion.div>
         </div>
@@ -277,7 +277,7 @@ export default function HowItWorks() {
 
           <div className="grid md:grid-cols-4 gap-6">
             {[
-              { phase: "Day 1-3", title: "AI Matching", desc: "Get factory recommendations" },
+              { phase: "Day 1-3", title: "Getting Matched", desc: "Receive your curated factory list" },
               { phase: "Week 1-2", title: "Sampling", desc: "Review and approve samples" },
               { phase: "Week 3-8", title: "Production & QC", desc: "Manufacturing with inspections" },
               { phase: "Week 9-10", title: "Shipping", desc: "Delivery to your door" },
@@ -311,13 +311,13 @@ export default function HowItWorks() {
               Ready to Get Started?
             </h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-              Try our AI Factory Matcher for free and find your perfect manufacturing partner.
+              Tell us what you're looking for and we'll match you with the right factories.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/ai-tools">
+              <Link to="/contact?type=sourcing">
                 <Button variant="hero" size="xl">
-                  Try AI Matcher
-                  <Sparkles className="w-5 h-5" />
+                  Get Matched
+                  <ArrowRight className="w-5 h-5" />
                 </Button>
               </Link>
               <Link to="/directory">

@@ -21,9 +21,9 @@ import {
 
 const features = [
   {
-    icon: Sparkles,
-    title: "AI-Powered Matching",
-    description: "Describe your needs in plain language and get ranked factory matches with AI-powered recommendations.",
+    icon: Users,
+    title: "Curated Factory Matching",
+    description: "Tell us your needs and our team handpicks the best factories from our verified network—personalized just for you.",
   },
   {
     icon: Shield,
@@ -68,19 +68,19 @@ const logos = [
   "Nordic Design",
 ];
 
-const aiTools = [
-  { name: "AI Factory Matcher", desc: "Find perfect matches instantly" },
-  { name: "AI Quote Analyzer", desc: "Compare offers & spot red flags" },
-  { name: "AI RFQ Generator", desc: "Create professional RFQs" },
-  { name: "AI Negotiation Coach", desc: "Get better deal guidance" },
+const platformTools = [
+  { name: "Factory Matching", desc: "Curated selection for your needs" },
+  { name: "Quote Comparison", desc: "Side-by-side analysis & insights" },
+  { name: "RFQ Templates", desc: "Professional request for quotes" },
+  { name: "Expert Support", desc: "Guidance throughout your order" },
 ];
 
 export default function Home() {
   return (
     <Layout>
       <SEO
-        title="Manufactory | AI-Powered Manufacturing with Payment Protection"
-        description="Find verified factories, negotiate better deals, and protect every payment. AI-powered sourcing with escrow protection and quality assurance."
+        title="Manufactory | Curated Manufacturing with Payment Protection"
+        description="Find verified factories, get expert guidance, and protect every payment. Personalized sourcing with escrow protection and quality assurance."
         canonical="/"
       />
 
@@ -103,19 +103,19 @@ export default function Home() {
                 </div>
                 
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-6">
-                  Source Smarter with{" "}
-                  <span className="text-primary">AI & Protection</span>
+                  Manufacturing Made{" "}
+                  <span className="text-primary">Simple & Safe</span>
                 </h1>
                 
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-lg">
-                  AI-powered factory matching, escrow payment protection, and quality assurance at every step. Source with confidence.
+                  Curated factory matching, escrow payment protection, and quality assurance at every step. Source with confidence.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/ai-tools">
+                  <Link to="/contact?type=sourcing">
                     <Button variant="hero" size="xl">
-                      Try AI Matcher
-                      <Sparkles className="w-5 h-5" />
+                      Get Matched
+                      <ArrowRight className="w-5 h-5" />
                     </Button>
                   </Link>
                   <Link to="/directory">
@@ -136,7 +136,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-primary" />
-                    AI-powered tools
+                    Hands-on support
                   </div>
                 </div>
               </motion.div>
@@ -150,13 +150,13 @@ export default function Home() {
                 <div className="aspect-square rounded-2xl bg-gradient-to-br from-muted to-muted/50 border border-border overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center p-8">
                     <div className="w-full space-y-4">
-                      {/* AI Tools Preview */}
+                      {/* Factory Matching Preview */}
                       <div className="bg-background rounded-xl border border-border p-4 shadow-card-lg">
                         <div className="flex items-center gap-3 mb-3">
                           <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <Sparkles className="w-4 h-4 text-primary" />
+                            <Factory className="w-4 h-4 text-primary" />
                           </div>
-                          <span className="font-medium text-foreground text-sm">AI Factory Matcher</span>
+                          <span className="font-medium text-foreground text-sm">Factory Matching</span>
                         </div>
                         <div className="h-2 bg-muted rounded-full overflow-hidden">
                           <motion.div 
@@ -166,7 +166,7 @@ export default function Home() {
                             transition={{ duration: 1.5, delay: 0.5 }}
                           />
                         </div>
-                        <p className="text-xs text-muted-foreground mt-2">Finding best matches...</p>
+                        <p className="text-xs text-muted-foreground mt-2">Curating your factory list...</p>
                       </div>
 
                       {/* Escrow Status */}
@@ -227,7 +227,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AI Tools Highlight */}
+      {/* Platform Tools Highlight */}
       <section className="section-padding">
         <div className="container-wide">
           <motion.div
@@ -237,19 +237,19 @@ export default function Home() {
             className="text-center max-w-2xl mx-auto mb-12"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-              <Sparkles className="w-4 h-4" />
-              AI-Powered Platform
+              <Users className="w-4 h-4" />
+              Hands-On Support
             </div>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Smarter Sourcing with AI
+              Everything You Need to Source
             </h2>
             <p className="text-lg text-muted-foreground">
-              Our AI tools help you find the right factories, analyze quotes, generate RFQs, and negotiate better deals.
+              From finding the right factory to protecting your payments, we guide you through every step.
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {aiTools.map((tool, index) => (
+            {platformTools.map((tool, index) => (
               <motion.div
                 key={tool.name}
                 initial={{ opacity: 0, y: 20 }}
@@ -259,7 +259,7 @@ export default function Home() {
                 className="p-6 rounded-xl bg-card border border-border hover:shadow-card-lg transition-shadow text-center"
               >
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <Sparkles className="w-6 h-6 text-primary" />
+                  <CheckCircle className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-heading font-semibold text-foreground mb-1">{tool.name}</h3>
                 <p className="text-sm text-muted-foreground">{tool.desc}</p>
@@ -268,9 +268,9 @@ export default function Home() {
           </div>
 
           <div className="text-center">
-            <Link to="/ai-tools">
+            <Link to="/how-it-works">
               <Button variant="outline" size="lg">
-                Explore AI Tools
+                See How It Works
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
@@ -361,13 +361,13 @@ export default function Home() {
               How It Works
             </h2>
             <p className="text-lg text-muted-foreground">
-              From AI matching to protected delivery in 4 simple steps
+              From curated matching to protected delivery in 4 simple steps
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-4 gap-6 mb-8">
             {[
-              { icon: Sparkles, step: "1", title: "AI Match", desc: "Get factory recommendations" },
+              { icon: Factory, step: "1", title: "Get Matched", desc: "Curated factory selection" },
               { icon: MessageSquare, step: "2", title: "Connect", desc: "Chat with verified factories" },
               { icon: CreditCard, step: "3", title: "Pay Safe", desc: "Escrow-protected payments" },
               { icon: Package, step: "4", title: "Receive", desc: "QC verified delivery" },

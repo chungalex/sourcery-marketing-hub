@@ -8,11 +8,10 @@ import {
   CheckCircle, 
   HelpCircle, 
   Shield, 
-  Sparkles, 
+  Users, 
   MessageSquare,
   ClipboardCheck,
-  Factory,
-  Zap
+  Factory
 } from "lucide-react";
 
 const plans = [
@@ -74,9 +73,9 @@ const plans = [
 
 const platformFeatures = [
   {
-    icon: Sparkles,
-    title: "AI-Powered Tools",
-    description: "Smart factory matching, quote analysis, RFQ generation, and negotiation assistance powered by AI.",
+    icon: Factory,
+    title: "Curated Matching",
+    description: "Our team handpicks the best factories for your needs from our verified network.",
   },
   {
     icon: Shield,
@@ -101,8 +100,8 @@ const faqs = [
     a: "Your funds are held securely until each production milestone is complete. You release payment only after verifying quality at each stage—deposit, production, shipping, and delivery.",
   },
   {
-    q: "What AI tools are included?",
-    a: "Growth plans include AI Factory Matcher (finds best factories for your needs), AI Quote Analyzer (compares and analyzes quotes), and AI RFQ Generator (creates professional RFQs). Enterprise adds AI Negotiation Coach.",
+    q: "What tools are included?",
+    a: "Growth plans include curated factory matching, quote comparison tools, and RFQ templates. Enterprise adds dedicated account management and negotiation support.",
   },
   {
     q: "Can I try before I subscribe?",
@@ -135,8 +134,8 @@ export default function Pricing() {
             className="text-center max-w-3xl mx-auto"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-              <Zap className="w-4 h-4" />
-              AI-Powered Platform
+              <Shield className="w-4 h-4" />
+              Protected Platform
             </div>
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
               Simple, Transparent Pricing
@@ -263,7 +262,7 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* AI Tools Highlight */}
+      {/* Platform Tools Highlight */}
       <section className="section-padding">
         <div className="container-tight">
           <motion.div
@@ -274,23 +273,23 @@ export default function Pricing() {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-primary" />
+                <Users className="w-6 h-6 text-primary" />
               </div>
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
-                AI-Powered Sourcing Tools
+                Expert-Guided Sourcing Tools
               </h2>
             </div>
             
             <p className="text-muted-foreground mb-8 max-w-2xl">
-              Our AI tools help you find the perfect factory match, analyze quotes for hidden costs, generate professional RFQs, and negotiate better terms—all powered by advanced AI.
+              Our team and smart tools help you find the perfect factory match, compare quotes for hidden costs, create professional RFQs, and get guidance on negotiations.
             </p>
 
             <div className="grid md:grid-cols-2 gap-4 mb-8">
               {[
-                { name: "AI Factory Matcher", desc: "Describe your needs, get ranked factory matches" },
-                { name: "AI Quote Analyzer", desc: "Compare quotes and spot red flags instantly" },
-                { name: "AI RFQ Generator", desc: "Create professional RFQs in minutes" },
-                { name: "AI Negotiation Coach", desc: "Get strategic negotiation guidance" },
+                { name: "Curated Factory Matching", desc: "We handpick the best factories for your needs" },
+                { name: "Quote Comparison", desc: "Side-by-side analysis to spot red flags" },
+                { name: "RFQ Templates", desc: "Professional templates to save you time" },
+                { name: "Negotiation Support", desc: "Expert guidance on getting better terms" },
               ].map((tool) => (
                 <div key={tool.name} className="flex items-start gap-3 p-4 rounded-lg bg-background/50">
                   <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
@@ -302,9 +301,9 @@ export default function Pricing() {
               ))}
             </div>
 
-            <Link to="/ai-tools">
+            <Link to="/how-it-works">
               <Button variant="default" size="lg">
-                Explore AI Tools
+                See How It Works
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </Link>
