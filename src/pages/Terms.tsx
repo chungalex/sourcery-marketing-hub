@@ -61,13 +61,29 @@ const sections = [
     content: `All content, trademarks, and intellectual property on our platform remain the property of Sourcery or respective owners. Users retain ownership of their product designs and specifications shared through our platform.`,
   },
   {
+    title: "Client Due Diligence & Responsibility",
+    content: `While Sourcery works diligently to vet and curate our factory network, all manufacturing partnerships formed through our platform are ultimately the client's responsibility. By using our services, you acknowledge and agree that:
+
+• You are responsible for conducting your own due diligence before entering into any manufacturing agreement
+• Factory profiles, certifications, and capabilities should be independently verified before committing to production
+• Sample orders and trial runs are strongly recommended before placing large orders
+• Any tools, calculators, or estimates provided on our platform are for informational purposes only and should be fact-checked
+• Sourcery does not guarantee the accuracy of factory-provided information or third-party data
+• You should seek professional advice for legal, financial, and compliance matters
+
+We encourage all clients to visit factories in person when possible, request references, and start with smaller orders to build trust with new manufacturing partners.`,
+  },
+  {
     title: "Limitation of Liability",
     content: `Sourcery acts as a facilitator between brands and factories. While we vet our factory partners and provide quality control services, we are not liable for:
 
 • Manufacturing defects beyond our inspection scope
 • Delays caused by factory partners or shipping
 • Losses due to force majeure events
-• Indirect or consequential damages`,
+• Indirect or consequential damages
+• Accuracy of tools, calculators, or estimates provided on our platform
+• Actions or omissions of factory partners
+• Quality or suitability of products manufactured through partnerships formed on our platform`,
   },
   {
     title: "Dispute Resolution",

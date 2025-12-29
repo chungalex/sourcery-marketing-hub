@@ -105,6 +105,14 @@ export default function Toolkit() {
               <LeadTimeCalculator />
             </TabsContent>
           </Tabs>
+
+          {/* Disclaimer */}
+          <div className="mt-8 p-4 bg-muted/30 rounded-lg border border-border/50">
+            <p className="text-xs text-muted-foreground text-center">
+              <strong>Disclaimer:</strong> All tools, calculators, and estimates provided are for informational purposes only. Results should be independently verified before making business decisions. Actual costs, timelines, and duties may vary. See our{" "}
+              <a href="/terms" className="text-primary hover:underline">Terms of Service</a> for full details.
+            </p>
+          </div>
         </div>
       </section>
     </Layout>
