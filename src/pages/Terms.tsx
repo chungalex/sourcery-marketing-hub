@@ -96,8 +96,33 @@ We encourage all clients to visit factories in person when possible, request ref
 The arbitration shall be conducted in San Francisco, California.`,
   },
   {
+    title: "Indemnification",
+    content: `You agree to indemnify and hold harmless Sourcery, its officers, directors, employees, and agents from any claims, damages, losses, liabilities, costs, or expenses (including reasonable attorney's fees) arising from:
+
+• Your use of the platform or services
+• Your violation of these Terms of Service
+• Manufacturing agreements entered through our platform
+• Your infringement of any third party's rights
+• Any content or materials you submit to the platform`,
+  },
+  {
+    title: "Termination",
+    content: `Sourcery reserves the right to suspend or terminate your account at any time for:
+
+• Violation of these Terms of Service
+• Fraudulent or illegal activity
+• Non-payment of fees owed
+• At our discretion with reasonable notice
+
+Upon termination, you must settle any outstanding payments. Access to platform features and data may be revoked.`,
+  },
+  {
     title: "Modifications",
     content: `We reserve the right to modify these terms at any time. We will notify users of significant changes via email or platform notification. Continued use of our services after changes constitutes acceptance of modified terms.`,
+  },
+  {
+    title: "Governing Law",
+    content: `These Terms of Service shall be governed by and construed in accordance with the laws of the State of California, United States, without regard to conflict of law principles. Any disputes arising from these terms or your use of our services shall be resolved through binding arbitration in San Francisco, California, or in the state or federal courts located therein.`,
   },
   {
     title: "Contact Information",
