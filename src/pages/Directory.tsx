@@ -287,6 +287,14 @@ export default function Directory() {
                   </Button>
                 </div>
               )}
+
+              {/* Disclaimer */}
+              <div className="mt-12 p-4 bg-muted/30 rounded-lg border border-border/50">
+                <p className="text-xs text-muted-foreground text-center">
+                  <strong>Important:</strong> While we carefully vet all factories in our network, you are responsible for conducting your own due diligence before entering any manufacturing agreement. We recommend requesting samples, verifying certifications, and starting with smaller orders. See our{" "}
+                  <a href="/terms" className="text-primary hover:underline">Terms of Service</a> for full details.
+                </p>
+              </div>
             </div>
           </div>
         </div>
