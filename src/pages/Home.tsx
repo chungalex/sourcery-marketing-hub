@@ -5,45 +5,57 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Newsletter } from "@/components/Newsletter";
 import { Testimonials } from "@/components/Testimonials";
-import { ArrowRight, CheckCircle, Factory, Shield, TrendingUp, Package, Globe, Users } from "lucide-react";
+import { 
+  ArrowRight, 
+  CheckCircle, 
+  Factory, 
+  Shield, 
+  Sparkles, 
+  Package, 
+  Globe, 
+  Users,
+  MessageSquare,
+  ClipboardCheck,
+  CreditCard
+} from "lucide-react";
 
 const features = [
   {
-    icon: Factory,
-    title: "Vetted Factories",
-    description: "Access our network of pre-qualified, audited manufacturers across 12+ countries.",
+    icon: Sparkles,
+    title: "AI-Powered Matching",
+    description: "Describe your needs in plain language and get ranked factory matches with AI-powered recommendations.",
   },
   {
     icon: Shield,
-    title: "Quality Control",
-    description: "On-site QC inspections at every production milestone, documented and shared in real-time.",
+    title: "Escrow Protection",
+    description: "Your payments are held securely and released only when each production milestone is verified.",
   },
   {
-    icon: TrendingUp,
-    title: "Production Tracking",
-    description: "Live dashboards showing order status, timeline updates, and delivery estimates.",
+    icon: ClipboardCheck,
+    title: "Quality Assurance",
+    description: "Professional inspections at every stage with detailed reports and photo documentation.",
   },
   {
-    icon: Package,
-    title: "Sample Management",
-    description: "Streamlined sampling process with fast turnaround and detailed feedback loops.",
+    icon: MessageSquare,
+    title: "Verified Messaging",
+    description: "Communicate securely with verified factory representatives. All messages logged for protection.",
   },
   {
     icon: Globe,
-    title: "Global Sourcing",
-    description: "Source from Asia, Europe, and Americas with local teams ensuring smooth operations.",
+    title: "Global Network",
+    description: "Access vetted factories across 12+ countries, all verified and ready to work with you.",
   },
   {
     icon: Users,
-    title: "Dedicated Team",
-    description: "Your personal sourcing manager handles every detail from inquiry to delivery.",
+    title: "Dedicated Support",
+    description: "Our team handles disputes, quality issues, and ensures smooth production from start to finish.",
   },
 ];
 
 const stats = [
-  { value: "500+", label: "Vetted Factories" },
-  { value: "$50M+", label: "Production Managed" },
-  { value: "98%", label: "On-Time Delivery" },
+  { value: "500+", label: "Verified Factories" },
+  { value: "$50M+", label: "Orders Protected" },
+  { value: "98%", label: "Satisfaction Rate" },
   { value: "12+", label: "Countries" },
 ];
 
@@ -56,12 +68,19 @@ const logos = [
   "Nordic Design",
 ];
 
+const aiTools = [
+  { name: "AI Factory Matcher", desc: "Find perfect matches instantly" },
+  { name: "AI Quote Analyzer", desc: "Compare offers & spot red flags" },
+  { name: "AI RFQ Generator", desc: "Create professional RFQs" },
+  { name: "AI Negotiation Coach", desc: "Get better deal guidance" },
+];
+
 export default function Home() {
   return (
     <Layout>
       <SEO
-        title="Sourcery | Premium Manufacturing Sourcing for Modern Brands"
-        description="From factory vetting to final delivery. We handle sourcing, quality control, and production tracking so you can focus on building your brand."
+        title="Manufactory | AI-Powered Manufacturing with Payment Protection"
+        description="Find verified factories, negotiate better deals, and protect every payment. AI-powered sourcing with escrow protection and quality assurance."
         canonical="/"
       />
 
@@ -79,41 +98,45 @@ export default function Home() {
                 transition={{ duration: 0.6 }}
               >
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  Now sourcing in 12+ countries
+                  <Shield className="w-4 h-4" />
+                  Every Payment Protected
                 </div>
                 
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-6">
-                  Premium Sourcing for{" "}
-                  <span className="text-primary">Modern Brands</span>
+                  Source Smarter with{" "}
+                  <span className="text-primary">AI & Protection</span>
                 </h1>
                 
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-lg">
-                  From factory vetting to final delivery. We handle sourcing, quality control, and production tracking so you can focus on building your brand.
+                  AI-powered factory matching, escrow payment protection, and quality assurance at every step. Source with confidence.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/contact?type=sourcing">
+                  <Link to="/ai-tools">
                     <Button variant="hero" size="xl">
-                      Request Sourcing
-                      <ArrowRight className="w-5 h-5" />
+                      Try AI Matcher
+                      <Sparkles className="w-5 h-5" />
                     </Button>
                   </Link>
-                  <Link to="/contact?type=call">
+                  <Link to="/directory">
                     <Button variant="hero-outline" size="xl">
-                      Book a Call
+                      Browse Factories
                     </Button>
                   </Link>
                 </div>
                 
-                <div className="mt-10 flex items-center gap-4 text-sm text-muted-foreground">
+                <div className="mt-10 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-primary" />
-                    No minimums
+                    Escrow protected
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-primary" />
-                    Free consultation
+                    Verified factories
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary" />
+                    AI-powered tools
                   </div>
                 </div>
               </motion.div>
@@ -125,29 +148,53 @@ export default function Home() {
                 className="relative hidden lg:block"
               >
                 <div className="aspect-square rounded-2xl bg-gradient-to-br from-muted to-muted/50 border border-border overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="grid grid-cols-2 gap-4 p-8">
-                      {[1, 2, 3, 4].map((i) => (
-                        <div
-                          key={i}
-                          className="aspect-square rounded-xl bg-background shadow-card-lg border border-border/50 flex items-center justify-center"
-                        >
-                          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <Factory className="w-6 h-6 text-primary" />
+                  <div className="absolute inset-0 flex items-center justify-center p-8">
+                    <div className="w-full space-y-4">
+                      {/* AI Tools Preview */}
+                      <div className="bg-background rounded-xl border border-border p-4 shadow-card-lg">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                            <Sparkles className="w-4 h-4 text-primary" />
+                          </div>
+                          <span className="font-medium text-foreground text-sm">AI Factory Matcher</span>
+                        </div>
+                        <div className="h-2 bg-muted rounded-full overflow-hidden">
+                          <motion.div 
+                            className="h-full bg-primary rounded-full"
+                            initial={{ width: "0%" }}
+                            animate={{ width: "75%" }}
+                            transition={{ duration: 1.5, delay: 0.5 }}
+                          />
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-2">Finding best matches...</p>
+                      </div>
+
+                      {/* Escrow Status */}
+                      <div className="bg-background rounded-xl border border-border p-4 shadow-card-lg">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center">
+                            <Shield className="w-4 h-4 text-green-500" />
+                          </div>
+                          <span className="font-medium text-foreground text-sm">Payment Protected</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <CreditCard className="w-4 h-4 text-muted-foreground" />
+                          <span className="text-sm text-muted-foreground">$12,500 in escrow</span>
+                        </div>
+                      </div>
+
+                      {/* QC Status */}
+                      <div className="bg-background rounded-xl border border-border p-4 shadow-card-lg">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                            <CheckCircle className="w-4 h-4 text-primary" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-foreground text-sm">QC Passed</p>
+                            <p className="text-xs text-muted-foreground">Order #4821 • Ready to ship</p>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="absolute -bottom-6 -left-6 p-4 rounded-xl bg-background shadow-card-lg border border-border">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                      <CheckCircle className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-foreground">QC Passed</p>
-                      <p className="text-xs text-muted-foreground">Order #4821</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -180,8 +227,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Logos Section */}
+      {/* AI Tools Highlight */}
       <section className="section-padding">
+        <div className="container-wide">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center max-w-2xl mx-auto mb-12"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              <Sparkles className="w-4 h-4" />
+              AI-Powered Platform
+            </div>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Smarter Sourcing with AI
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Our AI tools help you find the right factories, analyze quotes, generate RFQs, and negotiate better deals.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {aiTools.map((tool, index) => (
+              <motion.div
+                key={tool.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="p-6 rounded-xl bg-card border border-border hover:shadow-card-lg transition-shadow text-center"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <Sparkles className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="font-heading font-semibold text-foreground mb-1">{tool.name}</h3>
+                <p className="text-sm text-muted-foreground">{tool.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link to="/ai-tools">
+              <Button variant="outline" size="lg">
+                Explore AI Tools
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Logos Section */}
+      <section className="section-padding bg-card/50">
         <div className="container-wide">
           <motion.p
             initial={{ opacity: 0 }}
@@ -209,7 +307,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="section-padding bg-card/50">
+      <section className="section-padding">
         <div className="container-wide">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -218,10 +316,10 @@ export default function Home() {
             className="text-center max-w-2xl mx-auto mb-16"
           >
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Everything You Need to Scale Production
+              Complete Platform Protection
             </h2>
             <p className="text-lg text-muted-foreground">
-              From initial sourcing to final delivery, we provide comprehensive solutions for brands serious about quality manufacturing.
+              Every transaction is protected with escrow payments, verified communication, and professional quality assurance.
             </p>
           </motion.div>
 
@@ -233,7 +331,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-xl bg-background border border-border hover:shadow-card-lg transition-shadow group"
+                className="p-6 rounded-xl bg-card border border-border hover:shadow-card-lg transition-shadow group"
               >
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <feature.icon className="w-6 h-6 text-primary" />
@@ -246,6 +344,59 @@ export default function Home() {
                 </p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Preview */}
+      <section className="section-padding bg-card/50">
+        <div className="container-tight">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+              How It Works
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              From AI matching to protected delivery in 4 simple steps
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-4 gap-6 mb-8">
+            {[
+              { icon: Sparkles, step: "1", title: "AI Match", desc: "Get factory recommendations" },
+              { icon: MessageSquare, step: "2", title: "Connect", desc: "Chat with verified factories" },
+              { icon: CreditCard, step: "3", title: "Pay Safe", desc: "Escrow-protected payments" },
+              { icon: Package, step: "4", title: "Receive", desc: "QC verified delivery" },
+            ].map((item, index) => (
+              <motion.div
+                key={item.step}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-background border border-border flex items-center justify-center mx-auto mb-4">
+                  <item.icon className="w-7 h-7 text-primary" />
+                </div>
+                <p className="text-xs text-primary font-medium mb-1">Step {item.step}</p>
+                <p className="font-heading font-semibold text-foreground mb-1">{item.title}</p>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link to="/how-it-works">
+              <Button variant="outline" size="lg">
+                Learn More
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -263,7 +414,7 @@ export default function Home() {
               What Our Clients Say
             </h2>
             <p className="text-lg text-muted-foreground">
-              Hear from brands who've transformed their production with Sourcery.
+              Hear from brands who source with confidence on our platform.
             </p>
           </motion.div>
           
@@ -284,7 +435,7 @@ export default function Home() {
               Stay in the Loop
             </h2>
             <p className="text-muted-foreground mb-8">
-              Get industry insights, sourcing tips, and Sourcery updates delivered to your inbox.
+              Get sourcing tips, industry insights, and platform updates delivered to your inbox.
             </p>
             <Newsletter className="max-w-md mx-auto" />
           </motion.div>
@@ -303,21 +454,21 @@ export default function Home() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,hsl(var(--primary)/0.3),transparent_60%)]" />
             <div className="relative p-8 md:p-12 lg:p-16 text-center">
               <h2 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
-                Ready to Scale Your Production?
+                Ready to Source with Confidence?
               </h2>
               <p className="text-background/70 text-lg mb-8 max-w-xl mx-auto">
-                Get matched with vetted factories and receive a custom sourcing proposal within 48 hours.
+                Try our AI Factory Matcher for free and see why brands trust us to protect their manufacturing.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/contact?type=sourcing">
+                <Link to="/ai-tools">
                   <Button size="lg" className="bg-background text-foreground hover:bg-background/90">
-                    Request Sourcing
-                    <ArrowRight className="w-5 h-5" />
+                    Try AI Matcher Free
+                    <Sparkles className="w-5 h-5" />
                   </Button>
                 </Link>
                 <Link to="/how-it-works">
                   <Button size="lg" variant="outline" className="border-background/30 text-background hover:bg-background/10">
-                    Learn How it Works
+                    See How It Works
                   </Button>
                 </Link>
               </div>

@@ -2,81 +2,130 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
-import { ArrowRight, CheckCircle, HelpCircle } from "lucide-react";
+import { SEO } from "@/components/SEO";
+import { 
+  ArrowRight, 
+  CheckCircle, 
+  HelpCircle, 
+  Shield, 
+  Sparkles, 
+  MessageSquare,
+  ClipboardCheck,
+  Factory,
+  Zap
+} from "lucide-react";
 
 const plans = [
   {
-    name: "Starter",
-    price: "5%",
-    priceNote: "of production value",
-    description: "For brands testing new products or categories",
+    name: "Free",
+    price: "$0",
+    priceNote: "forever",
+    description: "Explore the directory and start your sourcing journey",
     features: [
-      "Up to $50K production value/year",
-      "3 factory matches per inquiry",
-      "Standard QC inspections",
-      "Email support",
-      "Basic production tracking",
+      { text: "Browse factory directory", included: true },
+      { text: "Basic factory profiles", included: true },
+      { text: "3 inquiries per month", included: true },
+      { text: "Community support", included: true },
+      { text: "AI Factory Matcher", included: false },
+      { text: "Escrow payment protection", included: false },
+      { text: "Quality inspections", included: false },
     ],
     cta: "Get Started",
     highlighted: false,
   },
   {
     name: "Growth",
-    price: "4%",
-    priceNote: "of production value",
-    description: "For scaling brands with consistent orders",
+    price: "$99",
+    priceNote: "/month",
+    description: "Full platform access with AI tools and protection",
     features: [
-      "Up to $250K production value/year",
-      "5 factory matches per inquiry",
-      "Priority QC inspections",
-      "Dedicated sourcing manager",
-      "Advanced tracking dashboard",
-      "Quarterly business reviews",
+      { text: "Everything in Free", included: true },
+      { text: "Unlimited inquiries", included: true },
+      { text: "AI Factory Matcher", included: true },
+      { text: "AI Quote Analyzer", included: true },
+      { text: "AI RFQ Generator", included: true },
+      { text: "Escrow payment protection", included: true },
+      { text: "Standard quality inspections", included: true },
+      { text: "Verified messaging", included: true },
+      { text: "Priority support", included: true },
     ],
-    cta: "Get Started",
+    cta: "Start Free Trial",
     highlighted: true,
   },
   {
     name: "Enterprise",
     price: "Custom",
-    priceNote: "volume-based pricing",
+    priceNote: "volume-based",
     description: "For high-volume brands with complex needs",
     features: [
-      "Unlimited production value",
-      "Unlimited factory matches",
-      "On-site QC team",
-      "24/7 priority support",
-      "Custom integrations",
-      "Dedicated account team",
-      "Supply chain consulting",
+      { text: "Everything in Growth", included: true },
+      { text: "AI Negotiation Coach", included: true },
+      { text: "Dedicated account manager", included: true },
+      { text: "On-site quality team", included: true },
+      { text: "Custom integrations", included: true },
+      { text: "Supply chain consulting", included: true },
+      { text: "24/7 priority support", included: true },
+      { text: "Volume discounts", included: true },
     ],
     cta: "Contact Sales",
     highlighted: false,
   },
 ];
 
+const platformFeatures = [
+  {
+    icon: Sparkles,
+    title: "AI-Powered Tools",
+    description: "Smart factory matching, quote analysis, RFQ generation, and negotiation assistance powered by AI.",
+  },
+  {
+    icon: Shield,
+    title: "Escrow Protection",
+    description: "Your payments are held securely until each production milestone is verified and approved.",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Quality Assurance",
+    description: "Professional inspections at every stage with detailed reports and photo documentation.",
+  },
+  {
+    icon: MessageSquare,
+    title: "Verified Communication",
+    description: "All messages are logged and factories are verified for secure, reliable communication.",
+  },
+];
+
 const faqs = [
   {
-    q: "When do I pay?",
-    a: "Fees are calculated as a percentage of your production order value and invoiced upon shipment. There are no upfront fees or retainers.",
+    q: "How does the escrow payment protection work?",
+    a: "Your funds are held securely until each production milestone is complete. You release payment only after verifying quality at each stage—deposit, production, shipping, and delivery.",
   },
   {
-    q: "Are there any hidden costs?",
-    a: "No. Our fee covers sourcing, factory vetting, production management, and standard QC inspections. Additional services like expedited QC or on-site audits may incur extra fees, which we'll always discuss upfront.",
+    q: "What AI tools are included?",
+    a: "Growth plans include AI Factory Matcher (finds best factories for your needs), AI Quote Analyzer (compares and analyzes quotes), and AI RFQ Generator (creates professional RFQs). Enterprise adds AI Negotiation Coach.",
   },
   {
-    q: "What if I'm not satisfied with factory matches?",
-    a: "We'll continue searching until we find the right fit. If we can't find a suitable factory for your project, you pay nothing.",
+    q: "Can I try before I subscribe?",
+    a: "Yes! The Free tier lets you explore the directory and send up to 3 inquiries per month. Growth includes a 14-day free trial with full access.",
+  },
+  {
+    q: "How do quality inspections work?",
+    a: "Our inspection team visits factories at key production milestones. You receive detailed reports with photos, measurements, and pass/fail status. Issues are flagged before shipping.",
   },
   {
     q: "Can I upgrade or downgrade my plan?",
-    a: "Yes, you can change plans at any time. We'll prorate any differences and adjust your pricing for future orders.",
+    a: "Yes, you can change plans at any time. Upgrades take effect immediately, and downgrades apply at the next billing cycle.",
   },
 ];
 
 export default function Pricing() {
   return (
     <Layout>
+      <SEO 
+        title="Pricing | Manufactory"
+        description="Simple, transparent pricing with AI-powered tools, escrow protection, and quality assurance. Start free or unlock full platform access."
+      />
+
       {/* Hero */}
       <section className="section-padding bg-[var(--hero-gradient)]">
         <div className="container-wide">
@@ -85,11 +134,15 @@ export default function Pricing() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl mx-auto"
           >
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+              <Zap className="w-4 h-4" />
+              AI-Powered Platform
+            </div>
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
               Simple, Transparent Pricing
             </h1>
             <p className="text-xl text-muted-foreground">
-              No upfront fees, no retainers. Pay a percentage of your production value only when orders ship.
+              Start free, scale with confidence. Every plan includes platform protection and verified factories.
             </p>
           </motion.div>
         </div>
@@ -136,10 +189,18 @@ export default function Pricing() {
 
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <CheckCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${plan.highlighted ? "text-primary" : "text-primary"}`} />
-                      <span className={`text-sm ${plan.highlighted ? "text-background/90" : "text-muted-foreground"}`}>
-                        {feature}
+                    <li key={feature.text} className="flex items-start gap-3">
+                      <CheckCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
+                        feature.included 
+                          ? (plan.highlighted ? "text-primary" : "text-primary") 
+                          : (plan.highlighted ? "text-background/30" : "text-muted-foreground/30")
+                      }`} />
+                      <span className={`text-sm ${
+                        feature.included 
+                          ? (plan.highlighted ? "text-background/90" : "text-muted-foreground") 
+                          : (plan.highlighted ? "text-background/40 line-through" : "text-muted-foreground/40 line-through")
+                      }`}>
+                        {feature.text}
                       </span>
                     </li>
                   ))}
@@ -164,6 +225,93 @@ export default function Pricing() {
         </div>
       </section>
 
+      {/* Platform Features */}
+      <section className="section-padding bg-card/50">
+        <div className="container-wide">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Built-In Platform Protection
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Every transaction is protected with escrow payments, verified communication, and quality assurance.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {platformFeatures.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="p-6 rounded-xl bg-background border border-border text-center"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <feature.icon className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="font-heading font-semibold text-foreground mb-2">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AI Tools Highlight */}
+      <section className="section-padding">
+        <div className="container-tight">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 p-8 md:p-12"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-primary" />
+              </div>
+              <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
+                AI-Powered Sourcing Tools
+              </h2>
+            </div>
+            
+            <p className="text-muted-foreground mb-8 max-w-2xl">
+              Our AI tools help you find the perfect factory match, analyze quotes for hidden costs, generate professional RFQs, and negotiate better terms—all powered by advanced AI.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-4 mb-8">
+              {[
+                { name: "AI Factory Matcher", desc: "Describe your needs, get ranked factory matches" },
+                { name: "AI Quote Analyzer", desc: "Compare quotes and spot red flags instantly" },
+                { name: "AI RFQ Generator", desc: "Create professional RFQs in minutes" },
+                { name: "AI Negotiation Coach", desc: "Get strategic negotiation guidance" },
+              ].map((tool) => (
+                <div key={tool.name} className="flex items-start gap-3 p-4 rounded-lg bg-background/50">
+                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-medium text-foreground">{tool.name}</p>
+                    <p className="text-sm text-muted-foreground">{tool.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <Link to="/ai-tools">
+              <Button variant="default" size="lg">
+                Explore AI Tools
+                <ArrowRight className="w-5 h-5" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="section-padding bg-card/50">
         <div className="container-tight">
@@ -174,7 +322,7 @@ export default function Pricing() {
             className="text-center mb-12"
           >
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Pricing Questions
+              Frequently Asked Questions
             </h2>
           </motion.div>
 
@@ -210,17 +358,24 @@ export default function Pricing() {
             viewport={{ once: true }}
           >
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Not Sure Which Plan?
+              Ready to Source Smarter?
             </h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-              Book a call with our team and we'll help you find the right fit for your needs.
+              Start free and explore the platform. Upgrade anytime to unlock AI tools and full protection.
             </p>
-            <Link to="/contact?type=call">
-              <Button variant="hero" size="xl">
-                Book a Call
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/directory">
+                <Button variant="hero" size="xl">
+                  Browse Factories
+                  <Factory className="w-5 h-5" />
+                </Button>
+              </Link>
+              <Link to="/contact?type=call">
+                <Button variant="hero-outline" size="xl">
+                  Book a Demo
+                </Button>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>

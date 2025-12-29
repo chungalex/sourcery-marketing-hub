@@ -2,50 +2,96 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
-import { ArrowRight, MessageSquare, Search, Factory, ClipboardCheck, Package, Truck } from "lucide-react";
+import { SEO } from "@/components/SEO";
+import { 
+  ArrowRight, 
+  Sparkles, 
+  MessageSquare, 
+  Shield, 
+  ClipboardCheck, 
+  Package, 
+  CheckCircle,
+  Factory,
+  CreditCard,
+  Eye
+} from "lucide-react";
 
 const steps = [
   {
     number: "01",
-    icon: MessageSquare,
-    title: "Share Your Requirements",
-    description: "Tell us about your product, target price, quantities, and timeline. We'll create a tailored sourcing strategy.",
+    icon: Sparkles,
+    title: "AI-Powered Matching",
+    description: "Describe your product needs in plain language. Our AI analyzes your requirements and matches you with the best factories from our verified network.",
+    highlight: "AI Factory Matcher",
   },
   {
     number: "02",
-    icon: Search,
-    title: "Factory Matching",
-    description: "We match you with 3-5 pre-vetted factories from our network, each with relevant experience and capacity.",
+    icon: Eye,
+    title: "Review & Compare",
+    description: "Browse detailed factory profiles, certifications, and past work. Use our AI Quote Analyzer to compare offers and spot hidden costs.",
+    highlight: "AI Quote Analyzer",
   },
   {
     number: "03",
-    icon: Factory,
-    title: "Sampling & Selection",
-    description: "Review samples, negotiate terms, and select your ideal manufacturing partner with our guidance.",
+    icon: MessageSquare,
+    title: "Verified Communication",
+    description: "Connect with factory representatives through our secure messaging platform. All communications are logged for your protection.",
+    highlight: "Secure & Logged",
   },
   {
     number: "04",
-    icon: ClipboardCheck,
-    title: "Production & QC",
-    description: "We manage the production timeline with on-site quality inspections at every critical milestone.",
+    icon: CreditCard,
+    title: "Escrow Payment",
+    description: "Deposit funds into our secure escrow. Money is released to the factory only when each production milestone is verified and approved by you.",
+    highlight: "Funds Protected",
   },
   {
     number: "05",
-    icon: Package,
-    title: "Packaging & Prep",
-    description: "Final inspection, packaging oversight, and documentation to ensure your products meet all requirements.",
+    icon: ClipboardCheck,
+    title: "Quality Inspections",
+    description: "Our QC team inspects production at key milestones. You receive detailed reports with photos before approving each payment release.",
+    highlight: "Photo Documentation",
   },
   {
     number: "06",
-    icon: Truck,
-    title: "Logistics & Delivery",
-    description: "Coordinate shipping, customs clearance, and track your order until it arrives at your warehouse.",
+    icon: Package,
+    title: "Delivery & Release",
+    description: "Track your shipment in real-time. Final payment is released only after you confirm receipt and quality of your order.",
+    highlight: "Full Transparency",
+  },
+];
+
+const protectionFeatures = [
+  {
+    icon: Shield,
+    title: "Payment Protection",
+    description: "Funds held in escrow until you approve each milestone",
+  },
+  {
+    icon: MessageSquare,
+    title: "Verified Factories",
+    description: "All factories are vetted and verified before joining",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Quality Guarantee",
+    description: "Professional inspections at every production stage",
+  },
+  {
+    icon: Factory,
+    title: "Dispute Resolution",
+    description: "Dedicated support team to resolve any issues",
   },
 ];
 
 export default function HowItWorks() {
   return (
     <Layout>
+      <SEO 
+        title="How It Works | Manufactory"
+        description="AI-powered factory matching, escrow payment protection, and quality assurance at every step. See how we make manufacturing sourcing safe and simple."
+      />
+
       {/* Hero */}
       <section className="section-padding bg-[var(--hero-gradient)]">
         <div className="container-wide">
@@ -54,19 +100,63 @@ export default function HowItWorks() {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+              <Shield className="w-4 h-4" />
+              Protected at Every Step
+            </div>
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-              How Sourcery Works
+              Source with Confidence
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              A streamlined process designed to take the complexity out of manufacturing. From initial inquiry to final delivery, we guide you every step of the way.
+              From AI-powered factory matching to escrow-protected payments, we've built a platform that puts your interests first at every step.
             </p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Protection Banner */}
+      <section className="border-y border-border bg-card/50">
+        <div className="container-wide py-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {protectionFeatures.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="flex items-center gap-3"
+              >
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <feature.icon className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="font-medium text-foreground text-sm">{feature.title}</p>
+                  <p className="text-xs text-muted-foreground">{feature.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Steps */}
       <section className="section-padding">
         <div className="container-wide">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Your Journey, Protected
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Every step is designed to give you control, transparency, and peace of mind.
+            </p>
+          </motion.div>
+
           <div className="space-y-0">
             {steps.map((step, index) => (
               <motion.div
@@ -95,10 +185,15 @@ export default function HowItWorks() {
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                       <step.icon className="w-6 h-6 text-primary" />
                     </div>
-                    <div>
-                      <h3 className="font-heading text-xl font-semibold text-foreground mb-2">
-                        {step.title}
-                      </h3>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="font-heading text-xl font-semibold text-foreground">
+                          {step.title}
+                        </h3>
+                        <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-medium">
+                          {step.highlight}
+                        </span>
+                      </div>
                       <p className="text-muted-foreground leading-relaxed">
                         {step.description}
                       </p>
@@ -111,8 +206,60 @@ export default function HowItWorks() {
         </div>
       </section>
 
-      {/* Timeline Expectations */}
+      {/* Escrow Diagram */}
       <section className="section-padding bg-card/50">
+        <div className="container-tight">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Milestone-Based Payment Protection
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Your funds are released only when you approve each stage
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-5 gap-4">
+            {[
+              { stage: "Deposit", percent: "30%", desc: "Secure initial payment" },
+              { stage: "Production", percent: "30%", desc: "After production QC" },
+              { stage: "Pre-Ship", percent: "20%", desc: "After final inspection" },
+              { stage: "Shipped", percent: "10%", desc: "When goods depart" },
+              { stage: "Delivered", percent: "10%", desc: "After you receive" },
+            ].map((item, index) => (
+              <motion.div
+                key={item.stage}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="relative"
+              >
+                <div className="text-center p-6 rounded-xl bg-background border border-border">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                    <CheckCircle className="w-5 h-5 text-primary" />
+                  </div>
+                  <p className="font-heading text-2xl font-bold text-foreground mb-1">{item.percent}</p>
+                  <p className="font-medium text-foreground text-sm">{item.stage}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{item.desc}</p>
+                </div>
+                {index < 4 && (
+                  <div className="hidden md:block absolute top-1/2 -right-2 transform -translate-y-1/2">
+                    <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline Expectations */}
+      <section className="section-padding">
         <div className="container-tight">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -124,16 +271,16 @@ export default function HowItWorks() {
               Typical Timeline
             </h2>
             <p className="text-lg text-muted-foreground">
-              Most projects follow a similar timeline from inquiry to delivery
+              From first inquiry to delivery
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-4 gap-6">
             {[
-              { phase: "Week 1-2", title: "Discovery & Matching" },
-              { phase: "Week 3-4", title: "Sampling" },
-              { phase: "Week 5-12", title: "Production & QC" },
-              { phase: "Week 13+", title: "Shipping & Delivery" },
+              { phase: "Day 1-3", title: "AI Matching", desc: "Get factory recommendations" },
+              { phase: "Week 1-2", title: "Sampling", desc: "Review and approve samples" },
+              { phase: "Week 3-8", title: "Production & QC", desc: "Manufacturing with inspections" },
+              { phase: "Week 9-10", title: "Shipping", desc: "Delivery to your door" },
             ].map((item, index) => (
               <motion.div
                 key={item.phase}
@@ -141,10 +288,11 @@ export default function HowItWorks() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="text-center p-6 rounded-xl bg-background border border-border"
+                className="text-center p-6 rounded-xl bg-card border border-border"
               >
                 <p className="text-sm text-primary font-medium mb-2">{item.phase}</p>
-                <p className="font-heading font-semibold text-foreground">{item.title}</p>
+                <p className="font-heading font-semibold text-foreground mb-1">{item.title}</p>
+                <p className="text-xs text-muted-foreground">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -152,7 +300,7 @@ export default function HowItWorks() {
       </section>
 
       {/* CTA */}
-      <section className="section-padding">
+      <section className="section-padding bg-card/50">
         <div className="container-tight text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -163,14 +311,21 @@ export default function HowItWorks() {
               Ready to Get Started?
             </h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-              Submit your sourcing request and receive factory matches within 48 hours.
+              Try our AI Factory Matcher for free and find your perfect manufacturing partner.
             </p>
-            <Link to="/contact?type=sourcing">
-              <Button variant="hero" size="xl">
-                Request Sourcing
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/ai-tools">
+                <Button variant="hero" size="xl">
+                  Try AI Matcher
+                  <Sparkles className="w-5 h-5" />
+                </Button>
+              </Link>
+              <Link to="/directory">
+                <Button variant="hero-outline" size="xl">
+                  Browse Factories
+                </Button>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
