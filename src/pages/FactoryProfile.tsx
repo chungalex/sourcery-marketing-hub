@@ -16,6 +16,8 @@ import {
   Play,
   ExternalLink,
   Lock,
+  Star,
+  ThumbsUp,
 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
@@ -27,12 +29,73 @@ import { VerifiedBadge } from "@/components/marketplace/VerifiedBadge";
 import { CertificationBadge } from "@/components/marketplace/CertificationBadge";
 import { mockFactoryDetail, mockFactories } from "@/data/mockData";
 import { cn } from "@/lib/utils";
+import { InquiryModal } from "@/components/modals/InquiryModal";
+import { PricingGateModal } from "@/components/modals/PricingGateModal";
+import { SampleRequestModal } from "@/components/modals/SampleRequestModal";
+import { toast } from "sonner";
+
+// Mock reviews data
+const mockReviews = [
+  {
+    id: "1",
+    author: "Sarah M.",
+    company: "Nordic Apparel",
+    rating: 5,
+    date: "2024-01-15",
+    title: "Excellent quality and communication",
+    content: "We've been working with this factory for 2 years now. Quality is consistently excellent and their team is very responsive.",
+    helpful: 12,
+  },
+  {
+    id: "2",
+    author: "David L.",
+    company: "Urban Style Co.",
+    rating: 4,
+    date: "2024-01-10",
+    title: "Great partner for small batch production",
+    content: "Very flexible with MOQs and willing to work with newer brands. Lead times are accurate.",
+    helpful: 8,
+  },
+  {
+    id: "3",
+    author: "Emma K.",
+    company: "EcoWear Collective",
+    rating: 5,
+    date: "2024-01-05",
+    title: "Sustainable production done right",
+    content: "Their sustainability practices are genuine. GOTS certification was verified and they go above compliance requirements.",
+    helpful: 15,
+  },
+];
 
 export default function FactoryProfile() {
   const { slug } = useParams();
   const [isSaved, setIsSaved] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
   const [isSubscribed] = useState(false); // Mock - would come from auth context
+  const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+  const [pricingGateOpen, setPricingGateOpen] = useState(false);
+  const [sampleModalOpen, setSampleModalOpen] = useState(false);
+  const [gatedFeature, setGatedFeature] = useState("");
+
+  const handleGatedAction = (feature: string) => {
+    if (isSubscribed) {
+      // Perform the action
+      if (feature === "contact") {
+        setInquiryModalOpen(true);
+      } else if (feature === "sample") {
+        setSampleModalOpen(true);
+      }
+    } else {
+      setGatedFeature(feature);
+      setPricingGateOpen(true);
+    }
+  };
+
+  const handleSave = () => {
+    setIsSaved(!isSaved);
+    toast.success(isSaved ? "Removed from saved" : "Factory saved!");
+  };
 
   // In real app, fetch factory by slug
   const factory = mockFactoryDetail;
@@ -113,7 +176,7 @@ export default function FactoryProfile() {
                   <Button
                     variant="outline"
                     size="icon"
-                    onClick={() => setIsSaved(!isSaved)}
+                    onClick={handleSave}
                     className={cn(isSaved && "bg-primary/10 border-primary text-primary")}
                   >
                     <Heart className={cn("w-4 h-4", isSaved && "fill-current")} />
@@ -121,7 +184,18 @@ export default function FactoryProfile() {
                   <Button variant="outline" size="icon">
                     <Share2 className="w-4 h-4" />
                   </Button>
-                  <Button variant="hero" size="lg">
+                  <Button 
+                    variant="outline"
+                    onClick={() => handleGatedAction("sample")}
+                  >
+                    <Package className="w-4 h-4 mr-2" />
+                    Request Sample
+                  </Button>
+                  <Button 
+                    variant="hero" 
+                    size="lg"
+                    onClick={() => handleGatedAction("contact")}
+                  >
                     Request Quote
                   </Button>
                 </div>
@@ -135,13 +209,16 @@ export default function FactoryProfile() {
       <section className="container-wide pb-20">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent mb-8 overflow-x-auto">
-            {['overview', 'capabilities', 'team', 'gallery', 'documents'].map((tab) => (
+            {['overview', 'capabilities', 'team', 'gallery', 'documents', 'reviews'].map((tab) => (
               <TabsTrigger
                 key={tab}
                 value={tab}
                 className="capitalize rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-4 py-3"
               >
                 {tab}
+                {tab === 'reviews' && (
+                  <span className="ml-1 text-xs text-muted-foreground">({mockReviews.length})</span>
+                )}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -406,12 +483,131 @@ export default function FactoryProfile() {
               </div>
             </GatedSection>
           </TabsContent>
+
+          {/* Reviews Tab */}
+          <TabsContent value="reviews" className="mt-0">
+            <div className="space-y-6">
+              {/* Rating Summary */}
+              <div className="bg-card border border-border rounded-xl p-6">
+                <div className="flex items-center gap-6">
+                  <div className="text-center">
+                    <div className="text-4xl font-bold text-foreground">4.7</div>
+                    <div className="flex items-center justify-center gap-1 my-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star
+                          key={star}
+                          className={cn(
+                            "h-4 w-4",
+                            star <= 4 ? "fill-yellow-400 text-yellow-400" : "text-muted-foreground"
+                          )}
+                        />
+                      ))}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {mockReviews.length} reviews
+                    </div>
+                  </div>
+                  <div className="flex-1 space-y-2">
+                    {[5, 4, 3, 2, 1].map((rating) => {
+                      const count = mockReviews.filter(r => r.rating === rating).length;
+                      const percent = (count / mockReviews.length) * 100;
+                      return (
+                        <div key={rating} className="flex items-center gap-2">
+                          <span className="text-sm text-muted-foreground w-3">{rating}</span>
+                          <Star className="h-3 w-3 text-yellow-400 fill-yellow-400" />
+                          <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-yellow-400 rounded-full"
+                              style={{ width: `${percent}%` }}
+                            />
+                          </div>
+                          <span className="text-xs text-muted-foreground w-6">{count}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* Reviews List */}
+              <div className="space-y-4">
+                {mockReviews.map((review) => (
+                  <motion.div
+                    key={review.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-card border border-border rounded-xl p-6"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-semibold text-foreground">{review.author}</span>
+                          <span className="text-muted-foreground">·</span>
+                          <span className="text-sm text-muted-foreground">{review.company}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="flex">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <Star
+                                key={star}
+                                className={cn(
+                                  "h-3 w-3",
+                                  star <= review.rating
+                                    ? "fill-yellow-400 text-yellow-400"
+                                    : "text-muted-foreground"
+                                )}
+                              />
+                            ))}
+                          </div>
+                          <span className="text-xs text-muted-foreground">
+                            {new Date(review.date).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <h4 className="font-medium text-foreground mb-2">{review.title}</h4>
+                    <p className="text-muted-foreground text-sm">{review.content}</p>
+                    <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border">
+                      <Button variant="ghost" size="sm" className="text-muted-foreground">
+                        <ThumbsUp className="h-4 w-4 mr-1" />
+                        Helpful ({review.helpful})
+                      </Button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </TabsContent>
         </Tabs>
       </section>
 
+      {/* Modals */}
+      <InquiryModal
+        open={inquiryModalOpen}
+        onOpenChange={setInquiryModalOpen}
+        factoryName={factory.name}
+        factoryId={factory.id}
+      />
+      <PricingGateModal
+        open={pricingGateOpen}
+        onOpenChange={setPricingGateOpen}
+        feature={gatedFeature}
+      />
+      <SampleRequestModal
+        open={sampleModalOpen}
+        onOpenChange={setSampleModalOpen}
+        factoryName={factory.name}
+        factoryId={factory.id}
+      />
+
       {/* Sticky CTA (Mobile) */}
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-background border-t border-border lg:hidden z-40">
-        <Button variant="hero" size="lg" className="w-full">
+        <Button 
+          variant="hero" 
+          size="lg" 
+          className="w-full"
+          onClick={() => handleGatedAction("contact")}
+        >
           Request Quote
         </Button>
       </div>
