@@ -10,7 +10,11 @@ import { CostCalculator } from "@/components/toolkit/CostCalculator";
 import { SupplierScorecard } from "@/components/toolkit/SupplierScorecard";
 import { OrderTracker } from "@/components/toolkit/OrderTracker";
 import { ContractGenerator } from "@/components/toolkit/ContractGenerator";
-import { Wrench, Search, TrendingUp, FileText, MessageSquare, Calculator, Star, Package, FileSignature } from "lucide-react";
+import { ShippingCalculator } from "@/components/toolkit/ShippingCalculator";
+import { ImportDutyCalculator } from "@/components/toolkit/ImportDutyCalculator";
+import { QualityChecklistBuilder } from "@/components/toolkit/QualityChecklistBuilder";
+import { LeadTimeCalculator } from "@/components/toolkit/LeadTimeCalculator";
+import { Wrench, Search, TrendingUp, FileText, MessageSquare, Calculator, Star, Package, FileSignature, Ship, Receipt, ClipboardCheck, Calendar } from "lucide-react";
 
 const tools = [
   { id: "matcher", label: "Factory Finder", icon: Search },
@@ -21,6 +25,10 @@ const tools = [
   { id: "scorecard", label: "Supplier Scorecard", icon: Star },
   { id: "tracker", label: "Order Tracker", icon: Package },
   { id: "contract", label: "Contract Builder", icon: FileSignature },
+  { id: "shipping", label: "Shipping Calculator", icon: Ship },
+  { id: "duties", label: "Import Duties", icon: Receipt },
+  { id: "checklist", label: "Quality Checklist", icon: ClipboardCheck },
+  { id: "leadtime", label: "Lead Time", icon: Calendar },
 ];
 
 export default function Toolkit() {
@@ -83,6 +91,18 @@ export default function Toolkit() {
             </TabsContent>
             <TabsContent value="contract">
               <ContractGenerator />
+            </TabsContent>
+            <TabsContent value="shipping">
+              <ShippingCalculator />
+            </TabsContent>
+            <TabsContent value="duties">
+              <ImportDutyCalculator />
+            </TabsContent>
+            <TabsContent value="checklist">
+              <QualityChecklistBuilder />
+            </TabsContent>
+            <TabsContent value="leadtime">
+              <LeadTimeCalculator />
             </TabsContent>
           </Tabs>
         </div>
