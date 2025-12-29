@@ -23,6 +23,7 @@ import Apply from "./pages/Apply";
 import BrandDashboard from "./pages/BrandDashboard";
 import FactoryDashboard from "./pages/FactoryDashboard";
 import Admin from "./pages/Admin";
+import Checkout from "./pages/Checkout";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,7 @@ const App = () => (
             <Route path="/dashboard" element={<BrandDashboard />} />
             <Route path="/dashboard/factory" element={<FactoryDashboard />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
