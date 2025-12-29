@@ -21,6 +21,7 @@ import {
   Send,
   ExternalLink
 } from "lucide-react";
+import { ProfileViewsChart, InquirySourcesChart, InquiryStatusChart } from "@/components/dashboard/AnalyticsCharts";
 
 /**
  * Factory Dashboard
@@ -374,17 +375,18 @@ export default function FactoryDashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <h4 className="font-medium text-foreground">Profile Views (Last 30 Days)</h4>
-                    <div className="h-48 bg-muted rounded-lg flex items-center justify-center">
-                      <span className="text-muted-foreground">Chart placeholder</span>
-                    </div>
+                    <ProfileViewsChart />
                   </div>
 
                   <div className="space-y-4">
                     <h4 className="font-medium text-foreground">Inquiry Sources</h4>
-                    <div className="h-48 bg-muted rounded-lg flex items-center justify-center">
-                      <span className="text-muted-foreground">Chart placeholder</span>
-                    </div>
+                    <InquirySourcesChart />
                   </div>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-border">
+                  <h4 className="font-medium text-foreground mb-4">Inquiry Status</h4>
+                  <InquiryStatusChart />
                 </div>
 
                 <div className="mt-6 pt-6 border-t border-border">
