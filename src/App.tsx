@@ -18,6 +18,11 @@ import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 import Directory from "./pages/Directory";
 import FactoryProfile from "./pages/FactoryProfile";
+import Auth from "./pages/Auth";
+import Apply from "./pages/Apply";
+import BrandDashboard from "./pages/BrandDashboard";
+import FactoryDashboard from "./pages/FactoryDashboard";
+import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +47,11 @@ const App = () => (
             <Route path="/terms" element={<Terms />} />
             <Route path="/directory" element={<Directory />} />
             <Route path="/directory/:slug" element={<FactoryProfile />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/apply" element={<Apply />} />
+            <Route path="/dashboard" element={<BrandDashboard />} />
+            <Route path="/dashboard/factory" element={<FactoryDashboard />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
