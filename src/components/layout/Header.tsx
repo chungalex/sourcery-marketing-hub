@@ -70,13 +70,18 @@ export function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-3">
-              <Link to="/contact">
+              <Link to="/apply">
                 <Button variant="ghost" size="sm">
-                  Contact
+                  Apply as Factory
                 </Button>
               </Link>
-              <Link to="/contact?type=sourcing">
-                <Button size="sm">Request Sourcing</Button>
+              <Link to="/auth">
+                <Button variant="outline" size="sm">
+                  Sign In
+                </Button>
+              </Link>
+              <Link to="/dashboard">
+                <Button size="sm">Dashboard</Button>
               </Link>
             </div>
 
@@ -119,13 +124,18 @@ export function Header() {
                 </Link>
               ))}
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
-                <Link to="/contact">
-                  <Button variant="outline" className="w-full">
-                    Contact
+                <Link to="/apply">
+                  <Button variant="ghost" className="w-full">
+                    Apply as Factory
                   </Button>
                 </Link>
-                <Link to="/contact?type=sourcing">
-                  <Button className="w-full">Request Sourcing</Button>
+                <Link to="/auth">
+                  <Button variant="outline" className="w-full">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/dashboard">
+                  <Button className="w-full">Dashboard</Button>
                 </Link>
               </div>
             </nav>
