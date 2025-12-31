@@ -41,9 +41,9 @@ const steps = [
   {
     number: "04",
     icon: CreditCard,
-    title: "Escrow Payment",
-    description: "Deposit funds into our secure escrow. Money is released to the factory only when each production milestone is verified and approved by you.",
-    highlight: "Funds Protected",
+    title: "Structured Payments",
+    description: "We help you negotiate payment terms with clear milestone schedules. Know exactly when and how much to pay at each stage — no surprises.",
+    highlight: "Clear Terms",
   },
   {
     number: "05",
@@ -64,8 +64,8 @@ const steps = [
 const protectionFeatures = [
   {
     icon: Shield,
-    title: "Payment Protection",
-    description: "Funds held in escrow until you approve each milestone",
+    title: "Payment Structure",
+    description: "Structured milestone payments with escrow coming soon",
   },
   {
     icon: MessageSquare,
@@ -108,7 +108,7 @@ export default function HowItWorks() {
               Source with Confidence
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              From personalized factory matching to escrow-protected payments, we've built a platform that puts your interests first at every step.
+              From personalized factory matching to structured payment terms, we've built a platform that puts your interests first at every step.
             </p>
           </motion.div>
         </div>
@@ -206,7 +206,7 @@ export default function HowItWorks() {
         </div>
       </section>
 
-      {/* Escrow Diagram */}
+      {/* Payment Structure */}
       <section className="section-padding bg-card/50">
         <div className="container-tight">
           <motion.div
@@ -216,11 +216,15 @@ export default function HowItWorks() {
             className="text-center mb-12"
           >
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Milestone-Based Payment Protection
+              Recommended Payment Structure
             </h2>
-            <p className="text-lg text-muted-foreground">
-              Your funds are released only when you approve each stage
+            <p className="text-lg text-muted-foreground mb-3">
+              We help structure payments around verified milestones
             </p>
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
+              <Shield className="w-4 h-4" />
+              Coming Soon: Full Escrow Protection
+            </span>
           </motion.div>
 
           <div className="grid md:grid-cols-5 gap-4">

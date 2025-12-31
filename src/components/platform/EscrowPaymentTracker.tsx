@@ -135,16 +135,16 @@ export function EscrowPaymentTracker({
           <div className="flex items-center gap-2 mb-1">
             <Shield className="w-5 h-5 text-primary" />
             <h3 className="font-heading font-semibold text-foreground">
-              Payment Protection
+              Payment Milestones
             </h3>
           </div>
           <p className="text-sm text-muted-foreground">
-            Order {orderId} • Funds held securely in escrow
+            Order {orderId} • Recommended payment structure
           </p>
         </div>
-        <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-600">
-          <Shield className="w-3 h-3 mr-1" />
-          Protected
+        <Badge variant="secondary" className="bg-primary/10 text-primary">
+          <Clock className="w-3 h-3 mr-1" />
+          Escrow Coming Soon
         </Badge>
       </div>
 
@@ -242,12 +242,12 @@ export function EscrowPaymentTracker({
               </div>
             </div>
 
-            {/* Actions */}
+            {/* Status Indicator */}
             {milestone.status === "locked" && (
               <div className="shrink-0">
-                <Button size="sm" variant="outline">
-                  Release Funds
-                </Button>
+                <Badge variant="outline" className="text-primary border-primary/30">
+                  In Progress
+                </Badge>
               </div>
             )}
           </motion.div>
@@ -257,7 +257,7 @@ export function EscrowPaymentTracker({
       {/* Footer */}
       <div className="mt-6 pt-4 border-t border-border flex items-center justify-between">
         <p className="text-xs text-muted-foreground">
-          Funds are released automatically when milestones are verified
+          We help structure payments around verified milestones
         </p>
         <Button variant="ghost" size="sm">
           Report Issue
