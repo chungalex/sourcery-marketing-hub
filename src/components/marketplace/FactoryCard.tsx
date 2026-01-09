@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MapPin, Package, Clock, Heart } from "lucide-react";
+import { MapPin, Package, Clock, Heart, Handshake } from "lucide-react";
 import { FactoryPreview } from "@/data/mockData";
 import { FactoryTypeBadge } from "./FactoryTypeBadge";
 import { VerifiedBadge } from "./VerifiedBadge";
@@ -52,6 +52,10 @@ export function FactoryCard({
               Verified
             </span>
           )}
+          <span className="inline-flex items-center gap-1 bg-primary/90 text-primary-foreground text-xs px-2 py-0.5 rounded-full font-medium">
+            <Handshake className="w-3 h-3" />
+            Pre-Negotiated
+          </span>
         </div>
 
         {/* Save button */}

@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, ArrowUpDown } from "lucide-react";
+import { Search, ArrowUpDown, Handshake } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Input } from "@/components/ui/input";
@@ -194,9 +194,13 @@ export default function Directory() {
             <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
               Discover Vetted Manufacturing Partners
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground mb-3">
               Browse our curated network of certified factories, boutique workshops, and artisan producers
             </p>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
+              <Handshake className="w-4 h-4" />
+              Pre-Negotiated Rates & Terms on Every Factory
+            </div>
           </motion.div>
 
           {/* Search */}
