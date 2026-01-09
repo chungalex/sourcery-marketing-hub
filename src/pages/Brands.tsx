@@ -58,7 +58,7 @@ const vettingFaqs = [
   },
   {
     question: "What does 'pre-negotiated terms' actually mean?",
-    answer: "We work with factories to establish baseline pricing tiers, payment terms, and production timelines before they join our network. This gives you a starting point with competitive rates. However, you're always free to negotiate further based on your specific order volume, relationship, and requirements. We simply ensure the foundation is fair and transparent.",
+    answer: "We work with factories to establish baseline pricing tiers, payment terms, and production timelines before they join our network. This gives you a starting point with competitive rates from vetted partners. However, this doesn't guarantee the lowest prices in the market—there may be other factories elsewhere offering different rates. You're always free to negotiate further, compare options, and determine the best price for your specific needs. We simply ensure the factories in our network are reliable and that initial terms are fair and transparent.",
   },
   {
     question: "Do I still need to do my own due diligence?",
