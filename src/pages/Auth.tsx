@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
@@ -7,30 +7,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Building2, Users, Mail, Lock, User, ArrowRight, Chrome } from "lucide-react";
+import { Building2, Users, Mail, Lock, User, ArrowRight } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 
 type UserRole = "brand" | "factory";
 
-/**
- * Auth Page
- * 
- * API Endpoints:
- * - POST /api/auth/login
- *   Request: { email: string, password: string }
- *   Response: { user: User, token: string }
- * 
- * - POST /api/auth/signup
- *   Request: { email: string, password: string, name: string, role: "brand" | "factory" }
- *   Response: { user: User, token: string }
- * 
- * - POST /api/auth/oauth/:provider
- *   Request: { provider: "google" | "linkedin" }
- *   Response: { redirectUrl: string }
- */
-
 export default function Auth() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const defaultTab = searchParams.get("mode") === "signup" ? "signup" : "login";
+  const redirectTo = searchParams.get("redirect") || "/";
+  
+  const { user, isLoading: authLoading, signIn, signUp } = useAuth();
   
   const [selectedRole, setSelectedRole] = useState<UserRole>("brand");
   const [isLoading, setIsLoading] = useState(false);
@@ -42,50 +31,58 @@ export default function Auth() {
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
 
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user && !authLoading) {
+      navigate(redirectTo);
+    }
+  }, [user, authLoading, navigate, redirectTo]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // API Call: POST /api/auth/login
-    // Request: { email: loginEmail, password: loginPassword }
-    console.log("Login:", { email: loginEmail, password: loginPassword });
+    const { error } = await signIn(loginEmail, loginPassword);
     
-    // Simulate API delay
-    setTimeout(() => {
+    if (error) {
+      toast.error(error.message || "Failed to sign in");
       setIsLoading(false);
-      // On success: redirect to dashboard
-    }, 1000);
+    } else {
+      toast.success("Signed in successfully!");
+      navigate(redirectTo);
+    }
   };
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // API Call: POST /api/auth/signup
-    // Request: { email: signupEmail, password: signupPassword, name: signupName, role: selectedRole }
-    console.log("Signup:", { 
-      email: signupEmail, 
-      password: signupPassword, 
-      name: signupName, 
-      role: selectedRole 
-    });
+    const { error } = await signUp(signupEmail, signupPassword);
     
-    setTimeout(() => {
+    if (error) {
+      toast.error(error.message || "Failed to create account");
       setIsLoading(false);
-      // On success: redirect based on role
-    }, 1000);
+    } else {
+      toast.success("Account created successfully!");
+      navigate(redirectTo);
+    }
   };
 
-  const handleOAuth = (provider: "google" | "linkedin") => {
-    // API Call: POST /api/auth/oauth/:provider
-    console.log("OAuth:", provider);
-  };
+  if (authLoading) {
+    return (
+      <Layout>
+        <div className="min-h-[80vh] flex items-center justify-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
       <SEO 
-        title="Sign In | Manufactory" 
-        description="Access your Manufactory account to connect with verified manufacturers or manage your factory profile."
+        title="Sign In | Sourcery" 
+        description="Access your Sourcery account to connect with verified manufacturers or manage your factory profile."
       />
       
       <section className="section-padding min-h-[80vh] flex items-center">
@@ -98,7 +95,7 @@ export default function Auth() {
           >
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-foreground mb-2">
-                Welcome to Manufactory
+                Welcome to Sourcery
               </h1>
               <p className="text-muted-foreground">
                 Connect with verified manufacturers worldwide
@@ -134,12 +131,6 @@ export default function Auth() {
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <Label htmlFor="login-password">Password</Label>
-                        <Link 
-                          to="/auth/forgot-password" 
-                          className="text-sm text-primary hover:underline"
-                        >
-                          Forgot password?
-                        </Link>
                       </div>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -160,36 +151,6 @@ export default function Auth() {
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </form>
-
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <span className="w-full border-t border-border" />
-                    </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-card px-2 text-muted-foreground">
-                        Or continue with
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <Button
-                      variant="outline"
-                      onClick={() => handleOAuth("google")}
-                      className="w-full"
-                    >
-                      <Chrome className="mr-2 h-4 w-4" />
-                      Google
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => handleOAuth("linkedin")}
-                      className="w-full"
-                    >
-                      <Users className="mr-2 h-4 w-4" />
-                      LinkedIn
-                    </Button>
-                  </div>
                 </TabsContent>
 
                 {/* Signup Form */}

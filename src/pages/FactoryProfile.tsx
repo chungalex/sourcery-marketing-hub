@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, Link, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   MapPin,
@@ -27,12 +27,15 @@ import { Badge } from "@/components/ui/badge";
 import { FactoryTypeBadge } from "@/components/marketplace/FactoryTypeBadge";
 import { VerifiedBadge } from "@/components/marketplace/VerifiedBadge";
 import { CertificationBadge } from "@/components/marketplace/CertificationBadge";
-import { mockFactoryDetail, mockFactories } from "@/data/mockData";
 import { cn } from "@/lib/utils";
 import { InquiryModal } from "@/components/modals/InquiryModal";
 import { PricingGateModal } from "@/components/modals/PricingGateModal";
 import { SampleRequestModal } from "@/components/modals/SampleRequestModal";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
+import { fetchFactoryBySlug, fetchFactoryPreviewBySlug } from "@/lib/factories";
+import type { Factory, FactoryPreview } from "@/types/database";
+import type { FactoryType } from "@/data/mockData";
 
 // Mock reviews data
 const mockReviews = [
@@ -70,17 +73,58 @@ const mockReviews = [
 
 export default function FactoryProfile() {
   const { slug } = useParams();
+  const { user, isLoading: authLoading } = useAuth();
+  const isAuthenticated = !!user;
+  
+  const [factory, setFactory] = useState<Factory | null>(null);
+  const [preview, setPreview] = useState<FactoryPreview | null>(null);
+  const [isLoadingData, setIsLoadingData] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+  
   const [isSaved, setIsSaved] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
-  const [isSubscribed] = useState(false); // Mock - would come from auth context
+  const [isSubscribed] = useState(false);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [pricingGateOpen, setPricingGateOpen] = useState(false);
   const [sampleModalOpen, setSampleModalOpen] = useState(false);
   const [gatedFeature, setGatedFeature] = useState("");
 
+  useEffect(() => {
+    async function loadFactory() {
+      if (authLoading || !slug) return;
+      
+      setIsLoadingData(true);
+      try {
+        if (isAuthenticated) {
+          const data = await fetchFactoryBySlug(slug);
+          if (data) {
+            setFactory(data);
+          } else {
+            setNotFound(true);
+          }
+        } else {
+          // For logged out users, fetch preview only
+          const data = await fetchFactoryPreviewBySlug(slug);
+          if (data) {
+            setPreview(data);
+          } else {
+            setNotFound(true);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to load factory:", error);
+        toast.error("Failed to load factory details");
+        setNotFound(true);
+      } finally {
+        setIsLoadingData(false);
+      }
+    }
+    
+    loadFactory();
+  }, [slug, isAuthenticated, authLoading]);
+
   const handleGatedAction = (feature: string) => {
     if (isSubscribed) {
-      // Perform the action
       if (feature === "contact") {
         setInquiryModalOpen(true);
       } else if (feature === "sample") {
@@ -97,9 +141,184 @@ export default function FactoryProfile() {
     toast.success(isSaved ? "Removed from saved" : "Factory saved!");
   };
 
-  // In real app, fetch factory by slug
-  const factory = mockFactoryDetail;
+  // Loading state
+  if (authLoading || isLoadingData) {
+    return (
+      <Layout>
+        <div className="min-h-[80vh] flex items-center justify-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+        </div>
+      </Layout>
+    );
+  }
 
+  // Not found
+  if (notFound) {
+    return (
+      <Layout>
+        <div className="container-wide section-padding text-center">
+          <h1 className="font-heading text-2xl font-bold">Factory not found</h1>
+          <Link to="/directory">
+            <Button variant="outline" className="mt-4">
+              Back to Directory
+            </Button>
+          </Link>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Logged out users see limited preview with login prompt
+  if (!isAuthenticated && preview) {
+    return (
+      <Layout>
+        <SEO
+          title={`${preview.name} | Factory Preview`}
+          description={`View ${preview.name} factory profile. Sign in to see full details.`}
+        />
+
+        <section className="relative">
+          <div className="h-64 md:h-80 relative overflow-hidden bg-gradient-to-r from-muted to-muted/50">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center">
+                <Lock className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                <p className="text-muted-foreground">Sign in to view factory images</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="container-wide">
+            <div className="relative -mt-24 md:-mt-32 pb-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-card rounded-xl border border-border p-6 md:p-8 shadow-card-lg"
+              >
+                <Link
+                  to="/directory"
+                  className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Back to Directory
+                </Link>
+
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                      <FactoryTypeBadge type={(preview.factory_type as FactoryType) || 'mass_production'} />
+                      {preview.is_verified && <VerifiedBadge />}
+                    </div>
+
+                    <h1 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2">
+                      {preview.name}
+                    </h1>
+
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <MapPin className="w-4 h-4" />
+                      <span>{preview.city}, {preview.country}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <Link to={`/auth?mode=signup&redirect=/directory/${slug}`}>
+                      <Button variant="hero" size="lg">
+                        <Lock className="w-4 h-4 mr-2" />
+                        Sign in to View Full Profile
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Preview Info */}
+        <section className="container-wide pb-20">
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-6">
+              <div className="bg-card rounded-xl border border-border p-6 relative">
+                <div className="blur-sm pointer-events-none">
+                  <h2 className="font-heading text-xl font-semibold text-foreground mb-3">
+                    About
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed">
+                    This factory specializes in high-quality manufacturing with years of experience serving global brands. They offer comprehensive services from design consultation to final production, with a strong focus on quality and sustainability.
+                  </p>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center bg-card/80 rounded-xl">
+                  <div className="text-center p-6">
+                    <Lock className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
+                    <h4 className="font-heading font-semibold text-foreground mb-2">
+                      Sign in to View Full Details
+                    </h4>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Create a free account to access factory profiles, contact information, and more
+                    </p>
+                    <Link to={`/auth?mode=signup&redirect=/directory/${slug}`}>
+                      <Button variant="hero" size="sm">
+                        Create Free Account
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="bg-card rounded-xl border border-border p-5">
+                <h3 className="font-heading font-semibold text-foreground mb-4">
+                  Quick Stats
+                </h3>
+                <div className="space-y-3">
+                  <StatRow
+                    icon={Package}
+                    label="MOQ"
+                    value={preview.moq_min ? `${preview.moq_min}+ units` : 'Contact for details'}
+                  />
+                  <StatRow
+                    icon={Clock}
+                    label="Lead Time"
+                    value={preview.lead_time_weeks ? `${preview.lead_time_weeks} weeks` : 'Contact for details'}
+                  />
+                </div>
+              </div>
+
+              {preview.categories.length > 0 && (
+                <div className="bg-card rounded-xl border border-border p-5">
+                  <h3 className="font-heading font-semibold text-foreground mb-4">
+                    Product Categories
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {preview.categories.map((cat) => (
+                      <Badge key={cat} variant="outline">
+                        {cat}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {preview.certifications.length > 0 && (
+                <div className="bg-card rounded-xl border border-border p-5">
+                  <h3 className="font-heading font-semibold text-foreground mb-4">
+                    Certifications
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {preview.certifications.map((cert) => (
+                      <CertificationBadge key={cert} certification={{ slug: cert, name: cert }} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      </Layout>
+    );
+  }
+
+  // Full factory view for authenticated users
   if (!factory) {
     return (
       <Layout>
@@ -119,22 +338,20 @@ export default function FactoryProfile() {
     <Layout>
       <SEO
         title={`${factory.name} | Factory Profile`}
-        description={factory.about.description}
+        description={factory.description || `View ${factory.name} factory profile`}
       />
 
       {/* Hero */}
       <section className="relative">
-        {/* Cover Image */}
         <div className="h-64 md:h-80 lg:h-96 relative overflow-hidden">
           <img
-            src={factory.media.coverImageUrl}
+            src={factory.logo_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=600&fit=crop'}
             alt={factory.name}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
         </div>
 
-        {/* Factory Info Overlay */}
         <div className="container-wide">
           <div className="relative -mt-24 md:-mt-32 pb-6">
             <motion.div
@@ -142,7 +359,6 @@ export default function FactoryProfile() {
               animate={{ opacity: 1, y: 0 }}
               className="bg-card rounded-xl border border-border p-6 md:p-8 shadow-card-lg"
             >
-              {/* Back link */}
               <Link
                 to="/directory"
                 className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
@@ -153,25 +369,21 @@ export default function FactoryProfile() {
 
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                 <div>
-                  {/* Badges */}
                   <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <FactoryTypeBadge type={factory.type} />
-                    {factory.isVerified && <VerifiedBadge />}
+                    <FactoryTypeBadge type={(factory.factory_type as FactoryType) || 'mass_production'} />
+                    {factory.is_verified && <VerifiedBadge />}
                   </div>
 
-                  {/* Name */}
                   <h1 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2">
                     {factory.name}
                   </h1>
 
-                  {/* Location */}
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <MapPin className="w-4 h-4" />
-                    <span>{factory.location.city}, {factory.location.country}</span>
+                    <span>{factory.city}, {factory.country}</span>
                   </div>
                 </div>
 
-                {/* Actions */}
                 <div className="flex items-center gap-3">
                   <Button
                     variant="outline"
@@ -209,7 +421,7 @@ export default function FactoryProfile() {
       <section className="container-wide pb-20">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent mb-8 overflow-x-auto">
-            {['overview', 'capabilities', 'team', 'gallery', 'documents', 'reviews'].map((tab) => (
+            {['overview', 'capabilities', 'gallery', 'reviews'].map((tab) => (
               <TabsTrigger
                 key={tab}
                 value={tab}
@@ -226,92 +438,106 @@ export default function FactoryProfile() {
           {/* Overview Tab */}
           <TabsContent value="overview" className="mt-0">
             <div className="grid lg:grid-cols-3 gap-8">
-              {/* About */}
               <div className="lg:col-span-2 space-y-6">
                 <div>
                   <h2 className="font-heading text-xl font-semibold text-foreground mb-3">
                     About
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    {factory.about.description}
+                    {factory.description || 'No description available.'}
                   </p>
-                  {factory.about.story && (
-                    <p className="text-muted-foreground leading-relaxed mt-4">
-                      {factory.about.story}
-                    </p>
-                  )}
                 </div>
 
-                {/* Specializations */}
-                <div>
-                  <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
-                    Specializations
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {factory.specializations.map((spec) => (
-                      <Badge key={spec} variant="secondary">
-                        {spec}
-                      </Badge>
-                    ))}
+                {factory.categories.length > 0 && (
+                  <div>
+                    <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
+                      Specializations
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {factory.categories.map((cat) => (
+                        <Badge key={cat} variant="secondary">
+                          {cat}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
-                {/* Certifications */}
-                <div>
-                  <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
-                    Certifications
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {factory.certifications.map((cert) => (
-                      <CertificationBadge key={cert.slug} certification={cert} />
-                    ))}
+                {factory.certifications.length > 0 && (
+                  <div>
+                    <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
+                      Certifications
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {factory.certifications.map((cert) => (
+                        <CertificationBadge key={cert} certification={{ slug: cert, name: cert }} />
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
-              {/* Quick Stats */}
               <div className="space-y-4">
                 <div className="bg-card rounded-xl border border-border p-5">
                   <h3 className="font-heading font-semibold text-foreground mb-4">
                     Quick Stats
                   </h3>
                   <div className="space-y-3">
+                    {factory.year_established && (
+                      <StatRow
+                        icon={Calendar}
+                        label="Founded"
+                        value={factory.year_established.toString()}
+                      />
+                    )}
+                    {factory.total_employees && (
+                      <StatRow
+                        icon={Users}
+                        label="Employees"
+                        value={factory.total_employees.toString()}
+                      />
+                    )}
                     <StatRow
-                      icon={Calendar}
-                      label="Founded"
-                      value={factory.about.foundedYear?.toString() || 'N/A'}
-                    />
-                    <StatRow
-                      icon={Users}
-                      label="Employees"
-                      value={factory.about.employeeCount || 'N/A'}
-                    />
-                    <StatRow
-                      icon={Building2}
-                      label="Facility"
-                      value={factory.about.facilitySize || 'N/A'}
+                      icon={Package}
+                      label="MOQ"
+                      value={factory.moq_min ? `${factory.moq_min}+ units` : 'Contact for details'}
                     />
                     <StatRow
                       icon={Clock}
-                      label="Response Time"
-                      value={factory.about.responseTime || 'N/A'}
+                      label="Lead Time"
+                      value={factory.lead_time_weeks ? `${factory.lead_time_weeks} weeks` : 'Contact for details'}
                     />
                   </div>
                 </div>
 
-                {/* Categories */}
-                <div className="bg-card rounded-xl border border-border p-5">
-                  <h3 className="font-heading font-semibold text-foreground mb-4">
-                    Product Categories
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {factory.categories.map((cat) => (
-                      <Badge key={cat} variant="outline">
-                        {cat}
-                      </Badge>
-                    ))}
+                {(factory.website || factory.email) && (
+                  <div className="bg-card rounded-xl border border-border p-5">
+                    <h3 className="font-heading font-semibold text-foreground mb-4">
+                      Contact
+                    </h3>
+                    <div className="space-y-2 text-sm">
+                      {factory.website && (
+                        <a 
+                          href={factory.website} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-primary hover:underline"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          Website
+                        </a>
+                      )}
+                      {factory.email && (
+                        <a 
+                          href={`mailto:${factory.email}`}
+                          className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+                        >
+                          {factory.email}
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </TabsContent>
@@ -319,175 +545,65 @@ export default function FactoryProfile() {
           {/* Capabilities Tab */}
           <TabsContent value="capabilities" className="mt-0">
             <div className="space-y-8">
-              {/* Production Capabilities */}
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <CapabilityCard
                   icon={Package}
                   label="MOQ"
-                  value={`${factory.capabilities.moqMin.toLocaleString()} - ${factory.capabilities.moqMax?.toLocaleString() || '∞'}`}
+                  value={factory.moq_min && factory.moq_max 
+                    ? `${factory.moq_min.toLocaleString()} - ${factory.moq_max.toLocaleString()}`
+                    : factory.moq_min 
+                      ? `${factory.moq_min.toLocaleString()}+`
+                      : 'Contact for details'
+                  }
                 />
                 <CapabilityCard
                   icon={Clock}
                   label="Lead Time"
-                  value={`${factory.capabilities.leadTimeMin}-${factory.capabilities.leadTimeMax || factory.capabilities.leadTimeMin} weeks`}
+                  value={factory.lead_time_weeks ? `${factory.lead_time_weeks} weeks` : 'Contact for details'}
                 />
                 <CapabilityCard
                   icon={Building2}
-                  label="Monthly Capacity"
-                  value={factory.capabilities.monthlyCapacity?.toLocaleString() + ' units' || 'On request'}
+                  label="Employees"
+                  value={factory.total_employees?.toLocaleString() || 'N/A'}
                 />
                 <CapabilityCard
                   icon={Calendar}
-                  label="Sampling"
-                  value={factory.capabilities.samplingTime || 'On request'}
+                  label="Established"
+                  value={factory.year_established?.toString() || 'N/A'}
                 />
               </div>
-
-              {/* Services */}
-              <div>
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-4">
-                  Services Offered
-                </h3>
-                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-                  {factory.capabilities.services.map((service) => (
-                    <div
-                      key={service}
-                      className="flex items-center gap-2 text-sm text-muted-foreground"
-                    >
-                      <CheckCircle className="w-4 h-4 text-emerald-500" />
-                      {service}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Pricing & Terms - Gated */}
-              <GatedSection title="Pricing & Terms" isSubscribed={isSubscribed}>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="text-sm font-medium text-foreground mb-1">Payment Terms</h4>
-                    <p className="text-muted-foreground">{factory.capabilities.paymentTerms}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-medium text-foreground mb-1">Sample Cost</h4>
-                    <p className="text-muted-foreground">{factory.capabilities.sampleCostRange}</p>
-                  </div>
-                </div>
-              </GatedSection>
             </div>
-          </TabsContent>
-
-          {/* Team Tab */}
-          <TabsContent value="team" className="mt-0">
-            <GatedSection title="Meet the Team" isSubscribed={isSubscribed} fullWidth>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {factory.team.map((member) => (
-                  <motion.div
-                    key={member.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center"
-                  >
-                    <div className="w-24 h-24 mx-auto mb-3 rounded-full overflow-hidden bg-muted">
-                      {member.photoUrl ? (
-                        <img
-                          src={member.photoUrl}
-                          alt={member.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-2xl font-heading font-bold text-muted-foreground">
-                          {member.name.charAt(0)}
-                        </div>
-                      )}
-                    </div>
-                    <h3 className="font-heading font-semibold text-foreground">
-                      {member.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">{member.role}</p>
-                    {member.bio && (
-                      <p className="text-xs text-muted-foreground mt-1">{member.bio}</p>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </GatedSection>
           </TabsContent>
 
           {/* Gallery Tab */}
           <TabsContent value="gallery" className="mt-0">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" className="rounded-full">All</Button>
-                <Button variant="ghost" size="sm" className="rounded-full">Photos</Button>
-                <Button variant="ghost" size="sm" className="rounded-full">Videos</Button>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {factory.media.gallery.map((item) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {factory.gallery_urls.length > 0 ? (
+                factory.gallery_urls.map((url, index) => (
                   <motion.div
-                    key={item.id}
+                    key={index}
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="relative aspect-square rounded-lg overflow-hidden group cursor-pointer"
                   >
                     <img
-                      src={item.type === 'video' ? item.thumbnailUrl : item.url}
-                      alt={item.caption || 'Factory media'}
+                      src={url}
+                      alt={`${factory.name} gallery ${index + 1}`}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    {item.type === 'video' && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                        <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
-                          <Play className="w-5 h-5 text-foreground ml-1" />
-                        </div>
-                      </div>
-                    )}
-                    {item.caption && (
-                      <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent">
-                        <p className="text-white text-xs">{item.caption}</p>
-                      </div>
-                    )}
                   </motion.div>
-                ))}
-              </div>
+                ))
+              ) : (
+                <div className="col-span-full text-center py-12 text-muted-foreground">
+                  No gallery images available
+                </div>
+              )}
             </div>
-          </TabsContent>
-
-          {/* Documents Tab */}
-          <TabsContent value="documents" className="mt-0">
-            <GatedSection title="Certifications & Documents" isSubscribed={isSubscribed} fullWidth>
-              <div className="space-y-3">
-                {factory.documents.map((doc) => (
-                  <div
-                    key={doc.id}
-                    className="flex items-center justify-between p-4 bg-card rounded-lg border border-border"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
-                        <FileText className="w-5 h-5 text-muted-foreground" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-foreground">{doc.name}</h4>
-                        <p className="text-xs text-muted-foreground">
-                          Uploaded {new Date(doc.uploadedAt).toLocaleDateString()}
-                        </p>
-                      </div>
-                    </div>
-                    <Button variant="ghost" size="sm">
-                      <ExternalLink className="w-4 h-4 mr-1" />
-                      View
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </GatedSection>
           </TabsContent>
 
           {/* Reviews Tab */}
           <TabsContent value="reviews" className="mt-0">
             <div className="space-y-6">
-              {/* Rating Summary */}
               <div className="bg-card border border-border rounded-xl p-6">
                 <div className="flex items-center gap-6">
                   <div className="text-center">
@@ -529,7 +645,6 @@ export default function FactoryProfile() {
                 </div>
               </div>
 
-              {/* Reviews List */}
               <div className="space-y-4">
                 {mockReviews.map((review) => (
                   <motion.div
@@ -633,56 +748,6 @@ function CapabilityCard({ icon: Icon, label, value }: { icon: any; label: string
       <Icon className="w-6 h-6 text-primary mx-auto mb-2" />
       <p className="text-xs text-muted-foreground mb-1">{label}</p>
       <p className="font-heading font-semibold text-foreground">{value}</p>
-    </div>
-  );
-}
-
-function GatedSection({
-  title,
-  children,
-  isSubscribed,
-  fullWidth = false,
-}: {
-  title: string;
-  children: React.ReactNode;
-  isSubscribed: boolean;
-  fullWidth?: boolean;
-}) {
-  if (isSubscribed) {
-    return (
-      <div className={fullWidth ? '' : 'max-w-2xl'}>
-        <h3 className="font-heading text-lg font-semibold text-foreground mb-4">
-          {title}
-        </h3>
-        {children}
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative">
-      <div className={cn("blur-sm pointer-events-none", fullWidth ? '' : 'max-w-2xl')}>
-        <h3 className="font-heading text-lg font-semibold text-foreground mb-4">
-          {title}
-        </h3>
-        {children}
-      </div>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="bg-card border border-border rounded-xl p-6 text-center shadow-lg max-w-sm">
-          <Lock className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
-          <h4 className="font-heading font-semibold text-foreground mb-2">
-            Subscribe to View
-          </h4>
-          <p className="text-sm text-muted-foreground mb-4">
-            Unlock full profiles, documents, and contact information
-          </p>
-          <Link to="/pricing">
-            <Button variant="hero" size="sm">
-              View Plans
-            </Button>
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }
