@@ -69,8 +69,8 @@ const vettingFaqs = [
     answer: "We verify a range of certifications depending on the industry: GOTS, OEKO-TEX, and BCI for sustainable textiles; ISO 9001 for quality management; BSCI and SMETA for social compliance; FDA registration for food and cosmetics. We display all verified certifications on factory profiles so you can filter based on your requirements.",
   },
   {
-    question: "How do you handle disputes or quality issues?",
-    answer: "We act as an intermediary to help resolve issues. Our team reviews QC reports, facilitates communication, and helps negotiate remedies like refunds, replacements, or credits. Factories with repeated quality issues are flagged, placed on probation, or removed from our network entirely. Your feedback directly impacts factory standing.",
+    question: "What happens if there are disputes or quality issues?",
+    answer: "Once you connect with a factory, all negotiations, production management, and dispute resolution are between you and the factory directly. We provide tools like quality checklists, contract templates, and supplier scorecards to help you manage relationships effectively—but we don't act as an intermediary or handle disputes on your behalf. This is why we emphasize doing your own due diligence and starting with smaller trial orders.",
   },
   {
     question: "Can I negotiate my own terms directly with factories?",
