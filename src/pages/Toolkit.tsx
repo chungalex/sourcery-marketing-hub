@@ -14,7 +14,7 @@ import { ShippingCalculator } from "@/components/toolkit/ShippingCalculator";
 import { ImportDutyCalculator } from "@/components/toolkit/ImportDutyCalculator";
 import { QualityChecklistBuilder } from "@/components/toolkit/QualityChecklistBuilder";
 import { LeadTimeCalculator } from "@/components/toolkit/LeadTimeCalculator";
-import { Wrench, Search, TrendingUp, FileText, MessageSquare, Calculator, Star, Package, FileSignature, Ship, Receipt, ClipboardCheck, Calendar } from "lucide-react";
+import { Wrench, Search, TrendingUp, FileText, MessageSquare, Calculator, Star, Package, FileSignature, Ship, Receipt, ClipboardCheck, Calendar, Shield } from "lucide-react";
 
 const tools = [
   { id: "matcher", label: "Factory Finder", icon: Search },
@@ -53,9 +53,26 @@ export default function Toolkit() {
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Everything You Need to Source Smarter
             </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
               From finding the right factory to tracking your orders, our tools help you manage every step of your sourcing journey.
             </p>
+            
+            {/* Pre-Negotiated Value Prop */}
+            <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 max-w-3xl mx-auto">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <Shield className="w-5 h-5 text-primary" />
+                </div>
+                <div className="text-left">
+                  <h3 className="font-heading font-semibold text-foreground mb-1">
+                    Pre-Negotiated Factory Partnerships
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Every factory in our network has been personally vetted, audited, and negotiated with by our team. We've already done the hard work of securing competitive pricing and favorable terms — so you can skip the back-and-forth and source with confidence from day one.
+                  </p>
+                </div>
+              </div>
+            </div>
           </motion.div>
 
           <Tabs defaultValue="matcher" className="space-y-6">
