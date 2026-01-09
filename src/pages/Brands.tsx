@@ -3,6 +3,12 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { ArrowRight, CheckCircle, Shield, Clock, TrendingUp, Users, Zap, Handshake } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const benefits = [
   {
@@ -43,6 +49,33 @@ const idealFor = [
   "Startups looking to scale from prototype to production",
   "Brands diversifying their manufacturing base",
   "Companies seeking more reliable supply chains",
+];
+
+const vettingFaqs = [
+  {
+    question: "How do you vet factories before adding them to your network?",
+    answer: "Every factory goes through a multi-step vetting process. We start with document verification (business licenses, certifications, export permits), followed by a virtual or on-site facility audit assessing production capacity, equipment, and working conditions. We also review their production history, request references from existing clients, and evaluate sample quality. Only factories that meet our standards across all criteria are approved.",
+  },
+  {
+    question: "What does 'pre-negotiated terms' actually mean?",
+    answer: "We work with factories to establish baseline pricing tiers, payment terms, and production timelines before they join our network. This gives you a starting point with competitive rates. However, you're always free to negotiate further based on your specific order volume, relationship, and requirements. We simply ensure the foundation is fair and transparent.",
+  },
+  {
+    question: "Do I still need to do my own due diligence?",
+    answer: "Yes, absolutely. While our vetting reduces risk significantly, we always recommend brands conduct their own verification. This includes requesting samples, reviewing certifications relevant to your industry, starting with smaller trial orders, and visiting factories when possible. Our vetting is a strong first filter, not a replacement for your own judgment.",
+  },
+  {
+    question: "What certifications do you look for in factories?",
+    answer: "We verify a range of certifications depending on the industry: GOTS, OEKO-TEX, and BCI for sustainable textiles; ISO 9001 for quality management; BSCI and SMETA for social compliance; FDA registration for food and cosmetics. We display all verified certifications on factory profiles so you can filter based on your requirements.",
+  },
+  {
+    question: "How do you handle disputes or quality issues?",
+    answer: "We act as an intermediary to help resolve issues. Our team reviews QC reports, facilitates communication, and helps negotiate remedies like refunds, replacements, or credits. Factories with repeated quality issues are flagged, placed on probation, or removed from our network entirely. Your feedback directly impacts factory standing.",
+  },
+  {
+    question: "Can I negotiate my own terms directly with factories?",
+    answer: "Absolutely. Our pre-negotiated terms provide a baseline, but you have full freedom to negotiate pricing, payment schedules, and production terms directly with any factory. Many brands secure better rates as their order volumes grow or as they build longer-term relationships with factories.",
+  },
 ];
 
 export default function Brands() {
@@ -170,6 +203,45 @@ export default function Brands() {
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Vetting & Negotiation FAQ */}
+      <section className="section-padding">
+        <div className="container-tight">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+              How We Vet & Partner with Factories
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Transparency is core to how we work. Here's everything you need to know about our factory vetting and negotiation process.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            <Accordion type="single" collapsible className="w-full">
+              {vettingFaqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="border-border">
+                  <AccordionTrigger className="text-left font-heading font-semibold text-foreground hover:text-primary">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </motion.div>
         </div>
       </section>
