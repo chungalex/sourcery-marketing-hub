@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
-import { ArrowRight, MapPin, Users, Target, Heart } from "lucide-react";
+import { ArrowRight, MapPin, Users, Target, Heart, Handshake } from "lucide-react";
 
 const team = [
   {
@@ -28,6 +28,11 @@ const team = [
 ];
 
 const values = [
+  {
+    icon: Handshake,
+    title: "Pre-Negotiated Partnerships",
+    description: "We do the hard work upfront — auditing facilities, vetting capabilities, and negotiating favorable terms so our brands get competitive rates from day one.",
+  },
   {
     icon: Target,
     title: "Quality First",
@@ -91,10 +96,13 @@ export default function About() {
                 The traditional model was broken. Brands were forced to either navigate complex global supply chains alone or work with agents who prioritized volume over quality. There had to be a better way.
               </p>
               <p>
-                So in 2019, we set out to build it. We started by vetting factories ourselves—visiting facilities, auditing processes, building relationships. We created systems for real-time production tracking and quality control. We hired local teams who could bridge communication gaps and ensure nothing fell through the cracks.
+                So in 2019, we set out to build it. We started by vetting factories ourselves—visiting facilities, auditing processes, building relationships. But we didn't stop there. We negotiated terms and pricing upfront, so every brand that joins our platform benefits from competitive rates without the back-and-forth.
               </p>
               <p>
-                Today, Sourcery connects brands with 500+ vetted factories across 12 countries. We've managed over $50 million in production, maintaining a 98% on-time delivery rate. But we're just getting started.
+                We created systems for real-time production tracking and quality control. We hired local teams who could bridge communication gaps and ensure nothing fell through the cracks.
+              </p>
+              <p>
+                Today, Sourcery connects brands with 500+ vetted factories across 12 countries — each one pre-audited and pre-negotiated. We've managed over $50 million in production, maintaining a 98% on-time delivery rate. But we're just getting started.
               </p>
             </div>
           </motion.div>

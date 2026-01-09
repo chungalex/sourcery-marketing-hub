@@ -2,13 +2,18 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
-import { ArrowRight, CheckCircle, Shield, Clock, TrendingUp, Users, Zap } from "lucide-react";
+import { ArrowRight, CheckCircle, Shield, Clock, TrendingUp, Users, Zap, Handshake } from "lucide-react";
 
 const benefits = [
   {
+    icon: Handshake,
+    title: "Pre-Negotiated Rates",
+    description: "We've already audited and negotiated with every factory in our network. Competitive pricing and favorable terms are secured before you even start.",
+  },
+  {
     icon: Shield,
     title: "Risk Mitigation",
-    description: "Every factory in our network undergoes rigorous vetting including facility audits, compliance checks, and production capability assessment.",
+    description: "Every factory undergoes rigorous vetting including facility audits, compliance checks, and production capability assessment.",
   },
   {
     icon: Clock,
@@ -18,7 +23,7 @@ const benefits = [
   {
     icon: TrendingUp,
     title: "Cost Optimization",
-    description: "Leverage our buying power and negotiation expertise to secure competitive pricing without compromising quality.",
+    description: "Leverage our buying power and pre-negotiated terms to get the best pricing without compromising quality.",
   },
   {
     icon: Users,
@@ -57,8 +62,11 @@ export default function Brands() {
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
                 Scale Production Without the Headaches
               </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed mb-8">
+              <p className="text-xl text-muted-foreground leading-relaxed mb-4">
                 We've built a network of 500+ vetted factories so you don't have to. Get matched with the right manufacturer, manage production seamlessly, and deliver quality products—every time.
+              </p>
+              <p className="text-lg text-primary font-medium mb-8">
+                Every factory pre-audited and pre-negotiated — competitive rates secured on your behalf.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/contact?type=sourcing">
