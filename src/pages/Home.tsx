@@ -22,8 +22,8 @@ import {
 const features = [
   {
     icon: Users,
-    title: "Curated Factory Matching",
-    description: "Tell us your needs and our team handpicks the best factories from our verified network—personalized just for you.",
+    title: "Pre-Negotiated Partnerships",
+    description: "We've already audited, vetted, and negotiated with every factory in our network — securing competitive pricing and terms so you don't have to.",
   },
   {
     icon: Shield,
