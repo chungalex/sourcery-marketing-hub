@@ -13,47 +13,55 @@ import {
   CheckCircle,
   Factory,
   CreditCard,
-  Eye
+  Eye,
+  Handshake
 } from "lucide-react";
 
 const steps = [
   {
     number: "01",
+    icon: Handshake,
+    title: "Pre-Negotiated Partnerships",
+    description: "Before you even start, we've already done the hard work. Every factory in our network has been personally audited, vetted, and negotiated with by our team — securing competitive pricing and favorable terms on your behalf.",
+    highlight: "Done For You",
+  },
+  {
+    number: "02",
     icon: Factory,
     title: "Curated Factory Selection",
     description: "Tell us about your product, budget, and timeline. Our team reviews your requirements and handpicks factories from our verified network that are the perfect fit for you.",
     highlight: "Personalized for You",
   },
   {
-    number: "02",
+    number: "03",
     icon: Eye,
     title: "Review & Compare",
     description: "Browse detailed factory profiles, certifications, and past work. We help you compare quotes side-by-side, highlighting key differences and flagging potential concerns.",
     highlight: "Expert Guidance",
   },
   {
-    number: "03",
+    number: "04",
     icon: MessageSquare,
     title: "Verified Communication",
     description: "Connect with factory representatives through our secure messaging platform. All communications are logged for your protection.",
     highlight: "Secure & Logged",
   },
   {
-    number: "04",
+    number: "05",
     icon: CreditCard,
     title: "Structured Payments",
     description: "We help you negotiate payment terms with clear milestone schedules. Know exactly when and how much to pay at each stage — no surprises.",
     highlight: "Clear Terms",
   },
   {
-    number: "05",
+    number: "06",
     icon: ClipboardCheck,
     title: "Quality Inspections",
     description: "Our QC team inspects production at key milestones. You receive detailed reports with photos before approving each payment release.",
     highlight: "Photo Documentation",
   },
   {
-    number: "06",
+    number: "07",
     icon: Package,
     title: "Delivery & Release",
     description: "Track your shipment in real-time. Final payment is released only after you confirm receipt and quality of your order.",
@@ -62,6 +70,11 @@ const steps = [
 ];
 
 const protectionFeatures = [
+  {
+    icon: Handshake,
+    title: "Pre-Negotiated Terms",
+    description: "Competitive pricing already secured for you",
+  },
   {
     icon: Shield,
     title: "Payment Structure",
@@ -76,11 +89,6 @@ const protectionFeatures = [
     icon: ClipboardCheck,
     title: "Quality Guarantee",
     description: "Professional inspections at every production stage",
-  },
-  {
-    icon: Factory,
-    title: "Dispute Resolution",
-    description: "Dedicated support team to resolve any issues",
   },
 ];
 
