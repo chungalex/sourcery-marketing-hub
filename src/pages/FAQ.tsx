@@ -38,11 +38,11 @@ const faqs = [
   },
   {
     question: "Do you handle shipping and logistics?",
-    answer: "Yes, we can coordinate the entire logistics process including factory pickup, freight forwarding, customs documentation, and delivery to your warehouse. We work with trusted freight partners to ensure competitive rates and reliable service. You can also use your own logistics provider if preferred.",
+    answer: "No, shipping and logistics are managed directly between you and the factory or your chosen freight partners. We provide tools and resources to help you understand shipping options and costs, but the actual coordination and contracts are your responsibility. Many of our factory partners can recommend reliable freight forwarders they work with regularly.",
   },
   {
     question: "What if there are quality issues with my order?",
-    answer: "Quality issues are rare thanks to our rigorous QC process, but when they occur, we work with the factory to resolve them. Depending on the nature and extent of the issue, solutions may include rework, partial refunds, or replacement orders. Our contracts with factories include clear quality guarantees to protect your interests.",
+    answer: "Quality issues are handled directly between you and the factory. We provide tools like quality checklists, inspection guides, and contract templates to help you set clear expectations upfront and protect your interests. However, once you begin working with a factory, resolving any disputes or quality concerns is your responsibility. This is why we strongly recommend starting with smaller trial orders and conducting thorough due diligence.",
   },
   {
     question: "Can you help with product development and sampling?",
@@ -50,7 +50,7 @@ const faqs = [
   },
   {
     question: "How do I communicate with factories?",
-    answer: "You don't have to—that's our job. Your dedicated sourcing manager handles all factory communication, eliminating timezone and language barriers. You'll receive regular updates through our platform, and we facilitate direct calls when needed for complex technical discussions.",
+    answer: "You communicate directly with factories once you've connected through our platform. We provide contact information and facilitate the initial introduction, but ongoing communication, negotiations, and order management are between you and the factory. Our toolkit includes resources to help you navigate timezone differences and communicate effectively.",
   },
 ];
 
