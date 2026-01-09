@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, ArrowUpDown } from "lucide-react";
+import { Search, ArrowUpDown, Lock } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Input } from "@/components/ui/input";
@@ -26,7 +27,11 @@ import { FilterSidebar, FilterState, initialFilters } from "@/components/marketp
 import { ActiveFilters } from "@/components/marketplace/ActiveFilters";
 import { RecentlyViewed } from "@/components/marketplace/RecentlyViewed";
 import { ViewToggle, ViewMode } from "@/components/marketplace/ViewToggle";
-import { mockFactories, FactoryType } from "@/data/mockData";
+import { useAuth } from "@/hooks/useAuth";
+import { fetchFactories, fetchFactoryPreviews } from "@/lib/factories";
+import { toast } from "sonner";
+import type { Factory, FactoryPreview } from "@/types/database";
+import type { FactoryPreview as MockFactoryPreview, FactoryType } from "@/data/mockData";
 
 const quickFilters: { label: string; type: FactoryType | 'all' }[] = [
   { label: 'All', type: 'all' },
@@ -37,16 +42,91 @@ const quickFilters: { label: string; type: FactoryType | 'all' }[] = [
 
 type SortOption = 'newest' | 'completeness' | 'moq_low' | 'moq_high' | 'lead_time';
 
-// LocalStorage key for recently viewed
 const RECENTLY_VIEWED_KEY = 'sourcery_recently_viewed';
 
+// Transform DB factory to display format
+function transformFactory(f: Factory): MockFactoryPreview {
+  return {
+    id: f.id,
+    slug: f.slug,
+    name: f.name,
+    type: (f.factory_type as FactoryType) || 'mass_production',
+    location: {
+      city: f.city || '',
+      country: f.country,
+      countryCode: f.country.substring(0, 2).toUpperCase(),
+    },
+    coverImageUrl: f.logo_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
+    categories: f.categories || [],
+    moqMin: f.moq_min || 0,
+    leadTimeWeeks: f.lead_time_weeks || 0,
+    certifications: (f.certifications || []).map(c => ({ slug: c, name: c })),
+    isVerified: f.is_verified,
+    completenessScore: 80,
+    createdAt: f.created_at,
+  };
+}
+
+// Transform DB preview to display format
+function transformPreview(f: FactoryPreview): MockFactoryPreview {
+  return {
+    id: f.id,
+    slug: f.slug,
+    name: f.name,
+    type: (f.factory_type as FactoryType) || 'mass_production',
+    location: {
+      city: f.city || '',
+      country: f.country,
+      countryCode: f.country.substring(0, 2).toUpperCase(),
+    },
+    coverImageUrl: f.logo_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
+    categories: f.categories || [],
+    moqMin: f.moq_min || 0,
+    leadTimeWeeks: f.lead_time_weeks || 0,
+    certifications: (f.certifications || []).map(c => ({ slug: c, name: c })),
+    isVerified: f.is_verified,
+    completenessScore: 80,
+    createdAt: f.created_at,
+  };
+}
+
 export default function Directory() {
+  const { user, isLoading: authLoading } = useAuth();
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState<FilterState>(initialFilters);
   const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [savedFactories, setSavedFactories] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [recentlyViewed, setRecentlyViewed] = useState<string[]>([]);
+  
+  const [factories, setFactories] = useState<MockFactoryPreview[]>([]);
+  const [isLoadingData, setIsLoadingData] = useState(true);
+  const isAuthenticated = !!user;
+
+  // Load factories based on auth state
+  useEffect(() => {
+    async function loadFactories() {
+      if (authLoading) return;
+      
+      setIsLoadingData(true);
+      try {
+        if (isAuthenticated) {
+          const data = await fetchFactories();
+          setFactories(data.map(transformFactory));
+        } else {
+          const data = await fetchFactoryPreviews();
+          setFactories(data.map(transformPreview));
+        }
+      } catch (error) {
+        console.error("Failed to load factories:", error);
+        toast.error("Failed to load factories. Please try again.");
+      } finally {
+        setIsLoadingData(false);
+      }
+    }
+    
+    loadFactories();
+  }, [isAuthenticated, authLoading]);
 
   // Load recently viewed from localStorage
   useEffect(() => {
@@ -55,7 +135,6 @@ export default function Directory() {
       try {
         setRecentlyViewed(JSON.parse(stored));
       } catch {
-        // Invalid JSON, reset
         localStorage.removeItem(RECENTLY_VIEWED_KEY);
       }
     }
@@ -78,7 +157,7 @@ export default function Directory() {
 
   // Filter and sort factories
   const filteredFactories = useMemo(() => {
-    let result = [...mockFactories];
+    let result = [...factories];
 
     // Search
     if (search) {
@@ -155,7 +234,7 @@ export default function Directory() {
     }
 
     return result;
-  }, [search, filters, sortBy]);
+  }, [search, filters, sortBy, factories]);
 
   const handleQuickFilter = (type: FactoryType | 'all') => {
     if (type === 'all') {
@@ -175,6 +254,8 @@ export default function Directory() {
     setRecentlyViewed([]);
     localStorage.removeItem(RECENTLY_VIEWED_KEY);
   };
+
+  const isLoading = authLoading || isLoadingData;
 
   return (
     <Layout>
@@ -242,6 +323,26 @@ export default function Directory() {
               </Button>
             ))}
           </motion.div>
+
+          {/* Auth prompt for logged out users */}
+          {!isAuthenticated && !authLoading && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="mt-6 text-center"
+            >
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm">
+                <Lock className="w-4 h-4" />
+                <span>
+                  <Link to="/auth?mode=signup&redirect=/directory" className="font-medium hover:underline">
+                    Sign up
+                  </Link>
+                  {" "}to view full factory profiles
+                </span>
+              </div>
+            </motion.div>
+          )}
         </div>
       </section>
 
@@ -252,7 +353,7 @@ export default function Directory() {
           {recentlyViewed.length > 0 && (
             <RecentlyViewed
               factoryIds={recentlyViewed}
-              allFactories={mockFactories}
+              allFactories={factories}
               onClear={handleClearRecentlyViewed}
               className="mb-6"
             />
@@ -272,7 +373,6 @@ export default function Directory() {
               <div className="flex flex-col gap-4 mb-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    {/* Mobile filter button is inside FilterSidebar */}
                     <div className="lg:hidden">
                       <FilterSidebar
                         filters={filters}
@@ -283,16 +383,14 @@ export default function Directory() {
                     <p className="text-sm text-muted-foreground">
                       <span className="font-semibold text-foreground">{filteredFactories.length}</span>
                       {' '}of{' '}
-                      <span className="font-medium">{mockFactories.length}</span>
+                      <span className="font-medium">{factories.length}</span>
                       {' '}factories
                     </p>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    {/* View Toggle */}
                     <ViewToggle value={viewMode} onChange={setViewMode} />
 
-                    {/* Sort */}
                     <div className="flex items-center gap-2">
                       <ArrowUpDown className="w-4 h-4 text-muted-foreground hidden sm:block" />
                       <Select value={sortBy} onValueChange={(v) => setSortBy(v as SortOption)}>
@@ -311,7 +409,6 @@ export default function Directory() {
                   </div>
                 </div>
 
-                {/* Active Filters */}
                 {hasActiveFilters && (
                   <ActiveFilters
                     filters={filters}
@@ -321,10 +418,16 @@ export default function Directory() {
                 )}
               </div>
 
+              {/* Loading State */}
+              {isLoading && (
+                <div className="flex items-center justify-center py-16">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+                </div>
+              )}
+
               {/* Results */}
-              {filteredFactories.length > 0 ? (
+              {!isLoading && filteredFactories.length > 0 && (
                 <>
-                  {/* Grid View */}
                   {viewMode === 'grid' && (
                     <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
                       {filteredFactories.map((factory, index) => (
@@ -339,7 +442,6 @@ export default function Directory() {
                     </div>
                   )}
 
-                  {/* Table View */}
                   {viewMode === 'table' && (
                     <div className="bg-card rounded-xl border border-border overflow-hidden">
                       <Table>
@@ -369,7 +471,6 @@ export default function Directory() {
                     </div>
                   )}
 
-                  {/* Map View */}
                   {viewMode === 'map' && (
                     <FactoryMapView
                       factories={filteredFactories}
@@ -378,7 +479,10 @@ export default function Directory() {
                     />
                   )}
                 </>
-              ) : (
+              )}
+
+              {/* Empty State */}
+              {!isLoading && filteredFactories.length === 0 && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -391,19 +495,24 @@ export default function Directory() {
                     No factories found
                   </h3>
                   <p className="text-muted-foreground mb-4">
-                    Try adjusting your filters or search terms
+                    {factories.length === 0 
+                      ? "No factories have been added yet. Check back soon!"
+                      : "Try adjusting your filters or search terms"
+                    }
                   </p>
-                  <Button variant="outline" onClick={() => {
-                    setSearch("");
-                    setFilters(initialFilters);
-                  }}>
-                    Reset Filters
-                  </Button>
+                  {factories.length > 0 && (
+                    <Button variant="outline" onClick={() => {
+                      setSearch("");
+                      setFilters(initialFilters);
+                    }}>
+                      Reset Filters
+                    </Button>
+                  )}
                 </motion.div>
               )}
 
               {/* Load More */}
-              {filteredFactories.length > 0 && viewMode !== 'map' && (
+              {!isLoading && filteredFactories.length > 0 && viewMode !== 'map' && (
                 <div className="text-center mt-10">
                   <Button variant="outline" size="lg">
                     Load More Factories
