@@ -1,519 +1,144 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
+import { useAuth } from "@/hooks/useAuth";
+import { AdminStats } from "@/components/admin/AdminStats";
+import { AdminOrdersTable } from "@/components/admin/AdminOrdersTable";
+import { AdminUsersTable } from "@/components/admin/AdminUsersTable";
+import { AdminQCPartners } from "@/components/admin/AdminQCPartners";
+import { AdminAnalytics } from "@/components/admin/AdminAnalytics";
+import { AdminDisputesTable } from "@/components/admin/AdminDisputesTable";
+import { toast } from "sonner";
 import { 
   Shield,
-  FileText,
+  LayoutDashboard,
+  Package,
   Users,
-  Settings,
-  Clock,
-  CheckCircle,
-  XCircle,
-  Eye,
-  Building2,
-  MapPin,
-  Mail,
-  Globe,
-  Award,
-  AlertTriangle
+  ClipboardCheck,
+  BarChart3,
+  AlertTriangle,
+  Loader2
 } from "lucide-react";
 
-/**
- * Admin Panel
- * 
- * API Endpoints:
- * - GET /api/admin/applications
- *   Query: { status?: string, page?: number }
- *   Response: { applications: Application[], total: number }
- * 
- * - GET /api/admin/applications/:id
- *   Response: Application (full details)
- * 
- * - POST /api/admin/applications/:id/decision
- *   Request: { decision: "approve" | "reject", feedback?: string }
- *   Response: { success: boolean }
- */
+// Mock data for demonstration
+const mockStats = {
+  totalUsers: 1247,
+  activeOrders: 89,
+  openDisputes: 4,
+  pendingApplications: 7,
+  totalRevenue: 2340000,
+  newInquiries: 156,
+  conversionRate: 12.4,
+  factories: 48,
+};
 
-// Mock applications data
-const mockApplications = [
-  {
-    id: "app-1",
-    factoryName: "Eco Textiles Portugal",
-    country: "Portugal",
-    city: "Porto",
-    email: "contact@ecotextiles.pt",
-    website: "https://ecotextiles.pt",
-    factoryType: "Full Package",
-    categories: ["Apparel", "Textiles", "Knitwear"],
-    moqMin: 200,
-    leadTime: 4,
-    employees: 120,
-    certifications: ["GOTS", "OEKO-TEX", "BSCI"],
-    status: "pending",
-    submittedAt: "2024-01-20",
-    description: "Sustainable textile manufacturer with 25 years of experience in European fashion production.",
-  },
-  {
-    id: "app-2",
-    factoryName: "Milano Leather Works",
-    country: "Italy",
-    city: "Milan",
-    email: "sales@milanoleather.it",
-    website: "https://milanoleather.it",
-    factoryType: "OEM",
-    categories: ["Leather Goods", "Accessories"],
-    moqMin: 50,
-    leadTime: 6,
-    employees: 45,
-    certifications: ["ISO 9001", "LWG"],
-    status: "pending",
-    submittedAt: "2024-01-19",
-    description: "Artisan leather goods manufacturer specializing in luxury handbags and accessories.",
-  },
-  {
-    id: "app-3",
-    factoryName: "Bengal Garments Ltd",
-    country: "Bangladesh",
-    city: "Dhaka",
-    email: "export@bengalgarments.bd",
-    website: "https://bengalgarments.com",
-    factoryType: "CMT",
-    categories: ["Apparel", "Denim", "Activewear"],
-    moqMin: 1000,
-    leadTime: 8,
-    employees: 800,
-    certifications: ["WRAP", "SEDEX", "ISO 14001"],
-    status: "approved",
-    submittedAt: "2024-01-15",
-    description: "Large-scale garment manufacturer with capacity for high-volume orders.",
-  },
-  {
-    id: "app-4",
-    factoryName: "Quick Fashion Co",
-    country: "China",
-    city: "Guangzhou",
-    email: "info@quickfashion.cn",
-    factoryType: "ODM",
-    categories: ["Apparel"],
-    moqMin: 500,
-    leadTime: 3,
-    employees: 200,
-    certifications: [],
-    status: "rejected",
-    submittedAt: "2024-01-10",
-    description: "Fast fashion manufacturer.",
-    rejectionReason: "Insufficient quality documentation and no sustainability certifications.",
-  },
+const mockOrders = [
+  { id: "1", order_number: "ORD-2024-001", buyer_name: "Fashion Brand Co", factory_name: "Eco Textiles Portugal", status: "in_production", total_amount: 45000, currency: "USD", created_at: "2024-01-15", has_dispute: false, qc_assigned: true },
+  { id: "2", order_number: "ORD-2024-002", buyer_name: "Urban Wear Ltd", factory_name: "Milano Leather Works", status: "qc_scheduled", total_amount: 28000, currency: "USD", created_at: "2024-01-18", has_dispute: false, qc_assigned: true },
+  { id: "3", order_number: "ORD-2024-003", buyer_name: "Green Apparel Inc", factory_name: "Bengal Garments", status: "disputed", total_amount: 72000, currency: "USD", created_at: "2024-01-10", has_dispute: true, qc_assigned: true },
+  { id: "4", order_number: "ORD-2024-004", buyer_name: "Luxe Fashion", factory_name: "Turkish Denim Co", status: "shipped", total_amount: 156000, currency: "USD", created_at: "2024-01-05", has_dispute: false, qc_assigned: true },
+  { id: "5", order_number: "ORD-2024-005", buyer_name: "Eco Brands", factory_name: "Vietnam Textiles", status: "draft", total_amount: 34000, currency: "USD", created_at: "2024-01-20", has_dispute: false, qc_assigned: false },
+];
+
+const mockUsers = [
+  { id: "1", email: "admin@manufactory.com", role: "admin" as const, created_at: "2023-06-01", last_sign_in: "2024-01-20", is_factory_user: false },
+  { id: "2", email: "john@fashionbrand.com", role: "user" as const, created_at: "2023-09-15", last_sign_in: "2024-01-19", is_factory_user: false },
+  { id: "3", email: "contact@ecotextiles.pt", role: "user" as const, created_at: "2023-08-20", last_sign_in: "2024-01-20", factory_name: "Eco Textiles Portugal", is_factory_user: true },
+  { id: "4", email: "mod@manufactory.com", role: "moderator" as const, created_at: "2023-07-10", last_sign_in: "2024-01-18", is_factory_user: false },
+];
+
+const mockQCPartners = [
+  { id: "1", name: "Asia Quality Focus", location: "Shanghai, China", is_verified: true, created_at: "2023-05-01", active_assignments: 12 },
+  { id: "2", name: "Euro Inspection Services", location: "Milan, Italy", is_verified: true, created_at: "2023-06-15", active_assignments: 8 },
+  { id: "3", name: "Quality First BD", location: "Dhaka, Bangladesh", is_verified: false, created_at: "2024-01-10", active_assignments: 3 },
+];
+
+const mockDisputes = [
+  { id: "1", order_id: "3", order_number: "ORD-2024-003", reason: "Quality issues with fabric - does not match approved sample", status: "open" as const, initiated_by_email: "john@fashionbrand.com", created_at: "2024-01-18", resolution: null, resolved_at: null },
+  { id: "2", order_id: "6", order_number: "ORD-2023-089", reason: "Delayed shipment beyond agreed delivery window", status: "escalated" as const, initiated_by_email: "buyer@ecobrands.com", created_at: "2024-01-12", resolution: null, resolved_at: null },
+  { id: "3", order_id: "7", order_number: "ORD-2023-078", reason: "Incorrect sizing on 30% of units", status: "resolved" as const, initiated_by_email: "orders@luxefashion.com", created_at: "2024-01-05", resolution: "Factory agreed to remake affected units at no cost", resolved_at: "2024-01-15" },
 ];
 
 export default function Admin() {
-  const [selectedApplication, setSelectedApplication] = useState<typeof mockApplications[0] | null>(null);
-  const [feedbackText, setFeedbackText] = useState("");
-  const [filterStatus, setFilterStatus] = useState<string>("all");
+  const { isAdmin, isLoading, user } = useAuth();
+  const navigate = useNavigate();
 
-  const filteredApplications = mockApplications.filter(app => 
-    filterStatus === "all" || app.status === filterStatus
-  );
-
-  const handleDecision = (decision: "approve" | "reject") => {
-    // API Call: POST /api/admin/applications/:id/decision
-    console.log("Decision:", { 
-      applicationId: selectedApplication?.id, 
-      decision, 
-      feedback: feedbackText 
-    });
-    setSelectedApplication(null);
-    setFeedbackText("");
-  };
-
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "pending":
-        return (
-          <span className="flex items-center gap-1 px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded-full">
-            <Clock className="h-3 w-3" />
-            Pending Review
-          </span>
-        );
-      case "approved":
-        return (
-          <span className="flex items-center gap-1 px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
-            <CheckCircle className="h-3 w-3" />
-            Approved
-          </span>
-        );
-      case "rejected":
-        return (
-          <span className="flex items-center gap-1 px-2 py-1 text-xs bg-red-100 text-red-800 rounded-full">
-            <XCircle className="h-3 w-3" />
-            Rejected
-          </span>
-        );
-      default:
-        return null;
+  useEffect(() => {
+    if (!isLoading && !isAdmin) {
+      toast.error("Access denied. Admin privileges required.");
+      navigate("/");
     }
-  };
+  }, [isAdmin, isLoading, navigate]);
+
+  const handleViewOrder = (orderId: string) => toast.info(`Viewing order ${orderId}`);
+  const handleOpenDispute = (orderId: string) => toast.info(`Opening dispute for ${orderId}`);
+  const handleReleaseMilestone = (orderId: string) => toast.info(`Releasing milestone for ${orderId}`);
+  const handleAssignQC = (orderId: string) => toast.info(`Assigning QC for ${orderId}`);
+  const handleRoleChange = (userId: string, role: string) => toast.success(`Role updated to ${role}`);
+  const handleDeleteUser = (userId: string) => toast.success("User deleted");
+  const handleAddQCPartner = (name: string) => toast.success(`Added QC partner: ${name}`);
+  const handleAssignToOrder = (partnerId: string, orderId: string) => toast.success("QC partner assigned");
+  const handleVerifyPartner = (partnerId: string, verified: boolean) => toast.success(verified ? "Partner verified" : "Verification removed");
+  const handleResolveDispute = (disputeId: string) => toast.success("Dispute resolved");
+  const handleEscalateDispute = (disputeId: string) => toast.success("Dispute escalated");
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="min-h-screen flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </Layout>
+    );
+  }
+
+  if (!isAdmin) return null;
 
   return (
     <Layout>
-      <SEO 
-        title="Admin Panel | Manufactory" 
-        description="Manage factory applications and platform settings."
-      />
+      <SEO title="Admin Dashboard | Manufactory" description="Platform administration and management." />
       
       <section className="section-padding">
         <div className="container-wide">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-3 mb-8"
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 mb-8">
             <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
               <Shield className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-foreground">
-                Admin Panel
-              </h1>
-              <p className="text-muted-foreground">
-                Manage applications and platform settings
-              </p>
+              <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
+              <p className="text-muted-foreground">Platform overview and management</p>
             </div>
           </motion.div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <div className="bg-card border border-border rounded-xl p-6">
-              <div className="flex items-center gap-3">
-                <Clock className="h-5 w-5 text-yellow-500" />
-                <div>
-                  <div className="text-2xl font-bold text-foreground">
-                    {mockApplications.filter(a => a.status === "pending").length}
-                  </div>
-                  <div className="text-sm text-muted-foreground">Pending Review</div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-card border border-border rounded-xl p-6">
-              <div className="flex items-center gap-3">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                <div>
-                  <div className="text-2xl font-bold text-foreground">
-                    {mockApplications.filter(a => a.status === "approved").length}
-                  </div>
-                  <div className="text-sm text-muted-foreground">Approved</div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-card border border-border rounded-xl p-6">
-              <div className="flex items-center gap-3">
-                <XCircle className="h-5 w-5 text-red-500" />
-                <div>
-                  <div className="text-2xl font-bold text-foreground">
-                    {mockApplications.filter(a => a.status === "rejected").length}
-                  </div>
-                  <div className="text-sm text-muted-foreground">Rejected</div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-card border border-border rounded-xl p-6">
-              <div className="flex items-center gap-3">
-                <Building2 className="h-5 w-5 text-primary" />
-                <div>
-                  <div className="text-2xl font-bold text-foreground">
-                    {mockApplications.length}
-                  </div>
-                  <div className="text-sm text-muted-foreground">Total Applications</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <AdminStats stats={mockStats} />
 
-          {/* Main Content */}
-          <Tabs defaultValue="applications" className="space-y-6">
-            <TabsList>
-              <TabsTrigger value="applications" className="flex items-center gap-2">
-                <FileText className="h-4 w-4" />
-                Applications
-              </TabsTrigger>
-              <TabsTrigger value="users" className="flex items-center gap-2">
-                <Users className="h-4 w-4" />
-                Users
-              </TabsTrigger>
-              <TabsTrigger value="settings" className="flex items-center gap-2">
-                <Settings className="h-4 w-4" />
-                Settings
-              </TabsTrigger>
+          <Tabs defaultValue="overview" className="mt-8 space-y-6">
+            <TabsList className="flex-wrap h-auto gap-1">
+              <TabsTrigger value="overview" className="gap-2"><LayoutDashboard className="h-4 w-4" />Overview</TabsTrigger>
+              <TabsTrigger value="orders" className="gap-2"><Package className="h-4 w-4" />Orders</TabsTrigger>
+              <TabsTrigger value="disputes" className="gap-2"><AlertTriangle className="h-4 w-4" />Disputes</TabsTrigger>
+              <TabsTrigger value="users" className="gap-2"><Users className="h-4 w-4" />Users</TabsTrigger>
+              <TabsTrigger value="qc" className="gap-2"><ClipboardCheck className="h-4 w-4" />QC Partners</TabsTrigger>
+              <TabsTrigger value="analytics" className="gap-2"><BarChart3 className="h-4 w-4" />Analytics</TabsTrigger>
             </TabsList>
 
-            {/* Applications Tab */}
-            <TabsContent value="applications">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Applications List */}
-                <div className="lg:col-span-2 space-y-4">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-sm text-muted-foreground">Filter:</span>
-                    {["all", "pending", "approved", "rejected"].map((status) => (
-                      <button
-                        key={status}
-                        onClick={() => setFilterStatus(status)}
-                        className={`px-3 py-1 text-sm rounded-full transition-colors ${
-                          filterStatus === status
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-muted text-muted-foreground hover:bg-muted/80"
-                        }`}
-                      >
-                        {status.charAt(0).toUpperCase() + status.slice(1)}
-                      </button>
-                    ))}
-                  </div>
-
-                  {filteredApplications.map((app) => (
-                    <div
-                      key={app.id}
-                      onClick={() => setSelectedApplication(app)}
-                      className={`bg-card border rounded-xl p-6 cursor-pointer transition-all hover:shadow-md ${
-                        selectedApplication?.id === app.id
-                          ? "border-primary ring-1 ring-primary"
-                          : "border-border"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <Building2 className="h-5 w-5 text-primary" />
-                          </div>
-                          <div>
-                            <div className="font-semibold text-foreground">
-                              {app.factoryName}
-                            </div>
-                            <div className="text-sm text-muted-foreground flex items-center gap-1">
-                              <MapPin className="h-3 w-3" />
-                              {app.city}, {app.country}
-                            </div>
-                          </div>
-                        </div>
-                        {getStatusBadge(app.status)}
-                      </div>
-
-                      <div className="flex flex-wrap gap-1 mb-3">
-                        {app.categories.map((cat) => (
-                          <span
-                            key={cat}
-                            className="px-2 py-0.5 text-xs bg-muted text-muted-foreground rounded"
-                          >
-                            {cat}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">
-                          Submitted: {app.submittedAt}
-                        </span>
-                        <Button variant="ghost" size="sm">
-                          <Eye className="h-4 w-4 mr-1" />
-                          View Details
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Application Detail */}
-                <div className="lg:col-span-1">
-                  {selectedApplication ? (
-                    <div className="bg-card border border-border rounded-xl p-6 sticky top-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold text-foreground">
-                          Application Details
-                        </h3>
-                        {getStatusBadge(selectedApplication.status)}
-                      </div>
-
-                      <div className="space-y-4">
-                        <div>
-                          <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-                            Factory Name
-                          </div>
-                          <div className="font-medium text-foreground">
-                            {selectedApplication.factoryName}
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-                              Location
-                            </div>
-                            <div className="text-sm text-foreground">
-                              {selectedApplication.city}, {selectedApplication.country}
-                            </div>
-                          </div>
-                          <div>
-                            <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-                              Type
-                            </div>
-                            <div className="text-sm text-foreground">
-                              {selectedApplication.factoryType}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-                              MOQ
-                            </div>
-                            <div className="text-sm text-foreground">
-                              {selectedApplication.moqMin} units
-                            </div>
-                          </div>
-                          <div>
-                            <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-                              Employees
-                            </div>
-                            <div className="text-sm text-foreground">
-                              {selectedApplication.employees}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-                            Contact
-                          </div>
-                          <div className="text-sm text-foreground flex items-center gap-1">
-                            <Mail className="h-3 w-3" />
-                            {selectedApplication.email}
-                          </div>
-                          {selectedApplication.website && (
-                            <div className="text-sm text-primary flex items-center gap-1 mt-1">
-                              <Globe className="h-3 w-3" />
-                              {selectedApplication.website}
-                            </div>
-                          )}
-                        </div>
-
-                        <div>
-                          <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-                            Certifications
-                          </div>
-                          {selectedApplication.certifications.length > 0 ? (
-                            <div className="flex flex-wrap gap-1">
-                              {selectedApplication.certifications.map((cert) => (
-                                <span
-                                  key={cert}
-                                  className="px-2 py-0.5 text-xs bg-green-100 text-green-800 rounded flex items-center gap-1"
-                                >
-                                  <Award className="h-3 w-3" />
-                                  {cert}
-                                </span>
-                              ))}
-                            </div>
-                          ) : (
-                            <div className="flex items-center gap-1 text-sm text-yellow-600">
-                              <AlertTriangle className="h-3 w-3" />
-                              No certifications
-                            </div>
-                          )}
-                        </div>
-
-                        <div>
-                          <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-                            Description
-                          </div>
-                          <div className="text-sm text-foreground">
-                            {selectedApplication.description}
-                          </div>
-                        </div>
-
-                        {selectedApplication.status === "pending" && (
-                          <>
-                            <div className="border-t border-border pt-4">
-                              <div className="text-xs text-muted-foreground uppercase tracking-wider mb-2">
-                                Feedback (Optional)
-                              </div>
-                              <Textarea
-                                placeholder="Add feedback for the applicant..."
-                                value={feedbackText}
-                                onChange={(e) => setFeedbackText(e.target.value)}
-                                rows={3}
-                              />
-                            </div>
-
-                            <div className="flex gap-2">
-                              <Button
-                                className="flex-1"
-                                onClick={() => handleDecision("approve")}
-                              >
-                                <CheckCircle className="mr-2 h-4 w-4" />
-                                Approve
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                className="flex-1"
-                                onClick={() => handleDecision("reject")}
-                              >
-                                <XCircle className="mr-2 h-4 w-4" />
-                                Reject
-                              </Button>
-                            </div>
-                          </>
-                        )}
-
-                        {selectedApplication.status === "rejected" && selectedApplication.rejectionReason && (
-                          <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                            <div className="text-xs text-red-600 font-medium mb-1">
-                              Rejection Reason
-                            </div>
-                            <div className="text-sm text-red-800">
-                              {selectedApplication.rejectionReason}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="bg-card border border-border rounded-xl p-6 text-center">
-                      <Eye className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                      <p className="text-muted-foreground">
-                        Select an application to view details
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
+            <TabsContent value="overview"><AdminAnalytics /></TabsContent>
+            <TabsContent value="orders">
+              <AdminOrdersTable orders={mockOrders} onViewOrder={handleViewOrder} onOpenDispute={handleOpenDispute} onReleaseMilestone={handleReleaseMilestone} onAssignQC={handleAssignQC} />
             </TabsContent>
-
-            {/* Users Tab */}
+            <TabsContent value="disputes">
+              <AdminDisputesTable disputes={mockDisputes} onResolve={handleResolveDispute} onEscalate={handleEscalateDispute} onViewOrder={handleViewOrder} />
+            </TabsContent>
             <TabsContent value="users">
-              <div className="bg-card border border-border rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-4">
-                  User Management
-                </h3>
-                <p className="text-muted-foreground">
-                  User management interface will be displayed here.
-                </p>
-              </div>
+              <AdminUsersTable users={mockUsers} onRoleChange={handleRoleChange} onDeleteUser={handleDeleteUser} />
             </TabsContent>
-
-            {/* Settings Tab */}
-            <TabsContent value="settings">
-              <div className="bg-card border border-border rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-4">
-                  Platform Settings
-                </h3>
-                <p className="text-muted-foreground">
-                  Platform settings interface will be displayed here.
-                </p>
-              </div>
+            <TabsContent value="qc">
+              <AdminQCPartners partners={mockQCPartners} pendingOrders={mockOrders.filter(o => !o.qc_assigned)} onAddPartner={handleAddQCPartner} onAssignToOrder={handleAssignToOrder} onVerifyPartner={handleVerifyPartner} />
             </TabsContent>
+            <TabsContent value="analytics"><AdminAnalytics /></TabsContent>
           </Tabs>
         </div>
       </section>
