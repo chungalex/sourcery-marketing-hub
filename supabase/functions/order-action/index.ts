@@ -19,7 +19,8 @@ type OrderAction =
   | "open_dispute"
   | "resolve_dispute"
   | "assign_qc_partner"
-  | "add_evidence";
+  | "add_evidence"
+  | "cancel_order";
 
 interface ActionRequest {
   action: OrderAction;
@@ -53,7 +54,9 @@ interface ActionRequest {
   // dispute fields
   dispute_reason?: string;
   dispute_resolution?: string;
-  resolve_to_status?: "in_production" | "closed";
+  resolve_to_status?: "ready_to_ship" | "shipped" | "closed";
+  // cancel_order fields
+  cancellation_reason?: string;
   // assign_qc_partner fields
   qc_partner_id?: string;
   // add_evidence fields
@@ -388,18 +391,8 @@ Deno.serve(async (req) => {
           );
         }
 
-        // Check if user is admin (only admin can set QC result)
-        const { data: isAdmin } = await userClient
-          .rpc("has_role", { _user_id: actorId, _role: "admin" });
-
-        if (!isAdmin) {
-          return new Response(
-            JSON.stringify({ error: "Only admins can set QC result" }),
-            { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-          );
-        }
-
-        const { data: transitionResult, error: transitionError } = await serviceClient
+        // QC partner or admin can set QC result (database RPC enforces this too)
+        const { data: transitionResult, error: transitionError } = await userClient
           .rpc("transition_order_status", {
             p_order_id: orderId,
             p_new_status: body.qc_result,
@@ -685,6 +678,34 @@ Deno.serve(async (req) => {
         }
 
         result = { message: "Evidence added successfully" };
+        break;
+      }
+
+      case "cancel_order": {
+        if (!orderId || !body.cancellation_reason) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id or cancellation_reason" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const { data: transitionResult, error: transitionError } = await userClient
+          .rpc("transition_order_status", {
+            p_order_id: orderId,
+            p_new_status: "cancelled",
+            p_actor_id: actorId,
+            p_reason: body.cancellation_reason,
+            p_metadata: { cancellation_reason: body.cancellation_reason, ...body.metadata },
+          });
+
+        if (transitionError || !transitionResult?.success) {
+          return new Response(
+            JSON.stringify({ error: transitionResult?.error || transitionError?.message || "Failed to cancel order" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        result = transitionResult;
         break;
       }
 

@@ -919,6 +919,7 @@ export type Database = {
         | "shipped"
         | "closed"
         | "disputed"
+        | "cancelled"
       org_role: "owner" | "admin" | "member"
       payment_status: "initiated" | "paid" | "failed" | "refunded"
       qc_result: "pass" | "conditional" | "fail"
@@ -1070,6 +1071,7 @@ export const Constants = {
         "shipped",
         "closed",
         "disputed",
+        "cancelled",
       ],
       org_role: ["owner", "admin", "member"],
       payment_status: ["initiated", "paid", "failed", "refunded"],
