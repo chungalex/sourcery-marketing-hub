@@ -306,6 +306,21 @@ Deno.serve(async (req) => {
           );
         }
 
+        // Pre-check: Verify QC partner is assigned (UX improvement - DB also enforces this)
+        const { data: qcAssignment } = await userClient
+          .from("order_qc_assignments")
+          .select("qc_partner_id")
+          .eq("order_id", orderId)
+          .maybeSingle();
+
+        if (!qcAssignment) {
+          console.log(`[order-action] schedule_qc blocked: no QC partner assigned for order ${orderId}`);
+          return new Response(
+            JSON.stringify({ error: "Cannot schedule QC: no QC partner assigned. Please assign a QC partner first." }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
         const { data: transitionResult, error: transitionError } = await userClient
           .rpc("transition_order_status", {
             p_order_id: orderId,
@@ -504,6 +519,41 @@ Deno.serve(async (req) => {
           );
         }
 
+        // DISPUTE FINALITY GUARD: Check if any dispute (open or resolved) already exists
+        const { data: existingDisputes, error: disputeCheckError } = await userClient
+          .from("order_disputes")
+          .select("id, status")
+          .eq("order_id", orderId);
+
+        if (disputeCheckError) {
+          console.error("[order-action] Dispute check error:", disputeCheckError);
+          return new Response(
+            JSON.stringify({ error: "Failed to check dispute status" }),
+            { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        if (existingDisputes && existingDisputes.length > 0) {
+          const openDispute = existingDisputes.find(d => d.status === "open");
+          const resolvedDispute = existingDisputes.find(d => d.status === "resolved");
+          
+          if (openDispute) {
+            console.log(`[order-action] open_dispute blocked: dispute already open for order ${orderId}`);
+            return new Response(
+              JSON.stringify({ error: "A dispute is already open for this order." }),
+              { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+            );
+          }
+          
+          if (resolvedDispute) {
+            console.log(`[order-action] open_dispute blocked: dispute already resolved for order ${orderId}`);
+            return new Response(
+              JSON.stringify({ error: "Dispute resolution is final. Cannot reopen disputes." }),
+              { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+            );
+          }
+        }
+
         // Insert dispute record
         const { error: disputeError } = await userClient
           .from("order_disputes")
@@ -516,6 +566,13 @@ Deno.serve(async (req) => {
 
         if (disputeError) {
           console.error("[order-action] Create dispute error:", disputeError);
+          // Check if it's a unique constraint violation (one open dispute per order)
+          if (disputeError.code === "23505") {
+            return new Response(
+              JSON.stringify({ error: "A dispute is already open for this order." }),
+              { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+            );
+          }
           return new Response(
             JSON.stringify({ error: "Failed to create dispute", details: disputeError.message }),
             { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
