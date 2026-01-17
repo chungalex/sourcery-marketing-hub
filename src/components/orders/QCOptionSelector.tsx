@@ -7,7 +7,8 @@ import {
   Check, 
   AlertTriangle,
   Star,
-  Info
+  Info,
+  DollarSign
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +31,7 @@ interface QCOptionConfig {
   tradeoffs: string[];
   bestFor: string;
   protectionLevel: "high" | "medium" | "low";
+  costInfo: string;
 }
 
 const qcOptions: QCOptionConfig[] = [
@@ -42,15 +44,16 @@ const qcOptions: QCOptionConfig[] = [
     features: [
       "Independent third-party inspector",
       "Standardized reporting format",
-      "Stronger dispute resolution",
+      "Strongest dispute resolution",
       "Sourcery coordinates scheduling",
     ],
     tradeoffs: [
-      "Additional cost (buyer pays)",
+      "Buyer pays (separate line item)",
       "Requires scheduling lead time",
     ],
     bestFor: "Recommended for new factories and first orders.",
     protectionLevel: "high",
+    costInfo: "Buyer-paid, quoted separately",
   },
   {
     id: "byoqc",
@@ -60,7 +63,7 @@ const qcOptions: QCOptionConfig[] = [
     features: [
       "Use your preferred inspector",
       "Inspector uploads to same system",
-      "Same enforcement rules apply",
+      "Same milestone gating rules apply",
       "Full control over relationship",
     ],
     tradeoffs: [
@@ -69,6 +72,7 @@ const qcOptions: QCOptionConfig[] = [
     ],
     bestFor: "For experienced buyers with existing inspectors.",
     protectionLevel: "medium",
+    costInfo: "You pay your inspector directly",
   },
   {
     id: "factory",
@@ -76,18 +80,19 @@ const qcOptions: QCOptionConfig[] = [
     subtitle: "Factory provides evidence",
     icon: Building2,
     features: [
-      "Factory uploads photos & reports",
-      "Buyer reviews and approves",
-      "Fastest turnaround",
-      "No additional cost",
+      "Factory uploads photos & process docs",
+      "Buyer reviews and explicitly approves",
+      "Fastest turnaround time",
+      "No additional third-party cost",
     ],
     tradeoffs: [
-      "Lower protection level",
       "Limited dispute support",
+      "Lower protection level",
       "Relies on factory honesty",
     ],
-    bestFor: "For trusted relationships. Limited dispute support.",
+    bestFor: "For trusted, established relationships only.",
     protectionLevel: "low",
+    costInfo: "No additional cost",
   },
 ];
 
@@ -131,12 +136,16 @@ export function QCOptionSelector({
             </TooltipTrigger>
             <TooltipContent side="right" className="max-w-xs">
               <p className="text-sm">
-                Sourcery recommends QC but does not guarantee outcomes. 
-                Choose the option that best fits your relationship with this factory.
+                QC is optional and always buyer-paid. Sourcery recommends QC but does not 
+                guarantee outcomes. Your choice affects dispute resolution support.
               </p>
             </TooltipContent>
           </Tooltip>
         </div>
+
+        <p className="text-sm text-muted-foreground -mt-2 mb-4">
+          Choose how you want quality inspections handled. This affects your protection level during disputes.
+        </p>
 
         <div className="grid gap-4 md:grid-cols-3">
           {qcOptions.map((option) => {
@@ -194,11 +203,17 @@ export function QCOptionSelector({
 
                 {/* Protection Level Badge */}
                 <div className={cn(
-                  "inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium border mb-3 w-fit",
+                  "inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium border mb-2 w-fit",
                   protectionColors[option.protectionLevel]
                 )}>
                   <Shield className="h-3 w-3" />
                   {protectionLabels[option.protectionLevel]}
+                </div>
+
+                {/* Cost Info */}
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-3">
+                  <DollarSign className="h-3 w-3" />
+                  {option.costInfo}
                 </div>
 
                 {/* Features */}
@@ -249,13 +264,19 @@ export function QCOptionSelector({
           })}
         </div>
 
-        {/* Disclaimer */}
-        <div className="flex items-start gap-2 p-3 rounded-lg bg-muted/50 border border-border">
+        {/* Legal Disclaimer */}
+        <div className="flex items-start gap-2 p-4 rounded-lg bg-muted/50 border border-border">
           <Info className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
-          <p className="text-xs text-muted-foreground">
-            <strong>Important:</strong> Sourcery recommends QC options but does not guarantee QC outcomes. 
-            Your choice affects the level of platform support available during disputes.
-          </p>
+          <div className="space-y-1">
+            <p className="text-xs font-medium text-foreground">
+              Important: Sourcery recommends QC but does not guarantee QC outcomes.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              QC is optional and always buyer-paid. Your choice affects the level of platform 
+              support available during disputes. Stronger QC options provide stronger evidence 
+              for dispute resolution.
+            </p>
+          </div>
         </div>
       </div>
     </TooltipProvider>
@@ -284,4 +305,9 @@ export function QCOptionBadge({ option, className }: QCOptionBadgeProps) {
       <span className="text-sm font-medium">{config.title}</span>
     </div>
   );
+}
+
+// Get QC option config for external use
+export function getQCOptionConfig(option: QCOption): QCOptionConfig | undefined {
+  return qcOptions.find(o => o.id === option);
 }
