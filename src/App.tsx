@@ -25,6 +25,7 @@ import FactoryDashboard from "./pages/FactoryDashboard";
 import Admin from "./pages/Admin";
 import Checkout from "./pages/Checkout";
 import Toolkit from "./pages/Toolkit";
+import CreateOrder from "./pages/CreateOrder";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,7 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/toolkit" element={<Toolkit />} />
+            <Route path="/orders/create" element={<CreateOrder />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
