@@ -505,10 +505,10 @@ export default function CreateOrder() {
                         />
                       </div>
 
-                      {/* Total Amount Display */}
-                      <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                      {/* Total Amount Display with Platform Fee */}
+                      <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg space-y-3">
                         <div className="flex items-center justify-between">
-                          <span className="text-muted-foreground">Total Order Value</span>
+                          <span className="text-muted-foreground">Order Value</span>
                           <span className="text-2xl font-bold text-foreground">
                             {watchedValues.currency === "EUR" ? "€" : 
                              watchedValues.currency === "GBP" ? "£" : 
@@ -516,11 +516,28 @@ export default function CreateOrder() {
                             {totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>
                         </div>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <p className="text-xs text-muted-foreground">
                           {watchedValues.quantity.toLocaleString()} units × {watchedValues.currency === "EUR" ? "€" : 
                              watchedValues.currency === "GBP" ? "£" : 
                              watchedValues.currency === "CNY" ? "¥" : "$"}{watchedValues.unit_price.toFixed(2)} per unit
                         </p>
+                        
+                        {totalAmount > 0 && (
+                          <div className="pt-3 border-t border-primary/20 space-y-2">
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="text-muted-foreground">Platform Fee (3%)</span>
+                              <span className="font-medium text-foreground">
+                                {watchedValues.currency === "EUR" ? "€" : 
+                                 watchedValues.currency === "GBP" ? "£" : 
+                                 watchedValues.currency === "CNY" ? "¥" : "$"}
+                                {(totalAmount * 0.03).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              </span>
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                              Covers: Escrow protection, milestone enforcement, QC gating, dispute infrastructure
+                            </p>
+                          </div>
+                        )}
                       </div>
 
                       <FormField
@@ -725,19 +742,48 @@ export default function CreateOrder() {
                           )}
                         </div>
 
-                        {/* Pricing */}
+                        {/* Pricing with Platform Fee */}
                         <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
                           <div className="flex items-center gap-2 mb-2">
                             <DollarSign className="h-4 w-4 text-primary" />
-                            <h4 className="font-medium text-foreground">Total Order Value</h4>
+                            <h4 className="font-medium text-foreground">Order Summary</h4>
                           </div>
-                          <p className="text-2xl font-bold text-foreground">
-                            {watchedValues.currency === "EUR" ? "€" : 
-                             watchedValues.currency === "GBP" ? "£" : 
-                             watchedValues.currency === "CNY" ? "¥" : "$"}
-                            {totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          
+                          <div className="space-y-2 mb-3">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm text-muted-foreground">Order Value</span>
+                              <span className="font-medium text-foreground">
+                                {watchedValues.currency === "EUR" ? "€" : 
+                                 watchedValues.currency === "GBP" ? "£" : 
+                                 watchedValues.currency === "CNY" ? "¥" : "$"}
+                                {totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm text-muted-foreground">Platform Fee (3%)</span>
+                              <span className="font-medium text-foreground">
+                                {watchedValues.currency === "EUR" ? "€" : 
+                                 watchedValues.currency === "GBP" ? "£" : 
+                                 watchedValues.currency === "CNY" ? "¥" : "$"}
+                                {(totalAmount * 0.03).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              </span>
+                            </div>
+                            <div className="pt-2 border-t border-primary/20 flex items-center justify-between">
+                              <span className="text-sm font-medium text-foreground">Total</span>
+                              <span className="text-xl font-bold text-foreground">
+                                {watchedValues.currency === "EUR" ? "€" : 
+                                 watchedValues.currency === "GBP" ? "£" : 
+                                 watchedValues.currency === "CNY" ? "¥" : "$"}
+                                {(totalAmount * 1.03).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              </span>
+                            </div>
+                          </div>
+                          
+                          <p className="text-xs text-muted-foreground">
+                            Platform fee covers: escrow protection, milestone enforcement, QC gating, and dispute infrastructure.
                           </p>
-                          <div className="text-sm text-muted-foreground mt-1 space-y-1">
+                          
+                          <div className="text-sm text-muted-foreground mt-3 pt-3 border-t border-primary/20 space-y-1">
                             {watchedValues.incoterms && (
                               <p>Incoterms: {watchedValues.incoterms}</p>
                             )}
