@@ -432,6 +432,8 @@ export type Database = {
           released_at: string | null
           sequence_order: number
           status: Database["public"]["Enums"]["milestone_status"]
+          stripe_checkout_session_id: string | null
+          stripe_payment_intent_id: string | null
         }
         Insert: {
           amount: number
@@ -445,6 +447,8 @@ export type Database = {
           released_at?: string | null
           sequence_order?: number
           status?: Database["public"]["Enums"]["milestone_status"]
+          stripe_checkout_session_id?: string | null
+          stripe_payment_intent_id?: string | null
         }
         Update: {
           amount?: number
@@ -458,6 +462,8 @@ export type Database = {
           released_at?: string | null
           sequence_order?: number
           status?: Database["public"]["Enums"]["milestone_status"]
+          stripe_checkout_session_id?: string | null
+          stripe_payment_intent_id?: string | null
         }
         Relationships: [
           {
@@ -905,7 +911,12 @@ export type Database = {
       app_role: "admin" | "moderator" | "user"
       dispute_status: "open" | "escalated" | "resolved"
       factory_participation: "private" | "listed_unverified" | "listed_verified"
-      milestone_status: "pending" | "eligible" | "released" | "disputed"
+      milestone_status:
+        | "pending"
+        | "eligible"
+        | "released"
+        | "disputed"
+        | "cancelled"
       order_status:
         | "draft"
         | "po_issued"
@@ -1057,7 +1068,13 @@ export const Constants = {
         "listed_unverified",
         "listed_verified",
       ],
-      milestone_status: ["pending", "eligible", "released", "disputed"],
+      milestone_status: [
+        "pending",
+        "eligible",
+        "released",
+        "disputed",
+        "cancelled",
+      ],
       order_status: [
         "draft",
         "po_issued",
