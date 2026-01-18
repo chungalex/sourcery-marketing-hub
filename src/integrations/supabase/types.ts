@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_submissions: {
+        Row: {
+          company: string | null
+          created_at: string
+          email: string
+          form_type: string | null
+          id: string
+          message: string
+          name: string
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          email: string
+          form_type?: string | null
+          id?: string
+          message: string
+          name: string
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          email?: string
+          form_type?: string | null
+          id?: string
+          message?: string
+          name?: string
+        }
+        Relationships: []
+      }
       factories: {
         Row: {
           bank_account_id: string | null
@@ -306,6 +336,7 @@ export type Database = {
       }
       inquiries: {
         Row: {
+          buyer_id: string | null
           conversion_status: Database["public"]["Enums"]["inquiry_conversion_status"]
           converted_at: string | null
           created_at: string | null
@@ -318,6 +349,7 @@ export type Database = {
           status: string
         }
         Insert: {
+          buyer_id?: string | null
           conversion_status?: Database["public"]["Enums"]["inquiry_conversion_status"]
           converted_at?: string | null
           created_at?: string | null
@@ -330,6 +362,7 @@ export type Database = {
           status?: string
         }
         Update: {
+          buyer_id?: string | null
           conversion_status?: Database["public"]["Enums"]["inquiry_conversion_status"]
           converted_at?: string | null
           created_at?: string | null
