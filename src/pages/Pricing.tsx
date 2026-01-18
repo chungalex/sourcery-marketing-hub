@@ -3,26 +3,50 @@ import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const marketplaceFeatures = [
   "Browse verified factories",
-  "Send RFQs",
+  "Send unlimited RFQs",
   "Message and compare suppliers",
   "Invite your own factories",
+  "Save searches and shortlists",
 ];
 
 const orderFeatures = [
   "Enforced order lifecycle",
   "Milestone-gated payments",
   "QC gating before shipment",
-  "Dispute process",
-  "Audit trail",
+  "Dispute resolution",
+  "Full audit trail",
 ];
 
-const qcOptions = [
-  { name: "Sourcery QC", description: "Third-party, coordinated" },
-  { name: "Bring your own QC", description: "Use your existing partner" },
-  { name: "Factory self-QC", description: "Lower protection" },
+const faqs = [
+  {
+    question: "Do I need a paid plan to place an order?",
+    answer: "No. Marketplace Access is optional. You can place an order with any factory—including ones you invite yourself—without a subscription.",
+  },
+  {
+    question: "When do I pay the enforcement fee?",
+    answer: "The 2–5% fee is charged only when an order is created through Sourcery. You're never charged for browsing, messaging, or RFQs.",
+  },
+  {
+    question: "What's included in QC?",
+    answer: "QC inspection coordination is included in the enforcement fee. We schedule and gate shipments based on inspection results—no separate charges.",
+  },
+  {
+    question: "Can I cancel anytime?",
+    answer: "Yes. Marketplace Access is month-to-month with no long-term commitment. Cancel anytime from your account settings.",
+  },
+  {
+    question: "What if I already have a factory?",
+    answer: "You can invite your own factory to Sourcery and still use our order enforcement, milestone payments, and QC coordination—no marketplace subscription required.",
+  },
 ];
 
 export default function Pricing() {
@@ -30,7 +54,7 @@ export default function Pricing() {
     <Layout>
       <SEO
         title="Pricing | Sourcery"
-        description="Simple pricing for factory sourcing and order enforcement."
+        description="Simple pricing for factory sourcing and order enforcement. Pay for access when sourcing, percentage only when orders ship."
       />
 
       <div className="min-h-screen bg-background">
@@ -38,12 +62,12 @@ export default function Pricing() {
         <section className="py-20 md:py-28">
           <div className="container max-w-4xl text-center">
             <h1 className="text-4xl md:text-5xl font-heading font-semibold tracking-tight text-foreground">
-              Pricing
+              Simple, Transparent Pricing
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-              Pay for access when you're sourcing.
+              Free to browse. Subscribe to source.
               <br />
-              Pay a percentage only when you enforce an order.
+              Pay a percentage only when orders ship.
             </p>
           </div>
         </section>
@@ -112,34 +136,28 @@ export default function Pricing() {
           </div>
         </section>
 
-        {/* Quality Control */}
+        {/* FAQ */}
         <section className="pb-16 md:pb-24">
-          <div className="container max-w-5xl">
-            <div className="rounded-xl border border-border bg-card p-8">
-              <div className="mb-6">
-                <h2 className="text-xl font-heading font-semibold text-foreground">
-                  Quality Control
-                </h2>
-                <p className="mt-1 text-sm text-muted-foreground">Optional</p>
-              </div>
-
-              <div className="grid sm:grid-cols-3 gap-6">
-                {qcOptions.map((option) => (
-                  <div key={option.name} className="text-center sm:text-left">
-                    <h3 className="font-medium text-foreground">{option.name}</h3>
-                    <p className="text-sm text-muted-foreground">{option.description}</p>
-                  </div>
-                ))}
-              </div>
-
-              <p className="mt-8 text-sm text-muted-foreground">
-                QC is coordinated, not guaranteed.
-              </p>
-            </div>
+          <div className="container max-w-3xl">
+            <h2 className="text-2xl font-heading font-semibold text-foreground text-center mb-8">
+              Frequently Asked Questions
+            </h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left text-foreground">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </section>
 
-        {/* Footer */}
+        {/* Footer CTA */}
         <section className="pb-20 md:pb-28">
           <div className="container max-w-4xl text-center">
             <p className="text-muted-foreground mb-8">
