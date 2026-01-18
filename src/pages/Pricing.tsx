@@ -275,6 +275,55 @@ export default function Pricing() {
           </div>
         </section>
 
+        {/* Consulting Section */}
+        <section className="pb-16 md:pb-24">
+          <div className="container max-w-5xl">
+            <div className="rounded-xl border border-border bg-card p-8 md:p-10">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 bg-foreground text-background px-3 py-1 rounded-full text-sm font-medium mb-4">
+                  <Users className="h-4 w-4" />
+                  Prefer Done-For-You?
+                </div>
+                <h3 className="text-2xl font-heading font-semibold text-foreground mb-2">
+                  Consulting Services
+                </h3>
+                <p className="text-muted-foreground max-w-xl mx-auto">
+                  Our sourcing experts can handle the heavy lifting. One-time project fees, no ongoing commitment.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                <div className="bg-muted/50 rounded-xl p-6 text-center">
+                  <Users className="h-8 w-8 text-primary mx-auto mb-3" />
+                  <h4 className="font-heading font-semibold text-foreground mb-1">Factory Sourcing</h4>
+                  <p className="text-sm text-muted-foreground mb-3">Find, vet, and negotiate with factories on your behalf</p>
+                  <p className="text-lg font-semibold text-primary">From $2,500</p>
+                </div>
+                <div className="bg-muted/50 rounded-xl p-6 text-center">
+                  <Shield className="h-8 w-8 text-primary mx-auto mb-3" />
+                  <h4 className="font-heading font-semibold text-foreground mb-1">Supply Chain Audit</h4>
+                  <p className="text-sm text-muted-foreground mb-3">Comprehensive review with actionable recommendations</p>
+                  <p className="text-lg font-semibold text-primary">From $1,500</p>
+                </div>
+                <div className="bg-muted/50 rounded-xl p-6 text-center">
+                  <Zap className="h-8 w-8 text-primary mx-auto mb-3" />
+                  <h4 className="font-heading font-semibold text-foreground mb-1">Launch Strategy</h4>
+                  <p className="text-sm text-muted-foreground mb-3">End-to-end production planning for new products</p>
+                  <p className="text-lg font-semibold text-primary">From $3,500</p>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <Button asChild>
+                  <Link to="/consulting" className="inline-flex items-center gap-2">
+                    Explore Consulting <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Case Study Callout */}
         <section className="pb-16 md:pb-24">
           <div className="container max-w-3xl">
