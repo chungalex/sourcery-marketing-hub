@@ -8,3 +8,6 @@ verify_jwt = true
 
 [functions.get-signed-download-url]
 verify_jwt = true
+
+[functions.convert-inquiry-to-order]
+verify_jwt = false
