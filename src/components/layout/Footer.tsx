@@ -6,6 +6,7 @@ const footerLinks = {
     { label: "How it Works", href: "/how-it-works" },
     { label: "For Brands", href: "/brands" },
     { label: "For Factories", href: "/factories" },
+    { label: "Consulting", href: "/consulting" },
     { label: "Pricing", href: "/pricing" },
   ],
   company: [
