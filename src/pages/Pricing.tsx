@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, Shield, Clock, Users, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Accordion,
@@ -9,6 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
 
 const marketplaceFeatures = [
   "Browse verified factories",
@@ -24,6 +26,29 @@ const orderFeatures = [
   "QC gating before shipment",
   "Dispute resolution",
   "Full audit trail",
+];
+
+const trustPoints = [
+  {
+    icon: Shield,
+    title: "Milestone Protection",
+    description: "Funds released only when milestones are met",
+  },
+  {
+    icon: Clock,
+    title: "14-Day Free Trial",
+    description: "Try Marketplace Access risk-free",
+  },
+  {
+    icon: Users,
+    title: "500+ Brands",
+    description: "Trusted by growing fashion brands",
+  },
+  {
+    icon: Zap,
+    title: "Cancel Anytime",
+    description: "No long-term contracts or commitments",
+  },
 ];
 
 const faqs = [
@@ -47,9 +72,19 @@ const faqs = [
     question: "What if I already have a factory?",
     answer: "You can invite your own factory to Sourcery and still use our order enforcement, milestone payments, and QC coordination—no marketplace subscription required.",
   },
+  {
+    question: "Is there a free trial?",
+    answer: "Yes! Get 14 days free on Marketplace Access. No credit card required to start exploring factories.",
+  },
 ];
 
 export default function Pricing() {
+  const [isAnnual, setIsAnnual] = useState(false);
+
+  const monthlyPrice = { min: 49, max: 99 };
+  const annualPrice = { min: 39, max: 79 }; // ~20% discount
+  const currentPrice = isAnnual ? annualPrice : monthlyPrice;
+
   return (
     <Layout>
       <SEO
@@ -69,6 +104,35 @@ export default function Pricing() {
               <br />
               Pay a percentage only when orders ship.
             </p>
+
+            {/* Billing Toggle */}
+            <div className="mt-10 inline-flex items-center gap-4 p-1 bg-muted rounded-full">
+              <button
+                onClick={() => setIsAnnual(false)}
+                className={cn(
+                  "px-6 py-2 rounded-full text-sm font-medium transition-all",
+                  !isAnnual
+                    ? "bg-background text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setIsAnnual(true)}
+                className={cn(
+                  "px-6 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2",
+                  isAnnual
+                    ? "bg-background text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Annual
+                <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full">
+                  Save 20%
+                </span>
+              </button>
+            </div>
           </div>
         </section>
 
@@ -82,12 +146,19 @@ export default function Pricing() {
                   <h2 className="text-xl font-heading font-semibold text-foreground">
                     Marketplace Access
                   </h2>
-                  <p className="mt-1 text-sm text-muted-foreground">Optional</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Optional · 14-day free trial</p>
                 </div>
 
                 <div className="mb-6">
-                  <span className="text-3xl font-semibold text-foreground">$49–$99</span>
+                  <span className="text-3xl font-semibold text-foreground">
+                    ${currentPrice.min}–${currentPrice.max}
+                  </span>
                   <span className="text-muted-foreground"> / month</span>
+                  {isAnnual && (
+                    <p className="text-sm text-primary mt-1">
+                      Billed annually · Save up to $240/year
+                    </p>
+                  )}
                 </div>
 
                 <ul className="space-y-3 mb-8">
@@ -99,13 +170,19 @@ export default function Pricing() {
                   ))}
                 </ul>
 
-                <p className="text-sm text-muted-foreground">
-                  Not required to place an order.
-                </p>
+                <Button asChild className="w-full" variant="outline">
+                  <Link to="/auth">Start Free Trial</Link>
+                </Button>
               </div>
 
               {/* Order Enforcement */}
-              <div className="rounded-xl border-2 border-primary bg-card p-8">
+              <div className="rounded-xl border-2 border-primary bg-card p-8 relative">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className="bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full">
+                    Most Popular
+                  </span>
+                </div>
+
                 <div className="mb-6">
                   <h2 className="text-xl font-heading font-semibold text-foreground">
                     Order Enforcement
@@ -128,10 +205,46 @@ export default function Pricing() {
                   ))}
                 </ul>
 
-                <p className="text-sm text-muted-foreground">
-                  Charged only when an order is created.
-                </p>
+                <Button asChild className="w-full">
+                  <Link to="/factories">Get Started</Link>
+                </Button>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Trust Points */}
+        <section className="pb-16 md:pb-24">
+          <div className="container max-w-5xl">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {trustPoints.map((point) => (
+                <div key={point.title} className="text-center">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-3">
+                    <point.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-medium text-foreground text-sm">{point.title}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{point.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Comparison Callout */}
+        <section className="pb-16 md:pb-24">
+          <div className="container max-w-3xl">
+            <div className="rounded-xl border border-border bg-muted/50 p-8 text-center">
+              <h3 className="text-lg font-heading font-semibold text-foreground mb-2">
+                Compare the Cost of DIY Sourcing
+              </h3>
+              <p className="text-muted-foreground text-sm mb-4">
+                Most brands spend $5,000–$15,000 per failed order due to quality issues, 
+                missed deadlines, or payment disputes. Sourcery's 3% fee on a $50K order 
+                is $1,500—with full protection.
+              </p>
+              <Button asChild variant="link" className="text-primary">
+                <Link to="/how-it-works">See how it works →</Link>
+              </Button>
             </div>
           </div>
         </section>
