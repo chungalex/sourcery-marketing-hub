@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { Check, Shield, Clock, Users, Zap } from "lucide-react";
+import { Check, Shield, Clock, Users, Zap, Building2, Calculator, ArrowRight, Quote } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Accordion,
@@ -10,6 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 
 const marketplaceFeatures = [
@@ -26,6 +27,14 @@ const orderFeatures = [
   "QC gating before shipment",
   "Dispute resolution",
   "Full audit trail",
+];
+
+const enterpriseFeatures = [
+  "Volume-based rates (as low as 1.5%)",
+  "Dedicated account manager",
+  "Priority factory matching",
+  "Custom integrations (ERP, inventory)",
+  "Quarterly business reviews",
 ];
 
 const trustPoints = [
@@ -48,6 +57,21 @@ const trustPoints = [
     icon: Zap,
     title: "Cancel Anytime",
     description: "No long-term contracts or commitments",
+  },
+];
+
+const testimonials = [
+  {
+    quote: "The QC process alone is worth it. Catching defects before shipping has saved us thousands in returns and protected our brand reputation.",
+    author: "Marcus Williams",
+    role: "Founder",
+    company: "Urban Essentials",
+  },
+  {
+    quote: "We cut production time by 40% and finally have visibility into our factory relationships. The milestone payments give us leverage we never had before.",
+    author: "Sarah Chen",
+    role: "Head of Production",
+    company: "Modern Apparel Co.",
   },
 ];
 
@@ -76,14 +100,26 @@ const faqs = [
     question: "Is there a free trial?",
     answer: "Yes! Get 14 days free on Marketplace Access. No credit card required to start exploring factories.",
   },
+  {
+    question: "What qualifies for Enterprise pricing?",
+    answer: "Brands with $500K+ in annual production volume qualify for custom Enterprise pricing, including reduced enforcement rates and dedicated support.",
+  },
 ];
 
 export default function Pricing() {
   const [isAnnual, setIsAnnual] = useState(false);
+  const [orderValue, setOrderValue] = useState([50000]);
 
   const monthlyPrice = { min: 49, max: 99 };
-  const annualPrice = { min: 39, max: 79 }; // ~20% discount
+  const annualPrice = { min: 39, max: 79 };
   const currentPrice = isAnnual ? annualPrice : monthlyPrice;
+
+  // Savings calculator logic
+  const diyRiskRate = 0.15; // 15% potential loss on DIY
+  const sourceryRate = 0.03; // 3% enforcement fee
+  const diyRisk = orderValue[0] * diyRiskRate;
+  const sourceryFee = orderValue[0] * sourceryRate;
+  const savings = diyRisk - sourceryFee;
 
   return (
     <Layout>
@@ -213,6 +249,166 @@ export default function Pricing() {
           </div>
         </section>
 
+        {/* Enterprise Section */}
+        <section className="pb-16 md:pb-24">
+          <div className="container max-w-5xl">
+            <div className="rounded-xl border border-border bg-gradient-to-br from-muted/50 to-muted p-8 md:p-10">
+              <div className="flex flex-col md:flex-row md:items-center gap-8">
+                <div className="flex-1">
+                  <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium mb-4">
+                    <Building2 className="h-4 w-4" />
+                    Enterprise
+                  </div>
+                  <h3 className="text-2xl font-heading font-semibold text-foreground mb-2">
+                    Custom Pricing for High-Volume Brands
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    For brands with $500K+ in annual production. Get volume-based rates, dedicated support, and custom integrations.
+                  </p>
+                  <ul className="grid sm:grid-cols-2 gap-3 mb-6">
+                    {enterpriseFeatures.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2">
+                        <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                        <span className="text-sm text-foreground">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button asChild>
+                    <Link to="/contact" className="inline-flex items-center gap-2">
+                      Contact Sales <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Savings Calculator */}
+        <section className="pb-16 md:pb-24">
+          <div className="container max-w-3xl">
+            <div className="rounded-xl border border-border bg-card p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <Calculator className="h-5 w-5 text-primary" />
+                </div>
+                <h3 className="text-xl font-heading font-semibold text-foreground">
+                  Savings Calculator
+                </h3>
+              </div>
+
+              <div className="mb-8">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-sm text-muted-foreground">Order Value</span>
+                  <span className="text-lg font-semibold text-foreground">
+                    ${orderValue[0].toLocaleString()}
+                  </span>
+                </div>
+                <Slider
+                  value={orderValue}
+                  onValueChange={setOrderValue}
+                  min={10000}
+                  max={500000}
+                  step={5000}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                  <span>$10K</span>
+                  <span>$500K</span>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4 mb-6">
+                <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20">
+                  <p className="text-xs text-muted-foreground mb-1">DIY Risk (avg.)</p>
+                  <p className="text-xl font-semibold text-destructive">
+                    ${diyRisk.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">~15% potential loss</p>
+                </div>
+                <div className="p-4 rounded-lg bg-primary/10 border border-primary/20">
+                  <p className="text-xs text-muted-foreground mb-1">Sourcery Fee</p>
+                  <p className="text-xl font-semibold text-primary">
+                    ${sourceryFee.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">3% enforcement</p>
+                </div>
+                <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/20">
+                  <p className="text-xs text-muted-foreground mb-1">Your Savings</p>
+                  <p className="text-xl font-semibold text-green-600 dark:text-green-400">
+                    ${savings.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">Protected value</p>
+                </div>
+              </div>
+
+              <p className="text-xs text-muted-foreground text-center">
+                *Based on average industry data for first-time factory relationships. Actual results may vary.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Case Study Callout */}
+        <section className="pb-16 md:pb-24">
+          <div className="container max-w-3xl">
+            <div className="rounded-xl border border-border bg-gradient-to-br from-primary/5 to-primary/10 p-8 text-center">
+              <span className="inline-block text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
+                Case Study
+              </span>
+              <h3 className="text-2xl md:text-3xl font-heading font-semibold text-foreground mb-4">
+                Heritage Goods saved $67,500 on their first order
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4 text-left max-w-lg mx-auto mb-6">
+                <div className="p-3 bg-background/60 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-1">Before Sourcery</p>
+                  <p className="text-sm text-foreground">15% premium + quality issues with previous supplier</p>
+                </div>
+                <div className="p-3 bg-background/60 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-1">After Sourcery</p>
+                  <p className="text-sm text-foreground">45% cost reduction, zero defects across 10,000 units</p>
+                </div>
+              </div>
+              <p className="text-muted-foreground text-sm italic mb-6">
+                "Sourcery found us the perfect factory on the first try."
+                <br />
+                <span className="text-foreground font-medium not-italic">— Sarah Chen, Founder</span>
+              </p>
+              <Button asChild variant="link" className="text-primary">
+                <Link to="/case-studies">Read Full Case Study →</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="pb-16 md:pb-24">
+          <div className="container max-w-5xl">
+            <h2 className="text-2xl font-heading font-semibold text-foreground text-center mb-10">
+              What Brands Are Saying
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {testimonials.map((testimonial, index) => (
+                <div
+                  key={index}
+                  className="rounded-xl border border-border bg-card p-6 relative"
+                >
+                  <Quote className="absolute top-4 right-4 h-8 w-8 text-primary/10" />
+                  <p className="text-foreground mb-6 relative z-10">
+                    "{testimonial.quote}"
+                  </p>
+                  <div>
+                    <p className="font-medium text-foreground">{testimonial.author}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {testimonial.role}, {testimonial.company}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Trust Points */}
         <section className="pb-16 md:pb-24">
           <div className="container max-w-5xl">
@@ -226,25 +422,6 @@ export default function Pricing() {
                   <p className="text-xs text-muted-foreground mt-1">{point.description}</p>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Comparison Callout */}
-        <section className="pb-16 md:pb-24">
-          <div className="container max-w-3xl">
-            <div className="rounded-xl border border-border bg-muted/50 p-8 text-center">
-              <h3 className="text-lg font-heading font-semibold text-foreground mb-2">
-                Compare the Cost of DIY Sourcing
-              </h3>
-              <p className="text-muted-foreground text-sm mb-4">
-                Most brands spend $5,000–$15,000 per failed order due to quality issues, 
-                missed deadlines, or payment disputes. Sourcery's 3% fee on a $50K order 
-                is $1,500—with full protection.
-              </p>
-              <Button asChild variant="link" className="text-primary">
-                <Link to="/how-it-works">See how it works →</Link>
-              </Button>
             </div>
           </div>
         </section>
