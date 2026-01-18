@@ -225,6 +225,56 @@ export type Database = {
           },
         ]
       }
+      factory_pricing_bands: {
+        Row: {
+          assumptions: Json
+          created_at: string | null
+          currency: string
+          effective_date: string | null
+          factory_id: string
+          id: string
+          max_quantity: number
+          min_quantity: number
+          price_range_high: number
+          price_range_low: number
+          unit: string
+        }
+        Insert: {
+          assumptions?: Json
+          created_at?: string | null
+          currency?: string
+          effective_date?: string | null
+          factory_id: string
+          id?: string
+          max_quantity: number
+          min_quantity: number
+          price_range_high: number
+          price_range_low: number
+          unit?: string
+        }
+        Update: {
+          assumptions?: Json
+          created_at?: string | null
+          currency?: string
+          effective_date?: string | null
+          factory_id?: string
+          id?: string
+          max_quantity?: number
+          min_quantity?: number
+          price_range_high?: number
+          price_range_low?: number
+          unit?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "factory_pricing_bands_factory_id_fkey"
+            columns: ["factory_id"]
+            isOneToOne: false
+            referencedRelation: "factories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       factory_users: {
         Row: {
           created_at: string
@@ -256,28 +306,37 @@ export type Database = {
       }
       inquiries: {
         Row: {
+          conversion_status: Database["public"]["Enums"]["inquiry_conversion_status"]
+          converted_at: string | null
           created_at: string | null
           factory_id: string | null
           id: string
           message: string | null
+          order_id: string | null
           requester_email: string
           requester_name: string
           status: string
         }
         Insert: {
+          conversion_status?: Database["public"]["Enums"]["inquiry_conversion_status"]
+          converted_at?: string | null
           created_at?: string | null
           factory_id?: string | null
           id?: string
           message?: string | null
+          order_id?: string | null
           requester_email: string
           requester_name: string
           status?: string
         }
         Update: {
+          conversion_status?: Database["public"]["Enums"]["inquiry_conversion_status"]
+          converted_at?: string | null
           created_at?: string | null
           factory_id?: string | null
           id?: string
           message?: string | null
+          order_id?: string | null
           requester_email?: string
           requester_name?: string
           status?: string
@@ -288,6 +347,13 @@ export type Database = {
             columns: ["factory_id"]
             isOneToOne: false
             referencedRelation: "factories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "inquiries_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
             referencedColumns: ["id"]
           },
         ]
@@ -911,6 +977,7 @@ export type Database = {
       app_role: "admin" | "moderator" | "user"
       dispute_status: "open" | "escalated" | "resolved"
       factory_participation: "private" | "listed_unverified" | "listed_verified"
+      inquiry_conversion_status: "new" | "replied" | "converted" | "declined"
       milestone_status:
         | "pending"
         | "eligible"
@@ -1068,6 +1135,7 @@ export const Constants = {
         "listed_unverified",
         "listed_verified",
       ],
+      inquiry_conversion_status: ["new", "replied", "converted", "declined"],
       milestone_status: [
         "pending",
         "eligible",
