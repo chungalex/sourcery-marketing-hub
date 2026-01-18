@@ -163,18 +163,21 @@ const consultingServices = [
     title: "Factory Sourcing",
     description: "We find, vet, and negotiate with factories on your behalf. Flat project fee.",
     price: "From $2,500",
+    slug: "factory-sourcing",
   },
   {
     icon: Shield,
     title: "Supply Chain Audit",
     description: "Comprehensive review of your current suppliers with actionable recommendations.",
     price: "From $1,500",
+    slug: "supply-chain-audit",
   },
   {
     icon: Sparkles,
     title: "Launch Strategy",
     description: "End-to-end production planning for new product launches. Timeline, costing, risk mitigation.",
     price: "From $3,500",
+    slug: "launch-strategy",
   },
 ];
 
@@ -552,21 +555,25 @@ export default function CaseStudies() {
 
             <div className="grid md:grid-cols-3 gap-6 mb-10">
               {consultingServices.map((service) => (
-                <div
+                <Link
                   key={service.title}
-                  className="bg-card rounded-xl border border-border p-6 hover:shadow-lg transition-shadow"
+                  to={`/contact?type=consulting&service=${service.slug}`}
+                  className="bg-card rounded-xl border border-border p-6 hover:shadow-lg hover:border-primary/50 transition-all group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                     <service.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="font-heading text-lg font-bold text-foreground mb-2">
+                  <h3 className="font-heading text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-muted-foreground text-sm mb-4">
                     {service.description}
                   </p>
-                  <p className="text-primary font-semibold">{service.price}</p>
-                </div>
+                  <div className="flex items-center justify-between">
+                    <p className="text-primary font-semibold">{service.price}</p>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  </div>
+                </Link>
               ))}
             </div>
 
