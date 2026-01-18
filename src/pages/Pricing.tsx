@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { Check, Shield, Clock, Users, Zap, Building2, Calculator, ArrowRight, Quote } from "lucide-react";
+import { Check, Shield, Clock, Users, Zap, Building2, ArrowRight, Quote } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Accordion,
@@ -10,7 +10,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 
 const marketplaceFeatures = [
@@ -108,18 +107,10 @@ const faqs = [
 
 export default function Pricing() {
   const [isAnnual, setIsAnnual] = useState(false);
-  const [orderValue, setOrderValue] = useState([50000]);
 
   const monthlyPrice = { min: 49, max: 99 };
   const annualPrice = { min: 39, max: 79 };
   const currentPrice = isAnnual ? annualPrice : monthlyPrice;
-
-  // Savings calculator logic
-  const diyRiskRate = 0.15; // 15% potential loss on DIY
-  const sourceryRate = 0.03; // 3% enforcement fee
-  const diyRisk = orderValue[0] * diyRiskRate;
-  const sourceryFee = orderValue[0] * sourceryRate;
-  const savings = diyRisk - sourceryFee;
 
   return (
     <Layout>
@@ -280,71 +271,6 @@ export default function Pricing() {
                   </Button>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Savings Calculator */}
-        <section className="pb-16 md:pb-24">
-          <div className="container max-w-3xl">
-            <div className="rounded-xl border border-border bg-card p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <Calculator className="h-5 w-5 text-primary" />
-                </div>
-                <h3 className="text-xl font-heading font-semibold text-foreground">
-                  Savings Calculator
-                </h3>
-              </div>
-
-              <div className="mb-8">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-sm text-muted-foreground">Order Value</span>
-                  <span className="text-lg font-semibold text-foreground">
-                    ${orderValue[0].toLocaleString()}
-                  </span>
-                </div>
-                <Slider
-                  value={orderValue}
-                  onValueChange={setOrderValue}
-                  min={10000}
-                  max={500000}
-                  step={5000}
-                  className="w-full"
-                />
-                <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                  <span>$10K</span>
-                  <span>$500K</span>
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-4 mb-6">
-                <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20">
-                  <p className="text-xs text-muted-foreground mb-1">DIY Risk (avg.)</p>
-                  <p className="text-xl font-semibold text-destructive">
-                    ${diyRisk.toLocaleString()}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">~15% potential loss</p>
-                </div>
-                <div className="p-4 rounded-lg bg-primary/10 border border-primary/20">
-                  <p className="text-xs text-muted-foreground mb-1">Sourcery Fee</p>
-                  <p className="text-xl font-semibold text-primary">
-                    ${sourceryFee.toLocaleString()}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">3% enforcement</p>
-                </div>
-                <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/20">
-                  <p className="text-xs text-muted-foreground mb-1">Your Savings</p>
-                  <p className="text-xl font-semibold text-green-600 dark:text-green-400">
-                    ${savings.toLocaleString()}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">Protected value</p>
-                </div>
-              </div>
-
-              <p className="text-xs text-muted-foreground text-center">
-                *Based on average industry data for first-time factory relationships. Actual results may vary.
-              </p>
             </div>
           </div>
         </section>
