@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
+import { CalendlyEmbed } from "@/components/CalendlyEmbed";
 import { 
   ArrowRight, 
   TrendingUp, 
@@ -15,7 +16,8 @@ import {
   Clock,
   MessageSquare,
   Award,
-  Quote
+  Quote,
+  Calendar
 } from "lucide-react";
 
 // Case study results by category
@@ -216,12 +218,12 @@ export default function Consulting() {
               One-time projects, fixed pricing, no ongoing commitment.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link to="/contact?type=consulting">
+              <a href="#book">
                 <Button variant="hero" size="xl">
-                  Schedule a Call
-                  <ArrowRight className="w-5 h-5" />
+                  Book a Discovery Call
+                  <Calendar className="w-5 h-5" />
                 </Button>
-              </Link>
+              </a>
               <a href="#services">
                 <Button variant="outline" size="xl">
                   View Services
@@ -464,6 +466,45 @@ export default function Consulting() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Book a Discovery Call */}
+      <section id="book" className="section-padding bg-muted/30">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-4">
+                <Calendar className="h-4 w-4" />
+                Free Discovery Call
+              </div>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">
+                Book Your 30-Minute Call
+              </h2>
+              <p className="text-muted-foreground max-w-xl mx-auto">
+                Let's discuss your sourcing challenges and explore how we can help. No commitment required.
+              </p>
+            </div>
+
+            <div className="bg-card rounded-2xl border border-border overflow-hidden">
+              {/* 
+                Replace the URL below with your actual Calendly link.
+                Example: https://calendly.com/your-username/discovery-call
+              */}
+              <CalendlyEmbed 
+                url="https://calendly.com/sourcery/discovery-call?hide_gdpr_banner=1&background_color=ffffff&text_color=1a1a1a&primary_color=0066cc" 
+                className="w-full"
+              />
+            </div>
+
+            <p className="text-center text-sm text-muted-foreground mt-6">
+              Prefer email? <Link to="/contact?type=consulting" className="text-primary hover:underline">Send us a message</Link> instead.
+            </p>
+          </motion.div>
         </div>
       </section>
 
