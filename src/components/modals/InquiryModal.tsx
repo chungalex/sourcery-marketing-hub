@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog,
@@ -24,15 +25,19 @@ import {
   Calendar, 
   DollarSign,
   Check,
-  Building2
+  Building2,
+  LogIn
 } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 
 interface InquiryModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   factoryName?: string;
   factoryId?: string;
+  factorySlug?: string;
 }
 
 const productCategories = [
@@ -61,12 +66,28 @@ const timelines = [
   "6+ months"
 ];
 
+interface InquiryDraft {
+  productType: string;
+  productDescription: string;
+  quantity: string;
+  timeline: string;
+  budget: string;
+  name: string;
+  email: string;
+  company: string;
+  message: string;
+}
+
 export function InquiryModal({ 
   open, 
   onOpenChange, 
   factoryName = "this factory",
-  factoryId 
+  factoryId,
+  factorySlug 
 }: InquiryModalProps) {
+  const navigate = useNavigate();
+  const { user, isLoading: authLoading } = useAuth();
+  
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -81,6 +102,39 @@ export function InquiryModal({
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [message, setMessage] = useState("");
+
+  const draftKey = factoryId ? `sourcery_inquiry_draft_${factoryId}` : null;
+
+  // Restore draft from localStorage on open
+  useEffect(() => {
+    if (open && draftKey) {
+      const saved = localStorage.getItem(draftKey);
+      if (saved) {
+        try {
+          const draft: InquiryDraft = JSON.parse(saved);
+          setProductType(draft.productType || "");
+          setProductDescription(draft.productDescription || "");
+          setQuantity(draft.quantity || "");
+          setTimeline(draft.timeline || "");
+          setBudget(draft.budget || "");
+          setName(draft.name || "");
+          setEmail(draft.email || "");
+          setCompany(draft.company || "");
+          setMessage(draft.message || "");
+          localStorage.removeItem(draftKey); // Clear after restore
+        } catch (e) {
+          console.error("Failed to restore draft:", e);
+        }
+      }
+    }
+  }, [open, draftKey]);
+
+  // Autofill email from authenticated user
+  useEffect(() => {
+    if (user?.email && !email) {
+      setEmail(user.email);
+    }
+  }, [user, email]);
 
   const resetForm = () => {
     setStep(1);
@@ -101,19 +155,82 @@ export function InquiryModal({
     setTimeout(resetForm, 300);
   };
 
+  const saveDraftAndRedirect = () => {
+    if (draftKey) {
+      const draft: InquiryDraft = {
+        productType,
+        productDescription,
+        quantity,
+        timeline,
+        budget,
+        name,
+        email,
+        company,
+        message
+      };
+      localStorage.setItem(draftKey, JSON.stringify(draft));
+    }
+    
+    const redirectPath = factorySlug ? `/directory/${factorySlug}` : '/directory';
+    navigate(`/auth?mode=login&redirect=${encodeURIComponent(redirectPath)}`);
+    onOpenChange(false);
+  };
+
   const handleSubmit = async () => {
+    // Check authentication
+    if (!user) {
+      saveDraftAndRedirect();
+      return;
+    }
+
+    if (!factoryId) {
+      toast.error("Factory information is missing");
+      return;
+    }
+
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      toast.success("Inquiry sent successfully!");
-    }, 1500);
+    // Format message consistently for future parsing
+    const formattedMessage = `Product Type: ${productType}
+Description: ${productDescription || "Not specified"}
+Quantity: ${quantity}
+Timeline: ${timeline}
+Budget: ${budget || "Not specified"}
+Additional Notes: ${message || "None"}`;
+
+    const { error } = await supabase
+      .from('inquiries')
+      .insert({
+        factory_id: factoryId,
+        buyer_id: user.id,
+        requester_name: name,
+        requester_email: email,
+        message: formattedMessage,
+        // Let DB defaults handle: status='new', conversion_status='new'
+      });
+
+    setIsSubmitting(false);
+
+    if (error) {
+      console.error("Inquiry insert error:", error);
+      toast.error("Failed to send inquiry. Please try again.");
+      return;
+    }
+
+    // Clear draft on success
+    if (draftKey) {
+      localStorage.removeItem(draftKey);
+    }
+
+    setIsSuccess(true);
+    toast.success("Inquiry sent successfully!");
   };
 
   const canProceedStep1 = productType && quantity && timeline;
   const canProceedStep2 = name && email && company;
+
+  // Show login prompt if not authenticated and on step 2
+  const showLoginPrompt = !authLoading && !user && step === 2;
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -146,7 +263,12 @@ export function InquiryModal({
               <p className="text-muted-foreground mb-6">
                 {factoryName} will review your inquiry and respond within 24-48 hours.
               </p>
-              <Button onClick={handleClose}>Close</Button>
+              <div className="flex flex-col gap-3">
+                <Button asChild>
+                  <a href="/dashboard?tab=inquiries">Track in Dashboard</a>
+                </Button>
+                <Button variant="outline" onClick={handleClose}>Close</Button>
+              </div>
             </motion.div>
           ) : (
             <motion.div
@@ -258,6 +380,22 @@ export function InquiryModal({
 
               {step === 2 && (
                 <div className="space-y-4">
+                  {showLoginPrompt && (
+                    <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4 mb-4">
+                      <div className="flex items-start gap-3">
+                        <LogIn className="h-5 w-5 text-amber-600 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
+                            Sign in to send your inquiry
+                          </p>
+                          <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
+                            Your inquiry details will be saved while you sign in.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="inquiry-name">Your Name</Label>
@@ -290,6 +428,7 @@ export function InquiryModal({
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
+                      disabled={!!user?.email}
                     />
                   </div>
 
@@ -308,22 +447,29 @@ export function InquiryModal({
                     <Button variant="ghost" onClick={() => setStep(1)}>
                       Back
                     </Button>
-                    <Button 
-                      onClick={handleSubmit}
-                      disabled={!canProceedStep2 || isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <div className="h-4 w-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin mr-2" />
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="mr-2 h-4 w-4" />
-                          Send Inquiry
-                        </>
-                      )}
-                    </Button>
+                    {showLoginPrompt ? (
+                      <Button onClick={saveDraftAndRedirect}>
+                        <LogIn className="mr-2 h-4 w-4" />
+                        Sign In to Send
+                      </Button>
+                    ) : (
+                      <Button 
+                        onClick={handleSubmit}
+                        disabled={!canProceedStep2 || isSubmitting}
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <div className="h-4 w-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin mr-2" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="mr-2 h-4 w-4" />
+                            Send Inquiry
+                          </>
+                        )}
+                      </Button>
+                    )}
                   </div>
                 </div>
               )}
