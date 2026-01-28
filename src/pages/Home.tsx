@@ -53,19 +53,10 @@ const features = [
 ];
 
 const stats = [
-  { value: "500+", label: "Verified Factories" },
-  { value: "$50M+", label: "Orders Protected" },
-  { value: "98%", label: "Satisfaction Rate" },
-  { value: "12+", label: "Countries" },
-];
-
-const logos = [
-  "Modern Apparel Co.",
-  "Urban Essentials",
-  "Heritage Goods",
-  "Artisan Home",
-  "Coastal Living",
-  "Nordic Design",
+  { value: "50+", label: "Launch Partners" },
+  { value: "5", label: "Key Regions" },
+  { value: "100%", label: "Milestone Protected" },
+  { value: "2025", label: "Launching" },
 ];
 
 const platformTools = [
@@ -79,8 +70,8 @@ export default function Home() {
   return (
     <Layout>
       <SEO
-        title="Manufactory | Curated Manufacturing with Payment Protection"
-        description="Find verified factories, get expert guidance, and protect every payment. Personalized sourcing with escrow protection and quality assurance."
+        title="Sourcery | Manufacturing Sourcing with Payment Protection"
+        description="Find verified factories, get expert guidance, and protect every payment. Personalized sourcing with milestone protection and quality assurance."
         canonical="/"
       />
 
@@ -278,31 +269,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Logos Section */}
+      {/* Early Access Banner */}
       <section className="section-padding bg-card/50">
         <div className="container-wide">
-          <motion.p
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-center text-sm text-muted-foreground mb-8"
+            className="text-center"
           >
-            Trusted by growing brands worldwide
-          </motion.p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-            {logos.map((logo, index) => (
-              <motion.div
-                key={logo}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="text-muted-foreground/50 font-heading font-medium text-lg hover:text-muted-foreground transition-colors cursor-default"
-              >
-                {logo}
-              </motion.div>
-            ))}
-          </div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+              <Sparkles className="w-4 h-4" />
+              Early Access Open — Launching 2025
+            </div>
+          </motion.div>
         </div>
       </section>
 

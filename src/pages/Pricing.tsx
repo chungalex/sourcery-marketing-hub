@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { Check, Shield, Clock, Users, Zap, Building2, ArrowRight, Quote } from "lucide-react";
+import { Check, Shield, Clock, Users, Zap, Building2, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Accordion,
@@ -49,8 +49,8 @@ const trustPoints = [
   },
   {
     icon: Users,
-    title: "500+ Brands",
-    description: "Trusted by growing fashion brands",
+    title: "Early Access Open",
+    description: "Join brands launching with us in 2025",
   },
   {
     icon: Zap,
@@ -59,20 +59,7 @@ const trustPoints = [
   },
 ];
 
-const testimonials = [
-  {
-    quote: "The QC process alone is worth it. Catching defects before shipping has saved us thousands in returns and protected our brand reputation.",
-    author: "Marcus Williams",
-    role: "Founder",
-    company: "Urban Essentials",
-  },
-  {
-    quote: "We cut production time by 40% and finally have visibility into our factory relationships. The milestone payments give us leverage we never had before.",
-    author: "Sarah Chen",
-    role: "Head of Production",
-    company: "Modern Apparel Co.",
-  },
-];
+// Testimonials removed - will add real ones when available
 
 const faqs = [
   {
@@ -356,30 +343,19 @@ export default function Pricing() {
           </div>
         </section>
 
-        {/* Testimonials */}
+        {/* Early Access Banner */}
         <section className="pb-16 md:pb-24">
           <div className="container max-w-5xl">
-            <h2 className="text-2xl font-heading font-semibold text-foreground text-center mb-10">
-              What Brands Are Saying
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={index}
-                  className="rounded-xl border border-border bg-card p-6 relative"
-                >
-                  <Quote className="absolute top-4 right-4 h-8 w-8 text-primary/10" />
-                  <p className="text-foreground mb-6 relative z-10">
-                    "{testimonial.quote}"
-                  </p>
-                  <div>
-                    <p className="font-medium text-foreground">{testimonial.author}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {testimonial.role}, {testimonial.company}
-                    </p>
-                  </div>
-                </div>
-              ))}
+            <div className="text-center p-8 rounded-xl bg-card border border-border">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Users className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-heading font-semibold text-foreground mb-2">
+                Early Access Open
+              </h3>
+              <p className="text-muted-foreground text-sm max-w-md mx-auto">
+                We're currently onboarding our first cohort of brands. Be among the first to experience milestone-protected manufacturing.
+              </p>
             </div>
           </div>
         </section>
