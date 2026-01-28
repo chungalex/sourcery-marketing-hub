@@ -105,29 +105,44 @@ export default function Directory() {
   const [isLoadingData, setIsLoadingData] = useState(true);
   const isAuthenticated = !!user;
 
-  // Load factories based on auth state
+  // Load factories - start with previews immediately, upgrade to full data when auth resolves
   useEffect(() => {
+    let cancelled = false;
+    
     async function loadFactories() {
-      if (authLoading) return;
-      
       setIsLoadingData(true);
       try {
-        if (isAuthenticated) {
-          const data = await fetchFactories();
-          setFactories(data.map(transformFactory));
-        } else {
+        // If auth is still loading or user is not authenticated, fetch previews
+        // This allows the page to load immediately without waiting for auth
+        if (authLoading || !isAuthenticated) {
           const data = await fetchFactoryPreviews();
-          setFactories(data.map(transformPreview));
+          if (!cancelled) {
+            setFactories(data.map(transformPreview));
+          }
+        } else {
+          // User is authenticated, fetch full factory data
+          const data = await fetchFactories();
+          if (!cancelled) {
+            setFactories(data.map(transformFactory));
+          }
         }
       } catch (error) {
         console.error("Failed to load factories:", error);
-        toast.error("Failed to load factories. Please try again.");
+        if (!cancelled) {
+          toast.error("Failed to load factories. Please try again.");
+        }
       } finally {
-        setIsLoadingData(false);
+        if (!cancelled) {
+          setIsLoadingData(false);
+        }
       }
     }
     
     loadFactories();
+    
+    return () => {
+      cancelled = true;
+    };
   }, [isAuthenticated, authLoading]);
 
   // Load recently viewed from localStorage
@@ -255,7 +270,7 @@ export default function Directory() {
     localStorage.removeItem(RECENTLY_VIEWED_KEY);
   };
 
-  const isLoading = authLoading || isLoadingData;
+  const isLoading = isLoadingData;
 
   return (
     <Layout>
