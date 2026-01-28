@@ -18,56 +18,83 @@ export function useAuth() {
   });
 
   useEffect(() => {
-    // Set up auth state listener BEFORE checking session
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        const user = session?.user ?? null;
-        
-        // Check admin role if user exists
-        let isAdmin = false;
-        if (user) {
-          const { data } = await supabase
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", user.id)
-            .eq("role", "admin")
-            .maybeSingle();
-          isAdmin = !!data;
-        }
+    let isMounted = true;
 
-        setState({
-          user,
-          session,
-          isLoading: false,
-          isAdmin,
-        });
-      }
-    );
-
-    // Get initial session
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      const user = session?.user ?? null;
-      
-      let isAdmin = false;
-      if (user) {
+    const resolveIsAdmin = async (userId: string): Promise<boolean> => {
+      try {
         const { data } = await supabase
           .from("user_roles")
           .select("role")
-          .eq("user_id", user.id)
+          .eq("user_id", userId)
           .eq("role", "admin")
           .maybeSingle();
-        isAdmin = !!data;
+        return !!data;
+      } catch {
+        return false;
       }
+    };
 
-      setState({
-        user,
-        session,
-        isLoading: false,
-        isAdmin,
-      });
-    });
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (!isMounted) return;
+        
+        const user = session?.user ?? null;
+        const isAdmin = user ? await resolveIsAdmin(user.id) : false;
+
+        if (isMounted) {
+          setState({
+            user,
+            session,
+            isLoading: false,
+            isAdmin,
+          });
+        }
+      }
+    );
+
+    // Get initial session with timeout fallback
+    const initSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!isMounted) return;
+        
+        const user = session?.user ?? null;
+        const isAdmin = user ? await resolveIsAdmin(user.id) : false;
+
+        if (isMounted) {
+          setState({
+            user,
+            session,
+            isLoading: false,
+            isAdmin,
+          });
+        }
+      } catch {
+        if (isMounted) {
+          setState(prev => ({ ...prev, isLoading: false }));
+        }
+      }
+    };
+
+    // Timeout fallback to prevent infinite loading
+    const timeout = setTimeout(() => {
+      if (isMounted) {
+        setState(prev => {
+          if (prev.isLoading) {
+            console.warn("useAuth: timeout reached, forcing isLoading=false");
+            return { ...prev, isLoading: false };
+          }
+          return prev;
+        });
+      }
+    }, 5000);
+
+    initSession();
 
     return () => {
+      isMounted = false;
+      clearTimeout(timeout);
       subscription.unsubscribe();
     };
   }, []);
