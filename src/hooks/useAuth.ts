@@ -20,6 +20,30 @@ export function useAuth() {
   useEffect(() => {
     let isMounted = true;
 
+    const hydrateFromStorage = () => {
+      try {
+        // Supabase stores session in localStorage under a key like `sb-<ref>-auth-token`.
+        const key = Object.keys(localStorage).find(
+          (k) => k.startsWith("sb-") && k.endsWith("-auth-token")
+        );
+        if (!key) return;
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        const sessionCandidate = (parsed?.currentSession ?? parsed) as Session | null;
+        const userCandidate = sessionCandidate?.user ?? null;
+        if (!isMounted) return;
+        setState((prev) => ({
+          ...prev,
+          user: userCandidate,
+          session: sessionCandidate,
+          isLoading: false,
+        }));
+      } catch {
+        // ignore
+      }
+    };
+
     const resolveIsAdmin = async (userId: string): Promise<boolean> => {
       try {
         const { data } = await supabase
@@ -34,48 +58,35 @@ export function useAuth() {
       }
     };
 
+    const updateIsAdminInBackground = (userId: string) => {
+      // Important: do NOT await this in the auth listener; it can stall auth flows.
+      resolveIsAdmin(userId).then((isAdmin) => {
+        if (!isMounted) return;
+        setState((prev) => ({ ...prev, isAdmin }));
+      });
+    };
+
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (!isMounted) return;
         
         const user = session?.user ?? null;
-        const isAdmin = user ? await resolveIsAdmin(user.id) : false;
 
-        if (isMounted) {
-          setState({
-            user,
-            session,
-            isLoading: false,
-            isAdmin,
-          });
-        }
+        // Never block auth state propagation on a DB call.
+        setState({
+          user,
+          session,
+          isLoading: false,
+          isAdmin: false,
+        });
+
+        if (user) updateIsAdminInBackground(user.id);
       }
     );
 
-    // Get initial session with timeout fallback
-    const initSession = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!isMounted) return;
-        
-        const user = session?.user ?? null;
-        const isAdmin = user ? await resolveIsAdmin(user.id) : false;
-
-        if (isMounted) {
-          setState({
-            user,
-            session,
-            isLoading: false,
-            isAdmin,
-          });
-        }
-      } catch {
-        if (isMounted) {
-          setState(prev => ({ ...prev, isLoading: false }));
-        }
-      }
-    };
+    // Hydrate immediately from localStorage to avoid any potential auth lock deadlocks.
+    hydrateFromStorage();
 
     // Timeout fallback to prevent infinite loading
     const timeout = setTimeout(() => {
@@ -89,8 +100,6 @@ export function useAuth() {
         });
       }
     }, 5000);
-
-    initSession();
 
     return () => {
       isMounted = false;
