@@ -15,8 +15,10 @@ const typeIcons = {
 };
 
 export function FactoryTypeBadge({ type, size = 'md', className }: FactoryTypeBadgeProps) {
-  const { label, color } = factoryTypeLabels[type];
-  const Icon = typeIcons[type];
+  // Fallback to mass_production if type is unknown/undefined
+  const safeType = type && factoryTypeLabels[type] ? type : 'mass_production';
+  const { label, color } = factoryTypeLabels[safeType];
+  const Icon = typeIcons[safeType];
 
   return (
     <span

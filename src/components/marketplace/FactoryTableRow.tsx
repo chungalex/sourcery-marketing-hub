@@ -59,7 +59,7 @@ export function FactoryTableRow({
       <TableCell>
         <div className="flex items-center gap-1.5 text-sm">
           <Package className="w-3.5 h-3.5 text-muted-foreground" />
-          <span>{factory.moqMin.toLocaleString()}</span>
+          <span>{factory.moqMin !== null ? factory.moqMin.toLocaleString() : '—'}</span>
         </div>
       </TableCell>
 
@@ -67,7 +67,7 @@ export function FactoryTableRow({
       <TableCell>
         <div className="flex items-center gap-1.5 text-sm">
           <Clock className="w-3.5 h-3.5 text-muted-foreground" />
-          <span>{factory.leadTimeWeeks}w</span>
+          <span>{factory.leadTimeWeeks !== null ? `${factory.leadTimeWeeks}w` : '—'}</span>
         </div>
       </TableCell>
 

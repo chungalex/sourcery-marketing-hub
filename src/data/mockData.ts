@@ -22,8 +22,8 @@ export interface FactoryPreview {
   };
   coverImageUrl: string;
   categories: string[];
-  moqMin: number;
-  leadTimeWeeks: number;
+  moqMin: number | null;
+  leadTimeWeeks: number | null;
   certifications: CertificationBadge[];
   isVerified: boolean;
   completenessScore: number;

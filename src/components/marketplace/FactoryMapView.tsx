@@ -122,11 +122,11 @@ export function FactoryMapView({ factories, onSave, savedFactories = [] }: Facto
                             <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
                               <span className="flex items-center gap-0.5">
                                 <Package className="w-3 h-3" />
-                                {factory.moqMin}
+                                {factory.moqMin ?? '—'}
                               </span>
                               <span className="flex items-center gap-0.5">
                                 <Clock className="w-3 h-3" />
-                                {factory.leadTimeWeeks}w
+                                {factory.leadTimeWeeks !== null ? `${factory.leadTimeWeeks}w` : '—'}
                               </span>
                             </div>
                           </div>

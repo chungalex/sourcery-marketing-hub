@@ -45,6 +45,7 @@ type SortOption = 'newest' | 'completeness' | 'moq_low' | 'moq_high' | 'lead_tim
 const RECENTLY_VIEWED_KEY = 'sourcery_recently_viewed';
 
 // Transform DB factory to display format
+// Note: null values for moqMin/leadTimeWeeks are preserved as null for proper filter handling
 function transformFactory(f: Factory): MockFactoryPreview {
   return {
     id: f.id,
@@ -58,8 +59,8 @@ function transformFactory(f: Factory): MockFactoryPreview {
     },
     coverImageUrl: f.logo_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
     categories: f.categories || [],
-    moqMin: f.moq_min || 0,
-    leadTimeWeeks: f.lead_time_weeks || 0,
+    moqMin: f.moq_min ?? null,
+    leadTimeWeeks: f.lead_time_weeks ?? null,
     certifications: (f.certifications || []).map(c => ({ slug: c, name: c })),
     isVerified: f.is_verified,
     completenessScore: 80,
@@ -68,6 +69,7 @@ function transformFactory(f: Factory): MockFactoryPreview {
 }
 
 // Transform DB preview to display format
+// Note: null values for moqMin/leadTimeWeeks are preserved as null for proper filter handling
 function transformPreview(f: FactoryPreview): MockFactoryPreview {
   return {
     id: f.id,
@@ -81,8 +83,8 @@ function transformPreview(f: FactoryPreview): MockFactoryPreview {
     },
     coverImageUrl: f.logo_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
     categories: f.categories || [],
-    moqMin: f.moq_min || 0,
-    leadTimeWeeks: f.lead_time_weeks || 0,
+    moqMin: f.moq_min ?? null,
+    leadTimeWeeks: f.lead_time_weeks ?? null,
     certifications: (f.certifications || []).map(c => ({ slug: c, name: c })),
     isVerified: f.is_verified,
     completenessScore: 80,
@@ -197,16 +199,14 @@ export default function Directory() {
       );
     }
 
-    // MOQ filter
+    // MOQ filter - NULL values pass through (incomplete profiles not excluded)
     result = result.filter(
-      (f) => f.moqMin >= filters.moqRange[0] && f.moqMin <= filters.moqRange[1]
+      (f) => f.moqMin === null || (f.moqMin >= filters.moqRange[0] && f.moqMin <= filters.moqRange[1])
     );
 
-    // Lead time filter
+    // Lead time filter - NULL values pass through (incomplete profiles not excluded)
     result = result.filter(
-      (f) =>
-        f.leadTimeWeeks >= filters.leadTimeRange[0] &&
-        f.leadTimeWeeks <= filters.leadTimeRange[1]
+      (f) => f.leadTimeWeeks === null || (f.leadTimeWeeks >= filters.leadTimeRange[0] && f.leadTimeWeeks <= filters.leadTimeRange[1])
     );
 
     // Verified only

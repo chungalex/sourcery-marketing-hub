@@ -93,11 +93,11 @@ export function FactoryCard({
         <div className="flex items-center gap-4 text-sm">
           <div className="flex items-center gap-1.5 text-muted-foreground">
             <Package className="w-3.5 h-3.5" />
-            <span>MOQ: {factory.moqMin.toLocaleString()}</span>
+            <span>MOQ: {factory.moqMin !== null ? factory.moqMin.toLocaleString() : '—'}</span>
           </div>
           <div className="flex items-center gap-1.5 text-muted-foreground">
             <Clock className="w-3.5 h-3.5" />
-            <span>{factory.leadTimeWeeks} weeks</span>
+            <span>{factory.leadTimeWeeks !== null ? `${factory.leadTimeWeeks} weeks` : '—'}</span>
           </div>
         </div>
 
