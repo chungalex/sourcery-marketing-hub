@@ -112,19 +112,28 @@ export default function Directory() {
     async function loadFactories() {
       setIsLoadingData(true);
       try {
-        // If auth is still loading or user is not authenticated, fetch previews
-        // This allows the page to load immediately without waiting for auth
+        // If auth is still loading or user is not authenticated, fetch previews.
+        // If authenticated fetch returns empty or errors (RLS/transient issues), fall back to previews.
         if (authLoading || !isAuthenticated) {
-          const data = await fetchFactoryPreviews();
+          const previews = await fetchFactoryPreviews();
+          if (!cancelled) setFactories(previews.map(transformPreview));
+          return;
+        }
+
+        try {
+          const full = await fetchFactories();
           if (!cancelled) {
-            setFactories(data.map(transformPreview));
+            if (full.length > 0) {
+              setFactories(full.map(transformFactory));
+            } else {
+              const previews = await fetchFactoryPreviews();
+              setFactories(previews.map(transformPreview));
+            }
           }
-        } else {
-          // User is authenticated, fetch full factory data
-          const data = await fetchFactories();
-          if (!cancelled) {
-            setFactories(data.map(transformFactory));
-          }
+        } catch (err) {
+          console.warn("Directory: fetchFactories failed, falling back to previews", err);
+          const previews = await fetchFactoryPreviews();
+          if (!cancelled) setFactories(previews.map(transformPreview));
         }
       } catch (error) {
         console.error("Failed to load factories:", error);
