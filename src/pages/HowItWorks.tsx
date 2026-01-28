@@ -96,8 +96,8 @@ export default function HowItWorks() {
   return (
     <Layout>
       <SEO 
-        title="How It Works | Manufactory"
-        description="Personalized factory matching, escrow payment protection, and quality assurance at every step. See how we make manufacturing sourcing safe and simple."
+        title="How It Works | Sourcery"
+        description="Personalized factory matching, milestone payment protection, and quality assurance at every step. See how we make manufacturing sourcing safe and simple."
       />
 
       {/* Hero */}

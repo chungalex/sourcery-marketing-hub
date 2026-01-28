@@ -4,28 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { ArrowRight, MapPin, Users, Target, Heart, Handshake } from "lucide-react";
 
-const team = [
-  {
-    name: "Alexandra Chen",
-    role: "CEO & Co-founder",
-    bio: "Former supply chain director at a Fortune 500 retailer. 15+ years in global sourcing.",
-  },
-  {
-    name: "Marcus Williams",
-    role: "COO & Co-founder",
-    bio: "Built and sold two manufacturing-tech startups. Expert in factory operations.",
-  },
-  {
-    name: "Sofia Rodriguez",
-    role: "Head of Quality",
-    bio: "Led QC operations for major apparel brands across Asia for 10 years.",
-  },
-  {
-    name: "David Kim",
-    role: "Head of Partnerships",
-    bio: "Former factory owner turned brand consultant. Deep network across 12 countries.",
-  },
-];
+// Team section removed - will add real team when ready
 
 const values = [
   {
@@ -90,19 +69,19 @@ export default function About() {
             <h2 className="font-heading text-3xl font-bold text-foreground mb-6">Our Story</h2>
             <div className="space-y-4 text-muted-foreground">
               <p>
-                Sourcery was born from frustration. Our founders spent years watching brands struggle with the same manufacturing challenges: unreliable factories, quality inconsistencies, communication breakdowns, and complete lack of visibility into production.
+                Sourcery was born from frustration. We watched brands struggle with the same manufacturing challenges: unreliable factories, quality inconsistencies, communication breakdowns, and complete lack of visibility into production.
               </p>
               <p>
                 The traditional model was broken. Brands were forced to either navigate complex global supply chains alone or work with agents who prioritized volume over quality. There had to be a better way.
               </p>
               <p>
-                So in 2019, we set out to build it. We started by vetting factories ourselves—visiting facilities, auditing processes, building relationships. But we didn't stop there. We negotiated terms and pricing upfront, so every brand that joins our platform benefits from competitive rates without the back-and-forth.
+                So we set out to build it. We're vetting factories ourselves—visiting facilities, auditing processes, building relationships. We negotiate terms and pricing upfront, so every brand that joins benefits from competitive rates without the back-and-forth.
               </p>
               <p>
-                We created systems for real-time production tracking and quality control. We hired local teams who could bridge communication gaps and ensure nothing fell through the cracks.
+                We're creating systems for real-time production tracking and quality control. Our approach: milestone-protected payments that keep everyone accountable, and professional inspections at every stage.
               </p>
               <p>
-                Today, Sourcery connects brands with 500+ vetted factories across 12 countries — each one pre-audited and pre-negotiated. We've managed over $50 million in production, maintaining a 98% on-time delivery rate. But we're just getting started.
+                Today, Sourcery is building a curated network of vetted factories across 5 key manufacturing regions. We're launching in 2025 — and we're just getting started.
               </p>
             </div>
           </motion.div>
@@ -148,37 +127,26 @@ export default function About() {
         </div>
       </section>
 
-      {/* Team */}
+      {/* Founder-Led */}
       <section className="section-padding">
-        <div className="container-wide">
+        <div className="container-tight">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center p-8 rounded-xl bg-card border border-border"
           >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Leadership Team
+            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <Users className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+              Founder-Led Team
             </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              We're a small, focused team building the infrastructure to make global manufacturing accessible. 
+              More details coming as we grow.
+            </p>
           </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {team.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-xl bg-card border border-border"
-              >
-                <div className="w-16 h-16 rounded-full bg-muted mb-4" />
-                <h3 className="font-heading font-semibold text-foreground">{member.name}</h3>
-                <p className="text-primary text-sm mb-2">{member.role}</p>
-                <p className="text-muted-foreground text-sm">{member.bio}</p>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
