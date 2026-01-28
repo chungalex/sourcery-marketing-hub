@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Mail, Phone, MapPin, CheckCircle, Search, ClipboardCheck, Rocket } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 type FormType = "sourcing" | "factory" | "call" | "general" | "enterprise" | "consulting";
 
@@ -90,6 +91,7 @@ export default function Contact() {
   const [selectedTimeline, setSelectedTimeline] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
   const { toast } = useToast();
 
   useEffect(() => {
@@ -107,12 +109,71 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Honeypot check - silently "succeed" if filled (bot detected)
+    if (honeypot) {
+      setIsSubmitted(true);
+      return;
+    }
+    
+    // Rate limit: 60 seconds between submissions
+    const lastSubmit = localStorage.getItem('sourcery_contact_last_submit');
+    if (lastSubmit && Date.now() - parseInt(lastSubmit) < 60000) {
+      toast({
+        title: "Please wait",
+        description: "You can submit again in a moment.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    const formData = new FormData(e.currentTarget);
+    const firstName = formData.get('firstName') as string;
+    const lastName = formData.get('lastName') as string;
+    const email = formData.get('email') as string;
+    const company = formData.get('company') as string;
+    const message = formData.get('message') as string;
+    
+    const { error } = await supabase
+      .from('contact_submissions')
+      .insert({
+        name: `${firstName} ${lastName}`.trim(),
+        email: email,
+        company: company || null,
+        message: message,
+        form_type: formType
+      });
 
     setIsSubmitting(false);
+
+    if (error) {
+      console.error("Contact form error:", error);
+      // Handle specific errors
+      if (error.message.includes('valid_email')) {
+        toast({ 
+          title: "Invalid email", 
+          description: "Please enter a valid email address.", 
+          variant: "destructive" 
+        });
+      } else if (error.message.includes('contact_message_len')) {
+        toast({ 
+          title: "Message too long", 
+          description: "Please keep your message under 2000 characters.", 
+          variant: "destructive" 
+        });
+      } else {
+        toast({ 
+          title: "Error", 
+          description: "Failed to send message. Please try again.", 
+          variant: "destructive" 
+        });
+      }
+      return;
+    }
+    
+    localStorage.setItem('sourcery_contact_last_submit', Date.now().toString());
     setIsSubmitted(true);
     toast({
       title: "Message sent!",
@@ -250,6 +311,19 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="bg-card rounded-2xl border border-border p-8 md:p-12">
+                  {/* Honeypot - hidden from users, bots will fill it */}
+                  <div className="absolute opacity-0 -z-10 pointer-events-none" aria-hidden="true">
+                    <Label htmlFor="website">Website</Label>
+                    <Input 
+                      id="website" 
+                      name="website" 
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
+                  </div>
+
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="firstName">First Name *</Label>
@@ -404,6 +478,7 @@ export default function Contact() {
                       name="message"
                       required
                       rows={5}
+                      maxLength={2000}
                       placeholder={
                         formType === "sourcing"
                           ? "Describe your product, requirements, timeline, and any specific factory preferences..."
@@ -414,6 +489,7 @@ export default function Contact() {
                           : "How can we help you?"
                       }
                     />
+                    <p className="text-xs text-muted-foreground">Max 2000 characters</p>
                   </div>
 
                   <Button type="submit" size="lg" className="w-full mt-8" disabled={isSubmitting}>
