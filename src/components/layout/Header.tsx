@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
+import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 
 const navItems = [
   { label: "Directory", href: "/directory" },
@@ -18,6 +21,26 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const { user, signOut, isLoading: authLoading, isAdmin } = useAuth();
+  const { hasFactoryAccess, isLoading: membershipLoading } = useFactoryMembership(user?.id);
+
+  const dashboardHref = useMemo(() => {
+    if (!user) return "/dashboard";
+    if (hasFactoryAccess) return "/dashboard/factory";
+    return "/dashboard";
+  }, [hasFactoryAccess, user]);
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toast.error(error.message || "Failed to sign out");
+      return;
+    }
+    toast.success("Signed out");
+    navigate("/");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,14 +99,36 @@ export function Header() {
                   Apply as Factory
                 </Button>
               </Link>
-              <Link to="/auth">
-                <Button variant="outline" size="sm">
-                  Sign In
-                </Button>
-              </Link>
-              <Link to="/dashboard">
-                <Button size="sm">Dashboard</Button>
-              </Link>
+              {!authLoading && user ? (
+                <>
+                  {isAdmin && (
+                    <Link to="/admin">
+                      <Button variant="outline" size="sm">
+                        Admin
+                      </Button>
+                    </Link>
+                  )}
+                  <Link to={dashboardHref} aria-disabled={membershipLoading}>
+                    <Button size="sm" disabled={membershipLoading}>
+                      Dashboard
+                    </Button>
+                  </Link>
+                  <Button variant="outline" size="sm" onClick={handleSignOut}>
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/auth">
+                    <Button variant="outline" size="sm">
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link to="/dashboard">
+                    <Button size="sm">Dashboard</Button>
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -130,14 +175,36 @@ export function Header() {
                     Apply as Factory
                   </Button>
                 </Link>
-                <Link to="/auth">
-                  <Button variant="outline" className="w-full">
-                    Sign In
-                  </Button>
-                </Link>
-                <Link to="/dashboard">
-                  <Button className="w-full">Dashboard</Button>
-                </Link>
+                 {!authLoading && user ? (
+                   <>
+                     {isAdmin && (
+                       <Link to="/admin">
+                         <Button variant="outline" className="w-full">
+                           Admin
+                         </Button>
+                       </Link>
+                     )}
+                     <Link to={dashboardHref} aria-disabled={membershipLoading}>
+                       <Button className="w-full" disabled={membershipLoading}>
+                         Dashboard
+                       </Button>
+                     </Link>
+                     <Button variant="outline" className="w-full" onClick={handleSignOut}>
+                       Sign Out
+                     </Button>
+                   </>
+                 ) : (
+                   <>
+                     <Link to="/auth">
+                       <Button variant="outline" className="w-full">
+                         Sign In
+                       </Button>
+                     </Link>
+                     <Link to="/dashboard">
+                       <Button className="w-full">Dashboard</Button>
+                     </Link>
+                   </>
+                 )}
               </div>
             </nav>
           </motion.div>
