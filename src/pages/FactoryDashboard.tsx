@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
@@ -19,9 +19,12 @@ import {
   Clock,
   CheckCircle,
   Send,
-  ExternalLink
+  ExternalLink,
+  Loader2
 } from "lucide-react";
 import { ProfileViewsChart, InquirySourcesChart, InquiryStatusChart } from "@/components/dashboard/AnalyticsCharts";
+import { useAuth } from "@/hooks/useAuth";
+import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 
 /**
  * Factory Dashboard
@@ -82,8 +85,25 @@ const mockInquiries = [
 ];
 
 export default function FactoryDashboard() {
+  const navigate = useNavigate();
+  const { user, isLoading: authLoading } = useAuth();
+  const { hasFactoryAccess, isLoading: membershipLoading } = useFactoryMembership(user?.id);
+
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyMessage, setReplyMessage] = useState("");
+
+  // Auth + access guard
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate("/auth?redirect=/dashboard/factory");
+    }
+  }, [authLoading, navigate, user]);
+
+  useEffect(() => {
+    if (!authLoading && user && !membershipLoading && !hasFactoryAccess) {
+      navigate("/dashboard");
+    }
+  }, [authLoading, hasFactoryAccess, membershipLoading, navigate, user]);
 
   const handleSendReply = (inquiryId: string) => {
     // API Call: POST /api/inquiries/:id/respond
@@ -91,6 +111,23 @@ export default function FactoryDashboard() {
     setReplyingTo(null);
     setReplyMessage("");
   };
+
+  if (authLoading || membershipLoading) {
+    return (
+      <Layout>
+        <div className="section-padding">
+          <div className="container-wide flex items-center justify-center min-h-[400px]">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Redirect effects will handle these cases
+  if (!user || !hasFactoryAccess) {
+    return null;
+  }
 
   return (
     <Layout>
