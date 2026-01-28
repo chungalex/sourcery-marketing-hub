@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
@@ -13,6 +13,23 @@ import { toast } from "sonner";
 
 type UserRole = "brand" | "factory";
 
+function withTimeout<T>(promise: Promise<T>, ms: number, label: string) {
+  return new Promise<T>((resolve, reject) => {
+    const id = window.setTimeout(() => {
+      reject(new Error(`${label} timed out after ${ms}ms`));
+    }, ms);
+    promise
+      .then((value) => {
+        window.clearTimeout(id);
+        resolve(value);
+      })
+      .catch((err) => {
+        window.clearTimeout(id);
+        reject(err);
+      });
+  });
+}
+
 export default function Auth() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -23,6 +40,7 @@ export default function Auth() {
   
   const [selectedRole, setSelectedRole] = useState<UserRole>("brand");
   const [isLoading, setIsLoading] = useState(false);
+  const isMountedRef = useRef(true);
   
   // Form states
   const [loginEmail, setLoginEmail] = useState("");
@@ -38,33 +56,74 @@ export default function Auth() {
     }
   }, [user, authLoading, navigate, redirectTo]);
 
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (isLoading) return;
     setIsLoading(true);
-    
-    const { error } = await signIn(loginEmail, loginPassword);
-    
-    if (error) {
-      toast.error(error.message || "Failed to sign in");
-      setIsLoading(false);
-    } else {
-      toast.success("Signed in successfully!");
-      navigate(redirectTo);
+
+    try {
+      const { data, error } = await withTimeout(
+        signIn(loginEmail, loginPassword),
+        15000,
+        "Sign in"
+      );
+
+      if (error) {
+        toast.error(error.message || "Failed to sign in");
+        return;
+      }
+
+      // If we have a session, redirect immediately. If not, the auth listener
+      // will redirect when the user state updates.
+      if (data?.session) {
+        toast.success("Signed in successfully!");
+        navigate(redirectTo, { replace: true });
+      }
+    } catch (err) {
+      console.error("Auth: sign in failed", err);
+      toast.error("Sign in is taking too long. Please try again.");
+    } finally {
+      if (isMountedRef.current) setIsLoading(false);
     }
   };
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (isLoading) return;
     setIsLoading(true);
-    
-    const { error } = await signUp(signupEmail, signupPassword);
-    
-    if (error) {
-      toast.error(error.message || "Failed to create account");
-      setIsLoading(false);
-    } else {
-      toast.success("Account created successfully!");
-      navigate(redirectTo);
+
+    try {
+      const { data, error } = await withTimeout(
+        signUp(signupEmail, signupPassword),
+        15000,
+        "Sign up"
+      );
+
+      if (error) {
+        toast.error(error.message || "Failed to create account");
+        return;
+      }
+
+      // Some environments may require email confirmation; still clear loading.
+      if (data?.session) {
+        toast.success("Account created successfully!");
+        navigate(redirectTo, { replace: true });
+      } else {
+        toast.success("Account created! Please check your email to confirm.");
+      }
+    } catch (err) {
+      console.error("Auth: sign up failed", err);
+      toast.error("Sign up is taking too long. Please try again.");
+    } finally {
+      if (isMountedRef.current) setIsLoading(false);
     }
   };
 
