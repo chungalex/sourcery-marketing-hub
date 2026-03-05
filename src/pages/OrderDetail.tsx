@@ -505,7 +505,7 @@ function MilestoneStatusBadge({ status }: { status: string }) {
   const colors: Record<string, string> = {
     pending: "text-muted-foreground",
     eligible: "text-primary",
-    released: "text-green-600",
+    released: "text-primary",
     disputed: "text-destructive",
     cancelled: "text-muted-foreground line-through",
   };
