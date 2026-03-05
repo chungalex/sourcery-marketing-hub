@@ -143,7 +143,7 @@ export default function OrderDetail() {
         unit_price: parsedPrice,
         quantity: parsedQty,
         total_amount: computedTotal,
-        specifications: updatedSpecs as Record<string, unknown>,
+        specifications: updatedSpecs as unknown as Record<string, never>,
       })
       .eq("id", order.id);
 
