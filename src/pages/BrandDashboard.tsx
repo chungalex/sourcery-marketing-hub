@@ -400,8 +400,10 @@ export default function BrandDashboard() {
                         {/* Actions */}
                         <div className="flex gap-2 mt-4">
                           {order.status === 'draft' && (
-                            <Button size="sm" variant="outline">
-                              View Draft
+                            <Button size="sm" variant="outline" asChild>
+                              <Link to={`/orders/${order.id}`}>
+                                View Draft
+                              </Link>
                             </Button>
                           )}
                           {order.factories && (
