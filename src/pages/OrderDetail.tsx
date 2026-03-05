@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
@@ -26,6 +26,8 @@ import {
   FileText,
   CheckCircle,
   AlertCircle,
+  CreditCard,
+  ExternalLink,
 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -56,12 +58,26 @@ interface OrderData {
 export default function OrderDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { user, isLoading: authLoading } = useAuth();
+
+  // Handle Stripe return
+  useEffect(() => {
+    const paymentStatus = searchParams.get("payment");
+    if (paymentStatus === "success") {
+      toast.success("Payment successful! Milestone released.");
+      setSearchParams({}, { replace: true });
+    } else if (paymentStatus === "cancelled") {
+      toast.info("Payment cancelled.");
+      setSearchParams({}, { replace: true });
+    }
+  }, []);
 
   const [order, setOrder] = useState<OrderData | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [issuingPO, setIssuingPO] = useState(false);
+  const [payingMilestone, setPayingMilestone] = useState<string | null>(null);
 
   // Editable fields
   const [unitPrice, setUnitPrice] = useState("");
@@ -209,6 +225,30 @@ export default function OrderDetail() {
 
     toast.success("Purchase Order issued! The factory will be notified.");
     navigate("/dashboard?tab=orders&highlight=" + order.id);
+  };
+
+  // Pay a milestone via Stripe Checkout
+  const handlePayMilestone = async (milestoneId: string) => {
+    if (!order) return;
+    setPayingMilestone(milestoneId);
+
+    const { data, error } = await supabase.functions.invoke("stripe-checkout", {
+      body: { milestone_id: milestoneId, order_id: order.id },
+    });
+
+    if (error || data?.error) {
+      toast.error(data?.error || "Failed to create payment session");
+      console.error("Stripe checkout error:", error || data);
+      setPayingMilestone(null);
+      return;
+    }
+
+    if (data?.url) {
+      window.location.href = data.url;
+    } else {
+      toast.error("No checkout URL returned");
+      setPayingMilestone(null);
+    }
   };
 
   if (authLoading || loading) {
@@ -423,6 +463,26 @@ export default function OrderDetail() {
                             : "—"}
                         </div>
                         <MilestoneStatusBadge status={m.status} />
+                        {/* Pay button for pending/eligible milestones after PO issued */}
+                        {!isDraft && (m.status === "pending" || m.status === "eligible") && computedTotal > 0 && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="mt-2 text-xs h-7"
+                            disabled={payingMilestone === m.id}
+                            onClick={() => handlePayMilestone(m.id)}
+                          >
+                            {payingMilestone === m.id ? (
+                              <Loader2 className="h-3 w-3 animate-spin mr-1" />
+                            ) : (
+                              <CreditCard className="h-3 w-3 mr-1" />
+                            )}
+                            Pay Milestone
+                          </Button>
+                        )}
+                        {m.status === "released" && (
+                          <span className="text-xs text-green-600 font-medium mt-1 block">✓ Paid</span>
+                        )}
                       </div>
                     </div>
                   ))}
