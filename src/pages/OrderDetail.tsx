@@ -1,0 +1,517 @@
+import { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Layout } from "@/components/layout/Layout";
+import { SEO } from "@/components/SEO";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
+import {
+  ArrowLeft,
+  Loader2,
+  Package,
+  Building2,
+  FileText,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
+import { format } from "date-fns";
+
+type QCMode = "sourcery" | "byo" | "factory_self";
+
+interface OrderData {
+  id: string;
+  order_number: string;
+  status: string;
+  quantity: number;
+  unit_price: number;
+  total_amount: number | null;
+  currency: string;
+  created_at: string;
+  specifications: Record<string, unknown> | null;
+  factories: { id: string; name: string; slug: string } | null;
+  order_milestones: {
+    id: string;
+    label: string;
+    percentage: number;
+    amount: number;
+    status: string;
+    sequence_order: number;
+    release_condition: string | null;
+  }[];
+}
+
+export default function OrderDetail() {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { user, isLoading: authLoading } = useAuth();
+
+  const [order, setOrder] = useState<OrderData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [issuingPO, setIssuingPO] = useState(false);
+
+  // Editable fields
+  const [unitPrice, setUnitPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [qcMode, setQcMode] = useState<QCMode>("sourcery");
+
+  // Auth guard
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate(`/auth?redirect=/orders/${id}`);
+    }
+  }, [user, authLoading, navigate, id]);
+
+  // Fetch order
+  useEffect(() => {
+    if (!user || !id) return;
+
+    const fetchOrder = async () => {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("orders")
+        .select(`
+          id, order_number, status, quantity, unit_price,
+          total_amount, currency, created_at, specifications,
+          factories (id, name, slug),
+          order_milestones (id, label, percentage, amount, status, sequence_order, release_condition)
+        `)
+        .eq("id", id)
+        .single();
+
+      if (error || !data) {
+        console.error("Order fetch error:", error);
+        toast.error("Order not found");
+        navigate("/dashboard?tab=orders");
+        return;
+      }
+
+      const orderData = data as unknown as OrderData;
+      setOrder(orderData);
+      setUnitPrice(orderData.unit_price > 0 ? String(orderData.unit_price) : "");
+      setQuantity(String(orderData.quantity));
+
+      // Restore QC mode from specifications if saved
+      const specs = orderData.specifications as Record<string, unknown> | null;
+      if (specs?.qc_mode) {
+        setQcMode(specs.qc_mode as QCMode);
+      }
+
+      setLoading(false);
+    };
+
+    fetchOrder();
+  }, [user, id, navigate]);
+
+  const isDraft = order?.status === "draft";
+  const parsedPrice = parseFloat(unitPrice) || 0;
+  const parsedQty = parseInt(quantity) || 0;
+  const computedTotal = parsedPrice * parsedQty;
+  const canIssuePO = isDraft && parsedPrice > 0 && parsedQty > 0;
+
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: order?.currency || "USD",
+  });
+
+  // Save draft changes
+  const handleSave = async () => {
+    if (!order || !isDraft) return;
+    setSaving(true);
+
+    const updatedSpecs = {
+      ...(order.specifications || {}),
+      qc_mode: qcMode,
+    };
+
+    const { error } = await supabase
+      .from("orders")
+      .update({
+        unit_price: parsedPrice,
+        quantity: parsedQty,
+        total_amount: computedTotal,
+        specifications: updatedSpecs as Record<string, unknown>,
+      })
+      .eq("id", order.id);
+
+    if (error) {
+      toast.error("Failed to save changes");
+      console.error("Save error:", error);
+    } else {
+      // Update milestones amounts
+      if (order.order_milestones.length > 0) {
+        for (const m of order.order_milestones) {
+          const newAmount = computedTotal * (m.percentage / 100);
+          await supabase
+            .from("order_milestones")
+            .update({ amount: newAmount })
+            .eq("id", m.id);
+        }
+      }
+
+      toast.success("Draft saved");
+      // Refresh order data
+      setOrder((prev) =>
+        prev
+          ? {
+              ...prev,
+              unit_price: parsedPrice,
+              quantity: parsedQty,
+              total_amount: computedTotal,
+              specifications: updatedSpecs,
+              order_milestones: prev.order_milestones.map((m) => ({
+                ...m,
+                amount: computedTotal * (m.percentage / 100),
+              })),
+            }
+          : null
+      );
+    }
+    setSaving(false);
+  };
+
+  // Issue PO
+  const handleIssuePO = async () => {
+    if (!order || !canIssuePO) return;
+
+    // Save first
+    await handleSave();
+
+    setIssuingPO(true);
+
+    const { data, error } = await supabase.functions.invoke("order-action", {
+      body: {
+        action: "issue_po",
+        order_id: order.id,
+        metadata: { qc_mode: qcMode },
+      },
+    });
+
+    if (error || data?.error) {
+      toast.error(data?.error || "Failed to issue PO");
+      console.error("Issue PO error:", error || data);
+      setIssuingPO(false);
+      return;
+    }
+
+    toast.success("Purchase Order issued! The factory will be notified.");
+    navigate("/dashboard?tab=orders&highlight=" + order.id);
+  };
+
+  if (authLoading || loading) {
+    return (
+      <Layout>
+        <div className="section-padding">
+          <div className="container-wide max-w-3xl mx-auto space-y-6">
+            <Skeleton className="h-8 w-48" />
+            <Skeleton className="h-64 w-full rounded-xl" />
+            <Skeleton className="h-48 w-full rounded-xl" />
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  if (!order) return null;
+
+  const specs = order.specifications as Record<string, unknown> | null;
+
+  return (
+    <Layout>
+      <SEO
+        title={`Order ${order.order_number} | Manufactory`}
+        description="View and manage your production order."
+      />
+
+      <section className="section-padding">
+        <div className="container-wide max-w-3xl mx-auto">
+          {/* Back */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate("/dashboard?tab=orders")}
+            className="mb-6"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Orders
+          </Button>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-6"
+          >
+            {/* Header */}
+            <div className="flex items-start justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-foreground">
+                  {order.order_number}
+                </h1>
+                <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
+                  <Building2 className="h-4 w-4" />
+                  {order.factories ? (
+                    <Link
+                      to={`/directory/${order.factories.slug}`}
+                      className="hover:text-primary transition-colors"
+                    >
+                      {order.factories.name}
+                    </Link>
+                  ) : (
+                    "Factory unavailable"
+                  )}
+                  <span>•</span>
+                  <span>{format(new Date(order.created_at), "MMM d, yyyy")}</span>
+                </div>
+              </div>
+              <StatusBadge status={order.status} />
+            </div>
+
+            {/* Inquiry context */}
+            {specs?.product_description && (
+              <div className="bg-muted/50 border border-border rounded-xl p-4">
+                <div className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wide">
+                  From Inquiry
+                </div>
+                <p className="text-sm text-foreground">
+                  {String(specs.product_description)}
+                </p>
+              </div>
+            )}
+
+            {/* Editable fields (draft only) */}
+            <div className="bg-card border border-border rounded-xl p-6 space-y-5">
+              <div className="flex items-center gap-2 mb-2">
+                <Package className="h-5 w-5 text-primary" />
+                <h2 className="text-lg font-semibold text-foreground">
+                  Order Details
+                </h2>
+                {isDraft && (
+                  <Badge variant="outline" className="ml-auto text-xs">
+                    Editable
+                  </Badge>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="quantity">Quantity (units)</Label>
+                  <Input
+                    id="quantity"
+                    type="number"
+                    min={1}
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                    disabled={!isDraft}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="unit_price">
+                    Unit Price ({order.currency})
+                  </Label>
+                  <Input
+                    id="unit_price"
+                    type="number"
+                    min={0}
+                    step={0.01}
+                    placeholder="0.00"
+                    value={unitPrice}
+                    onChange={(e) => setUnitPrice(e.target.value)}
+                    disabled={!isDraft}
+                  />
+                </div>
+              </div>
+
+              {parsedPrice > 0 && parsedQty > 0 && (
+                <div className="text-sm text-muted-foreground">
+                  Total:{" "}
+                  <span className="font-semibold text-foreground">
+                    {formatter.format(computedTotal)}
+                  </span>{" "}
+                  ({parsedQty.toLocaleString()} × {formatter.format(parsedPrice)})
+                </div>
+              )}
+
+              {/* QC Mode */}
+              <div className="space-y-2">
+                <Label>Quality Control Mode</Label>
+                <Select
+                  value={qcMode}
+                  onValueChange={(v) => setQcMode(v as QCMode)}
+                  disabled={!isDraft}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="sourcery">
+                      Sourcery QC — We coordinate inspection
+                    </SelectItem>
+                    <SelectItem value="byo">
+                      Bring Your Own — You assign your QC partner
+                    </SelectItem>
+                    <SelectItem value="factory_self">
+                      Factory Self-QC — Factory handles inspection
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  {qcMode === "sourcery" &&
+                    "Our QC network will be assigned after the factory accepts the PO."}
+                  {qcMode === "byo" &&
+                    "You'll assign your own QC partner after the PO is accepted."}
+                  {qcMode === "factory_self" &&
+                    "The factory will conduct and upload their own QC report."}
+                </p>
+              </div>
+
+              {isDraft && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleSave}
+                  disabled={saving}
+                >
+                  {saving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                  Save Draft
+                </Button>
+              )}
+            </div>
+
+            {/* Milestones */}
+            <div className="bg-card border border-border rounded-xl p-6 space-y-4">
+              <div className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-primary" />
+                <h2 className="text-lg font-semibold text-foreground">
+                  Payment Milestones
+                </h2>
+              </div>
+
+              <div className="space-y-3">
+                {[...order.order_milestones]
+                  .sort((a, b) => a.sequence_order - b.sequence_order)
+                  .map((m) => (
+                    <div
+                      key={m.id}
+                      className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
+                    >
+                      <div>
+                        <div className="font-medium text-sm text-foreground">
+                          {m.label}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {m.release_condition || "—"} • {m.percentage}%
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-semibold text-sm text-foreground">
+                          {computedTotal > 0
+                            ? formatter.format(computedTotal * (m.percentage / 100))
+                            : "—"}
+                        </div>
+                        <MilestoneStatusBadge status={m.status} />
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+
+            {/* Issue PO */}
+            {isDraft && (
+              <div className="bg-card border-2 border-primary/20 rounded-xl p-6">
+                <h2 className="text-lg font-semibold text-foreground mb-2">
+                  Ready to Order?
+                </h2>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Issuing the PO sends this order to the factory for review. Make sure
+                  quantity and unit price are set before proceeding.
+                </p>
+
+                {!canIssuePO && (
+                  <div className="flex items-center gap-2 text-sm text-amber-600 mb-4">
+                    <AlertCircle className="h-4 w-4" />
+                    Set a unit price greater than 0 and confirm quantity to proceed.
+                  </div>
+                )}
+
+                <Button
+                  onClick={handleIssuePO}
+                  disabled={!canIssuePO || issuingPO}
+                  className="w-full sm:w-auto"
+                >
+                  {issuingPO ? (
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  ) : (
+                    <CheckCircle className="h-4 w-4 mr-2" />
+                  )}
+                  Issue Purchase Order
+                </Button>
+              </div>
+            )}
+
+            {/* Non-draft status info */}
+            {!isDraft && (
+              <div className="bg-muted/50 border border-border rounded-xl p-6 text-center">
+                <CheckCircle className="h-8 w-8 text-primary mx-auto mb-2" />
+                <p className="text-sm text-muted-foreground">
+                  This order has been submitted. Status:{" "}
+                  <span className="font-semibold text-foreground capitalize">
+                    {order.status.replace(/_/g, " ")}
+                  </span>
+                </p>
+              </div>
+            )}
+          </motion.div>
+        </div>
+      </section>
+    </Layout>
+  );
+}
+
+function StatusBadge({ status }: { status: string }) {
+  const config: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {
+    draft: { label: "Draft", variant: "outline" },
+    po_issued: { label: "PO Issued", variant: "secondary" },
+    po_accepted: { label: "PO Accepted", variant: "secondary" },
+    in_production: { label: "In Production", variant: "default" },
+    qc_scheduled: { label: "QC Scheduled", variant: "secondary" },
+    qc_uploaded: { label: "QC Uploaded", variant: "secondary" },
+    qc_pass: { label: "QC Passed", variant: "default" },
+    qc_fail: { label: "QC Failed", variant: "destructive" },
+    ready_to_ship: { label: "Ready to Ship", variant: "default" },
+    shipped: { label: "Shipped", variant: "default" },
+    closed: { label: "Closed", variant: "outline" },
+    disputed: { label: "Disputed", variant: "destructive" },
+    cancelled: { label: "Cancelled", variant: "outline" },
+  };
+  const c = config[status] || { label: status, variant: "outline" as const };
+  return <Badge variant={c.variant}>{c.label}</Badge>;
+}
+
+function MilestoneStatusBadge({ status }: { status: string }) {
+  const colors: Record<string, string> = {
+    pending: "text-muted-foreground",
+    eligible: "text-primary",
+    released: "text-green-600",
+    disputed: "text-destructive",
+    cancelled: "text-muted-foreground line-through",
+  };
+  return (
+    <span className={`text-xs font-medium capitalize ${colors[status] || "text-muted-foreground"}`}>
+      {status}
+    </span>
+  );
+}

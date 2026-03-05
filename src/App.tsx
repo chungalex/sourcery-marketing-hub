@@ -27,6 +27,7 @@ import Admin from "./pages/Admin";
 import Checkout from "./pages/Checkout";
 import Toolkit from "./pages/Toolkit";
 import CreateOrder from "./pages/CreateOrder";
+import OrderDetail from "./pages/OrderDetail";
 
 const queryClient = new QueryClient();
 
