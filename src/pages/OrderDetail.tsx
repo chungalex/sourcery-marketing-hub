@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
+import { FactoryReview } from "@/components/trust/FactoryReview";
 import { toast } from "sonner";
 import {
   ArrowLeft,
@@ -488,6 +490,19 @@ export default function OrderDetail() {
                   ))}
               </div>
             </div>
+
+            {/* Messaging */}
+            <PlatformMessaging orderId={order.id} />
+
+            {/* Review — shown for completed orders */}
+            {order.factories && !isDraft && (
+              <FactoryReview
+                orderId={order.id}
+                factoryId={order.factories.id}
+                factoryName={order.factories.name}
+                orderStatus={order.status}
+              />
+            )}
 
             {/* Issue PO */}
             {isDraft && (
