@@ -29,6 +29,7 @@ import Checkout from "./pages/Checkout";
 import Toolkit from "./pages/Toolkit";
 import CreateOrder from "./pages/CreateOrder";
 import OrderDetail from "./pages/OrderDetail";
+import FactoryAccept from "./pages/FactoryAccept";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +65,7 @@ const App = () => (
             <Route path="/toolkit" element={<Toolkit />} />
             <Route path="/orders/create" element={<CreateOrder />} />
             <Route path="/orders/:id" element={<OrderDetail />} />
+            <Route path="/factory-accept/:orderId" element={<FactoryAccept />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </ErrorBoundary>
