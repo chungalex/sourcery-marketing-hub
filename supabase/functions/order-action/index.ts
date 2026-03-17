@@ -9,6 +9,10 @@ type OrderAction =
   | "create_order"
   | "issue_po"
   | "accept_po"
+  | "submit_sample"
+  | "approve_sample"
+  | "request_sample_revision"
+  | "acknowledge_revision"
   | "start_production"
   | "schedule_qc"
   | "upload_qc"
@@ -66,6 +70,14 @@ interface ActionRequest {
     storage_key: string;
     file_size_bytes?: number;
   };
+  // sampling fields
+  sample?: {
+    notes?: string;
+    measurements?: Record<string, unknown>;
+    photo_urls?: string[];
+  };
+  revision_notes?: string;
+  sample_submission_id?: string;
   // general
   reason?: string;
   metadata?: Record<string, unknown>;
@@ -763,6 +775,204 @@ Deno.serve(async (req) => {
         }
 
         result = transitionResult;
+        break;
+      }
+
+      case "submit_sample": {
+        if (!orderId || !body.sample) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id or sample data" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Get current round (count existing submissions + 1)
+        const { count } = await userClient
+          .from("sample_submissions")
+          .select("*", { count: "exact", head: true })
+          .eq("order_id", orderId);
+
+        const round = (count || 0) + 1;
+
+        const { data: submission, error: subError } = await userClient
+          .from("sample_submissions")
+          .insert({
+            order_id: orderId,
+            submitted_by: actorId,
+            round,
+            notes: body.sample.notes || null,
+            measurements: body.sample.measurements || null,
+            photo_urls: body.sample.photo_urls || [],
+            status: "pending",
+          })
+          .select()
+          .single();
+
+        if (subError) {
+          return new Response(
+            JSON.stringify({ error: subError.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Transition order to sample_sent
+        const { data: transitionResult, error: transitionError } = await userClient
+          .rpc("transition_order_status", {
+            p_order_id: orderId,
+            p_new_status: "sample_sent",
+            p_actor_id: actorId,
+            p_reason: `Sample round ${round} submitted`,
+            p_metadata: { sample_submission_id: submission.id, round },
+          });
+
+        if (transitionError || !transitionResult?.success) {
+          return new Response(
+            JSON.stringify({ error: transitionResult?.error || transitionError?.message || "Failed to update order status" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        result = { message: "Sample submitted successfully", submission };
+        break;
+      }
+
+      case "approve_sample": {
+        if (!orderId || !body.sample_submission_id) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id or sample_submission_id" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const { error: updateError } = await userClient
+          .from("sample_submissions")
+          .update({
+            status: "approved",
+            reviewed_by: actorId,
+            reviewed_at: new Date().toISOString(),
+          })
+          .eq("id", body.sample_submission_id)
+          .eq("order_id", orderId);
+
+        if (updateError) {
+          return new Response(
+            JSON.stringify({ error: updateError.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Transition order to sample_approved → gates bulk production
+        const { data: transitionResult, error: transitionError } = await userClient
+          .rpc("transition_order_status", {
+            p_order_id: orderId,
+            p_new_status: "sample_approved",
+            p_actor_id: actorId,
+            p_reason: "Sample approved by brand",
+            p_metadata: { sample_submission_id: body.sample_submission_id },
+          });
+
+        if (transitionError || !transitionResult?.success) {
+          return new Response(
+            JSON.stringify({ error: transitionResult?.error || transitionError?.message || "Failed to update order status" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        result = { message: "Sample approved. Production can now begin." };
+        break;
+      }
+
+      case "request_sample_revision": {
+        if (!orderId || !body.sample_submission_id || !body.revision_notes) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id, sample_submission_id, or revision_notes" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Get round from submission
+        const { data: submission } = await userClient
+          .from("sample_submissions")
+          .select("round")
+          .eq("id", body.sample_submission_id)
+          .single();
+
+        // Mark submission as revision_requested
+        await userClient
+          .from("sample_submissions")
+          .update({
+            status: "revision_requested",
+            reviewed_by: actorId,
+            reviewed_at: new Date().toISOString(),
+          })
+          .eq("id", body.sample_submission_id);
+
+        // Create revision record
+        const { data: revision, error: revError } = await userClient
+          .from("sample_revisions")
+          .insert({
+            sample_submission_id: body.sample_submission_id,
+            order_id: orderId,
+            round: submission?.round || 1,
+            requested_by: actorId,
+            revision_notes: body.revision_notes,
+          })
+          .select()
+          .single();
+
+        if (revError) {
+          return new Response(
+            JSON.stringify({ error: revError.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Transition order to sample_revision
+        const { data: transitionResult, error: transitionError } = await userClient
+          .rpc("transition_order_status", {
+            p_order_id: orderId,
+            p_new_status: "sample_revision",
+            p_actor_id: actorId,
+            p_reason: "Brand requested sample revision",
+            p_metadata: { revision_id: revision.id },
+          });
+
+        if (transitionError || !transitionResult?.success) {
+          return new Response(
+            JSON.stringify({ error: transitionResult?.error || transitionError?.message || "Failed to update order status" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        result = { message: "Revision requested. Factory has been notified.", revision };
+        break;
+      }
+
+      case "acknowledge_revision": {
+        if (!orderId || !body.sample_submission_id) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id or sample_submission_id" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const { error: ackError } = await userClient
+          .from("sample_revisions")
+          .update({
+            acknowledged_by: actorId,
+            acknowledged_at: new Date().toISOString(),
+          })
+          .eq("sample_submission_id", body.sample_submission_id)
+          .is("acknowledged_at", null);
+
+        if (ackError) {
+          return new Response(
+            JSON.stringify({ error: ackError.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        result = { message: "Revision acknowledged. Submit your updated sample when ready." };
         break;
       }
 

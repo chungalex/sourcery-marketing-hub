@@ -14,8 +14,11 @@ import { Badge } from "@/components/ui/badge";
 import {
   Building2, MessageSquare, BarChart3, Settings, Eye, Users,
   Clock, CheckCircle, Send, ExternalLink, Loader2, Package,
+  ChevronDown, ChevronUp, AlertCircle,
 } from "lucide-react";
 import { ProfileViewsChart, InquirySourcesChart, InquiryStatusChart } from "@/components/dashboard/AnalyticsCharts";
+import { SampleSubmitForm } from "@/components/sampling/SampleSubmitForm";
+import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
 import { useAuth } from "@/hooks/useAuth";
 import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 import { supabase } from "@/integrations/supabase/client";
@@ -27,6 +30,17 @@ interface FactoryProfile {
   website: string | null; email: string | null; phone: string | null;
   moq_min: number | null; lead_time_weeks: number | null;
   total_employees: number | null; city: string | null; country: string;
+}
+
+interface FactoryOrder {
+  id: string;
+  order_number: string;
+  status: string;
+  quantity: number;
+  unit_price: number;
+  currency: string;
+  created_at: string;
+  brand_user_id: string;
 }
 
 interface RealInquiry {
@@ -116,11 +130,28 @@ export default function FactoryDashboard() {
     },
   });
 
+  const { data: factoryOrders = [], isLoading: ordersLoading, refetch: refetchOrders } = useQuery({
+    queryKey: ["factory-orders", factoryId],
+    enabled: !!factoryId,
+    queryFn: async (): Promise<FactoryOrder[]> => {
+      const activeStatuses = ["po_issued","po_accepted","sample_sent","sample_revision","sample_approved","in_production","qc_scheduled","qc_uploaded","qc_pass","qc_fail","ready_to_ship","shipped"];
+      const { data, error } = await supabase
+        .from("orders")
+        .select("id, order_number, status, quantity, unit_price, currency, created_at, brand_user_id")
+        .eq("factory_id", factoryId)
+        .in("status", activeStatuses)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return (data || []) as FactoryOrder[];
+    },
+  });
+
   const [profileForm, setProfileForm] = useState<Partial<FactoryProfile>>({});
   const [savingProfile, setSavingProfile] = useState(false);
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyMessage, setReplyMessage] = useState("");
   const [sendingReply, setSendingReply] = useState(false);
+  const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
 
   useEffect(() => {
     if (profile) setProfileForm({ name: profile.name, description: profile.description ?? "", website: profile.website ?? "", email: profile.email ?? "", phone: profile.phone ?? "", moq_min: profile.moq_min ?? undefined, lead_time_weeks: profile.lead_time_weeks ?? undefined, total_employees: profile.total_employees ?? undefined });
@@ -217,6 +248,14 @@ export default function FactoryDashboard() {
 
           <Tabs defaultValue="inquiries" className="space-y-6">
             <TabsList>
+              <TabsTrigger value="orders" className="flex items-center gap-2">
+                <Package className="h-4 w-4" />Orders
+                {factoryOrders.filter(o => ["po_issued","sample_revision"].includes(o.status)).length > 0 && (
+                  <span className="ml-1 px-1.5 py-0.5 text-xs bg-primary text-primary-foreground rounded-full">
+                    {factoryOrders.filter(o => ["po_issued","sample_revision"].includes(o.status)).length}
+                  </span>
+                )}
+              </TabsTrigger>
               <TabsTrigger value="inquiries" className="flex items-center gap-2">
                 <MessageSquare className="h-4 w-4" />Inquiries
                 {newCount > 0 && <span className="ml-1 px-1.5 py-0.5 text-xs bg-primary text-primary-foreground rounded-full">{newCount}</span>}
@@ -225,6 +264,121 @@ export default function FactoryDashboard() {
               <TabsTrigger value="analytics" className="flex items-center gap-2"><BarChart3 className="h-4 w-4" />Analytics</TabsTrigger>
               <TabsTrigger value="settings" className="flex items-center gap-2"><Settings className="h-4 w-4" />Settings</TabsTrigger>
             </TabsList>
+
+            {/* Orders */}
+            <TabsContent value="orders" className="space-y-4">
+              {ordersLoading ? (
+                <div className="space-y-3">{[1,2,3].map(i => <Skeleton key={i} className="h-24 w-full rounded-xl" />)}</div>
+              ) : factoryOrders.length === 0 ? (
+                <div className="text-center py-16 bg-card border border-border rounded-xl">
+                  <Package className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
+                  <p className="text-foreground font-medium">No active orders</p>
+                  <p className="text-sm text-muted-foreground mt-1">Orders will appear here once brands send a PO.</p>
+                </div>
+              ) : (
+                factoryOrders.map(order => {
+                  const isExpanded = expandedOrderId === order.id;
+                  const needsAction = ["po_issued", "sample_revision"].includes(order.status);
+                  const canSubmitSample = ["po_accepted", "sample_revision"].includes(order.status);
+                  const inSampleReview = ["sample_sent", "sample_approved", "sample_revision"].includes(order.status);
+
+                  const statusLabels: Record<string, string> = {
+                    po_issued: "PO Awaiting Acceptance",
+                    po_accepted: "PO Accepted",
+                    sample_sent: "Sample Under Review",
+                    sample_revision: "Revision Requested",
+                    sample_approved: "Sample Approved",
+                    in_production: "In Production",
+                    qc_scheduled: "QC Scheduled",
+                    ready_to_ship: "Ready to Ship",
+                    shipped: "Shipped",
+                  };
+
+                  return (
+                    <div key={order.id} className="bg-card border border-border rounded-xl overflow-hidden">
+                      {/* Order header */}
+                      <div
+                        className="p-4 flex items-center justify-between cursor-pointer hover:bg-secondary/30 transition-colors"
+                        onClick={() => setExpandedOrderId(isExpanded ? null : order.id)}
+                      >
+                        <div className="flex items-center gap-3">
+                          {needsAction && (
+                            <div className="h-2 w-2 rounded-full bg-amber-500 shrink-0" />
+                          )}
+                          <div>
+                            <p className="text-sm font-semibold text-foreground">Order {order.order_number}</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">
+                              {order.quantity.toLocaleString()} units · {order.currency} {order.unit_price.toFixed(2)}/unit
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${
+                            needsAction
+                              ? "bg-amber-500/10 text-amber-600 border-amber-500/20"
+                              : order.status === "sample_approved"
+                              ? "bg-green-500/10 text-green-600 border-green-500/20"
+                              : "bg-secondary text-muted-foreground border-border"
+                          }`}>
+                            {statusLabels[order.status] || order.status}
+                          </span>
+                          {isExpanded ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
+                        </div>
+                      </div>
+
+                      {/* Expanded actions */}
+                      {isExpanded && (
+                        <div className="border-t border-border p-4 space-y-4">
+                          {/* PO review CTA */}
+                          {order.status === "po_issued" && (
+                            <div className="flex items-center gap-3 p-3 rounded-lg bg-amber-500/5 border border-amber-500/20">
+                              <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
+                              <div className="flex-1">
+                                <p className="text-sm font-medium text-foreground">PO awaiting your response</p>
+                                <p className="text-xs text-muted-foreground mt-0.5">Review and accept or decline this production order.</p>
+                              </div>
+                              <Button size="sm" asChild>
+                                <Link to={`/factory-accept/${order.id}`}>Review PO</Link>
+                              </Button>
+                            </div>
+                          )}
+
+                          {/* Sample submit form */}
+                          {canSubmitSample && (
+                            <SampleSubmitForm
+                              orderId={order.id}
+                              orderNumber={order.order_number}
+                              currentRound={1}
+                              onSubmitted={() => { refetchOrders(); setExpandedOrderId(null); }}
+                            />
+                          )}
+
+                          {/* Sample review history (read-only for factory on sample_sent/approved) */}
+                          {inSampleReview && !canSubmitSample && (
+                            <SampleReviewPanel
+                              orderId={order.id}
+                              orderStatus={order.status}
+                              isFactory={true}
+                              onActionComplete={() => refetchOrders()}
+                            />
+                          )}
+
+                          {/* Full order link */}
+                          <div className="pt-2 border-t border-border">
+                            <Button variant="ghost" size="sm" asChild>
+                              <Link to={`/orders/${order.id}`}>
+                                <ExternalLink className="mr-2 h-3 w-3" />
+                                View Full Order
+                              </Link>
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
+              )}
+            </TabsContent>
 
             {/* Inquiries */}
             <TabsContent value="inquiries" className="space-y-4">

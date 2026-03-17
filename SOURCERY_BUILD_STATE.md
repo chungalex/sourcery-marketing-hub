@@ -189,17 +189,15 @@ Success state: "Invite sent to [email] — they'll get a link to join Sourcery a
 - Links to `/factory-accept/:orderId`
 - Mobile-friendly — this is a factory-facing UI
 
-### 🟡 NEXT AFTER BYOF — Sampling Stage
-Hard gate between `po_accepted` and `in_production`. Required before bulk production milestones can be funded.
+### ✅ DONE — Sampling Stage
+Hard gate between `po_accepted` and `in_production`. Fully built.
 
-- Factory submits sample: photos, measurements, notes on the order
-- Brand receives notification, reviews submission
-- Brand approves (→ `in_production`) or requests revision with specific notes
-- Revision notes and factory acknowledgment timestamped and logged
-- Full sample history preserved — every revision round documented
-- New DB tables needed: `sample_submissions`, `sample_revisions`
-- New order states: `sample_sent`, `sample_approved`, `sample_revision`
-- UI: factory sample upload form (mobile-first), brand sample review panel in OrderDetail
+- `supabase/migrations/20260317_sampling.sql` — `sample_submissions` + `sample_revisions` tables with RLS
+- `order-action` edge function — 4 new actions: `submit_sample`, `approve_sample`, `request_sample_revision`, `acknowledge_revision`
+- `src/components/sampling/SampleSubmitForm.tsx` — factory-facing, mobile-first, photo URLs + measurements + notes + revision context
+- `src/components/sampling/SampleReviewPanel.tsx` — brand-facing, full round history, approve/revision request UI, factory acknowledge
+- `OrderDetail.tsx` — SampleReviewPanel injected for statuses: po_accepted, sample_sent, sample_approved, sample_revision
+- `FactoryDashboard.tsx` — new Orders tab with PO review CTA, SampleSubmitForm for po_accepted/sample_revision, SampleReviewPanel for history
 
 ### 🟡 NEXT — Revision Rounds
 Replaces WhatsApp change requests with logged paper trail.
@@ -274,5 +272,7 @@ Built this session:
 Next session starts with: Sampling Stage — `sample_submissions` + `sample_revisions` DB tables, new order states (sample_sent/sample_approved/sample_revision), factory sample upload form (mobile-first), brand sample review panel in OrderDetail
 
 Session: March 17, 2026
-Built this session: `/factory-accept/:orderId` route + FactoryAccept page (factory reviews/accepts incoming PO)
-Next session starts with: BYOF — item 1 in the priority list above
+Built this session:
+- CreateOrder.tsx grouped factory selector (BYOF + Network)
+- Sampling Stage — full build: migration, edge function actions, SampleSubmitForm, SampleReviewPanel, OrderDetail injection, FactoryDashboard Orders tab
+Next session starts with: Revision Rounds — `revision_rounds` table, brand submits revision request, factory acknowledges or disputes

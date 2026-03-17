@@ -19,6 +19,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { FactoryReview } from "@/components/trust/FactoryReview";
+import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
 import { toast } from "sonner";
 import {
   ArrowLeft,
@@ -493,6 +494,25 @@ export default function OrderDetail() {
 
             {/* Messaging */}
             <PlatformMessaging orderId={order.id} />
+
+            {/* Sampling — hard gate between po_accepted and in_production */}
+            {["po_accepted", "sample_sent", "sample_approved", "sample_revision"].includes(order.status) && (
+              <div className="bg-card border border-border rounded-xl p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="h-2 w-2 rounded-full bg-amber-500" />
+                  <h2 className="text-lg font-semibold text-foreground">Sample Review</h2>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Sample must be approved before bulk production milestones can be funded.
+                </p>
+                <SampleReviewPanel
+                  orderId={order.id}
+                  orderStatus={order.status}
+                  isFactory={false}
+                  onActionComplete={loadOrder}
+                />
+              </div>
+            )}
 
             {/* Review — shown for completed orders */}
             {order.factories && !isDraft && (
