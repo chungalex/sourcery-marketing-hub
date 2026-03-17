@@ -23,7 +23,10 @@ import {
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -43,7 +46,8 @@ import {
   Shield,
   Check,
   Loader2,
-  Info
+  Info,
+  UserPlus
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -129,6 +133,10 @@ export default function CreateOrder() {
   const watchedValues = form.watch();
   const totalAmount = (watchedValues.quantity || 0) * (watchedValues.unit_price || 0);
   const selectedFactory = factories.find(f => f.id === watchedValues.factory_id);
+
+  // Group factories: BYOF (brand's own) vs Sourcery Network
+  const byofFactories = factories.filter(f => f.is_byof);
+  const networkFactories = factories.filter(f => !f.is_byof);
 
   // Auth check
   useEffect(() => {
@@ -333,6 +341,25 @@ export default function CreateOrder() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Factory</FormLabel>
+                            {/* BYOF invite prompt — shown when brand has no own factories yet */}
+                            {!loadingFactories && byofFactories.length === 0 && (
+                              <div className="flex items-start gap-3 p-3 rounded-lg border border-dashed border-border bg-muted/30 mb-3">
+                                <UserPlus className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-sm text-foreground">You haven't brought any factories onto Sourcery yet.</p>
+                                  <p className="text-xs text-muted-foreground mt-0.5">
+                                    Invite your existing factory from your dashboard, or pick from the Sourcery network below.
+                                  </p>
+                                  <Link
+                                    to="/dashboard"
+                                    className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-1.5 font-medium"
+                                  >
+                                    <UserPlus className="h-3 w-3" />
+                                    Invite a factory
+                                  </Link>
+                                </div>
+                              </div>
+                            )}
                             <Select 
                               onValueChange={field.onChange} 
                               defaultValue={field.value}
@@ -344,17 +371,57 @@ export default function CreateOrder() {
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                {factories.map((factory) => (
-                                  <SelectItem key={factory.id} value={factory.id}>
-                                    <div className="flex items-center gap-2">
-                                      <Building2 className="h-4 w-4 text-muted-foreground" />
-                                      <span>{factory.name}</span>
-                                      <span className="text-muted-foreground">
-                                        — {factory.city}, {factory.country}
-                                      </span>
-                                    </div>
-                                  </SelectItem>
-                                ))}
+                                {/* Your Factories — BYOF */}
+                                {byofFactories.length > 0 && (
+                                  <SelectGroup>
+                                    <SelectLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                                      Your Factories
+                                    </SelectLabel>
+                                    {byofFactories.map((factory) => (
+                                      <SelectItem key={factory.id} value={factory.id}>
+                                        <div className="flex items-center gap-2">
+                                          <Building2 className="h-4 w-4 text-primary" />
+                                          <span>{factory.name}</span>
+                                          <span className="text-muted-foreground">
+                                            — {factory.city}, {factory.country}
+                                          </span>
+                                        </div>
+                                      </SelectItem>
+                                    ))}
+                                  </SelectGroup>
+                                )}
+
+                                {/* Separator between groups if both have entries */}
+                                {byofFactories.length > 0 && networkFactories.length > 0 && (
+                                  <SelectSeparator />
+                                )}
+
+                                {/* Sourcery Network */}
+                                {networkFactories.length > 0 && (
+                                  <SelectGroup>
+                                    <SelectLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                                      Sourcery Network
+                                    </SelectLabel>
+                                    {networkFactories.map((factory) => (
+                                      <SelectItem key={factory.id} value={factory.id}>
+                                        <div className="flex items-center gap-2">
+                                          <Building2 className="h-4 w-4 text-muted-foreground" />
+                                          <span>{factory.name}</span>
+                                          <span className="text-muted-foreground">
+                                            — {factory.city}, {factory.country}
+                                          </span>
+                                        </div>
+                                      </SelectItem>
+                                    ))}
+                                  </SelectGroup>
+                                )}
+
+                                {/* Empty state if no factories at all */}
+                                {!loadingFactories && factories.length === 0 && (
+                                  <div className="py-6 text-center text-sm text-muted-foreground">
+                                    No factories available yet.
+                                  </div>
+                                )}
                               </SelectContent>
                             </Select>
                             <FormMessage />
@@ -704,9 +771,16 @@ export default function CreateOrder() {
                             <Building2 className="h-4 w-4 text-primary" />
                             <h4 className="font-medium text-foreground">Factory</h4>
                           </div>
-                          <p className="text-foreground">
-                            {selectedFactory?.name || "Not selected"}
-                          </p>
+                          <div className="flex items-center gap-2">
+                            <p className="text-foreground">
+                              {selectedFactory?.name || "Not selected"}
+                            </p>
+                            {selectedFactory?.is_byof && (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                                Your Factory
+                              </span>
+                            )}
+                          </div>
                           {selectedFactory && (
                             <p className="text-sm text-muted-foreground">
                               {selectedFactory.city}, {selectedFactory.country}

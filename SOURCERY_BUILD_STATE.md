@@ -264,5 +264,15 @@ One-click reorder from closed order. Pre-fills all specs.
 ## LAST UPDATED
 
 Session: March 17, 2026
+Built this session:
+- `CreateOrder.tsx` — grouped factory selector: "Your Factories" (BYOF, is_byof=true) + "Sourcery Network" with SelectGroup/SelectLabel/SelectSeparator
+- Added BYOF invite prompt in selector when brand has no own factories yet (links to dashboard)
+- Added "Your Factory" badge on selected factory in Step 4 review card
+- Added `is_byof` + `invited_by` fields to `Factory` type in `database.ts`
+- BYOF is now 100% complete — all 7 items done
+
+Next session starts with: Sampling Stage — `sample_submissions` + `sample_revisions` DB tables, new order states (sample_sent/sample_approved/sample_revision), factory sample upload form (mobile-first), brand sample review panel in OrderDetail
+
+Session: March 17, 2026
 Built this session: `/factory-accept/:orderId` route + FactoryAccept page (factory reviews/accepts incoming PO)
 Next session starts with: BYOF — item 1 in the priority list above

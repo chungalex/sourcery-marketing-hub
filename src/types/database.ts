@@ -21,6 +21,8 @@ export interface Factory {
   year_established: number | null;
   total_employees: number | null;
   is_verified: boolean;
+  is_byof: boolean;
+  invited_by: string | null;
   logo_url: string | null;
   gallery_urls: string[];
   created_at: string;
