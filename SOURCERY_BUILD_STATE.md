@@ -206,10 +206,13 @@ Hard gate between `po_accepted` and `in_production`. Fully built.
 - OrderDetail.tsx — RevisionRounds injected for sample_approved → qc_uploaded
 - BrandDashboard.tsx — mock data fully removed, replaced with real BYOF factories query (Your Factories tab)
 
-### 🟡 NEXT — Tech Pack Versioning
-Every upload creates new version. Old versions preserved. Factory sees which version they're working from.
-- New DB table: `tech_pack_versions`
-- AI tech pack risk flagging on upload (missing measurements, ambiguous colorways, wash instructions, construction risks)
+### ✅ DONE — Tech Pack Versioning
+- `supabase/migrations/20260318_tech_pack_versions.sql` — tech_pack_versions table with RLS
+- order-action: upload_tech_pack_version, acknowledge_tech_pack_version
+- `src/components/orders/TechPackVersions.tsx` — brand uploads URL + notes; factory sees alert + must confirm current version; full version history
+- OrderDetail.tsx — TechPackVersions panel injected for all non-draft orders
+- FactoryDashboard.tsx — TechPackVersions injected in Orders tab expanded section
+- AI tech pack risk flagging deferred to future (needs ai-tech-pack-reviewer edge function)
 
 ### 🟡 NEXT — Defect Reporting
 Structured QC defect log — not just pass/fail.

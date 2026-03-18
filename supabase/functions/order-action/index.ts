@@ -17,6 +17,8 @@ type OrderAction =
   | "acknowledge_revision_round"
   | "dispute_revision_round"
   | "resolve_revision_round"
+  | "upload_tech_pack_version"
+  | "acknowledge_tech_pack_version"
   | "start_production"
   | "schedule_qc"
   | "upload_qc"
@@ -89,6 +91,13 @@ interface ActionRequest {
   impact_cost?: string;
   dispute_reason?: string;
   resolution?: string;
+  // tech pack fields
+  tech_pack?: {
+    file_url: string;
+    file_name: string;
+    notes?: string;
+  };
+  tech_pack_version_id?: string;
   // general
   reason?: string;
   metadata?: Record<string, unknown>;
@@ -1128,6 +1137,79 @@ Deno.serve(async (req) => {
         }
 
         result = { message: "Revision resolved. Production can continue." };
+        break;
+      }
+
+      case "upload_tech_pack_version": {
+        if (!orderId || !body.tech_pack?.file_url || !body.tech_pack?.file_name) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id, file_url, or file_name" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const { count } = await userClient
+          .from("tech_pack_versions")
+          .select("*", { count: "exact", head: true })
+          .eq("order_id", orderId);
+
+        const versionNumber = (count || 0) + 1;
+
+        const { data: version, error: verError } = await userClient
+          .from("tech_pack_versions")
+          .insert({
+            order_id: orderId,
+            version_number: versionNumber,
+            file_url: body.tech_pack.file_url,
+            file_name: body.tech_pack.file_name,
+            notes: body.tech_pack.notes || null,
+            uploaded_by: actorId,
+          })
+          .select()
+          .single();
+
+        if (verError) {
+          return new Response(
+            JSON.stringify({ error: verError.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Also update the top-level tech_pack_url on the order for backwards compat
+        await userClient
+          .from("orders")
+          .update({ tech_pack_url: body.tech_pack.file_url })
+          .eq("id", orderId);
+
+        result = { message: `Tech pack v${versionNumber} uploaded. Factory has been notified.`, version };
+        break;
+      }
+
+      case "acknowledge_tech_pack_version": {
+        if (!orderId || !body.tech_pack_version_id) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id or tech_pack_version_id" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const { error: ackError } = await userClient
+          .from("tech_pack_versions")
+          .update({
+            factory_acknowledged_by: actorId,
+            factory_acknowledged_at: new Date().toISOString(),
+          })
+          .eq("id", body.tech_pack_version_id)
+          .eq("order_id", orderId);
+
+        if (ackError) {
+          return new Response(
+            JSON.stringify({ error: ackError.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        result = { message: "Tech pack acknowledged. You're confirmed on the current version." };
         break;
       }
 

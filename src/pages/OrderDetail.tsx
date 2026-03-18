@@ -21,6 +21,7 @@ import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { FactoryReview } from "@/components/trust/FactoryReview";
 import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
 import { RevisionRounds } from "@/components/orders/RevisionRounds";
+import { TechPackVersions } from "@/components/orders/TechPackVersions";
 import { toast } from "sonner";
 import {
   ArrowLeft,
@@ -509,6 +510,24 @@ export default function OrderDetail() {
                 <SampleReviewPanel
                   orderId={order.id}
                   orderStatus={order.status}
+                  isFactory={false}
+                  onActionComplete={loadOrder}
+                />
+              </div>
+            )}
+
+            {/* Tech pack versions — available once order is beyond draft */}
+            {order.status !== "draft" && (
+              <div className="bg-card border border-border rounded-xl p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="h-2 w-2 rounded-full bg-blue-500" />
+                  <h2 className="text-lg font-semibold text-foreground">Tech Pack</h2>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Every version is preserved. The factory must confirm they've switched to the latest version before production continues.
+                </p>
+                <TechPackVersions
+                  orderId={order.id}
                   isFactory={false}
                   onActionComplete={loadOrder}
                 />

@@ -19,6 +19,7 @@ import {
 import { ProfileViewsChart, InquirySourcesChart, InquiryStatusChart } from "@/components/dashboard/AnalyticsCharts";
 import { SampleSubmitForm } from "@/components/sampling/SampleSubmitForm";
 import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
+import { TechPackVersions } from "@/components/orders/TechPackVersions";
 import { useAuth } from "@/hooks/useAuth";
 import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 import { supabase } from "@/integrations/supabase/client";
@@ -361,6 +362,18 @@ export default function FactoryDashboard() {
                               isFactory={true}
                               onActionComplete={() => refetchOrders()}
                             />
+                          )}
+
+                          {/* Tech pack versions — factory sees and acknowledges */}
+                          {order.status !== "po_issued" && (
+                            <div className="border-t border-border pt-4">
+                              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">Tech Pack</p>
+                              <TechPackVersions
+                                orderId={order.id}
+                                isFactory={true}
+                                onActionComplete={() => refetchOrders()}
+                              />
+                            </div>
                           )}
 
                           {/* Full order link */}
