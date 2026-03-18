@@ -13,6 +13,10 @@ type OrderAction =
   | "approve_sample"
   | "request_sample_revision"
   | "acknowledge_revision"
+  | "submit_revision_round"
+  | "acknowledge_revision_round"
+  | "dispute_revision_round"
+  | "resolve_revision_round"
   | "start_production"
   | "schedule_qc"
   | "upload_qc"
@@ -78,6 +82,13 @@ interface ActionRequest {
   };
   revision_notes?: string;
   sample_submission_id?: string;
+  // revision round fields
+  revision_round_id?: string;
+  revision_description?: string;
+  impact_timeline?: string;
+  impact_cost?: string;
+  dispute_reason?: string;
+  resolution?: string;
   // general
   reason?: string;
   metadata?: Record<string, unknown>;
@@ -973,6 +984,150 @@ Deno.serve(async (req) => {
         }
 
         result = { message: "Revision acknowledged. Submit your updated sample when ready." };
+        break;
+      }
+
+      case "submit_revision_round": {
+        if (!orderId || !body.revision_description) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id or revision_description" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Get current round count
+        const { count } = await userClient
+          .from("revision_rounds")
+          .select("*", { count: "exact", head: true })
+          .eq("order_id", orderId);
+
+        const { data: revision, error: revError } = await userClient
+          .from("revision_rounds")
+          .insert({
+            order_id: orderId,
+            initiated_by: actorId,
+            round_number: (count || 0) + 1,
+            description: body.revision_description,
+            impact_timeline: body.impact_timeline || null,
+            impact_cost: body.impact_cost || null,
+            status: "pending",
+          })
+          .select()
+          .single();
+
+        if (revError) {
+          return new Response(
+            JSON.stringify({ error: revError.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Log to order state history
+        await userClient.rpc("transition_order_status", {
+          p_order_id: orderId,
+          p_new_status: "in_production",
+          p_actor_id: actorId,
+          p_reason: `Revision round ${revision.round_number} submitted`,
+          p_metadata: { revision_round_id: revision.id, round: revision.round_number },
+        });
+
+        result = { message: "Revision submitted. Factory must acknowledge before production continues.", revision };
+        break;
+      }
+
+      case "acknowledge_revision_round": {
+        if (!orderId || !body.revision_round_id) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id or revision_round_id" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const { error: ackError } = await userClient
+          .from("revision_rounds")
+          .update({
+            status: "acknowledged",
+            factory_acknowledged_by: actorId,
+            factory_acknowledged_at: new Date().toISOString(),
+          })
+          .eq("id", body.revision_round_id)
+          .eq("order_id", orderId);
+
+        if (ackError) {
+          return new Response(
+            JSON.stringify({ error: ackError.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        result = { message: "Revision acknowledged. Production continues with updated spec." };
+        break;
+      }
+
+      case "dispute_revision_round": {
+        if (!orderId || !body.revision_round_id || !body.dispute_reason) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id, revision_round_id, or dispute_reason" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const { error: dispError } = await userClient
+          .from("revision_rounds")
+          .update({
+            status: "disputed",
+            dispute_reason: body.dispute_reason,
+          })
+          .eq("id", body.revision_round_id)
+          .eq("order_id", orderId);
+
+        if (dispError) {
+          return new Response(
+            JSON.stringify({ error: dispError.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Escalate — log to state history as disputed
+        await userClient.rpc("transition_order_status", {
+          p_order_id: orderId,
+          p_new_status: "disputed",
+          p_actor_id: actorId,
+          p_reason: "Revision round disputed by factory",
+          p_metadata: { revision_round_id: body.revision_round_id, dispute_reason: body.dispute_reason },
+        });
+
+        result = { message: "Revision disputed. Escalated to admin mediation before production continues." };
+        break;
+      }
+
+      case "resolve_revision_round": {
+        if (!orderId || !body.revision_round_id || !body.resolution) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id, revision_round_id, or resolution" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const { error: resError } = await userClient
+          .from("revision_rounds")
+          .update({
+            status: "resolved",
+            resolution: body.resolution,
+            resolved_by: actorId,
+            resolved_at: new Date().toISOString(),
+          })
+          .eq("id", body.revision_round_id)
+          .eq("order_id", orderId);
+
+        if (resError) {
+          return new Response(
+            JSON.stringify({ error: resError.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        result = { message: "Revision resolved. Production can continue." };
         break;
       }
 

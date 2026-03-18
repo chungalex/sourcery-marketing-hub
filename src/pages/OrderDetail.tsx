@@ -20,6 +20,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { FactoryReview } from "@/components/trust/FactoryReview";
 import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
+import { RevisionRounds } from "@/components/orders/RevisionRounds";
 import { toast } from "sonner";
 import {
   ArrowLeft,
@@ -508,6 +509,24 @@ export default function OrderDetail() {
                 <SampleReviewPanel
                   orderId={order.id}
                   orderStatus={order.status}
+                  isFactory={false}
+                  onActionComplete={loadOrder}
+                />
+              </div>
+            )}
+
+            {/* Revision rounds — available during production */}
+            {["sample_approved", "in_production", "qc_scheduled", "qc_uploaded"].includes(order.status) && (
+              <div className="bg-card border border-border rounded-xl p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="h-2 w-2 rounded-full bg-primary" />
+                  <h2 className="text-lg font-semibold text-foreground">Revision Rounds</h2>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  All spec changes must be formally logged and acknowledged by the factory before production continues.
+                </p>
+                <RevisionRounds
+                  orderId={order.id}
                   isFactory={false}
                   onActionComplete={loadOrder}
                 />

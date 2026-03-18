@@ -10,7 +10,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { FactoryCard } from "@/components/marketplace/FactoryCard";
 import { EscrowPaymentTracker } from "@/components/platform/EscrowPaymentTracker";
 import { QualityDashboard } from "@/components/platform/QualityDashboard";
-import { mockFactories } from "@/data/mockData";
 import { useAuth } from "@/hooks/useAuth";
 import { useInquiries, type InquiryWithFactory } from "@/hooks/useInquiries";
 import { useOrders, type OrderWithDetails } from "@/hooks/useOrders";
@@ -189,11 +188,24 @@ export default function BrandDashboard() {
   
   const { inquiries, isLoading: inquiriesLoading, refetch: refetchInquiries } = useInquiries();
   const { orders, isLoading: ordersLoading, refetch: refetchOrders } = useOrders();
-  
-  const [converting, setConverting] = useState<string | null>(null);
-  const [savedFactories, setSavedFactories] = useState<string[]>(
-    mockFactories.slice(0, 3).map(f => f.id)
-  );
+
+  const [byofFactories, setByofFactories] = useState<Array<{id:string;name:string;city:string|null;country:string;is_byof:boolean}>>([]);
+  const [loadingByof, setLoadingByof] = useState(true);
+
+  useEffect(() => {
+    if (!user) return;
+    async function loadByof() {
+      setLoadingByof(true);
+      const { data } = await supabase
+        .from("factories")
+        .select("id, name, city, country, is_byof, invited_by")
+        .eq("is_byof", true)
+        .eq("invited_by", user!.id);
+      setByofFactories(data || []);
+      setLoadingByof(false);
+    }
+    loadByof();
+  }, [user]);
 
   // Auth guard
   useEffect(() => {
@@ -206,13 +218,7 @@ export default function BrandDashboard() {
   const defaultTab = searchParams.get('tab') || 'orders';
   const highlightId = searchParams.get('highlight');
 
-  const handleUnsave = (factoryId: string) => {
-    setSavedFactories(prev => prev.filter(id => id !== factoryId));
-  };
-
-  const savedFactoryList = mockFactories.filter(f => savedFactories.includes(f.id));
-
-  // Convert inquiry to order
+  const [converting, setConverting] = useState<string | null>(null);
   const handleConvert = async (inquiryId: string) => {
     setConverting(inquiryId);
     
@@ -437,44 +443,50 @@ export default function BrandDashboard() {
               )}
             </TabsContent>
 
-            {/* Saved Factories Tab */}
+            {/* Your Factories Tab — real BYOF data */}
             <TabsContent value="saved" className="space-y-6">
-              {savedFactoryList.length > 0 ? (
+              {loadingByof ? (
+                <div className="space-y-3">{[1,2,3].map(i=><Skeleton key={i} className="h-20 w-full rounded-xl"/>)}</div>
+              ) : byofFactories.length > 0 ? (
                 <>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {savedFactoryList.map((factory) => (
-                      <FactoryCard
-                        key={factory.id}
-                        factory={factory}
-                        isSaved={true}
-                        onSave={handleUnsave}
-                      />
+                  <div className="space-y-3">
+                    {byofFactories.map(factory => (
+                      <div key={factory.id} className="flex items-center justify-between p-4 bg-card border border-border rounded-xl">
+                        <div className="flex items-center gap-3">
+                          <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                            <Building2 className="h-4 w-4 text-primary" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-foreground">{factory.name}</p>
+                            <p className="text-xs text-muted-foreground">{factory.city ? `${factory.city}, ` : ''}{factory.country}</p>
+                          </div>
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">Your Factory</span>
+                        </div>
+                        <Button size="sm" variant="outline" asChild>
+                          <Link to={`/orders/create?factory=${factory.id}`}>Create Order</Link>
+                        </Button>
+                      </div>
                     ))}
                   </div>
-                  <div className="text-center">
-                    <Button variant="outline" asChild>
-                      <Link to="/directory">
-                        <Search className="mr-2 h-4 w-4" />
-                        Browse More Factories
-                      </Link>
-                    </Button>
-                  </div>
+                  <Button variant="outline" className="w-full" asChild>
+                    <Link to="/directory"><Search className="mr-2 h-4 w-4" />Browse Sourcery Network</Link>
+                  </Button>
                 </>
               ) : (
                 <div className="text-center py-16 bg-card border border-border rounded-xl">
-                  <Heart className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    No saved factories yet
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    Start exploring our directory to find manufacturers
+                  <Building2 className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-semibold text-foreground mb-2">No factories yet</h3>
+                  <p className="text-muted-foreground mb-6 max-w-sm mx-auto">
+                    Bring your existing factory relationships onto Sourcery, or find new ones in the network.
                   </p>
-                  <Button asChild>
-                    <Link to="/directory">
-                      <Search className="mr-2 h-4 w-4" />
-                      Browse Factories
-                    </Link>
-                  </Button>
+                  <div className="flex gap-3 justify-center">
+                    <Button asChild>
+                      <Link to="/dashboard?tab=invite">Invite a Factory</Link>
+                    </Button>
+                    <Button variant="outline" asChild>
+                      <Link to="/directory"><Search className="mr-2 h-4 w-4" />Browse Network</Link>
+                    </Button>
+                  </div>
                 </div>
               )}
             </TabsContent>

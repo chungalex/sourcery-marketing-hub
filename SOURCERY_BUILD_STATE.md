@@ -199,13 +199,12 @@ Hard gate between `po_accepted` and `in_production`. Fully built.
 - `OrderDetail.tsx` — SampleReviewPanel injected for statuses: po_accepted, sample_sent, sample_approved, sample_revision
 - `FactoryDashboard.tsx` — new Orders tab with PO review CTA, SampleSubmitForm for po_accepted/sample_revision, SampleReviewPanel for history
 
-### 🟡 NEXT — Revision Rounds
-Replaces WhatsApp change requests with logged paper trail.
-- Brand submits revision request: what changed, why, impact on timeline/cost
-- Factory must formally acknowledge or dispute
-- All revisions logged with timestamp, actor, content
-- Disputed revisions escalate to admin before production continues
-- New DB table: `revision_rounds`
+### ✅ DONE — Revision Rounds
+- `supabase/migrations/20260318_revision_rounds.sql` — revision_rounds table with RLS, round_number, dispute/resolution fields
+- order-action: submit_revision_round, acknowledge_revision_round, dispute_revision_round, resolve_revision_round
+- `src/components/orders/RevisionRounds.tsx` — brand submits with description + timeline/cost impact; factory acknowledges or disputes; full round history
+- OrderDetail.tsx — RevisionRounds injected for sample_approved → qc_uploaded
+- BrandDashboard.tsx — mock data fully removed, replaced with real BYOF factories query (Your Factories tab)
 
 ### 🟡 NEXT — Tech Pack Versioning
 Every upload creates new version. Old versions preserved. Factory sees which version they're working from.
