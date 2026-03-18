@@ -2,209 +2,149 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
-import { ArrowRight, MapPin, Users, Target, Heart, Handshake } from "lucide-react";
-
-// Team section removed - will add real team when ready
-
-const values = [
-  {
-    icon: Handshake,
-    title: "Pre-Negotiated Partnerships",
-    description: "We do the hard work upfront — auditing facilities, vetting capabilities, and negotiating favorable terms so our brands get competitive rates from day one.",
-  },
-  {
-    icon: Target,
-    title: "Quality First",
-    description: "We never compromise on quality. Every factory in our network meets our rigorous standards, and every product passes our inspection protocols.",
-  },
-  {
-    icon: Users,
-    title: "Partnership Mindset",
-    description: "We succeed when our brands and factories succeed. We're not just intermediaries—we're invested partners in every relationship.",
-  },
-  {
-    icon: Heart,
-    title: "Ethical Manufacturing",
-    description: "We believe in fair wages, safe working conditions, and sustainable practices. Every factory must meet our ethical standards.",
-  },
-];
-
-const locations = [
-  { city: "New York", country: "USA", role: "Headquarters" },
-  { city: "Shenzhen", country: "China", role: "Asia Operations" },
-  { city: "Ho Chi Minh", country: "Vietnam", role: "Southeast Asia" },
-  { city: "Mumbai", country: "India", role: "South Asia" },
-];
+import { SEO } from "@/components/SEO";
+import { ArrowRight, MapPin } from "lucide-react";
 
 export default function About() {
   return (
     <Layout>
+      <SEO
+        title="About Sourcery — Built in Vietnam"
+        description="Sourcery is a manufacturing OS built by operators embedded in Vietnamese production. We run a brand and a factory. We built the tools we needed."
+      />
+
       {/* Hero */}
       <section className="section-padding bg-[var(--hero-gradient)]">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-3xl"
-          >
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-              About Sourcery
+              Built by people who actually make things
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              We're building the infrastructure to make global manufacturing accessible, transparent, and reliable for brands of all sizes.
+              Starting with Vietnam.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Story */}
+      {/* Origin story */}
       <section className="section-padding">
         <div className="container-tight">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="prose prose-lg max-w-none"
+            className="space-y-6 text-muted-foreground text-lg leading-relaxed"
           >
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-6">Our Story</h2>
-            <div className="space-y-4 text-muted-foreground">
+            <p>
+              Sourcery was built in Ho Chi Minh City by a team that operates on both sides of manufacturing. We run <strong className="text-foreground">OKIO Denim</strong> — a premium denim brand designed in LA and produced in Vietnam. And we run <strong className="text-foreground">HU LA Studios</strong> — a garment production studio in Ho Chi Minh City.
+            </p>
+            <p>
+              We've been the brand wiring deposits and waiting. We've been the factory fielding revisions over WhatsApp at midnight. We've watched money disappear into disputes with no paper trail. We've seen tech packs go to factories without version control, and nobody knows which spec they're actually building from.
+            </p>
+            <p>
+              The tools didn't exist. So we built them.
+            </p>
+            <p>
+              Sourcery is the operating system we needed — order management, sampling gates, revision tracking, QC, escrow payments, and messaging all in one place. We use it ourselves. Every feature exists because we ran into the problem it solves.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Why Vietnam */}
+      <section className="section-padding bg-card/50">
+        <div className="container-tight">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-start gap-3 mb-6">
+              <MapPin className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+              <h2 className="font-heading text-2xl font-bold text-foreground">Why Vietnam, and why it matters</h2>
+            </div>
+            <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                Sourcery was born from frustration. We watched brands struggle with the same manufacturing challenges: unreliable factories, quality inconsistencies, communication breakdowns, and complete lack of visibility into production.
+                Vietnam is one of the fastest-growing manufacturing regions in the world. Brands are moving production here from China at scale — but the infrastructure hasn't caught up. Most sourcing tools still assume you're on Alibaba.
               </p>
               <p>
-                The traditional model was broken. Brands were forced to either navigate complex global supply chains alone or work with agents who prioritized volume over quality. There had to be a better way.
+                Our team has visited these factories, met the owners, stood on the production floors. We know which facilities are actually at capacity. We know which claims are overstated. We know which factory owners pick up the phone.
               </p>
               <p>
-                So we set out to build it. We're vetting factories ourselves—visiting facilities, auditing processes, building relationships. We negotiate terms and pricing upfront, so every brand that joins benefits from competitive rates without the back-and-forth.
-              </p>
-              <p>
-                We're creating systems for real-time production tracking and quality control. Our approach: milestone-protected payments that keep everyone accountable, and professional inspections at every stage.
-              </p>
-              <p>
-                Today, Sourcery is building a curated network of vetted factories across 5 key manufacturing regions. We're launching in 2025 — and we're just getting started.
+                That context can't be built from a San Francisco office. It's the foundation of everything Sourcery does.
               </p>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Values */}
-      <section className="section-padding bg-card/50">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Our Values
-            </h2>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-xl bg-background border border-border"
-              >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <value.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
-                  {value.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {value.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Founder-Led */}
+      {/* What we are and aren't */}
       <section className="section-padding">
         <div className="container-tight">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center p-8 rounded-xl bg-card border border-border"
           >
-            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Users className="w-6 h-6 text-primary" />
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-8">What Sourcery is — and isn't</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="p-6 rounded-xl bg-card border border-border space-y-4">
+                <h3 className="font-semibold text-foreground">It is</h3>
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  {[
+                    "A manufacturing OS — the infrastructure layer between your brand and your factory",
+                    "BYOF — bring your existing factory onto the platform and manage everything in one place",
+                    "A curated marketplace when you need to find a new factory",
+                    "Built by operators, not consultants",
+                  ].map((t, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="text-primary mt-0.5">—</span>
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="p-6 rounded-xl bg-card border border-border space-y-4">
+                <h3 className="font-semibold text-foreground">It isn't</h3>
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  {[
+                    "A sourcing agent that manages production for you",
+                    "A directory of unverified factories with no accountability",
+                    "Another platform that charges you before you've seen value",
+                    "Built for enterprise — it's built for founders doing 300–10,000 units per style",
+                  ].map((t, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="text-muted-foreground mt-0.5">—</span>
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
-              Founder-Led Team
-            </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              We're a small, focused team building the infrastructure to make global manufacturing accessible. 
-              More details coming as we grow.
-            </p>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Locations */}
-      <section className="section-padding bg-card/50">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Global Presence
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Local teams ensuring smooth operations across key manufacturing regions
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {locations.map((location, index) => (
-              <motion.div
-                key={location.city}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-xl bg-background border border-border text-center"
-              >
-                <MapPin className="w-6 h-6 text-primary mx-auto mb-3" />
-                <h3 className="font-heading font-semibold text-foreground">{location.city}</h3>
-                <p className="text-muted-foreground text-sm">{location.country}</p>
-                <p className="text-primary text-xs mt-2">{location.role}</p>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="section-padding">
-        <div className="container-tight text-center">
+      <section className="section-padding bg-card/50">
+        <div className="container-tight">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            className="text-center"
           >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Want to Join Our Team?
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+              The best demo is a real order
             </h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-              We're always looking for talented people who are passionate about transforming global manufacturing.
+            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
+              We run OKIO orders through Sourcery. If you want to see how it compares to your current WhatsApp + email + WeTransfer workflow, let's talk.
             </p>
             <Link to="/contact">
-              <Button variant="hero" size="xl">
-                Get in Touch
-                <ArrowRight className="w-5 h-5" />
+              <Button size="lg">
+                Get in touch
+                <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
           </motion.div>

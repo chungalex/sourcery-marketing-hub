@@ -162,6 +162,12 @@ export default function FactoryDashboard() {
 
   useEffect(() => { if (!authLoading && !user) navigate("/auth?redirect=/dashboard/factory"); }, [authLoading, navigate, user]);
   useEffect(() => { if (!authLoading && user && !membershipLoading && !hasFactoryAccess) navigate("/dashboard"); }, [authLoading, hasFactoryAccess, membershipLoading, navigate, user]);
+  // Redirect to onboarding if factory profile has no description (first login)
+  useEffect(() => {
+    if (!authLoading && user && profile && !profile.description && !user.user_metadata?.factory_onboarding_completed) {
+      navigate("/onboarding/factory");
+    }
+  }, [authLoading, user, profile, navigate]);
 
   const handleSaveProfile = async () => {
     if (!factoryId) return;
