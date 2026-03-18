@@ -227,6 +227,12 @@ One-click reorder from closed order. Pre-fills all specs.
 - Brand confirms/edits each field before submitting
 - Reorder tagged and linked to parent order
 
+### ✅ DONE — Brand Onboarding Wizard
+-  — 5-step wizard: welcome (Vietnam narrative), brand profile (name/category/volume), BYOF trigger (yes/no branch), factory invite form, first order CTA
+-  — /onboarding route added
+-  — new signups redirect to /onboarding instead of dashboard
+- Brand profile saved to Supabase user metadata on completion
+
 ### ✅ DONE — Notification System
 - `supabase/migrations/20260318_notifications.sql` — notifications table with RLS + realtime indexes
 - `supabase/functions/send-notification/index.ts` — all 25 bible §15 triggers defined (brand, factory, admin)

@@ -30,6 +30,7 @@ import Toolkit from "./pages/Toolkit";
 import CreateOrder from "./pages/CreateOrder";
 import OrderDetail from "./pages/OrderDetail";
 import FactoryAccept from "./pages/FactoryAccept";
+import Onboarding from "./pages/Onboarding";
 
 const queryClient = new QueryClient();
 
@@ -66,6 +67,7 @@ const App = () => (
             <Route path="/orders/create" element={<CreateOrder />} />
             <Route path="/orders/:id" element={<OrderDetail />} />
             <Route path="/factory-accept/:orderId" element={<FactoryAccept />} />
+            <Route path="/onboarding" element={<Onboarding />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </ErrorBoundary>

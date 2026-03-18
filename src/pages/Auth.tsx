@@ -115,7 +115,7 @@ export default function Auth() {
       // Some environments may require email confirmation; still clear loading.
       if (data?.session) {
         toast.success("Account created successfully!");
-        navigate(redirectTo, { replace: true });
+        navigate("/onboarding", { replace: true });
       } else {
         toast.success("Account created! Please check your email to confirm.");
       }
