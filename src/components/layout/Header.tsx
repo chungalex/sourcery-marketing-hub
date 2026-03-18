@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useFactoryMembership } from "@/hooks/useFactoryMembership";
+import { NotificationBell } from "@/components/notifications/NotificationBell";
 
 const navItems = [
   { label: "Directory", href: "/directory" },
@@ -113,6 +114,7 @@ export function Header() {
                       Dashboard
                     </Button>
                   </Link>
+                  <NotificationBell />
                   <Button variant="outline" size="sm" onClick={handleSignOut}>
                     Sign Out
                   </Button>

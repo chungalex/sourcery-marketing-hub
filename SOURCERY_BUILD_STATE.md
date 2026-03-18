@@ -227,8 +227,15 @@ One-click reorder from closed order. Pre-fills all specs.
 - Brand confirms/edits each field before submitting
 - Reorder tagged and linked to parent order
 
+### ✅ DONE — Notification System
+- `supabase/migrations/20260318_notifications.sql` — notifications table with RLS + realtime indexes
+- `supabase/functions/send-notification/index.ts` — all 25 bible §15 triggers defined (brand, factory, admin)
+- order-action: notify wired into accept_po, submit_sample, approve_sample, submit_revision_round, file_defect_report, upload_tech_pack_version
+- `src/components/notifications/NotificationBell.tsx` — realtime badge, dropdown, mark read, links to order
+- Header.tsx — NotificationBell injected into desktop nav
+
 ### 🔵 FUTURE
-- Notification system (`send-notification` edge function — email + in-app)
+- Email notifications (Resend/SendGrid integration into send-notification function)
 - Factory performance scoring (calculated from real order data)
 - Order timeline view (visual, exportable as PDF)
 - Production photo log

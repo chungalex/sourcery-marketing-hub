@@ -172,6 +172,23 @@ Deno.serve(async (req) => {
     let orderId = order_id;
     let result: Record<string, unknown> = {};
 
+    // Helper: fire-and-forget notification (never blocks the action)
+    const notify = async (type: string, userIds: string | string[], ctx: Record<string, string> = {}, notifyOrderId?: string) => {
+      try {
+        await serviceClient.from("notifications").insert(
+          (Array.isArray(userIds) ? userIds : [userIds]).map(uid => ({
+            user_id: uid,
+            order_id: notifyOrderId || orderId || null,
+            type,
+            title: type.replace(/_/g, " "),
+            body: JSON.stringify(ctx), // raw ctx stored; UI renders with template
+          }))
+        );
+      } catch (e) {
+        console.error("[order-action] notify failed silently:", e);
+      }
+    };
+
     // Execute action
     switch (action) {
       case "create_order": {
@@ -309,6 +326,15 @@ Deno.serve(async (req) => {
 
         if (updateError) {
           console.error("[order-action] Update PO acceptance fields error:", updateError);
+        }
+
+        // Notify brand
+        const { data: poOrder } = await serviceClient.from("orders").select("brand_user_id, order_number, factories(name)").eq("id", orderId).single();
+        if (poOrder?.brand_user_id) {
+          await notify("po_accepted", poOrder.brand_user_id, {
+            order_number: poOrder.order_number,
+            factory_name: (poOrder.factories as any)?.name || "Your factory",
+          });
         }
 
         result = transitionResult;
@@ -865,6 +891,16 @@ Deno.serve(async (req) => {
           );
         }
 
+        // Notify brand that sample was submitted
+        const { data: sampleOrder } = await serviceClient.from("orders").select("brand_user_id, order_number, factories(name)").eq("id", orderId).single();
+        if (sampleOrder?.brand_user_id) {
+          await notify("sample_submitted", sampleOrder.brand_user_id, {
+            order_number: sampleOrder.order_number,
+            factory_name: (sampleOrder.factories as any)?.name || "Your factory",
+            round: String(round),
+          });
+        }
+
         result = { message: "Sample submitted successfully", submission };
         break;
       }
@@ -909,6 +945,16 @@ Deno.serve(async (req) => {
             JSON.stringify({ error: transitionResult?.error || transitionError?.message || "Failed to update order status" }),
             { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
           );
+        }
+
+        // Notify factory that sample was approved
+        const { data: approveOrder } = await serviceClient.from("orders").select("order_number, factory_id, factories(name), factory_memberships(user_id)").eq("id", orderId).single();
+        const factoryUsers = (approveOrder as any)?.factory_memberships?.map((m: any) => m.user_id) || [];
+        if (factoryUsers.length) {
+          await notify("brand_approved_sample", factoryUsers, {
+            order_number: (approveOrder as any)?.order_number || "",
+            brand_name: "Brand",
+          });
         }
 
         result = { message: "Sample approved. Production can now begin." };
@@ -1053,6 +1099,17 @@ Deno.serve(async (req) => {
           p_metadata: { revision_round_id: revision.id, round: revision.round_number },
         });
 
+        // Notify factory of revision
+        const { data: revOrder } = await serviceClient.from("orders").select("order_number, factory_memberships(user_id)").eq("id", orderId).single();
+        const revFactoryUsers = (revOrder as any)?.factory_memberships?.map((m: any) => m.user_id) || [];
+        if (revFactoryUsers.length) {
+          await notify("brand_revision_request", revFactoryUsers, {
+            order_number: (revOrder as any)?.order_number || "",
+            brand_name: "Brand",
+            round: String(revision.round_number),
+          });
+        }
+
         result = { message: "Revision submitted. Factory must acknowledge before production continues.", revision };
         break;
       }
@@ -1194,6 +1251,17 @@ Deno.serve(async (req) => {
           .update({ tech_pack_url: body.tech_pack.file_url })
           .eq("id", orderId);
 
+        // Notify factory of new tech pack
+        const { data: tpOrder } = await serviceClient.from("orders").select("order_number, factory_memberships(user_id)").eq("id", orderId).single();
+        const tpFactoryUsers = (tpOrder as any)?.factory_memberships?.map((m: any) => m.user_id) || [];
+        if (tpFactoryUsers.length) {
+          await notify("tech_pack_uploaded", tpFactoryUsers, {
+            order_number: (tpOrder as any)?.order_number || "",
+            brand_name: "Brand",
+            version: String(versionNumber),
+          });
+        }
+
         result = { message: `Tech pack v${versionNumber} uploaded. Factory has been notified.`, version };
         break;
       }
@@ -1262,6 +1330,17 @@ Deno.serve(async (req) => {
             JSON.stringify({ error: repError.message }),
             { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
           );
+        }
+
+        // Notify factory of defect report
+        const { data: defOrder } = await serviceClient.from("orders").select("order_number, factory_memberships(user_id)").eq("id", orderId).single();
+        const defFactoryUsers = (defOrder as any)?.factory_memberships?.map((m: any) => m.user_id) || [];
+        if (defFactoryUsers.length) {
+          await notify("defect_filed", defFactoryUsers, {
+            order_number: (defOrder as any)?.order_number || "",
+            brand_name: "Brand",
+            severity,
+          });
         }
 
         result = { message: "Defect report filed. Factory has been notified.", report };
