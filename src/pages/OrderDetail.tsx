@@ -22,6 +22,7 @@ import { FactoryReview } from "@/components/trust/FactoryReview";
 import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
 import { RevisionRounds } from "@/components/orders/RevisionRounds";
 import { TechPackVersions } from "@/components/orders/TechPackVersions";
+import { DefectReports } from "@/components/orders/DefectReports";
 import { toast } from "sonner";
 import {
   ArrowLeft,
@@ -546,6 +547,25 @@ export default function OrderDetail() {
                 </p>
                 <RevisionRounds
                   orderId={order.id}
+                  isFactory={false}
+                  onActionComplete={loadOrder}
+                />
+              </div>
+            )}
+
+            {/* Defect reports — available from QC onwards */}
+            {["qc_scheduled", "qc_uploaded", "qc_pass", "qc_fail", "ready_to_ship", "shipped", "closed"].includes(order.status) && (
+              <div className="bg-card border border-border rounded-xl p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="h-2 w-2 rounded-full bg-rose-500" />
+                  <h2 className="text-lg font-semibold text-foreground">Defect Reports</h2>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Structured defect log. Factory must respond to every report. Feeds into factory performance score.
+                </p>
+                <DefectReports
+                  orderId={order.id}
+                  totalQuantity={order.quantity}
                   isFactory={false}
                   onActionComplete={loadOrder}
                 />

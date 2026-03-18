@@ -20,6 +20,7 @@ import { ProfileViewsChart, InquirySourcesChart, InquiryStatusChart } from "@/co
 import { SampleSubmitForm } from "@/components/sampling/SampleSubmitForm";
 import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
 import { TechPackVersions } from "@/components/orders/TechPackVersions";
+import { DefectReports } from "@/components/orders/DefectReports";
 import { useAuth } from "@/hooks/useAuth";
 import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 import { supabase } from "@/integrations/supabase/client";
@@ -370,6 +371,19 @@ export default function FactoryDashboard() {
                               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">Tech Pack</p>
                               <TechPackVersions
                                 orderId={order.id}
+                                isFactory={true}
+                                onActionComplete={() => refetchOrders()}
+                              />
+                            </div>
+                          )}
+
+                          {/* Defect reports — factory responds */}
+                          {["qc_scheduled","qc_uploaded","qc_pass","qc_fail","ready_to_ship","shipped","closed"].includes(order.status) && (
+                            <div className="border-t border-border pt-4">
+                              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">Defect Reports</p>
+                              <DefectReports
+                                orderId={order.id}
+                                totalQuantity={order.quantity}
                                 isFactory={true}
                                 onActionComplete={() => refetchOrders()}
                               />

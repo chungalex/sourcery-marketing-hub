@@ -19,6 +19,8 @@ type OrderAction =
   | "resolve_revision_round"
   | "upload_tech_pack_version"
   | "acknowledge_tech_pack_version"
+  | "file_defect_report"
+  | "respond_to_defect"
   | "start_production"
   | "schedule_qc"
   | "upload_qc"
@@ -98,6 +100,17 @@ interface ActionRequest {
     notes?: string;
   };
   tech_pack_version_id?: string;
+  // defect report fields
+  defect?: {
+    defect_type: string;
+    severity: string;
+    quantity_affected: number;
+    percentage_affected?: number;
+    description: string;
+    photo_urls?: string[];
+  };
+  defect_report_id?: string;
+  factory_response?: string;
   // general
   reason?: string;
   metadata?: Record<string, unknown>;
@@ -1210,6 +1223,78 @@ Deno.serve(async (req) => {
         }
 
         result = { message: "Tech pack acknowledged. You're confirmed on the current version." };
+        break;
+      }
+
+      case "file_defect_report": {
+        if (!orderId || !body.defect) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id or defect data" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+        const { defect_type, severity, quantity_affected, percentage_affected, description, photo_urls } = body.defect;
+        if (!defect_type || !severity || !description || quantity_affected === undefined) {
+          return new Response(
+            JSON.stringify({ error: "Missing required defect fields: defect_type, severity, quantity_affected, description" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const { data: report, error: repError } = await userClient
+          .from("defect_reports")
+          .insert({
+            order_id: orderId,
+            reported_by: actorId,
+            defect_type,
+            severity,
+            quantity_affected,
+            percentage_affected: percentage_affected ?? null,
+            description,
+            photo_urls: photo_urls || [],
+            status: "open",
+          })
+          .select()
+          .single();
+
+        if (repError) {
+          return new Response(
+            JSON.stringify({ error: repError.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        result = { message: "Defect report filed. Factory has been notified.", report };
+        break;
+      }
+
+      case "respond_to_defect": {
+        if (!orderId || !body.defect_report_id || !body.factory_response) {
+          return new Response(
+            JSON.stringify({ error: "Missing order_id, defect_report_id, or factory_response" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const { error: resError } = await userClient
+          .from("defect_reports")
+          .update({
+            factory_response: body.factory_response,
+            factory_responded_by: actorId,
+            factory_responded_at: new Date().toISOString(),
+            status: "acknowledged",
+          })
+          .eq("id", body.defect_report_id)
+          .eq("order_id", orderId);
+
+        if (resError) {
+          return new Response(
+            JSON.stringify({ error: resError.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        result = { message: "Response submitted." };
         break;
       }
 

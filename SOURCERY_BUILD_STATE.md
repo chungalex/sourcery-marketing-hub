@@ -214,11 +214,12 @@ Hard gate between `po_accepted` and `in_production`. Fully built.
 - FactoryDashboard.tsx — TechPackVersions injected in Orders tab expanded section
 - AI tech pack risk flagging deferred to future (needs ai-tech-pack-reviewer edge function)
 
-### 🟡 NEXT — Defect Reporting
-Structured QC defect log — not just pass/fail.
-- Fields: type, quantity affected, severity (minor/major/critical), photos, factory response
-- Feeds into factory performance score
-- New DB table: `defect_reports`
+### ✅ DONE — Defect Reporting
+- `supabase/migrations/20260318_defect_reports.sql` — defect_reports table with RLS
+- order-action: file_defect_report, respond_to_defect
+- `src/components/orders/DefectReports.tsx` — severity selector (minor/major/critical), type, quantity + auto % calc, photo URLs, factory response; summary bar; full report history
+- OrderDetail.tsx — DefectReports panel injected for qc_scheduled onwards
+- FactoryDashboard.tsx — DefectReports injected in Orders tab, factory responds inline
 
 ### 🟡 NEXT — Reorder Flow
 One-click reorder from closed order. Pre-fills all specs.
