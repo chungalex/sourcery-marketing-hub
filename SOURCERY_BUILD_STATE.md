@@ -221,11 +221,9 @@ Hard gate between `po_accepted` and `in_production`. Fully built.
 - OrderDetail.tsx — DefectReports panel injected for qc_scheduled onwards
 - FactoryDashboard.tsx — DefectReports injected in Orders tab, factory responds inline
 
-### 🟡 NEXT — Reorder Flow
-One-click reorder from closed order. Pre-fills all specs.
-- Carries over: factory, quantity, unit price, currency, incoterms, QC option, tech pack version, specs
-- Brand confirms/edits each field before submitting
-- Reorder tagged and linked to parent order
+### ✅ DONE — Reorder Flow
+- `src/components/orders/ReorderButton.tsx` — pre-fills quantity/price/currency/incoterms/tech pack from parent order, editable before submit, reorder_of link stored in specifications
+- OrderDetail.tsx — ReorderButton injected for closed orders only
 
 ### ✅ DONE — Brand Onboarding Wizard
 -  — 5-step wizard: welcome (Vietnam narrative), brand profile (name/category/volume), BYOF trigger (yes/no branch), factory invite form, first order CTA

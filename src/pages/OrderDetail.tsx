@@ -23,6 +23,7 @@ import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
 import { RevisionRounds } from "@/components/orders/RevisionRounds";
 import { TechPackVersions } from "@/components/orders/TechPackVersions";
 import { DefectReports } from "@/components/orders/DefectReports";
+import { ReorderButton } from "@/components/orders/ReorderButton";
 import { toast } from "sonner";
 import {
   ArrowLeft,
@@ -580,6 +581,34 @@ export default function OrderDetail() {
                 factoryName={order.factories.name}
                 orderStatus={order.status}
               />
+            )}
+
+            {/* Reorder — only on closed orders */}
+            {order.status === "closed" && order.factories && (
+              <div className="bg-card border border-border rounded-xl p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="h-2 w-2 rounded-full bg-green-500" />
+                  <h2 className="text-lg font-semibold text-foreground">Order again</h2>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Pre-fills all specs from this order. Confirm quantity and price before submitting.
+                </p>
+                <ReorderButton
+                  order={{
+                    id: order.id,
+                    order_number: order.order_number,
+                    factory_id: order.factories.id,
+                    quantity: order.quantity,
+                    unit_price: order.unit_price,
+                    currency: order.currency,
+                    incoterms: null,
+                    tech_pack_url: null,
+                    bom_url: null,
+                    specifications: order.specifications,
+                    factories: order.factories,
+                  }}
+                />
+              </div>
             )}
 
             {/* Issue PO */}
