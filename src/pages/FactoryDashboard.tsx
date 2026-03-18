@@ -21,6 +21,7 @@ import { SampleSubmitForm } from "@/components/sampling/SampleSubmitForm";
 import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
 import { TechPackVersions } from "@/components/orders/TechPackVersions";
 import { DefectReports } from "@/components/orders/DefectReports";
+import { FactoryScoreCard } from "@/components/factory/FactoryScoreCard";
 import { useAuth } from "@/hooks/useAuth";
 import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 import { supabase } from "@/integrations/supabase/client";
@@ -517,8 +518,16 @@ export default function FactoryDashboard() {
 
             {/* Analytics */}
             <TabsContent value="analytics">
+              <div className="space-y-6">
+              {/* Performance score */}
+              {factoryId && (
+                <div className="bg-card border border-border rounded-xl p-6">
+                  <h3 className="text-lg font-semibold text-foreground mb-4">Performance Score</h3>
+                  <FactoryScoreCard factoryId={factoryId} isOwner={true} />
+                </div>
+              )}
               <div className="bg-card border border-border rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-6">Performance Analytics</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-6">Activity Analytics</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                   <div className="text-center p-4 bg-muted/50 rounded-lg"><div className="text-2xl font-bold">{inquiries.length}</div><div className="text-xs text-muted-foreground">Total Inquiries</div></div>
                   <div className="text-center p-4 bg-muted/50 rounded-lg"><div className="text-2xl font-bold">{inquiries.filter(i => i.conversion_status === "converted").length}</div><div className="text-xs text-muted-foreground">Converted to Orders</div></div>
@@ -533,6 +542,7 @@ export default function FactoryDashboard() {
                   <div className="space-y-4"><h4 className="font-medium text-foreground">Inquiry Sources</h4><InquirySourcesChart /></div>
                 </div>
                 <div className="mt-6 pt-6 border-t border-border"><h4 className="font-medium text-foreground mb-4">Inquiry Status Breakdown</h4><InquiryStatusChart /></div>
+              </div>
               </div>
             </TabsContent>
 
