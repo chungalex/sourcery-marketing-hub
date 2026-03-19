@@ -11,7 +11,7 @@ import { NotificationBell } from "@/components/notifications/NotificationBell";
 const navItems = [
   { label: "For brands", href: "/brands" },
   { label: "For factories", href: "/factories" },
-  { label: "Directory", href: "/directory" },
+  { label: "Why Sourcery", href: "/why-sourcery" },
   { label: "How it works", href: "/how-it-works" },
   { label: "Pricing", href: "/pricing" },
 ];
