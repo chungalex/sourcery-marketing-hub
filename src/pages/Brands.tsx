@@ -40,12 +40,12 @@ const benefits = [
 ];
 
 const idealFor = [
-  "First-time brand owners placing their first production order",
+  "Brands placing their first production order",
+  "Brands 1–5 years in with established factory relationships",
   "Founders currently managing production over WhatsApp and email",
-  "Brands 1–5 years in with 1–5 active factory relationships",
-  "Brands who have been burned before and want accountability on the next order",
+  "Brands who have experienced production losses and want accountability on the next order",
   "DTC labels scaling past their first production run into repeat orders",
-  "Designer brands moving from domestic sampling to overseas production for the first time",
+  "Designer brands moving from domestic sampling to overseas production",
 ];
 
 const faqs = [
@@ -88,13 +88,10 @@ export default function Brands() {
                 For brands
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-                You shouldn't have to Google "what does FOB mean" mid-order.
+                Production management that brings structure, security, and traceability to every stage of the cycle.
               </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed mb-4">
-                Sourcery walks you through every decision that matters — with a plain-English explanation before you choose. Incoterms. QC standards. AQL thresholds. Whether it's your first production run or your twentieth, the platform surfaces what you need to know at the moment you need to know it.
-              </p>
-              <p className="text-base text-muted-foreground leading-relaxed mb-8">
-                Everything you decide is written into the order record before a dollar moves. That's the structure most brands only discover they needed after their first major production mistake.
+              <p className="text-xl text-muted-foreground leading-relaxed mb-8">
+                Sourcery manages the full production lifecycle — structured order creation, milestone-protected payments, revision tracking, QC documentation, and permanent order records. Everything in one place, from first sample to final delivery.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/auth?mode=signup">
@@ -119,10 +116,10 @@ export default function Brands() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Built for your first order and your fiftieth.
+              Built for any brand managing production.
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              The same mistakes happen at every experience level — incomplete specs, missed incoterms, vague QC standards. Sourcery is structured to catch them regardless of how long you've been doing this.
+              New to production or ten years in — the same problems come up. Sourcery is structured to handle them at every stage of experience.
             </p>
             <ul className="space-y-3">
               {idealFor.map((item, i) => (
@@ -302,13 +299,13 @@ export default function Brands() {
             <div className="max-w-2xl">
               <p className="text-xs font-medium text-primary uppercase tracking-wide mb-3">New to production?</p>
               <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
-                You're not expected to already know everything.
+                The platform is navigable without prior production experience.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Every term that matters — incoterms, AQL standards, QC options — is explained in the platform before you commit to it. You'll learn what FOB means, what AQL 2.5 means, and what the difference between factory self-QC and independent inspection means — not from a Google search, but from the platform itself at the moment you're making the decision.
+                Every decision in the order creation process includes a plain-English explanation before you commit. Incoterms, AQL standards, and QC options are each defined at the point of selection — so you understand what you're agreeing to before the order is issued.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                And every decision you make is written into the order record. So when you come back for your second order, or your tenth, the full history of what worked is right there.
+                Every decision is written into the order record. Each order builds institutional knowledge — spec history, factory performance, revision patterns — that carries forward to the next one.
               </p>
             </div>
           </motion.div>

@@ -104,7 +104,7 @@ export default function Home() {
                   The manufacturing OS for physical product brands.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
-                  Placing your first production order or your fiftieth — Sourcery walks you through every decision that matters, protects your capital at every stage, and builds a permanent record of every order automatically.
+                  Manage every production order — sampling, revisions, QC, and payments — in one structured system. Bring your existing factory or connect with one from our vetted network.
                 </p>
 
                 <div className="space-y-3 mb-8">
@@ -236,26 +236,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Security + guidance narrative */}
+      {/* Platform pillars strip */}
       <section className="border-y border-border bg-card/40">
         <div className="container-wide py-10">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                title: "\"I don't know what incoterms to use.\"",
-                solution: "Each option is explained before you choose — who pays for shipping, who's responsible if goods are lost, when to use each one. You don't need to know going in.",
+                title: "Guided order creation",
+                body: "Every decision in the order process — incoterms, QC standard, AQL threshold — includes a plain-English explanation before you commit. Nothing left to assumption.",
               },
               {
-                title: "\"I wired a deposit and lost all leverage.\"",
-                solution: "Funds are held in milestone escrow and released in stages you control. The factory earns each payment — it's not transferred upfront.",
+                title: "Milestone escrow",
+                body: "Payments held and released in verified stages. Sample approved before bulk production is funded. QC passed before final release. You control every unlock.",
               },
               {
-                title: "\"The sample was wrong but nothing was in writing.\"",
-                solution: "Every sample submission is formally documented. Revision requests are logged and factory-acknowledged before production continues.",
+                title: "Formal revision tracking",
+                body: "Every spec change is a logged revision round the factory must acknowledge before work continues. Full timestamp trail on every change.",
               },
               {
-                title: "\"I found the defect after the final payment.\"",
-                solution: "Final payment requires QC pass. Defects are filed as structured reports. The gate is enforced by the platform — not optional.",
+                title: "QC gate",
+                body: "Final payment blocked until quality inspection passes. Defects documented as structured reports — type, severity, quantity, factory response — all against the order.",
               },
             ].map((item, i) => (
               <motion.div
@@ -265,8 +265,8 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
               >
-                <p className="text-sm text-muted-foreground mb-3 italic">"{item.title}"</p>
-                <p className="text-sm text-foreground leading-relaxed">{item.solution}</p>
+                <p className="text-sm font-semibold text-foreground mb-2">{item.title}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
               </motion.div>
             ))}
           </div>
