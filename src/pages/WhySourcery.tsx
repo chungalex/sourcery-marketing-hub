@@ -57,8 +57,21 @@ const scenarios = [
 ];
 
 const stats = [
-  { value: "30%", label: "more lost on quality defect costs when working with fragmented, unsupervised supplier networks", source: "McKinsey / Traceforgood" },
-  { value: "45%", label: "of quality problems in apparel are caused by Tier 2 or 3 suppliers — yet less than 20% of brands have any visibility into them", source: "McKinsey" },
+  {
+    value: "30%",
+    label: "more lost on quality defect costs — rework, delays, lost sales — when production runs through fragmented, unsupervised supplier networks",
+    source: "Traceforgood, 2023"
+  },
+  {
+    value: "32%",
+    label: "more critical quality defects for brands with little to no structured supplier engagement, compared to brands with active oversight",
+    source: "QIMA Annual Benchmark Report, 2022"
+  },
+  {
+    value: "60%",
+    label: "of defects in apparel production aren't discovered until final inspection or after delivery — when fixing them is already expensive",
+    source: "QIMA Annual Benchmark Report, 2022"
+  },
 ];
 
 export default function WhySourcery() {
@@ -178,7 +191,7 @@ export default function WhySourcery() {
             viewport={{ once: true }}
             className="text-xs text-muted-foreground text-center mt-8 max-w-xl mx-auto italic"
           >
-            Savings figures are estimates based on typical production scenarios. Actual outcomes vary by order, factory, and product. The 30% defect cost premium statistic is sourced from McKinsey research on supplier network management.
+            Savings figures are estimates based on typical production scenarios. Actual outcomes vary by order, factory, and product. Statistics sourced from Traceforgood (2023) and the QIMA Annual Quality Benchmark Report (2022).
           </motion.p>
         </div>
       </section>

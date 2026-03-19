@@ -178,7 +178,7 @@ export default function Brands() {
                   <div className="max-w-xl">
                     <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">The cost of not using it</p>
                     <h3 className="font-heading text-xl font-bold text-foreground mb-3">
-                      Brands without structured production lose up to 30% more on quality defect costs.
+                      Brands without structured production lose up to 30% more on quality defect costs — and 60% of those defects aren't caught until final inspection or after delivery.
                     </h3>
                     <p className="text-muted-foreground text-sm leading-relaxed">
                       See three real production scenarios — with and without Sourcery — and what each one typically costs.

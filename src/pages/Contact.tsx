@@ -45,7 +45,7 @@ const consultingServices: Record<ConsultingService, { title: string; description
 const formConfigs: Record<FormType, { title: string; description: string }> = {
   sourcing: {
     title: "Request Sourcing",
-    description: "Tell us about your product and we'll match you with vetted factories within 48 hours.",
+    description: "Tell us about your product and we'll get back to you within one business day.",
   },
   factory: {
     title: "Factory Application",
