@@ -948,8 +948,8 @@ Deno.serve(async (req) => {
         }
 
         // Notify factory that sample was approved
-        const { data: approveOrder } = await serviceClient.from("orders").select("order_number, factory_id, factories(name), factory_memberships(user_id)").eq("id", orderId).single();
-        const factoryUsers = (approveOrder as any)?.factory_memberships?.map((m: any) => m.user_id) || [];
+        const { data: approveOrder } = await serviceClient.from("orders").select("order_number, factory_id, factories(name), factory_users(user_id)").eq("id", orderId).single();
+        const factoryUsers = (approveOrder as any)?.factory_users?.map((m: any) => m.user_id) || [];
         if (factoryUsers.length) {
           await notify("brand_approved_sample", factoryUsers, {
             order_number: (approveOrder as any)?.order_number || "",
@@ -1100,8 +1100,8 @@ Deno.serve(async (req) => {
         });
 
         // Notify factory of revision
-        const { data: revOrder } = await serviceClient.from("orders").select("order_number, factory_memberships(user_id)").eq("id", orderId).single();
-        const revFactoryUsers = (revOrder as any)?.factory_memberships?.map((m: any) => m.user_id) || [];
+        const { data: revOrder } = await serviceClient.from("orders").select("order_number, factory_users(user_id)").eq("id", orderId).single();
+        const revFactoryUsers = (revOrder as any)?.factory_users?.map((m: any) => m.user_id) || [];
         if (revFactoryUsers.length) {
           await notify("brand_revision_request", revFactoryUsers, {
             order_number: (revOrder as any)?.order_number || "",
@@ -1252,8 +1252,8 @@ Deno.serve(async (req) => {
           .eq("id", orderId);
 
         // Notify factory of new tech pack
-        const { data: tpOrder } = await serviceClient.from("orders").select("order_number, factory_memberships(user_id)").eq("id", orderId).single();
-        const tpFactoryUsers = (tpOrder as any)?.factory_memberships?.map((m: any) => m.user_id) || [];
+        const { data: tpOrder } = await serviceClient.from("orders").select("order_number, factory_users(user_id)").eq("id", orderId).single();
+        const tpFactoryUsers = (tpOrder as any)?.factory_users?.map((m: any) => m.user_id) || [];
         if (tpFactoryUsers.length) {
           await notify("tech_pack_uploaded", tpFactoryUsers, {
             order_number: (tpOrder as any)?.order_number || "",
@@ -1333,8 +1333,8 @@ Deno.serve(async (req) => {
         }
 
         // Notify factory of defect report
-        const { data: defOrder } = await serviceClient.from("orders").select("order_number, factory_memberships(user_id)").eq("id", orderId).single();
-        const defFactoryUsers = (defOrder as any)?.factory_memberships?.map((m: any) => m.user_id) || [];
+        const { data: defOrder } = await serviceClient.from("orders").select("order_number, factory_users(user_id)").eq("id", orderId).single();
+        const defFactoryUsers = (defOrder as any)?.factory_users?.map((m: any) => m.user_id) || [];
         if (defFactoryUsers.length) {
           await notify("defect_filed", defFactoryUsers, {
             order_number: (defOrder as any)?.order_number || "",

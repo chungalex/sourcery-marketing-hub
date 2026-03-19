@@ -32,7 +32,7 @@ CREATE POLICY "factory can read own score"
   ON factory_performance_scores FOR SELECT
   USING (
     factory_id IN (
-      SELECT factory_id FROM factory_memberships WHERE user_id = auth.uid()
+      SELECT factory_id FROM factory_users WHERE user_id = auth.uid()
     )
   );
 

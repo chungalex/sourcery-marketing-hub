@@ -74,7 +74,7 @@ CREATE POLICY "all parties can read revisions on their orders"
     OR
     order_id IN (
       SELECT o.id FROM orders o
-      JOIN factory_memberships fm ON fm.factory_id = o.factory_id
+      JOIN factory_users fm ON fm.factory_id = o.factory_id
       WHERE fm.user_id = auth.uid()
     )
   );
@@ -85,7 +85,7 @@ CREATE POLICY "factory can acknowledge revisions"
   USING (
     order_id IN (
       SELECT o.id FROM orders o
-      JOIN factory_memberships fm ON fm.factory_id = o.factory_id
+      JOIN factory_users fm ON fm.factory_id = o.factory_id
       WHERE fm.user_id = auth.uid()
     )
   );
