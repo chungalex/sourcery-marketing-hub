@@ -168,6 +168,156 @@ export default function Brands() {
         </div>
       </section>
 
+      {/* Savings scenarios */}
+      <section className="section-padding bg-card/50">
+        <div className="container-wide">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mb-4">
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              What unstructured production actually costs.
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              Brands working with fragmented, unsupervised supplier networks lose up to <strong className="text-foreground">30% more on quality defect costs</strong> — not because their factories are worse, but because there's no system to catch problems before they become expensive ones. Here's what that looks like on a real order.
+            </p>
+          </motion.div>
+
+          <div className="space-y-6 mt-8">
+            {[
+              {
+                label: "Scenario 01",
+                title: "The measurement error nobody caught until delivery",
+                order: "$15,000 order — 500 units",
+                without: [
+                  "Sample reviewed over email, no formal approval logged",
+                  "Measurement issue missed — waistband 2cm off spec",
+                  "Full 500 units cut and sewn to wrong spec",
+                  "Issue discovered at delivery, full payment already wired",
+                  "Rework cost: $2,000–3,000 + 3 week delay",
+                  "No documentation to support a dispute",
+                ],
+                withSourcery: [
+                  "Sample submitted formally with photos and measurements",
+                  "Measurement issue flagged during review",
+                  "Revision round logged, factory acknowledges correction",
+                  "Corrected sample approved before bulk production funded",
+                  "500 units cut to correct spec from the start",
+                  "Rework cost: $0. Delay: 5–7 days, not 3 weeks",
+                ],
+                saved: "$2,000–$3,000 + 2 weeks",
+              },
+              {
+                label: "Scenario 02",
+                title: "The spec change that got lost in a message thread",
+                order: "$15,000 order — 500 units",
+                without: [
+                  "Brand messages factory to change fabric weight",
+                  "Factory builds from old tech pack version",
+                  "500 units produced in wrong fabric weight",
+                  "No documentation the change was ever communicated",
+                  "Factory disputes it was requested",
+                  "Brand absorbs remake or accepts discounted units",
+                  "Loss: $5,000–$15,000 depending on resolution",
+                ],
+                withSourcery: [
+                  "Spec change submitted as a formal revision round",
+                  "Factory must acknowledge before production continues",
+                  "New tech pack version uploaded, old version archived",
+                  "Factory confirms they're building from the current version",
+                  "If wrong version built anyway — full timestamp trail exists",
+                  "Payment frozen pending resolution with complete documentation",
+                  "Loss: $0 in most cases",
+                ],
+                saved: "$5,000–$15,000",
+              },
+              {
+                label: "Scenario 03",
+                title: "The QC defect found after the final payment",
+                order: "$15,000 order — 500 units",
+                without: [
+                  "Final payment wired on factory's confirmation of shipment",
+                  "Goods arrive — 15% of units have stitching defects",
+                  "75 unsellable units = $4,500 at retail value lost",
+                  "Factory already paid — no financial leverage remains",
+                  "Brand files complaint with no formal documentation",
+                  "Factory offers 5% discount on next order",
+                  "Brand absorbs $2,000+ in unrecoverable product cost",
+                ],
+                withSourcery: [
+                  "QC inspection required before final milestone releases",
+                  "Defects found during inspection — not after delivery",
+                  "Defect report filed: type, severity, quantity, photos",
+                  "Final payment frozen pending factory response",
+                  "Factory reworks or replaces defective units at their cost",
+                  "Payment released only after QC pass confirmed",
+                  "Brand loss: $0",
+                ],
+                saved: "$2,000+ in product cost + full leverage retained",
+              },
+            ].map((scenario, i) => (
+              <motion.div
+                key={scenario.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="bg-background border border-border rounded-2xl overflow-hidden"
+              >
+                <div className="p-6 border-b border-border">
+                  <div className="flex items-start justify-between flex-wrap gap-4">
+                    <div>
+                      <span className="text-xs font-mono text-muted-foreground mb-1 block">{scenario.label} — {scenario.order}</span>
+                      <h3 className="font-semibold text-foreground text-lg">{scenario.title}</h3>
+                    </div>
+                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+                      <span className="text-xs text-muted-foreground">Typical saving:</span>
+                      <span className="text-sm font-semibold text-primary">{scenario.saved}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="w-2 h-2 rounded-full bg-destructive" />
+                      <span className="text-xs font-semibold text-destructive uppercase tracking-wide">Without Sourcery</span>
+                    </div>
+                    <ul className="space-y-2">
+                      {scenario.without.map((item, j) => (
+                        <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <span className="text-destructive/50 mt-0.5 flex-shrink-0">—</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="p-6 bg-primary/3">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="w-2 h-2 rounded-full bg-green-500" />
+                      <span className="text-xs font-semibold text-green-700 uppercase tracking-wide">With Sourcery</span>
+                    </div>
+                    <ul className="space-y-2">
+                      {scenario.withSourcery.map((item, j) => (
+                        <li key={j} className="flex items-start gap-2 text-sm text-foreground">
+                          <span className="text-green-500 mt-0.5 flex-shrink-0">—</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-xs text-muted-foreground text-center mt-6 max-w-xl mx-auto italic"
+          >
+            Savings figures are estimates based on typical production scenarios. Actual outcomes vary by order, factory, and product. The 30% defect cost premium statistic is sourced from McKinsey research on supplier network management.
+          </motion.p>
+        </div>
+      </section>
+
       {/* Honest framing */}
       <section className="section-padding">
         <div className="container-tight">
