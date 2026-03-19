@@ -96,20 +96,31 @@ export default function Home() {
         <div className="absolute inset-0 bg-[var(--hero-gradient)]" />
         <div className="container-wide relative">
           <div className="min-h-[calc(100vh-5rem)] flex items-center py-20">
-            <div className="max-w-3xl">
+            <div className="grid lg:grid-cols-2 gap-16 items-center w-full">
+
+              {/* Left — copy */}
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-6">
                   The manufacturing OS for physical product brands.
                 </h1>
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                  Manage every production order — sampling, revisions, QC, and payments — in one structured system. Bring your existing factory or connect with one from our vetted network.
+                <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
+                  Most brands learn how to protect themselves the hard way. Sourcery is built around the specific moments where production goes wrong — and puts a verified gate at every one of them.
                 </p>
 
-                <div className="flex flex-wrap items-center gap-6 mb-10">
-                  {proofPoints.map((p) => (
-                    <div key={p} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                      {p}
+                <div className="space-y-3 mb-8">
+                  {[
+                    { gate: "Sample gate", desc: "No bulk production funded until sample is approved" },
+                    { gate: "Revision log", desc: "Every spec change formally acknowledged by factory" },
+                    { gate: "QC gate", desc: "Final payment blocked until quality inspection passes" },
+                  ].map(item => (
+                    <div key={item.gate} className="flex items-start gap-3">
+                      <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <CheckCircle className="w-3 h-3 text-primary" />
+                      </div>
+                      <div>
+                        <span className="text-sm font-medium text-foreground">{item.gate} — </span>
+                        <span className="text-sm text-muted-foreground">{item.desc}</span>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -121,14 +132,139 @@ export default function Home() {
                       <ArrowRight className="w-5 h-5" />
                     </Button>
                   </Link>
-                  <Link to="/directory">
+                  <Link to="/how-it-works">
                     <Button size="xl" variant="hero-outline">
-                      Browse factory network
+                      See how it works
                     </Button>
                   </Link>
                 </div>
               </motion.div>
+
+              {/* Right — live order preview */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="hidden lg:block"
+              >
+                <div className="relative">
+                  {/* Main order card */}
+                  <div className="bg-card border border-border rounded-2xl p-6 shadow-[0_8px_40px_-8px_rgba(0,0,0,0.12)]">
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-5">
+                      <div>
+                        <div className="font-mono text-xs text-muted-foreground mb-0.5">SRC-2026-00042</div>
+                        <div className="font-semibold text-foreground">Premium Denim Jacket</div>
+                        <div className="text-xs text-muted-foreground mt-0.5">Factory — Ho Chi Minh City</div>
+                      </div>
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border bg-amber-500/10 text-amber-700 border-amber-400/40">
+                        Sample to Review
+                      </span>
+                    </div>
+
+                    {/* Sample submitted alert */}
+                    <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-500/8 border border-amber-500/20 mb-5">
+                      <div className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0 animate-pulse" />
+                      <div>
+                        <p className="text-xs font-medium text-foreground">Sample submitted — round 1</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">Factory uploaded 4 photos and measurements. Approve or request revision.</p>
+                      </div>
+                    </div>
+
+                    {/* Milestone track */}
+                    <div className="mb-5">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                        <span>Payment milestones</span>
+                        <span>30% released</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        {["Deposit", "Production", "Final"].map((label, i) => (
+                          <div key={label} className="flex-1">
+                            <div className={`h-2 rounded-full ${i === 0 ? "bg-green-500" : "bg-muted"}`} />
+                            <div className="text-xs text-muted-foreground mt-1 text-center">{label}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Protection badges */}
+                    <div className="grid grid-cols-3 gap-2 pt-4 border-t border-border">
+                      {[
+                        { label: "Escrow", status: "Active", color: "text-green-600" },
+                        { label: "Sample gate", status: "Pending", color: "text-amber-600" },
+                        { label: "QC gate", status: "Upcoming", color: "text-muted-foreground" },
+                      ].map(p => (
+                        <div key={p.label} className="text-center">
+                          <div className={`text-xs font-medium ${p.color}`}>{p.status}</div>
+                          <div className="text-xs text-muted-foreground">{p.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Floating notification */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8, duration: 0.4 }}
+                    className="absolute -bottom-4 -left-4 bg-card border border-border rounded-xl p-3 shadow-lg flex items-center gap-3"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-green-500/15 flex items-center justify-center flex-shrink-0">
+                      <CheckCircle className="w-4 h-4 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium text-foreground">QC passed</p>
+                      <p className="text-xs text-muted-foreground">Final milestone unlocked</p>
+                    </div>
+                  </motion.div>
+
+                  {/* Floating revision tag */}
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1, duration: 0.4 }}
+                    className="absolute -top-3 -right-3 bg-card border border-border rounded-lg px-3 py-2 shadow-lg"
+                  >
+                    <p className="text-xs font-medium text-foreground">Revision round logged</p>
+                    <p className="text-xs text-muted-foreground">Factory acknowledged ✓</p>
+                  </motion.div>
+                </div>
+              </motion.div>
+
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Security narrative — new section */}
+      <section className="border-y border-border bg-card/40">
+        <div className="container-wide py-10">
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "You wired a deposit and lost leverage.",
+                solution: "Sourcery holds funds in milestone escrow. The factory receives payment only when verified milestones are met — not before.",
+              },
+              {
+                title: "The sample was wrong but nothing was in writing.",
+                solution: "Every sample submission is formally documented. Revision requests are logged and the factory must acknowledge before production continues.",
+              },
+              {
+                title: "You found the defect after the final payment.",
+                solution: "Final payment requires QC pass. Defects are filed as structured reports against the order. The gate is enforced — not optional.",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+              >
+                <p className="text-sm text-muted-foreground mb-3 italic">"{item.title}"</p>
+                <p className="text-sm text-foreground leading-relaxed">{item.solution}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
