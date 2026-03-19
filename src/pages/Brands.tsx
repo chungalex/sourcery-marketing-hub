@@ -40,11 +40,12 @@ const benefits = [
 ];
 
 const idealFor = [
-  "Brands 1–5 years in with 1–5 active factory relationships",
+  "First-time brand owners placing their first production order",
   "Founders currently managing production over WhatsApp and email",
+  "Brands 1–5 years in with 1–5 active factory relationships",
   "Brands who have been burned before and want accountability on the next order",
   "DTC labels scaling past their first production run into repeat orders",
-  "Designer brands moving from domestic sampling to overseas production",
+  "Designer brands moving from domestic sampling to overseas production for the first time",
 ];
 
 const faqs = [
@@ -87,10 +88,13 @@ export default function Brands() {
                 For brands
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-                Production management built for growing brands.
+                You shouldn't have to Google "what does FOB mean" mid-order.
               </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-                Sourcery gives you the structure most brands only discover after their first major production mistake. Milestone-protected payments, formal sampling gates, revision tracking, and QC documentation — all on one platform.
+              <p className="text-xl text-muted-foreground leading-relaxed mb-4">
+                Sourcery walks you through every decision that matters — with a plain-English explanation before you choose. Incoterms. QC standards. AQL thresholds. Whether it's your first production run or your twentieth, the platform surfaces what you need to know at the moment you need to know it.
+              </p>
+              <p className="text-base text-muted-foreground leading-relaxed mb-8">
+                Everything you decide is written into the order record before a dollar moves. That's the structure most brands only discover they needed after their first major production mistake.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/auth?mode=signup">
@@ -115,10 +119,10 @@ export default function Brands() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Built for brands at the hard stage.
+              Built for your first order and your fiftieth.
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Not the first prototype. Not the enterprise procurement team. The stage in between — where you have real production relationships and real money on the line.
+              The same mistakes happen at every experience level — incomplete specs, missed incoterms, vague QC standards. Sourcery is structured to catch them regardless of how long you've been doing this.
             </p>
             <ul className="space-y-3">
               {idealFor.map((item, i) => (
@@ -244,6 +248,68 @@ export default function Brands() {
                   </div>
                 </div>
               ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Three pillars */}
+      <section className="section-padding bg-card/50">
+        <div className="container-wide">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              Three things every production run needs.
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Protection for your capital. Traceability on every decision. Organisation that saves you time and prevents the mistakes that cost money.
+            </p>
+          </motion.div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Protection",
+                body: "Your capital is gated at every milestone. Sample approved before bulk. QC passed before final release. Funds freeze in a dispute. You never release money without a verified result.",
+              },
+              {
+                title: "Traceability",
+                body: "Every order record is permanent. Every spec, revision, defect, and payment — timestamped and searchable forever. Reorder from it months later. Use it in a dispute. Share it with a new team member.",
+              },
+              {
+                title: "Organisation",
+                body: "One place for everything. No more hunting for which version of the tech pack the factory built from. No more wondering if they acknowledged that spec change. Every answer is attached to the order it belongs to.",
+              },
+            ].map((pillar, i) => (
+              <motion.div
+                key={pillar.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="p-6 rounded-xl bg-background border border-border"
+              >
+                <h3 className="font-heading text-xl font-bold text-foreground mb-3">{pillar.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">{pillar.body}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* New brand owner callout */}
+      <section className="section-padding">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-card border border-border">
+            <div className="max-w-2xl">
+              <p className="text-xs font-medium text-primary uppercase tracking-wide mb-3">New to production?</p>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+                You're not expected to already know everything.
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                Every term that matters — incoterms, AQL standards, QC options — is explained in the platform before you commit to it. You'll learn what FOB means, what AQL 2.5 means, and what the difference between factory self-QC and independent inspection means — not from a Google search, but from the platform itself at the moment you're making the decision.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                And every decision you make is written into the order record. So when you come back for your second order, or your tenth, the full history of what worked is right there.
+              </p>
             </div>
           </motion.div>
         </div>

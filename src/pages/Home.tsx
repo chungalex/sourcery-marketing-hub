@@ -104,7 +104,7 @@ export default function Home() {
                   The manufacturing OS for physical product brands.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
-                  Most brands learn how to protect themselves the hard way. Sourcery is built around the specific moments where production goes wrong — and puts a verified gate at every one of them.
+                  Placing your first production order or your fiftieth — Sourcery walks you through every decision that matters, protects your capital at every stage, and builds a permanent record of every order automatically.
                 </p>
 
                 <div className="space-y-3 mb-8">
@@ -236,22 +236,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Security narrative — new section */}
+      {/* Security + guidance narrative */}
       <section className="border-y border-border bg-card/40">
         <div className="container-wide py-10">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                title: "You wired a deposit and lost leverage.",
-                solution: "Sourcery holds funds in milestone escrow. The factory receives payment only when verified milestones are met — not before.",
+                title: "\"I don't know what incoterms to use.\"",
+                solution: "Each option is explained before you choose — who pays for shipping, who's responsible if goods are lost, when to use each one. You don't need to know going in.",
               },
               {
-                title: "The sample was wrong but nothing was in writing.",
-                solution: "Every sample submission is formally documented. Revision requests are logged and the factory must acknowledge before production continues.",
+                title: "\"I wired a deposit and lost all leverage.\"",
+                solution: "Funds are held in milestone escrow and released in stages you control. The factory earns each payment — it's not transferred upfront.",
               },
               {
-                title: "You found the defect after the final payment.",
-                solution: "Final payment requires QC pass. Defects are filed as structured reports against the order. The gate is enforced — not optional.",
+                title: "\"The sample was wrong but nothing was in writing.\"",
+                solution: "Every sample submission is formally documented. Revision requests are logged and factory-acknowledged before production continues.",
+              },
+              {
+                title: "\"I found the defect after the final payment.\"",
+                solution: "Final payment requires QC pass. Defects are filed as structured reports. The gate is enforced by the platform — not optional.",
               },
             ].map((item, i) => (
               <motion.div
