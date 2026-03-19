@@ -3,339 +3,169 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
-import { 
-  ArrowRight, 
-  Sparkles, 
-  MessageSquare, 
-  Shield, 
-  ClipboardCheck, 
-  Package, 
-  CheckCircle,
-  Factory,
-  CreditCard,
-  Eye,
-  Handshake
-} from "lucide-react";
+import { ArrowRight, CheckCircle, Shield, AlertCircle } from "lucide-react";
 
 const steps = [
   {
     number: "01",
-    icon: Handshake,
-    title: "Pre-Negotiated Partnerships",
-    description: "Before you even start, we've already done the hard work. Every factory in our network has been personally audited, vetted, and negotiated with by our team — securing competitive pricing and favorable terms on your behalf.",
-    highlight: "Done For You",
+    title: "Connect your factory",
+    description: "Invite an existing manufacturer or browse the Sourcery network. Either way, all order management runs through the same system. BYOF factories don't need network approval — invite them and start immediately.",
+    gate: null,
   },
   {
     number: "02",
-    icon: Factory,
-    title: "Curated Factory Selection",
-    description: "Tell us about your product, budget, and timeline. Our team reviews your requirements and handpicks factories from our verified network that are the perfect fit for you.",
-    highlight: "Personalized for You",
+    title: "Create a production order",
+    description: "Quantity, pricing, incoterms, QC option, and delivery window in one structured form. Tech pack attached and versioned. Both parties see the same spec from the same place — no version confusion, no missing information.",
+    gate: null,
   },
   {
     number: "03",
-    icon: Eye,
-    title: "Review & Compare",
-    description: "Browse detailed factory profiles, certifications, and past work. We help you compare quotes side-by-side, highlighting key differences and flagging potential concerns.",
-    highlight: "Expert Guidance",
+    title: "Sample approval gate",
+    description: "Factory submits sample with photos and measurements. You review and approve — or request a formal revision round with documented feedback the factory must acknowledge before production continues.",
+    gate: "Bulk production milestones cannot be funded until sample is approved. This gate is enforced by the platform.",
   },
   {
     number: "04",
-    icon: MessageSquare,
-    title: "Verified Communication",
-    description: "Connect with factory representatives through our secure messaging platform. All communications are logged for your protection.",
-    highlight: "Secure & Logged",
+    title: "Production with full documentation",
+    description: "Every spec change is a formal revision round the factory must acknowledge. Tech pack versions are tracked — the factory confirms which version they're building from. Defects are filed as structured reports. Nothing important is communicated outside the platform.",
+    gate: null,
   },
   {
     number: "05",
-    icon: CreditCard,
-    title: "Structured Payments",
-    description: "We help you negotiate payment terms with clear milestone schedules. Know exactly when and how much to pay at each stage — no surprises.",
-    highlight: "Clear Terms",
-  },
-  {
-    number: "06",
-    icon: ClipboardCheck,
-    title: "Quality Inspections",
-    description: "Our QC team inspects production at key milestones. You receive detailed reports with photos before approving each payment release.",
-    highlight: "Photo Documentation",
-  },
-  {
-    number: "07",
-    icon: Package,
-    title: "Delivery & Release",
-    description: "Track your shipment in real-time. Final payment is released only after you confirm receipt and quality of your order.",
-    highlight: "Full Transparency",
+    title: "QC gates the final payment",
+    description: "Quality inspection logged against the order with photos, defect reports, and pass/fail result. In a dispute, payment freezes and both parties submit evidence before resolution. The paper trail built throughout the order is your leverage.",
+    gate: "Final milestone cannot release without QC pass. Payment is never released automatically.",
   },
 ];
 
 const protectionFeatures = [
-  {
-    icon: Handshake,
-    title: "Pre-Negotiated Terms",
-    description: "Competitive pricing already secured for you",
-  },
-  {
-    icon: Shield,
-    title: "Payment Structure",
-    description: "Structured milestone payments with escrow coming soon",
-  },
-  {
-    icon: MessageSquare,
-    title: "Verified Factories",
-    description: "All factories are vetted and verified before joining",
-  },
-  {
-    icon: ClipboardCheck,
-    title: "Quality Guarantee",
-    description: "Professional inspections at every production stage",
-  },
+  { title: "Sampling gate", desc: "No bulk production funding without approved sample" },
+  { title: "Revision rounds", desc: "Every spec change formally acknowledged by factory" },
+  { title: "Tech pack versioning", desc: "Factory always confirms current version" },
+  { title: "Defect documentation", desc: "Structured reports with photos and factory response" },
+  { title: "QC gate", desc: "Final payment blocked without QC pass" },
+  { title: "Dispute freeze", desc: "Funds held pending evidence review" },
 ];
 
 export default function HowItWorks() {
   return (
     <Layout>
-      <SEO 
-        title="How It Works | Sourcery"
-        description="Personalized factory matching, milestone payment protection, and quality assurance at every step. See how we make manufacturing sourcing safe and simple."
+      <SEO
+        title="How It Works — Sourcery"
+        description="One system. Every step of production. From factory connection to closed delivery — with accountability built into every stage."
       />
 
       {/* Hero */}
       <section className="section-padding bg-[var(--hero-gradient)]">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-3xl"
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-              <Shield className="w-4 h-4" />
-              Protected at Every Step
-            </div>
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Source with Confidence
+              One system. Every step of production.
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              From personalized factory matching to structured payment terms, we've built a platform that puts your interests first at every step.
+              Sourcery is a platform, not an agency. It gives you the structure, documentation, and payment protection to manage your own production relationships — with accountability built into every stage.
             </p>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Protection Banner */}
-      <section className="border-y border-border bg-card/50">
-        <div className="container-wide py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {protectionFeatures.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-3"
-              >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <feature.icon className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="font-medium text-foreground text-sm">{feature.title}</p>
-                  <p className="text-xs text-muted-foreground">{feature.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
       {/* Steps */}
       <section className="section-padding">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Your Journey, Protected
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Every step is designed to give you control, transparency, and peace of mind.
-            </p>
-          </motion.div>
-
-          <div className="space-y-0">
-            {steps.map((step, index) => (
+        <div className="container-tight">
+          <div className="space-y-12">
+            {steps.map((step, i) => (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative grid md:grid-cols-[100px_1fr] gap-6 md:gap-12 pb-12 last:pb-0"
-              >
-                {/* Line connector */}
-                {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute left-[50px] top-16 bottom-0 w-px bg-border" />
-                )}
-                
-                {/* Number */}
-                <div className="flex md:flex-col items-center gap-4 md:gap-0">
-                  <div className="w-[100px] h-[100px] rounded-2xl bg-card border border-border flex items-center justify-center relative z-10">
-                    <span className="font-heading text-3xl font-bold text-primary">{step.number}</span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="bg-card rounded-xl border border-border p-6 md:p-8 hover:shadow-card-lg transition-shadow">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <step.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-heading text-xl font-semibold text-foreground">
-                          {step.title}
-                        </h3>
-                        <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-medium">
-                          {step.highlight}
-                        </span>
-                      </div>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Payment Structure */}
-      <section className="section-padding bg-card/50">
-        <div className="container-tight">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Recommended Payment Structure
-            </h2>
-            <p className="text-lg text-muted-foreground mb-3">
-              We help structure payments around verified milestones
-            </p>
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
-              <Shield className="w-4 h-4" />
-              Coming Soon: Full Escrow Protection
-            </span>
-          </motion.div>
-
-          <div className="grid md:grid-cols-5 gap-4">
-            {[
-              { stage: "Deposit", percent: "30%", desc: "Secure initial payment" },
-              { stage: "Production", percent: "30%", desc: "After production QC" },
-              { stage: "Pre-Ship", percent: "20%", desc: "After final inspection" },
-              { stage: "Shipped", percent: "10%", desc: "When goods depart" },
-              { stage: "Delivered", percent: "10%", desc: "After you receive" },
-            ].map((item, index) => (
-              <motion.div
-                key={item.stage}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative"
+                transition={{ delay: i * 0.05 }}
+                className="grid md:grid-cols-[80px_1fr] gap-6 md:gap-10"
               >
-                <div className="text-center p-6 rounded-xl bg-background border border-border">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                    <CheckCircle className="w-5 h-5 text-primary" />
+                <div className="flex md:flex-col items-center md:items-start gap-4 md:gap-0">
+                  <div className="text-4xl font-bold text-primary/20 font-heading leading-none">
+                    {step.number}
                   </div>
-                  <p className="font-heading text-2xl font-bold text-foreground mb-1">{item.percent}</p>
-                  <p className="font-medium text-foreground text-sm">{item.stage}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{item.desc}</p>
                 </div>
-                {index < 4 && (
-                  <div className="hidden md:block absolute top-1/2 -right-2 transform -translate-y-1/2">
-                    <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                  </div>
-                )}
+                <div className="bg-card border border-border rounded-xl p-6">
+                  <h3 className="font-heading text-xl font-semibold text-foreground mb-3">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-4">{step.description}</p>
+                  {step.gate && (
+                    <div className="flex items-start gap-2 p-3 rounded-lg bg-primary/5 border border-primary/20">
+                      <Shield className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-foreground font-medium">{step.gate}</p>
+                    </div>
+                  )}
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Timeline Expectations */}
+      {/* Protection features */}
+      <section className="section-padding bg-card/50">
+        <div className="container-wide">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              Every protection mechanism — explained
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              The platform enforces these at the code level. They're not optional. They're not guidelines.
+            </p>
+          </motion.div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {protectionFeatures.map((f, i) => (
+              <motion.div
+                key={f.title}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="flex items-start gap-3 p-4 rounded-xl bg-background border border-border"
+              >
+                <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-foreground text-sm">{f.title}</p>
+                  <p className="text-muted-foreground text-sm mt-0.5">{f.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Honest framing */}
       <section className="section-padding">
         <div className="container-tight">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Typical Timeline
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              From first inquiry to delivery
-            </p>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex items-start gap-4 p-8 rounded-xl bg-card border border-border">
+            <AlertCircle className="h-6 w-6 text-muted-foreground flex-shrink-0 mt-0.5" />
+            <div>
+              <h3 className="font-semibold text-foreground mb-2 text-lg">One thing worth being clear about</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Sourcery is a platform, not an agent. We don't negotiate on your behalf, manage your factory relationships, or intervene in production disputes. What we do is give every order the structure and documentation that makes disputes rare — and when they do happen, ensures both parties have a clear record of what was agreed.
+              </p>
+            </div>
           </motion.div>
-
-          <div className="grid md:grid-cols-4 gap-6">
-            {[
-              { phase: "Day 1-3", title: "Getting Matched", desc: "Receive your curated factory list" },
-              { phase: "Week 1-2", title: "Sampling", desc: "Review and approve samples" },
-              { phase: "Week 3-8", title: "Production & QC", desc: "Manufacturing with inspections" },
-              { phase: "Week 9-10", title: "Shipping", desc: "Delivery to your door" },
-            ].map((item, index) => (
-              <motion.div
-                key={item.phase}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center p-6 rounded-xl bg-card border border-border"
-              >
-                <p className="text-sm text-primary font-medium mb-2">{item.phase}</p>
-                <p className="font-heading font-semibold text-foreground mb-1">{item.title}</p>
-                <p className="text-xs text-muted-foreground">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="section-padding bg-card/50">
         <div className="container-tight text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Ready to Get Started?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-              Tell us what you're looking for and we'll match you with the right factories.
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Ready to start?</h2>
+            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
+              Free to get started. Bring your factory on in under 10 minutes.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact?type=sourcing">
+            <div className="flex justify-center gap-3 flex-wrap">
+              <Link to="/auth?mode=signup">
                 <Button variant="hero" size="xl">
-                  Get Matched
-                  <ArrowRight className="w-5 h-5" />
+                  Get started free <ArrowRight className="w-5 h-5" />
                 </Button>
               </Link>
-              <Link to="/directory">
-                <Button variant="hero-outline" size="xl">
-                  Browse Factories
-                </Button>
+              <Link to="/pricing">
+                <Button variant="hero-outline" size="xl">See pricing</Button>
               </Link>
             </div>
           </motion.div>

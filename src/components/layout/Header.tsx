@@ -9,12 +9,10 @@ import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 import { NotificationBell } from "@/components/notifications/NotificationBell";
 
 const navItems = [
+  { label: "For brands", href: "/brands" },
+  { label: "For factories", href: "/factories" },
   { label: "Directory", href: "/directory" },
-  { label: "Your Toolkit", href: "/toolkit" },
-  { label: "How it Works", href: "/how-it-works" },
-  { label: "Brands", href: "/brands" },
-  { label: "Factories", href: "/factories" },
-  { label: "Consulting", href: "/consulting" },
+  { label: "How it works", href: "/how-it-works" },
   { label: "Pricing", href: "/pricing" },
 ];
 

@@ -1,193 +1,131 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
-import { Newsletter } from "@/components/Newsletter";
-import { Testimonials } from "@/components/Testimonials";
-import { 
-  ArrowRight, 
-  CheckCircle, 
-  Factory, 
-  Shield, 
-  Sparkles, 
-  Package, 
-  Globe, 
-  Users,
-  MessageSquare,
-  ClipboardCheck,
-  CreditCard
+import {
+  ArrowRight, CheckCircle, Shield, Package, MessageSquare,
+  FileText, BarChart3, Sparkles, Building2, Loader2
 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const features = [
   {
-    icon: Users,
-    title: "Pre-Negotiated Partnerships",
-    description: "We've already audited, vetted, and negotiated with every factory in our network — securing competitive pricing and terms so you don't have to.",
+    icon: Building2,
+    title: "Bring your own factory",
+    description: "Already working with a manufacturer? Invite them and manage every order on-platform from day one. No marketplace required to get started.",
   },
   {
     icon: Shield,
-    title: "Escrow Protection",
-    description: "Your payments are held securely and released only when each production milestone is verified.",
+    title: "Milestone escrow",
+    description: "Payments held and released in stages. Sample approved before bulk production is funded. QC passed before final release. You control every unlock.",
   },
   {
-    icon: ClipboardCheck,
-    title: "Quality Assurance",
-    description: "Professional inspections at every stage with detailed reports and photo documentation.",
+    icon: Package,
+    title: "Structured order management",
+    description: "Every spec change is a logged revision round the factory must acknowledge. Tech packs are versioned. Nothing falls through the cracks.",
+  },
+  {
+    icon: FileText,
+    title: "QC documentation",
+    description: "Defects filed as structured reports — type, severity, quantity, photos, factory response. Logged against the order with timestamps.",
   },
   {
     icon: MessageSquare,
-    title: "Verified Messaging",
-    description: "Communicate securely with verified factory representatives. All messages logged for protection.",
+    title: "On-platform communication",
+    description: "Every message between you and your factory is logged, timestamped, and attached to the order. Full history. No scattered threads.",
   },
   {
-    icon: Globe,
-    title: "Global Network",
-    description: "Access vetted factories across 12+ countries, all verified and ready to work with you.",
-  },
-  {
-    icon: Users,
-    title: "Dedicated Support",
-    description: "Our team handles disputes, quality issues, and ensures smooth production from start to finish.",
+    icon: BarChart3,
+    title: "Factory performance scores",
+    description: "Every completed order builds a factory's performance record — QC pass rate, response time, defect history. Real data, not self-reported claims.",
   },
 ];
 
-const stats = [
-  { value: "50+", label: "Launch Partners" },
-  { value: "5", label: "Key Regions" },
-  { value: "100%", label: "Milestone Protected" },
-  { value: "2025", label: "Launching" },
+const aiTools = [
+  { name: "AI Factory Matcher", desc: "Describe what you need in plain language. Get ranked recommendations from verified network data.", live: true },
+  { name: "AI Tech Pack Reviewer", desc: "Risk analysis on your tech pack before it goes to the factory. Catches what becomes revision rounds.", live: false },
+  { name: "AI RFQ Generator", desc: "Describe your product. Get a professional, structured RFQ ready to send to any manufacturer.", live: false },
+  { name: "AI Quote Analyzer", desc: "Paste a factory quote. Get an independent analysis benchmarked against real order data.", live: false },
 ];
 
-const platformTools = [
-  { name: "Factory Matching", desc: "Curated selection for your needs" },
-  { name: "Quote Comparison", desc: "Side-by-side analysis & insights" },
-  { name: "RFQ Templates", desc: "Professional request for quotes" },
-  { name: "Expert Support", desc: "Guidance throughout your order" },
+const proofPoints = [
+  "Every payment milestone-protected",
+  "Sampling gated before bulk production",
+  "Full paper trail on every order",
 ];
 
 export default function Home() {
+  const [email, setEmail] = useState("");
+  const [capturing, setCapturing] = useState(false);
+  const [captured, setCaptured] = useState(false);
+
+  const handleEmailCapture = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setCapturing(true);
+    try {
+      await supabase.from("contact_submissions").insert({
+        email: email.trim(),
+        message: "Homepage email capture",
+        name: "—",
+        type: "waitlist",
+      });
+      setCaptured(true);
+      setEmail("");
+    } catch {
+      toast.error("Something went wrong — try again.");
+    } finally {
+      setCapturing(false);
+    }
+  };
+
   return (
     <Layout>
       <SEO
-        title="Sourcery | Manufacturing Sourcing with Payment Protection"
-        description="Find verified factories, get expert guidance, and protect every payment. Personalized sourcing with milestone protection and quality assurance."
+        title="Sourcery — The Manufacturing OS for Physical Product Brands"
+        description="Manage every production order — sampling, revisions, QC, and payments — in one structured system. Bring your existing factory or connect with one from our vetted network."
         canonical="/"
       />
 
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-[var(--hero-gradient)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.05),transparent_50%)]" />
-        
         <div className="container-wide relative">
           <div className="min-h-[calc(100vh-5rem)] flex items-center py-20">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-                  <Shield className="w-4 h-4" />
-                  Every Payment Protected
-                </div>
-                
+            <div className="max-w-3xl">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-6">
-                  Manufacturing Made{" "}
-                  <span className="text-primary">Simple & Safe</span>
+                  The manufacturing OS for physical product brands.
                 </h1>
-                
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-lg">
-                  Curated factory matching, escrow payment protection, and quality assurance at every step. Source with confidence.
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+                  Manage every production order — sampling, revisions, QC, and payments — in one structured system. Bring your existing factory or connect with one from our vetted network.
                 </p>
-                
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/contact?type=sourcing">
-                    <Button variant="hero" size="xl">
-                      Get Matched
+
+                <div className="flex flex-wrap items-center gap-6 mb-10">
+                  {proofPoints.map((p) => (
+                    <div key={p} className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                      {p}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link to="/auth?mode=signup">
+                    <Button size="xl" variant="hero">
+                      Get started free
                       <ArrowRight className="w-5 h-5" />
                     </Button>
                   </Link>
                   <Link to="/directory">
-                    <Button variant="hero-outline" size="xl">
-                      Browse Factories
+                    <Button size="xl" variant="hero-outline">
+                      Browse factory network
                     </Button>
                   </Link>
-                </div>
-                
-                <div className="mt-10 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-primary" />
-                    Escrow protected
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-primary" />
-                    Verified factories
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-primary" />
-                    Hands-on support
-                  </div>
-                </div>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative hidden lg:block"
-              >
-                <div className="aspect-square rounded-2xl bg-gradient-to-br from-muted to-muted/50 border border-border overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center p-8">
-                    <div className="w-full space-y-4">
-                      {/* Factory Matching Preview */}
-                      <div className="bg-background rounded-xl border border-border p-4 shadow-card-lg">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <Factory className="w-4 h-4 text-primary" />
-                          </div>
-                          <span className="font-medium text-foreground text-sm">Factory Matching</span>
-                        </div>
-                        <div className="h-2 bg-muted rounded-full overflow-hidden">
-                          <motion.div 
-                            className="h-full bg-primary rounded-full"
-                            initial={{ width: "0%" }}
-                            animate={{ width: "75%" }}
-                            transition={{ duration: 1.5, delay: 0.5 }}
-                          />
-                        </div>
-                        <p className="text-xs text-muted-foreground mt-2">Curating your factory list...</p>
-                      </div>
-
-                      {/* Escrow Status */}
-                      <div className="bg-background rounded-xl border border-border p-4 shadow-card-lg">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center">
-                            <Shield className="w-4 h-4 text-green-500" />
-                          </div>
-                          <span className="font-medium text-foreground text-sm">Payment Protected</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <CreditCard className="w-4 h-4 text-muted-foreground" />
-                          <span className="text-sm text-muted-foreground">$12,500 in escrow</span>
-                        </div>
-                      </div>
-
-                      {/* QC Status */}
-                      <div className="bg-background rounded-xl border border-border p-4 shadow-card-lg">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <CheckCircle className="w-4 h-4 text-primary" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-foreground text-sm">QC Passed</p>
-                            <p className="text-xs text-muted-foreground">Order #4821 • Ready to ship</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </motion.div>
             </div>
@@ -195,263 +133,150 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="border-y border-border bg-card/50">
-        <div className="container-wide py-12 md:py-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
+      {/* Features */}
+      <section className="section-padding">
+        <div className="container-wide">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mb-12">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Built for production — not just sourcing.
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Most platforms stop at the introduction. Sourcery manages the entire order lifecycle from first contact to closed delivery.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((f, i) => (
               <motion.div
-                key={stat.label}
+                key={f.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center"
+                transition={{ delay: i * 0.07 }}
+                className="p-6 rounded-xl bg-card border border-border"
               >
-                <p className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-1">
-                  {stat.value}
-                </p>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                  <f.icon className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="font-heading font-semibold text-foreground mb-2">{f.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{f.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Platform Tools Highlight */}
-      <section className="section-padding">
+      {/* AI Section */}
+      <section className="section-padding bg-card/50">
         <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-2xl mx-auto mb-12"
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-              <Users className="w-4 h-4" />
-              Hands-On Support
+              <Sparkles className="w-4 h-4" />
+              AI toolkit
             </div>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Everything You Need to Source
+              Intelligence built in. Not bolted on.
             </h2>
             <p className="text-lg text-muted-foreground">
-              From finding the right factory to protecting your payments, we guide you through every step.
+              The Sourcery AI toolkit integrates directly into the production workflow — factory matching, tech pack review, RFQ generation, and quote analysis, all running on real network and order data.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {platformTools.map((tool, index) => (
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            {aiTools.map((tool, i) => (
               <motion.div
                 key={tool.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-xl bg-card border border-border hover:shadow-card-lg transition-shadow text-center"
+                transition={{ delay: i * 0.07 }}
+                className="p-6 rounded-xl bg-card border border-border flex gap-4"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-6 h-6 text-primary" />
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="font-heading font-semibold text-foreground mb-1">{tool.name}</h3>
-                <p className="text-sm text-muted-foreground">{tool.desc}</p>
+                <div>
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <h3 className="font-semibold text-foreground text-sm">{tool.name}</h3>
+                    {tool.live ? (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-700 border border-green-500/20 font-medium">Live</span>
+                    ) : (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 border border-amber-500/20 font-medium">In development</span>
+                    )}
+                  </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{tool.desc}</p>
+                </div>
               </motion.div>
             ))}
           </div>
 
-          <div className="text-center">
-            <Link to="/how-it-works">
-              <Button variant="outline" size="lg">
-                See How It Works
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
+          <p className="text-sm text-muted-foreground text-center">
+            Every AI tool runs on real Sourcery data — factory profiles, performance scores, and anonymized order history. The more the network grows, the more accurate every tool becomes.
+          </p>
         </div>
       </section>
 
-      {/* Early Access Banner */}
-      <section className="section-padding bg-card/50">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
-              <Sparkles className="w-4 h-4" />
-              Early Access Open — Launching 2025
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-2xl mx-auto mb-16"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Complete Platform Protection
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Every transaction is protected with escrow payments, verified communication, and professional quality assurance.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-xl bg-card border border-border hover:shadow-card-lg transition-shadow group"
-              >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Preview */}
-      <section className="section-padding bg-card/50">
-        <div className="container-tight">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              How It Works
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              From curated matching to protected delivery in 4 simple steps
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-4 gap-6 mb-8">
-            {[
-              { icon: Factory, step: "1", title: "Get Matched", desc: "Curated factory selection" },
-              { icon: MessageSquare, step: "2", title: "Connect", desc: "Chat with verified factories" },
-              { icon: CreditCard, step: "3", title: "Pay Safe", desc: "Escrow-protected payments" },
-              { icon: Package, step: "4", title: "Receive", desc: "QC verified delivery" },
-            ].map((item, index) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-background border border-border flex items-center justify-center mx-auto mb-4">
-                  <item.icon className="w-7 h-7 text-primary" />
-                </div>
-                <p className="text-xs text-primary font-medium mb-1">Step {item.step}</p>
-                <p className="font-heading font-semibold text-foreground mb-1">{item.title}</p>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link to="/how-it-works">
-              <Button variant="outline" size="lg">
-                Learn More
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-2xl mx-auto mb-12"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              What Our Clients Say
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Hear from brands who source with confidence on our platform.
-            </p>
-          </motion.div>
-          
-          <Testimonials />
-        </div>
-      </section>
-
-      {/* Newsletter Section */}
-      <section className="section-padding bg-card/50">
-        <div className="container-tight">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-xl mx-auto"
-          >
-            <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
-              Stay in the Loop
-            </h2>
-            <p className="text-muted-foreground mb-8">
-              Get sourcing tips, industry insights, and platform updates delivered to your inbox.
-            </p>
-            <Newsletter className="max-w-md mx-auto" />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
+      {/* Network */}
       <section className="section-padding">
         <div className="container-tight">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative rounded-2xl bg-foreground text-background overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,hsl(var(--primary)/0.3),transparent_60%)]" />
-            <div className="relative p-8 md:p-12 lg:p-16 text-center">
-              <h2 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
-                Ready to Source with Confidence?
-              </h2>
-              <p className="text-background/70 text-lg mb-8 max-w-xl mx-auto">
-                Try our AI Factory Matcher for free and see why brands trust us to protect their manufacturing.
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-6">
+              A network built on standards, not volume.
+            </h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed mb-8">
+              <p>
+                Factories enter the Sourcery network through an application and review process — credentials verified, certifications reviewed, production capability assessed based on submitted documentation and references. Once in the network, performance is tracked across every completed order.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/ai-tools">
-                  <Button size="lg" className="bg-background text-foreground hover:bg-background/90">
-                    Try AI Matcher Free
-                    <Sparkles className="w-5 h-5" />
-                  </Button>
-                </Link>
-                <Link to="/how-it-works">
-                  <Button size="lg" variant="outline" className="border-background/30 text-background hover:bg-background/10">
-                    See How It Works
-                  </Button>
-                </Link>
+              <p>
+                High-performing factories receive featured placement and priority matching with new brands. Those that fall below threshold are removed. The network stays useful by staying selective.
+              </p>
+            </div>
+            <p className="text-sm text-muted-foreground italic border-l-2 border-border pl-4">
+              We recommend all brands conduct their own verification — including requesting samples and starting with smaller trial orders — regardless of network membership status.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Email capture */}
+      <section className="section-padding bg-card/50">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center">
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              Ready to manage production properly?
+            </h2>
+            <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
+              No retainer. No upfront fee. 3% transaction fee only when your production is moving. Get started free and bring your first factory on in under 10 minutes.
+            </p>
+
+            {!captured ? (
+              <form onSubmit={handleEmailCapture} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6">
+                <Input
+                  type="email"
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className="flex-1"
+                  required
+                />
+                <Button type="submit" disabled={capturing}>
+                  {capturing ? <Loader2 className="h-4 w-4 animate-spin" /> : <>Get early access <ArrowRight className="ml-2 h-4 w-4" /></>}
+                </Button>
+              </form>
+            ) : (
+              <div className="flex items-center justify-center gap-2 text-green-700 mb-6">
+                <CheckCircle className="h-5 w-5" />
+                <span className="font-medium">You're on the list. We'll be in touch.</span>
               </div>
+            )}
+
+            <div className="flex gap-4 justify-center">
+              <Link to="/auth?mode=signup">
+                <Button variant="outline">Create account</Button>
+              </Link>
+              <Link to="/how-it-works">
+                <Button variant="ghost">See how it works</Button>
+              </Link>
             </div>
           </motion.div>
         </div>

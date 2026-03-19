@@ -2,97 +2,98 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
-import { ArrowRight, CheckCircle, Globe, TrendingUp, Users, ShieldCheck, Briefcase } from "lucide-react";
+import { SEO } from "@/components/SEO";
+import { ArrowRight, CheckCircle, TrendingUp, Shield, BarChart3, MessageSquare, Package } from "lucide-react";
 
 const benefits = [
   {
-    icon: Globe,
-    title: "Global Brand Access",
-    description: "Connect with quality-focused brands from North America, Europe, and beyond who are actively seeking reliable manufacturing partners.",
+    icon: Package,
+    title: "Structured orders",
+    description: "Every order comes with clear specs, versioned tech packs, and formal revision rounds. You know exactly what you're building and have documentation of what was agreed.",
+  },
+  {
+    icon: Shield,
+    title: "Milestone payments",
+    description: "Payment terms are structured and tracked on-platform. Both sides see the same milestones. Disputes are documented, not verbal.",
+  },
+  {
+    icon: MessageSquare,
+    title: "Professional brand relationships",
+    description: "Brands on Sourcery are managing real production budgets with structured specs. Inquiries come with documentation, not vague messages.",
   },
   {
     icon: TrendingUp,
-    title: "Consistent Orders",
-    description: "Build long-term relationships with brands that value reliability. Many of our brand partners place repeat orders year after year.",
+    title: "Repeat business",
+    description: "Brands who have a good first order reorder. The platform makes it easy — one-click reorder from a closed order, pre-filled with all the original specs.",
   },
   {
-    icon: Users,
-    title: "Dedicated Support",
-    description: "Our local team works with you to streamline communication, manage expectations, and ensure successful production runs.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Fair Terms",
-    description: "We believe in partnerships that work for everyone. Our payment terms and contracts are designed to be fair and transparent.",
-  },
-  {
-    icon: Briefcase,
-    title: "No Hidden Fees",
-    description: "Join our network for free. We only succeed when you get orders, so there's no upfront cost to become a partner.",
+    icon: BarChart3,
+    title: "Performance builds placement",
+    description: "Strong QC pass rates, fast response times, and on-time delivery improve your ranking. Your track record is your placement — not paid promotion.",
   },
 ];
 
 const requirements = [
-  "Minimum 3 years of export manufacturing experience",
-  "Relevant compliance certifications (BSCI, SEDEX, etc.)",
-  "Demonstrated quality control processes",
-  "Capacity to handle MOQ of 500+ units",
-  "English-speaking point of contact preferred",
+  "Verified production capability in your category",
+  "Relevant compliance certifications (BSCI, GOTS, OEKO-TEX, ISO 9001, or equivalent)",
+  "Demonstrated quality control process",
+  "Export experience with international brands",
+  "Responsive communication — brands expect timely responses",
+];
+
+const steps = [
+  { step: "1", title: "Apply online", desc: "Fill out the factory application with your capabilities, certifications, and production history." },
+  { step: "2", title: "Review process", desc: "Our team reviews your application — credential verification, certification review, production capability assessment based on submitted documentation." },
+  { step: "3", title: "Profile setup", desc: "Complete your factory profile — description, photos, MOQ, lead time, pricing bands. Higher completeness = better placement." },
+  { step: "4", title: "Start receiving inquiries", desc: "Approved factories appear in search and are eligible for AI-matched brand recommendations. Performance tracking begins from your first completed order." },
 ];
 
 export default function Factories() {
   return (
     <Layout>
+      <SEO
+        title="For Factories — Sourcery"
+        description="Join a network that takes quality seriously. Structured orders, milestone-protected payments, and a platform that documents everything — so both sides are protected."
+      />
+
       {/* Hero */}
       <section className="section-padding bg-[var(--hero-gradient)]">
         <div className="container-wide">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-                For Factories
+                For factories
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-                Partner with Growing Brands Worldwide
+                Join a network that takes quality seriously.
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-                Join our vetted factory network and get connected with quality-focused brands looking for reliable manufacturing partners. No fees to join, no hidden costs.
+                Sourcery connects verified manufacturers with brands who are serious about production. Structured orders, milestone-protected payments, and full documentation — so both sides are protected on every order.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/contact?type=factory">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link to="/apply">
                   <Button variant="hero" size="xl">
-                    Apply to Join Network
+                    Apply to join network
                     <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </Link>
-                <Link to="/contact?type=call">
-                  <Button variant="hero-outline" size="xl">
-                    Schedule a Call
                   </Button>
                 </Link>
               </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              className="hidden lg:block"
-            >
-              <div className="bg-card rounded-2xl border border-border p-8 shadow-card-lg">
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-6">
-                  What We Look For
-                </h3>
-                <ul className="space-y-4">
-                  {requirements.map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{item}</span>
-                    </li>
-                  ))}
-                </ul>
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="hidden lg:block">
+              <div className="bg-card rounded-2xl border border-border p-8">
+                <h3 className="font-semibold text-foreground mb-6 text-lg">Already working with a brand on Sourcery?</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                  If a brand you work with has invited you to the platform, you don't need to go through the network application. Accept the invite, complete your profile, and manage your orders immediately.
+                </p>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                  Network membership is for manufacturers who want to be discoverable to new brands through our marketplace. Both paths give you full platform functionality.
+                </p>
+                <Link to="/auth">
+                  <Button variant="outline" className="w-full">
+                    Accept a factory invite
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           </div>
@@ -102,102 +103,104 @@ export default function Factories() {
       {/* Benefits */}
       <section className="section-padding">
         <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-2xl mx-auto mb-16"
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Why Factories Join Sourcery
+              Why factories join Sourcery
             </h2>
-            <p className="text-lg text-muted-foreground">
-              500+ factories trust us to connect them with quality brand partners
-            </p>
           </motion.div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {benefits.map((benefit, index) => (
+            {benefits.map((b, i) => (
               <motion.div
-                key={benefit.title}
+                key={b.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: i * 0.07 }}
                 className="p-6 rounded-xl bg-card border border-border"
               >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <benefit.icon className="w-6 h-6 text-primary" />
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                  <b.icon className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
-                  {benefit.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {benefit.description}
-                </p>
+                <h3 className="font-semibold text-foreground mb-2">{b.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{b.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* Performance scoring */}
       <section className="section-padding bg-card/50">
         <div className="container-tight">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              How to Join
-            </h2>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-6">Your reputation is your ranking.</h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                Every completed order contributes to your performance score — calculated from QC pass rate, response time, on-time delivery, defect history, and brand retention. High-scoring factories receive featured placement in search and priority matching with new brands.
+              </p>
+              <p>
+                The score is calculated from real order data only. Not self-reported claims. Not paid placement. Actual production history on the platform.
+              </p>
+              <p>
+                Factories see their full score breakdown. Brands see your tier — Verified or Elite. New factories build their track record from the first completed order.
+              </p>
+            </div>
           </motion.div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { step: "1", title: "Apply Online", desc: "Fill out our factory application form with your capabilities and certifications." },
-              { step: "2", title: "Verification", desc: "Our team reviews your application and may conduct a virtual or on-site audit." },
-              { step: "3", title: "Start Receiving RFQs", desc: "Once approved, you'll receive relevant project inquiries matched to your capabilities." },
-            ].map((item, index) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center p-6 rounded-xl bg-background border border-border"
-              >
-                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-heading font-bold text-lg flex items-center justify-center mx-auto mb-4">
-                  {item.step}
-                </div>
-                <h3 className="font-heading font-semibold text-foreground mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
-              </motion.div>
-            ))}
+      {/* Requirements */}
+      <section className="section-padding">
+        <div className="container-wide">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <h2 className="font-heading text-3xl font-bold text-foreground mb-6">What we look for</h2>
+              <ul className="space-y-4 mb-6">
+                {requirements.map((req, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <span className="text-foreground">{req}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-sm text-muted-foreground italic border-l-2 border-border pl-4">
+                Network entry involves credential review and certification verification based on submitted documentation and references. We do not conduct on-site facility audits for all applicants. We recommend brands request samples and start with smaller trial orders as part of their own verification.
+              </p>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <h2 className="font-heading text-3xl font-bold text-foreground mb-6">How it works</h2>
+              <div className="space-y-6">
+                {steps.map((s) => (
+                  <div key={s.step} className="flex gap-4">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center flex-shrink-0 mt-0.5">
+                      {s.step}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground mb-1">{s.title}</p>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="section-padding">
-        <div className="container-tight">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="rounded-2xl bg-foreground text-background p-8 md:p-12 text-center"
-          >
-            <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4">
-              Ready to Grow Your Factory's Reach?
+      <section className="section-padding bg-card/50">
+        <div className="container-tight text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              Ready to join the network?
             </h2>
-            <p className="text-background/70 mb-8 max-w-lg mx-auto">
-              Apply to join our network and start receiving inquiries from quality-focused brands.
+            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
+              Free to join. No fees to factories. Sourcery earns a transaction fee on orders — paid by brands, not manufacturers.
             </p>
-            <Link to="/contact?type=factory">
-              <Button size="lg" className="bg-background text-foreground hover:bg-background/90">
-                Apply Now
+            <Link to="/apply">
+              <Button variant="hero" size="xl">
+                Apply now
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </Link>
