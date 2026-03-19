@@ -156,6 +156,144 @@ export default function WhySourcery() {
         </div>
       </section>
 
+      {/* Capital protection section */}
+      <section className="section-padding bg-card/50">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              Every production run puts capital at risk. Sourcery is how you protect it.
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
+              Wiring money to a factory overseas is a real act of trust. Sourcery doesn't eliminate that trust — it gives you the structure to make it justified. Your money moves only when verified milestones are met. You control every unlock.
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Milestone escrow",
+                  body: "Your deposit is held and released in stages — not transferred upfront. Sample must be approved before bulk production is funded. QC must pass before final release. At every stage, you decide when funds move. The factory never has your full payment until they've earned it.",
+                },
+                {
+                  title: "Dispute protection",
+                  body: "If something goes wrong, your final payment freezes automatically. Both parties submit evidence through the platform. The paper trail built throughout the order — every message, every revision acknowledgment, every defect report — is your leverage. You don't go into a dispute empty-handed.",
+                },
+                {
+                  title: "Your money, your timeline",
+                  body: "You set the milestone structure when you create the order. You approve each release manually. Nothing is automatic. The platform enforces the gates — but you hold the keys. No payment leaves without your verification.",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="p-6 rounded-xl bg-background border border-border"
+                >
+                  <h3 className="font-semibold text-foreground mb-3">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Traceability forever */}
+      <section className="section-padding">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              Once it's on the platform, it's there forever.
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
+              Every closed order on Sourcery is a permanent record. Not just for protection during production — but for everything that comes after.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {[
+                {
+                  scenario: "Reordering 8 months later",
+                  detail: "Every spec, measurement, material, and revision from the original order is preserved. You know exactly what you built from. No reconstructing specs from memory or hunting through old emails.",
+                },
+                {
+                  scenario: "A factory dispute after delivery",
+                  detail: "The full order record — every message timestamped, every revision acknowledged, every defect logged — is searchable and exportable. Your paper trail is built automatically throughout the order, not assembled after the fact.",
+                },
+                {
+                  scenario: "Bringing in a new team member",
+                  detail: "Your entire production history lives in one place. New hires see every past order, every factory relationship, every QC result. Institutional knowledge doesn't live in someone's inbox.",
+                },
+                {
+                  scenario: "Understanding your factory's track record",
+                  detail: "Performance scores build from real order data over time — QC pass rate, response time, defect history, on-time delivery. The longer you work together on the platform, the clearer the picture becomes.",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.scenario}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.07 }}
+                  className="flex items-start gap-4 p-5 rounded-xl bg-card border border-border"
+                >
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-2" />
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-1.5">{item.scenario}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.detail}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Organisation saves time */}
+      <section className="section-padding bg-card/50">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              One place. Everything attached to the right order.
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
+              The average production run is managed across 4–6 different tools — WhatsApp, email, WeTransfer, bank portals, spreadsheets, Google Drive. Sourcery replaces all of it. Not because it's neater, but because fragmentation is where things get lost — and lost things cost money.
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  before: "\"Which version of the tech pack did they build from?\"",
+                  after: "Tech pack versions are numbered and factory-confirmed. You always know which version is current.",
+                },
+                {
+                  before: "\"Did they acknowledge that revision?\"",
+                  after: "Every revision round requires a formal factory acknowledgment before production continues. It's logged with a timestamp.",
+                },
+                {
+                  before: "\"Where did we land on that defect from last season?\"",
+                  after: "Every defect report — type, severity, factory response, resolution — is attached to the order permanently.",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="p-6 rounded-xl bg-background border border-border"
+                >
+                  <p className="text-sm text-muted-foreground italic mb-4 pb-4 border-b border-border">
+                    {item.before}
+                  </p>
+                  <p className="text-sm text-foreground leading-relaxed">{item.after}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* The three gates summary */}
       <section className="section-padding bg-card/50">
         <div className="container-tight">
