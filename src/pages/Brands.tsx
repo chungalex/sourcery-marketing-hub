@@ -168,6 +168,87 @@ export default function Brands() {
         </div>
       </section>
 
+      {/* Structured order creation */}
+      <section className="section-padding">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mb-10">
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              Built for brands at every stage of production experience.
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              Whether you're placing your first production order or your fiftieth, the same problems come up: incomplete specs, missed incoterms, unclear QC standards, vague delivery windows. Sourcery's order creation process is structured to walk you through every decision that matters — so nothing critical gets skipped.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            {[
+              {
+                step: "01",
+                title: "Factory, product & specifications",
+                desc: "Select your factory, enter quantity, and document your product specifications in a structured form. Attach your tech pack URL and Bill of Materials. Both factory and brand see the same spec from the same place from the moment the order is created.",
+              },
+              {
+                step: "02",
+                title: "Pricing, delivery window & incoterms",
+                desc: "Unit price, currency, delivery window start and end dates, and incoterms (EXW, FOB, CIF, DDP) are all captured in the order record. No ambiguity about what was agreed and when — it's in the PO.",
+              },
+              {
+                step: "03",
+                title: "Quality control preference",
+                desc: "Choose how QC is handled for this order: Sourcery-coordinated inspection, bring your own QC partner, or factory self-inspection. The choice is documented in the order and shapes how the QC gate is applied before final payment.",
+              },
+              {
+                step: "04",
+                title: "Full review before submit",
+                desc: "Every field — factory, quantity, price, delivery, incoterms, QC option — is displayed for review before the PO is issued. Nothing moves until you confirm it's right.",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={item.step}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.07 }}
+                className="flex gap-4 p-5 rounded-xl bg-card border border-border"
+              >
+                <div className="font-mono text-2xl font-bold text-primary/30 flex-shrink-0 w-10 pt-0.5">{item.step}</div>
+                <div>
+                  <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="p-6 rounded-xl bg-card border border-border"
+          >
+            <h3 className="font-semibold text-foreground mb-4">After the PO — every stage of production documented</h3>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
+              {[
+                { label: "Tech pack versioning", desc: "Every upload is versioned. Factory confirms which version they're building from." },
+                { label: "Revision rounds", desc: "Every spec change requires formal factory acknowledgment before work continues." },
+                { label: "Sample submission", desc: "Factory submits with photos and measurements. You approve or request a documented revision." },
+                { label: "Defect reporting", desc: "Type, severity, quantity, photos, factory response — all logged against the order." },
+                { label: "QC gate", desc: "Final payment blocked until QC result is logged. You control the release." },
+                { label: "Reorder in one click", desc: "Closed orders preserve every spec. Reorder with the same details — no reconstruction." },
+              ].map((tool, i) => (
+                <div key={tool.label} className="flex items-start gap-2 p-3 rounded-lg bg-background border border-border">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-1.5" />
+                  <div>
+                    <p className="text-xs font-semibold text-foreground mb-0.5">{tool.label}</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{tool.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Why Sourcery callout */}
       <section className="section-padding">
         <div className="container-tight">
