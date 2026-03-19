@@ -58,8 +58,7 @@ const scenarios = [
 
 const stats = [
   { value: "30%", label: "more lost on quality defect costs when working with fragmented, unsupervised supplier networks", source: "McKinsey / Traceforgood" },
-  { value: "45%", label: "of quality problems caused by suppliers with less than 20% brand visibility into their processes", source: "McKinsey" },
-  { value: "13%", label: "of online apparel returns are faulty goods — a direct result of QC failures at the production stage", source: "National Retail Federation" },
+  { value: "45%", label: "of quality problems in apparel are caused by Tier 2 or 3 suppliers — yet less than 20% of brands have any visibility into them", source: "McKinsey" },
 ];
 
 export default function WhySourcery() {
