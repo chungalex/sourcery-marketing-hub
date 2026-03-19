@@ -27,6 +27,7 @@ import { FilterSidebar, FilterState, initialFilters } from "@/components/marketp
 import { ActiveFilters } from "@/components/marketplace/ActiveFilters";
 import { RecentlyViewed } from "@/components/marketplace/RecentlyViewed";
 import { ViewToggle, ViewMode } from "@/components/marketplace/ViewToggle";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { fetchFactories, fetchFactoryPreviews } from "@/lib/factories";
 import { toast } from "sonner";
@@ -94,16 +95,24 @@ function transformPreview(f: FactoryPreview): MockFactoryPreview {
 
 export default function Directory() {
   const { user, isLoading: authLoading } = useAuth();
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState<FilterState>(initialFilters);
   const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [savedFactories, setSavedFactories] = useState<string[]>([]);
+  const [compareList, setCompareList] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [recentlyViewed, setRecentlyViewed] = useState<string[]>([]);
   
   const [factories, setFactories] = useState<MockFactoryPreview[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
   const isAuthenticated = !!user;
+
+  const toggleCompare = (id: string) => {
+    setCompareList(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : prev.length < 3 ? [...prev, id] : prev
+    );
+  };
 
   // Load factories - start with previews immediately, upgrade to full data when auth resolves
   useEffect(() => {
@@ -449,19 +458,50 @@ export default function Directory() {
                 </div>
               )}
 
+              {/* Compare bar */}
+              {compareList.length >= 2 && (
+                <div className="sticky top-4 z-30 flex items-center justify-between gap-4 p-3 rounded-xl bg-background border border-primary/30 shadow-sm mb-4">
+                  <p className="text-sm text-foreground font-medium">
+                    {compareList.length} factories selected
+                    <span className="text-muted-foreground font-normal ml-1">— up to 3</span>
+                  </p>
+                  <div className="flex gap-2">
+                    <button onClick={() => setCompareList([])} className="text-xs text-muted-foreground hover:text-foreground">Clear</button>
+                    <button
+                      onClick={() => navigate(`/compare?ids=${compareList.join(",")}`)}
+                      className="text-xs bg-primary text-primary-foreground px-3 py-1.5 rounded-lg font-medium hover:bg-primary/90"
+                    >
+                      Compare →
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {/* Results */}
               {!isLoading && filteredFactories.length > 0 && (
                 <>
                   {viewMode === 'grid' && (
                     <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
                       {filteredFactories.map((factory, index) => (
-                        <FactoryCard
-                          key={factory.id}
-                          factory={factory}
-                          index={index}
-                          onSave={handleSave}
-                          isSaved={savedFactories.includes(factory.id)}
-                        />
+                        <div key={factory.id} className="relative group">
+                          <FactoryCard
+                            factory={factory}
+                            index={index}
+                            onSave={handleSave}
+                            isSaved={savedFactories.includes(factory.id)}
+                          />
+                          <button
+                            onClick={() => toggleCompare(factory.id)}
+                            className={`absolute top-3 left-3 text-xs px-2 py-1 rounded-md font-medium transition-all border ${
+                              compareList.includes(factory.id)
+                                ? "bg-primary text-primary-foreground border-primary"
+                                : "bg-background/90 text-muted-foreground border-border opacity-0 group-hover:opacity-100"
+                            } ${compareList.length >= 3 && !compareList.includes(factory.id) ? "opacity-30 cursor-not-allowed" : ""}`}
+                            disabled={compareList.length >= 3 && !compareList.includes(factory.id)}
+                          >
+                            {compareList.includes(factory.id) ? "✓ Compare" : "+ Compare"}
+                          </button>
+                        </div>
                       ))}
                     </div>
                   )}
