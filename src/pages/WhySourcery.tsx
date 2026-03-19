@@ -56,30 +56,12 @@ const scenarios = [
   },
 ];
 
-const stats = [
-  {
-    value: "30%",
-    label: "more lost on quality defect costs — rework, delays, lost sales — when production runs through fragmented, unsupervised supplier networks",
-    source: "Traceforgood, 2023"
-  },
-  {
-    value: "32%",
-    label: "more critical quality defects for brands with little to no structured supplier engagement, compared to brands with active oversight",
-    source: "QIMA Annual Benchmark Report, 2022"
-  },
-  {
-    value: "60%",
-    label: "of defects in apparel production aren't discovered until final inspection or after delivery — when fixing them is already expensive",
-    source: "QIMA Annual Benchmark Report, 2022"
-  },
-];
-
 export default function WhySourcery() {
   return (
     <Layout>
       <SEO
         title="Why Sourcery — The cost of unstructured production"
-        description="Brands working with fragmented supplier networks lose up to 30% more on quality defect costs. Here's what that looks like on a real order — and what Sourcery does about it."
+        description="A spec change in a WhatsApp thread. A sample approved over email. A final payment wired before QC. See what each scenario typically costs — and what Sourcery does about it."
       />
 
       {/* Hero */}
@@ -93,27 +75,6 @@ export default function WhySourcery() {
               Most production losses aren't fraud. They're documentation failures — wrong spec built because the change was in a WhatsApp message, defect discovered after the final wire, sample approved over email with nothing in writing.
             </p>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="border-y border-border bg-card/40">
-        <div className="container-wide py-10">
-          <div className="grid md:grid-cols-3 gap-8">
-            {stats.map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-              >
-                <div className="text-3xl font-bold text-foreground font-heading mb-2">{stat.value}</div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-2">{stat.label}</p>
-                <p className="text-xs text-muted-foreground/60 italic">{stat.source}</p>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -191,7 +152,7 @@ export default function WhySourcery() {
             viewport={{ once: true }}
             className="text-xs text-muted-foreground text-center mt-8 max-w-xl mx-auto italic"
           >
-            Savings figures are estimates based on typical production scenarios. Actual outcomes vary by order, factory, and product. Statistics sourced from Traceforgood (2023) and the QIMA Annual Quality Benchmark Report (2022).
+            Savings figures are estimates based on typical production scenarios and are illustrative, not guaranteed. Actual outcomes vary by order, factory, product type, and manufacturing relationship.
           </motion.p>
         </div>
       </section>
