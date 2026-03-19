@@ -15,7 +15,7 @@ const steps = [
   {
     number: "02",
     title: "Create a production order",
-    description: "Quantity, pricing, incoterms, QC option, and delivery window in one structured form. Tech pack attached and versioned. Both parties see the same spec from the same place — no version confusion, no missing information.",
+    description: "Quantity, pricing, incoterms, QC option, AQL standard, and delivery window — all captured in a structured form with plain-English guidance at each step. Not sure what FOB means or which AQL standard to use? The form explains each option before you choose. Tech pack attached and versioned. Both parties see the same spec from the same place.",
     gate: null,
   },
   {

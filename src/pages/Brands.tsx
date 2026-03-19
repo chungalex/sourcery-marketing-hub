@@ -190,12 +190,12 @@ export default function Brands() {
               {
                 step: "02",
                 title: "Pricing, delivery window & incoterms",
-                desc: "Unit price, currency, delivery window start and end dates, and incoterms (EXW, FOB, CIF, DDP) are all captured in the order record. No ambiguity about what was agreed and when — it's in the PO.",
+                desc: "Unit price, currency, delivery window, and incoterms — each with a plain-English explanation of what you're agreeing to. Not sure whether to use FOB or DDP? The form explains the difference before you choose. Everything captured in the order record before a dollar moves.",
               },
               {
                 step: "03",
-                title: "Quality control preference",
-                desc: "Choose how QC is handled for this order: Sourcery-coordinated inspection, bring your own QC partner, or factory self-inspection. The choice is documented in the order and shapes how the QC gate is applied before final payment.",
+                title: "Quality control preference & AQL standard",
+                desc: "Choose how QC is handled — Sourcery-coordinated, your own inspector, or factory self-inspection — and set your AQL standard (1.0, 2.5, or 4.0). Each option is explained before you choose. The QC standard is written into the order record so the factory knows the threshold before production begins.",
               },
               {
                 step: "04",
@@ -233,8 +233,8 @@ export default function Brands() {
                 { label: "Revision rounds", desc: "Every spec change requires formal factory acknowledgment before work continues." },
                 { label: "Sample submission", desc: "Factory submits with photos and measurements. You approve or request a documented revision." },
                 { label: "Defect reporting", desc: "Type, severity, quantity, photos, factory response — all logged against the order." },
-                { label: "QC gate", desc: "Final payment blocked until QC result is logged. You control the release." },
-                { label: "Reorder in one click", desc: "Closed orders preserve every spec. Reorder with the same details — no reconstruction." },
+                { label: "QC gate with AQL standard", desc: "Final payment blocked until QC result is logged against your set AQL threshold. You control the release." },
+                { label: "Reorder in one click", desc: "Closed orders preserve every spec, AQL standard, and incoterms. Reorder with the same details — no reconstruction." },
               ].map((tool, i) => (
                 <div key={tool.label} className="flex items-start gap-2 p-3 rounded-lg bg-background border border-border">
                   <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-1.5" />

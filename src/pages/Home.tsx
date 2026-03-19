@@ -25,8 +25,8 @@ const features = [
   },
   {
     icon: Package,
-    title: "Structured order management",
-    description: "Every spec change is a logged revision round the factory must acknowledge. Tech packs are versioned. Nothing falls through the cracks.",
+    title: "Structured order creation",
+    description: "Every decision that matters — incoterms, QC option, AQL standard, delivery window — captured in a guided form with plain-English explanations at each step. Built for first-time brands and experienced operators alike.",
   },
   {
     icon: FileText,

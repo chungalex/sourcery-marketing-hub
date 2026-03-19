@@ -36,6 +36,14 @@ const faqSections = [
         a: "No. Bring Your Own Factory is the primary entry point. Invite your existing manufacturer and manage every order on-platform immediately. The marketplace is available when you need to find a new manufacturing partner.",
       },
       {
+        q: "I'm new to production. Will I understand what the platform is asking for?",
+        a: "Yes — that's a core part of how the platform is built. Every decision in the order creation form includes a plain-English explanation before you choose. Incoterms (EXW, FOB, CIF, DDP) are explained with who pays, who's responsible, and when to use each one. AQL standards (1.0, 2.5, 4.0) are explained with what defect tolerance they allow. QC options show trade-offs, protection levels, and who each is best for. You're guided through every decision that matters — not left to figure it out.",
+      },
+      {
+        q: "What is AQL and which standard should I use?",
+        a: "AQL stands for Acceptable Quality Level — the international standard that defines how many defective units are acceptable when a statistical sample is inspected. AQL 2.5 is the industry standard for most apparel and soft goods orders and is the default on the platform. AQL 1.0 is stricter and suited to higher-value goods or categories where defects are especially costly. AQL 4.0 is more relaxed, suited to established factory relationships with strong track records. Your choice is written into the order record so the factory knows the quality threshold before production begins.",
+      },
+      {
         q: "How do I invite my factory?",
         a: "From your brand dashboard, click 'Invite a Factory.' Enter their name, email, and country. They receive a link to create a free account and connect with you. Once they accept, you can create orders together immediately.",
       },
