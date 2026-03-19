@@ -8,7 +8,7 @@ import { ArrowRight, CheckCircle } from "lucide-react";
 const included = [
   "Unlimited orders — BYOF and network",
   "Full order lifecycle management — sampling, revisions, QC, payments",
-  "Milestone escrow on every order",
+  "Milestone-gated payments on every order",
   "Tech pack versioning",
   "Revision round tracking",
   "Defect reporting and documentation",
@@ -32,7 +32,7 @@ const comingSoon = [
 const faqs = [
   {
     q: "When do I pay the fee?",
-    a: "The 3% is calculated on the total order value and charged when the order is created. It covers the full platform functionality for that order — escrow, sampling gates, revision tracking, QC documentation, dispute infrastructure.",
+    a: "The 3% is calculated on the total order value and charged when the order is created. It covers the full platform functionality for that order — milestone gate enforcement, sampling gates, revision tracking, QC documentation, dispute infrastructure.",
   },
   {
     q: "Does the fee apply to BYOF orders — my own factories?",
@@ -168,7 +168,7 @@ export default function Pricing() {
               ))}
             </div>
             <p className="text-sm text-muted-foreground mt-6 text-center">
-              The fee covers: escrow protection, milestone enforcement, sampling gate, revision tracking, QC gating, and dispute infrastructure on every order.
+              The fee covers: milestone gate enforcement, structured order creation, sampling gates, revision tracking, QC gating, and dispute infrastructure on every order.
             </p>
           </motion.div>
         </div>
@@ -206,6 +206,15 @@ export default function Pricing() {
               </Button>
             </Link>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Payment disclaimer */}
+      <section className="py-8 border-t border-border">
+        <div className="container-tight">
+          <p className="text-xs text-muted-foreground leading-relaxed text-center max-w-2xl mx-auto">
+            Sourcery is a production management platform. It does not hold, process, or custody funds. Payments are made directly between brands and factories. Sourcery enforces milestone gate conditions and documents every stage — the brand controls every payment release.
+          </p>
         </div>
       </section>
     </Layout>

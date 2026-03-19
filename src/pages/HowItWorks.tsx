@@ -22,7 +22,7 @@ const steps = [
     number: "03",
     title: "Sample approval gate",
     description: "Factory submits sample with photos and measurements. You review and approve — or request a formal revision round with documented feedback the factory must acknowledge before production continues.",
-    gate: "Bulk production milestones cannot be funded until sample is approved. This gate is enforced by the platform.",
+    gate: "Bulk production cannot begin until sample is approved. This gate is enforced by the platform.",
   },
   {
     number: "04",
@@ -33,18 +33,18 @@ const steps = [
   {
     number: "05",
     title: "QC gates the final payment",
-    description: "Quality inspection logged against the order with photos, defect reports, and pass/fail result. In a dispute, payment freezes and both parties submit evidence before resolution. The paper trail built throughout the order is your leverage.",
-    gate: "Final milestone cannot release without QC pass. Payment is never released automatically.",
+    description: "Quality inspection logged against the order with photos, defect reports, and pass/fail result. In a dispute, the brand withholds final payment and both parties submit documented evidence before resolution. The paper trail built throughout the order is your leverage.",
+    gate: "Final milestone cannot release without QC pass. You control every payment release — nothing moves without your confirmation.",
   },
 ];
 
 const protectionFeatures = [
-  { title: "Sampling gate", desc: "No bulk production funding without approved sample" },
+  { title: "Sampling gate", desc: "Bulk production cannot begin without approved sample" },
   { title: "Revision rounds", desc: "Every spec change formally acknowledged by factory" },
   { title: "Tech pack versioning", desc: "Factory always confirms current version" },
   { title: "Defect documentation", desc: "Structured reports with photos and factory response" },
-  { title: "QC gate", desc: "Final payment blocked without QC pass" },
-  { title: "Dispute freeze", desc: "Funds held pending evidence review" },
+  { title: "QC gate", desc: "Final payment release requires QC pass" },
+  { title: "Dispute documentation", desc: "Full paper trail — documented grounds to withhold payment" },
 ];
 
 export default function HowItWorks() {
@@ -63,7 +63,7 @@ export default function HowItWorks() {
               One system. Every step of production.
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Sourcery is a platform, not an agency. It gives you the structure, documentation, and payment protection to manage your own production relationships — with accountability built into every stage.
+              Sourcery is a platform, not an agency. It gives you the structure, documentation, and milestone gate enforcement to manage your own production relationships — with accountability built into every stage.
             </p>
           </motion.div>
         </div>

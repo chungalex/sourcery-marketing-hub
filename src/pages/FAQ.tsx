@@ -20,7 +20,7 @@ const faqSections = [
       },
       {
         q: "Is Sourcery an agency or a platform?",
-        a: "A platform. Sourcery doesn't manage your factory relationships, negotiate on your behalf, or intervene in production. It gives you the structure, documentation, and payment protection to manage your own production — with accountability built into every stage.",
+        a: "A platform. Sourcery doesn't manage your factory relationships, negotiate on your behalf, or intervene in production. It gives you the structure, documentation, and milestone gate enforcement to manage your own production — with accountability built into every stage.",
       },
       {
         q: "What types of products does Sourcery support?",
@@ -53,7 +53,7 @@ const faqSections = [
       },
       {
         q: "What if there are quality issues?",
-        a: "Every defect is documented as a structured report — type, severity, quantity affected, photos, factory response — all timestamped against the order. The platform requires QC pass before releasing final payment. In a formal dispute, funds freeze and both parties submit evidence before resolution. The documentation built throughout the order is your protection.",
+        a: "Every defect is documented as a structured report — type, severity, quantity affected, photos, factory response — all timestamped against the order. The platform requires QC pass before releasing final payment. In a formal dispute, the brand withholds final payment and both parties submit documented evidence before resolution. The documentation built throughout the order is your protection.",
       },
       {
         q: "How long does the process take?",
@@ -99,7 +99,7 @@ const faqSections = [
       },
       {
         q: "What does the fee cover?",
-        a: "Escrow protection, milestone enforcement, sampling gate, revision round tracking, tech pack versioning, QC gating, defect documentation, on-platform messaging, dispute infrastructure, and AI toolkit access. Everything on the platform, for every order.",
+        a: "Milestone gate enforcement, structured order creation, sampling gate, revision round tracking, tech pack versioning, QC gating, defect documentation, on-platform messaging, dispute infrastructure, and AI toolkit access. Everything on the platform, for every order.",
       },
       {
         q: "Is there a free trial?",

@@ -648,7 +648,7 @@ export default function CreateOrder() {
                               </span>
                             </div>
                             <p className="text-xs text-muted-foreground">
-                              Covers: Escrow protection, milestone enforcement, QC gating, dispute infrastructure
+                              Covers: Milestone gate enforcement, QC gating, revision tracking, dispute infrastructure
                             </p>
                           </div>
                         )}
@@ -966,7 +966,7 @@ export default function CreateOrder() {
                           </div>
                           
                           <p className="text-xs text-muted-foreground">
-                            Platform fee covers: escrow protection, milestone enforcement, QC gating, and dispute infrastructure.
+                            Platform fee covers: milestone gate enforcement, QC gating, revision tracking, and dispute infrastructure.
                           </p>
                           
                           <div className="text-sm text-muted-foreground mt-3 pt-3 border-t border-primary/20 space-y-1">

@@ -144,7 +144,7 @@ export function EscrowPaymentTracker({
         </div>
         <Badge variant="secondary" className="bg-primary/10 text-primary">
           <Clock className="w-3 h-3 mr-1" />
-          Escrow Coming Soon
+          Payment Tracking Coming Soon
         </Badge>
       </div>
 
@@ -163,7 +163,7 @@ export function EscrowPaymentTracker({
           </div>
         </div>
         <div className="bg-primary/10 rounded-lg p-4">
-          <div className="text-sm text-primary mb-1">In Escrow</div>
+          <div className="text-sm text-primary mb-1">Milestone Gated</div>
           <div className="text-xl font-semibold text-primary">
             ${totalLocked.toLocaleString()}
           </div>

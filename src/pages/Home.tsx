@@ -20,8 +20,8 @@ const features = [
   },
   {
     icon: Shield,
-    title: "Milestone escrow",
-    description: "Payments held and released in stages. Sample approved before bulk production is funded. QC passed before final release. You control every unlock.",
+    title: "Milestone-gated payments",
+    description: "Every payment stage is gated behind a verified condition. Sample approved before bulk. QC passed before final release. You control each release manually — nothing moves without your confirmation.",
   },
   {
     icon: Package,
@@ -109,7 +109,7 @@ export default function Home() {
 
                 <div className="space-y-3 mb-8">
                   {[
-                    { gate: "Sample gate", desc: "No bulk production funded until sample is approved" },
+                    { gate: "Sample gate", desc: "Bulk production cannot begin until sample is approved" },
                     { gate: "Revision log", desc: "Every spec change formally acknowledged by factory" },
                     { gate: "QC gate", desc: "Final payment blocked until quality inspection passes" },
                   ].map(item => (
@@ -190,7 +190,7 @@ export default function Home() {
                     {/* Protection badges */}
                     <div className="grid grid-cols-3 gap-2 pt-4 border-t border-border">
                       {[
-                        { label: "Escrow", status: "Active", color: "text-green-600" },
+                        { label: "Gates active", status: "Enforced", color: "text-green-600" },
                         { label: "Sample gate", status: "Pending", color: "text-amber-600" },
                         { label: "QC gate", status: "Upcoming", color: "text-muted-foreground" },
                       ].map(p => (
@@ -246,8 +246,8 @@ export default function Home() {
                 body: "Every decision in the order process — incoterms, QC standard, AQL threshold — includes a plain-English explanation before you commit. Nothing left to assumption.",
               },
               {
-                title: "Milestone escrow",
-                body: "Payments held and released in verified stages. Sample approved before bulk production is funded. QC passed before final release. You control every unlock.",
+                title: "Milestone-gated payments",
+                body: "Every payment stage is gated behind a verified condition. Sample approved before bulk. QC passed before final release. You release each milestone manually — nothing moves without your confirmation.",
               },
               {
                 title: "Formal revision tracking",

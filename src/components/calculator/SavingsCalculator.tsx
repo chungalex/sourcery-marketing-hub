@@ -81,7 +81,7 @@ export function SavingsCalculator() {
         <div className="flex items-center justify-between p-3 rounded-lg bg-primary/5 border border-primary/20">
           <div>
             <p className="text-sm text-foreground">3% platform fee on all orders</p>
-            <p className="text-xs text-muted-foreground">Covers escrow, sampling gate, QC gating, and dispute infrastructure</p>
+            <p className="text-xs text-muted-foreground">Covers milestone gate enforcement, sampling gate, QC gating, and dispute infrastructure</p>
           </div>
           <span className="text-base font-bold text-primary ml-4 flex-shrink-0">{fmt(sourceryFee)}</span>
         </div>

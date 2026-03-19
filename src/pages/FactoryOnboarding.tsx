@@ -147,7 +147,7 @@ export default function FactoryOnboarding() {
                       {[
                         "Orders managed with full paper trail — no more miscommunication",
                         "Sampling, revisions, and QC all on-platform",
-                        "Milestone payments with escrow protection for both sides",
+                        "Milestone-gated payments — each stage released only when verified",
                         "Your performance score builds your reputation over time",
                       ].map((t, i) => (
                         <div key={i} className="flex items-start gap-3">

@@ -70,3 +70,25 @@ If all three criteria cannot be met, the stat is not used. Illustrative cost est
 - Pricing: 3% transaction fee, no subscription, no retainer
 - AI tools: Factory Matcher is live, three others are in development
 - Factory disclaimer: brands should conduct their own verification
+
+## Payment and funds — what to say and what not to say
+
+Sourcery operates as a milestone gate enforcement platform, not a payment processor or fund custodian. Be precise.
+
+**Never say:**
+- "Funds held in escrow"
+- "Escrow protection"
+- "Funds freeze in a dispute"
+- "Sourcery holds your payment"
+- "Money is released when milestones are met" (implies Sourcery holds it)
+
+**Always say:**
+- "Milestone-gated payments"
+- "Payment gates enforced by the platform"
+- "You release each milestone manually when the gate is met"
+- "Brand withholds final payment pending dispute resolution"
+- "Documented grounds to withhold payment"
+- "Sourcery does not hold, process, or custody funds"
+
+**The honest framing:**
+The value is the structure and the paper trail — not fund custody. A brand using Sourcery has documented, timestamped, platform-enforced grounds to make or withhold each payment. That's a real and strong value proposition without claiming to hold money.

@@ -54,7 +54,7 @@ const failures = [
     total: "Direct loss of $1,500–$3,000+. Ongoing loss if defective units reach your customers.",
     root: "Final payment released before quality was verified. No formal QC. No documentation. No leverage.",
     gate: "QC gate",
-    gateDesc: "On Sourcery, the final payment milestone cannot release without a QC pass. Defects are filed as structured reports — defect type, severity, quantity affected, photos, factory response — all logged against the order with timestamps. In a dispute, funds freeze and both parties submit evidence. You never release the last payment without a verified result.",
+    gateDesc: "On Sourcery, the final payment milestone cannot release without a QC pass. Defects are filed as structured reports — defect type, severity, quantity affected, photos, factory response — all logged against the order with timestamps. In a dispute, you have the full documented record as your basis to withhold the final payment. You never release the last milestone without a verified result.",
   },
 ];
 
@@ -162,25 +162,25 @@ export default function WhySourcery() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Every production run puts capital at risk. Sourcery is how you protect it.
+              Every production run puts capital at risk. Sourcery gives you the structure to manage it.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              Wiring money to a factory overseas is a real act of trust. Sourcery doesn't eliminate that trust — it gives you the structure to make it justified. Your money moves only when verified milestones are met. You control every unlock.
+              Sourcery doesn't hold your funds. What it gives you is something more durable — a documented, platform-enforced milestone structure that tells you exactly when each payment should move, and a permanent paper trail to back you up when something goes wrong.
             </p>
 
             <div className="grid md:grid-cols-3 gap-6">
               {[
                 {
-                  title: "Milestone escrow",
-                  body: "Your deposit is held and released in stages — not transferred upfront. Sample must be approved before bulk production is funded. QC must pass before final release. At every stage, you decide when funds move. The factory never has your full payment until they've earned it.",
+                  title: "Milestone-gated payments",
+                  body: "Every order is structured around payment milestones — deposit, bulk production, final release. The platform enforces the conditions that must be met before each stage. Sample approved before bulk is funded. QC passed before final release. You release each milestone manually. Nothing moves without your confirmation.",
                 },
                 {
-                  title: "Dispute protection",
-                  body: "If something goes wrong, your final payment freezes automatically. Both parties submit evidence through the platform. The paper trail built throughout the order — every message, every revision acknowledgment, every defect report — is your leverage. You don't go into a dispute empty-handed.",
+                  title: "Dispute documentation",
+                  body: "If something goes wrong, the full order record is your leverage — every message timestamped, every revision acknowledged, every defect logged. You have documented grounds to withhold the final payment. You don't go into a dispute without evidence.",
                 },
                 {
-                  title: "Your money, your timeline",
-                  body: "You set the milestone structure when you create the order. You approve each release manually. Nothing is automatic. The platform enforces the gates — but you hold the keys. No payment leaves without your verification.",
+                  title: "You control every release",
+                  body: "You set the milestone structure when you create the order. You approve each release manually. The platform tracks and enforces the gates — you hold the keys. No payment stage moves without your explicit confirmation.",
                 },
               ].map((item, i) => (
                 <motion.div
@@ -334,7 +334,7 @@ export default function WhySourcery() {
               Sourcery doesn't guarantee you'll never have a production problem.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              It guarantees that every sample is formally approved before bulk production is funded, every spec change is acknowledged before work continues, and every final payment is gated behind a QC result. That's not a small thing when $15,000 is on the line.
+              It guarantees that every sample is formally approved before bulk production begins, every spec change is acknowledged before work continues, and every final payment gate requires a QC result before you release it. You own every decision. The platform enforces the structure and builds the paper trail. That's not a small thing when $15,000 is on the line.
             </p>
             <p className="text-xs text-muted-foreground italic">
               Cost figures above are illustrative estimates based on typical production scenarios. Actual costs vary by order size, product type, factory, and outcome. They are not guarantees of savings.

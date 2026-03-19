@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     question: "What if there's a quality dispute?",
-    answer: "Every defect is documented as a structured report — type, severity, quantity affected, photos, factory response — all timestamped against the order. The platform requires QC pass before releasing final payment. In a formal dispute, funds freeze and both parties submit evidence before resolution. The paper trail built throughout the order is your protection.",
+    answer: "Every defect is documented as a structured report — type, severity, quantity affected, photos, factory response — all timestamped against the order. The platform requires QC pass before releasing final payment. In a formal dispute, the brand withholds final payment and both parties submit documented evidence before resolution. The paper trail built throughout the order is your protection.",
   },
   {
     question: "How does vetting work for network factories?",
@@ -269,7 +269,7 @@ export default function Brands() {
               },
               {
                 title: "Security",
-                body: "Payments held in milestone escrow and released only when verified stages are complete. Sample approved before bulk. QC passed before final release. Funds freeze in a dispute. You control every unlock.",
+                body: "Every payment stage is gated behind a verified condition — sample approval, QC pass, delivery confirmation. The brand releases each milestone manually only when the gate is met. Every release is logged permanently against the order. Final payment withheld pending dispute resolution.",
               },
               {
                 title: "Traceability",
@@ -351,7 +351,7 @@ export default function Brands() {
               What Sourcery is — and isn't
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Sourcery is a platform, not an agent. We don't manage your factory relationships, negotiate on your behalf, or intervene in production. What we do is give every order the structure, documentation, and payment protection that most brands only discover after learning the hard way.
+              Sourcery is a platform, not an agent. We don't manage your factory relationships, negotiate on your behalf, or intervene in production. What we do is give every order the structure, documentation, and milestone gate enforcement that most brands only discover they needed after learning the hard way.
             </p>
             <p className="text-muted-foreground leading-relaxed">
               The system works best when both parties use it properly — orders created formally, communication on-platform, revision rounds acknowledged. The more you put in, the stronger your paper trail.
