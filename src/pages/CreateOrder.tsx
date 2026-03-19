@@ -53,17 +53,56 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { QCOptionSelector, QCOptionBadge, type QCOption } from "@/components/orders/QCOptionSelector";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { fetchFactories } from "@/lib/factories";
 import type { Factory } from "@/types/database";
 
 const INCOTERMS = [
-  { value: "EXW", label: "EXW - Ex Works" },
-  { value: "FOB", label: "FOB - Free on Board" },
-  { value: "CIF", label: "CIF - Cost, Insurance & Freight" },
-  { value: "DDP", label: "DDP - Delivered Duty Paid" },
-  { value: "DAP", label: "DAP - Delivered at Place" },
+  {
+    value: "EXW",
+    label: "EXW - Ex Works",
+    guidance: "Factory hands over goods at their premises. You arrange and pay for all shipping, insurance, and export. Maximum responsibility on the buyer — only use if you have a freight forwarder.",
+  },
+  {
+    value: "FOB",
+    label: "FOB - Free on Board",
+    guidance: "Factory delivers goods to the named port and handles export clearance. You pay for ocean freight, insurance, and import. Most common for brands sourcing from Asia. Recommended starting point.",
+  },
+  {
+    value: "CIF",
+    label: "CIF - Cost, Insurance & Freight",
+    guidance: "Factory pays for freight and insurance to the destination port. You handle import clearance and last-mile delivery. Less visibility into shipping costs — compare rates before agreeing.",
+  },
+  {
+    value: "DDP",
+    label: "DDP - Delivered Duty Paid",
+    guidance: "Factory delivers to your door, handles everything including import duties. Highest cost but lowest complexity. Good for first orders where you want to minimise logistics management.",
+  },
+  {
+    value: "DAP",
+    label: "DAP - Delivered at Place",
+    guidance: "Factory delivers to your named location but you handle import duties and taxes. Simpler than EXW, less expensive than DDP.",
+  },
+];
+
+const AQL_STANDARDS = [
+  {
+    value: "1.0",
+    label: "AQL 1.0 — Critical",
+    guidance: "Strictest standard. Only 1% of sampled units can have defects. Use for high-value goods, medical-adjacent products, or any product where defects are unacceptable.",
+  },
+  {
+    value: "2.5",
+    label: "AQL 2.5 — Standard",
+    guidance: "Industry standard for most apparel and consumer goods. 2.5% defect tolerance on a statistical sample. Recommended for most orders unless you have specific quality requirements.",
+  },
+  {
+    value: "4.0",
+    label: "AQL 4.0 — Relaxed",
+    guidance: "More tolerant standard — 4% defect rate acceptable. Suitable for established factory relationships with strong track records, or lower-risk product categories.",
+  },
 ];
 
 const CURRENCIES = [
@@ -85,6 +124,7 @@ const orderSchema = z.object({
   tech_pack_url: z.string().url().optional().or(z.literal("")),
   bom_url: z.string().url().optional().or(z.literal("")),
   qc_option: z.enum(["sourcery", "byoqc", "factory"]),
+  aql_standard: z.enum(["1.0", "2.5", "4.0"]).default("2.5"),
 }).refine((data) => {
   if (data.delivery_window_start && data.delivery_window_end) {
     return data.delivery_window_end >= data.delivery_window_start;
@@ -127,6 +167,7 @@ export default function CreateOrder() {
       tech_pack_url: "",
       bom_url: "",
       qc_option: "sourcery",
+      aql_standard: "2.5",
     },
   });
 
@@ -217,6 +258,12 @@ export default function CreateOrder() {
           tech_pack_url: values.tech_pack_url || null,
           bom_url: values.bom_url || null,
           qc_option: values.qc_option,
+          qc_standard: {
+            aql: values.aql_standard,
+            defect_threshold_percent: parseFloat(values.aql_standard),
+            tolerance_ranges: {},
+            allowed_remedies: ["rework", "remake", "discount"],
+          },
         },
       });
 
@@ -607,33 +654,51 @@ export default function CreateOrder() {
                         )}
                       </div>
 
-                      <FormField
-                        control={form.control}
-                        name="incoterms"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Incoterms</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Select incoterms" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
+                      <TooltipProvider>
+                        <FormField
+                          control={form.control}
+                          name="incoterms"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="flex items-center gap-2">
+                                Incoterms
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                                  </TooltipTrigger>
+                                  <TooltipContent side="right" className="max-w-xs">
+                                    <p className="text-xs">Incoterms define who pays for shipping, insurance, and import costs — and who is responsible if goods are lost or damaged in transit. Getting this wrong can mean unexpected costs at customs. FOB is the most common starting point for brands sourcing from Asia.</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </FormLabel>
+                              <div className="space-y-2">
                                 {INCOTERMS.map((term) => (
-                                  <SelectItem key={term.value} value={term.value}>
-                                    {term.label}
-                                  </SelectItem>
+                                  <button
+                                    key={term.value}
+                                    type="button"
+                                    onClick={() => field.onChange(term.value)}
+                                    className={cn(
+                                      "w-full text-left p-3 rounded-lg border transition-all",
+                                      field.value === term.value
+                                        ? "border-primary bg-primary/5"
+                                        : "border-border bg-card hover:border-primary/40"
+                                    )}
+                                  >
+                                    <div className="flex items-center justify-between mb-1">
+                                      <span className="text-sm font-medium text-foreground">{term.label}</span>
+                                      {field.value === term.value && (
+                                        <span className="text-xs text-primary font-medium">Selected</span>
+                                      )}
+                                    </div>
+                                    <p className="text-xs text-muted-foreground leading-relaxed">{term.guidance}</p>
+                                  </button>
                                 ))}
-                              </SelectContent>
-                            </Select>
-                            <FormDescription>
-                              Defines shipping and delivery responsibilities.
-                            </FormDescription>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                              </div>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </TooltipProvider>
 
                       <div className="grid sm:grid-cols-2 gap-4">
                         <FormField
@@ -749,6 +814,53 @@ export default function CreateOrder() {
                           </FormItem>
                         )}
                       />
+
+                      {/* AQL Standard */}
+                      <TooltipProvider>
+                        <FormField
+                          control={form.control}
+                          name="aql_standard"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="flex items-center gap-2">
+                                AQL Quality Standard
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                                  </TooltipTrigger>
+                                  <TooltipContent side="right" className="max-w-xs">
+                                    <p className="text-xs">AQL (Acceptable Quality Level) is the international standard that defines how many defective units are acceptable in a statistical sample. The inspector uses this to determine pass or fail. AQL 2.5 is the industry standard for most apparel orders.</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </FormLabel>
+                              <div className="grid grid-cols-3 gap-3 mt-2">
+                                {AQL_STANDARDS.map((std) => (
+                                  <button
+                                    key={std.value}
+                                    type="button"
+                                    onClick={() => field.onChange(std.value)}
+                                    className={cn(
+                                      "text-left p-3 rounded-lg border transition-all",
+                                      field.value === std.value
+                                        ? "border-primary bg-primary/5"
+                                        : "border-border bg-card hover:border-primary/40"
+                                    )}
+                                  >
+                                    <div className="text-sm font-semibold text-foreground mb-1">
+                                      AQL {std.value}
+                                      {std.value === "2.5" && (
+                                        <span className="ml-2 text-xs text-primary font-normal">Recommended</span>
+                                      )}
+                                    </div>
+                                    <p className="text-xs text-muted-foreground leading-relaxed">{std.guidance}</p>
+                                  </button>
+                                ))}
+                              </div>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </TooltipProvider>
                     </div>
                   )}
 
