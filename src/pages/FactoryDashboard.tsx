@@ -256,22 +256,33 @@ export default function FactoryDashboard() {
           </div>
 
           <Tabs defaultValue="inquiries" className="space-y-6">
-            <TabsList>
-              <TabsTrigger value="orders" className="flex items-center gap-2">
-                <Package className="h-4 w-4" />Orders
+            <TabsList className="flex overflow-x-auto gap-1 w-full h-auto p-1 flex-nowrap">
+              <TabsTrigger value="orders" className="flex items-center gap-1.5 flex-shrink-0">
+                <Package className="h-4 w-4" />
+                <span className="hidden sm:inline">Orders</span>
                 {factoryOrders.filter(o => ["po_issued","sample_revision"].includes(o.status)).length > 0 && (
                   <span className="ml-1 px-1.5 py-0.5 text-xs bg-primary text-primary-foreground rounded-full">
                     {factoryOrders.filter(o => ["po_issued","sample_revision"].includes(o.status)).length}
                   </span>
                 )}
               </TabsTrigger>
-              <TabsTrigger value="inquiries" className="flex items-center gap-2">
-                <MessageSquare className="h-4 w-4" />Inquiries
+              <TabsTrigger value="inquiries" className="flex items-center gap-1.5 flex-shrink-0">
+                <MessageSquare className="h-4 w-4" />
+                <span className="hidden sm:inline">Inquiries</span>
                 {newCount > 0 && <span className="ml-1 px-1.5 py-0.5 text-xs bg-primary text-primary-foreground rounded-full">{newCount}</span>}
               </TabsTrigger>
-              <TabsTrigger value="profile" className="flex items-center gap-2"><Building2 className="h-4 w-4" />Edit Profile</TabsTrigger>
-              <TabsTrigger value="analytics" className="flex items-center gap-2"><BarChart3 className="h-4 w-4" />Analytics</TabsTrigger>
-              <TabsTrigger value="settings" className="flex items-center gap-2"><Settings className="h-4 w-4" />Settings</TabsTrigger>
+              <TabsTrigger value="profile" className="flex items-center gap-1.5 flex-shrink-0">
+                <Building2 className="h-4 w-4" />
+                <span className="hidden sm:inline">Profile</span>
+              </TabsTrigger>
+              <TabsTrigger value="analytics" className="flex items-center gap-1.5 flex-shrink-0">
+                <BarChart3 className="h-4 w-4" />
+                <span className="hidden sm:inline">Analytics</span>
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="flex items-center gap-1.5 flex-shrink-0">
+                <Settings className="h-4 w-4" />
+                <span className="hidden sm:inline">Settings</span>
+              </TabsTrigger>
             </TabsList>
 
             {/* Orders */}

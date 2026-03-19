@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
+import { SavingsCalculator } from "@/components/calculator/SavingsCalculator";
 import { ArrowRight, Shield } from "lucide-react";
 
 const failures = [
@@ -338,6 +339,21 @@ export default function WhySourcery() {
             <p className="text-xs text-muted-foreground italic">
               Cost figures above are illustrative estimates based on typical production scenarios. Actual costs vary by order size, product type, factory, and outcome. They are not guarantees of savings.
             </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Savings calculator */}
+      <section className="section-padding">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
+              What does unstructured production cost you annually?
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-8 max-w-xl">
+              Enter your order volume. The calculator shows the estimated exposure from production failures — and what Sourcery's 3% fee amounts to across the same volume.
+            </p>
+            <SavingsCalculator />
           </motion.div>
         </div>
       </section>

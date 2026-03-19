@@ -150,18 +150,18 @@ export function SampleSubmitForm({
           e.g. Chest: 52cm, Length: 74cm
         </p>
         {measurements.map((m, i) => (
-          <div key={i} className="flex gap-2">
+          <div key={i} className="flex flex-col sm:flex-row gap-2">
             <Input
               placeholder="Point (e.g. Chest)"
               value={m.key}
               onChange={e => updateMeasurement(i, "key", e.target.value)}
-              className="flex-1 text-sm"
+              className="flex-1"
             />
             <Input
               placeholder="Value (e.g. 52cm)"
               value={m.value}
               onChange={e => updateMeasurement(i, "value", e.target.value)}
-              className="flex-1 text-sm"
+              className="flex-1"
             />
             {measurements.length > 1 && (
               <Button
@@ -169,9 +169,9 @@ export function SampleSubmitForm({
                 variant="ghost"
                 size="sm"
                 onClick={() => removeMeasurement(i)}
-                className="text-muted-foreground hover:text-destructive px-2"
+                className="text-muted-foreground hover:text-destructive sm:px-2 self-end"
               >
-                ×
+                Remove
               </Button>
             )}
           </div>

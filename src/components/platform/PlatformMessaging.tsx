@@ -213,21 +213,21 @@ export function PlatformMessaging({ orderId, className }: PlatformMessagingProps
       </div>
 
       {/* Input */}
-      <div className="px-6 pb-6 pt-2 border-t border-border">
-        <div className="flex gap-3 items-end">
+      <div className="px-4 pb-4 pt-2 border-t border-border">
+        <div className="flex gap-2 items-end">
           <Textarea
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Write a message... (Cmd+Enter to send)"
-            className="resize-none min-h-[80px]"
+            placeholder="Write a message..."
+            className="resize-none min-h-[72px] text-base"
             rows={3}
           />
           <Button
             onClick={handleSend}
             disabled={!draft.trim() || sending}
             size="icon"
-            className="h-10 w-10 shrink-0"
+            className="h-12 w-12 shrink-0"
           >
             {sending
               ? <Loader2 className="h-4 w-4 animate-spin" />
@@ -235,8 +235,8 @@ export function PlatformMessaging({ orderId, className }: PlatformMessagingProps
             }
           </Button>
         </div>
-        <p className="text-xs text-muted-foreground mt-2">
-          Messages are visible to both parties and Sourcery support.
+        <p className="text-xs text-muted-foreground mt-1.5">
+          Messages are visible to both parties and Sourcery support. Cmd+Enter to send.
         </p>
       </div>
     </div>

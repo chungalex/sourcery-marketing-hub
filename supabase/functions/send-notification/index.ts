@@ -91,8 +91,45 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Future: trigger email via Resend/SendGrid here
-    // For now: in-app only via realtime subscription on notifications table
+    // Send email via Resend — requires RESEND_API_KEY in Supabase secrets
+    const resendKey = Deno.env.get("RESEND_API_KEY");
+    if (resendKey && data) {
+      const emailPromises = data.map(async (notif: { user_id: string; title: string; body: string }) => {
+        // Get user email
+        const { data: userData } = await serviceClient.auth.admin.getUserById(notif.user_id);
+        const email = userData?.user?.email;
+        if (!email) return;
+
+        await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${resendKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: "Sourcery <notifications@sourcery.so>",
+            to: [email],
+            subject: notif.title,
+            html: `
+              <div style="font-family: system-ui, sans-serif; max-width: 560px; margin: 0 auto; padding: 40px 20px; color: #111;">
+                <div style="margin-bottom: 24px;">
+                  <span style="font-size: 13px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.06em;">Sourcery</span>
+                </div>
+                <h2 style="font-size: 18px; font-weight: 600; margin: 0 0 12px; color: #111;">${notif.title}</h2>
+                <p style="font-size: 15px; line-height: 1.6; color: #444; margin: 0 0 24px;">${notif.body}</p>
+                ${order_id ? `<a href="${Deno.env.get("SITE_URL") || "https://sourcery.so"}/orders/${order_id}" style="display: inline-block; background: #111; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500;">View order →</a>` : ""}
+                <p style="font-size: 12px; color: #999; margin-top: 40px; border-top: 1px solid #eee; padding-top: 16px;">
+                  You're receiving this because you have an active order on Sourcery. 
+                  Manage your notifications at <a href="${Deno.env.get("SITE_URL") || "https://sourcery.so"}/notifications" style="color: #666;">sourcery.so/notifications</a>.
+                </p>
+              </div>
+            `,
+          }),
+        });
+      });
+
+      await Promise.allSettled(emailPromises);
+    }
 
     return new Response(
       JSON.stringify({ success: true, notifications: data }),
