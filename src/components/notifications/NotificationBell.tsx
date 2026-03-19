@@ -120,7 +120,15 @@ export function NotificationBell() {
               return n.order_id
                 ? <Link key={n.id} to={`/orders/${n.order_id}`} className="block">{inner}</Link>
                 : <div key={n.id}>{inner}</div>;
-            })}
+            })}</div>
+          <div className="border-t border-border p-2">
+            <Link
+              to="/notifications"
+              onClick={() => setOpen(false)}
+              className="block w-full text-center text-xs text-primary hover:text-primary/80 py-2 rounded-lg hover:bg-secondary/50 transition-colors font-medium"
+            >
+              View all notifications →
+            </Link>
           </div>
         </div>
       )}

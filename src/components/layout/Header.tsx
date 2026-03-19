@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 import { NotificationBell } from "@/components/notifications/NotificationBell";
+import { GlobalSearch } from "@/components/GlobalSearch";
 
 const navItems = [
   { label: "For brands", href: "/brands" },
@@ -112,6 +113,7 @@ export function Header() {
                       Dashboard
                     </Button>
                   </Link>
+                  <GlobalSearch />
                   <NotificationBell />
                   <Button variant="outline" size="sm" onClick={handleSignOut}>
                     Sign Out

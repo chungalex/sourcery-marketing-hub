@@ -11,6 +11,7 @@ import Brands from "./pages/Brands";
 import Factories from "./pages/Factories";
 import Pricing from "./pages/Pricing";
 import WhySourcery from "./pages/WhySourcery";
+import Notifications from "./pages/Notifications";
 import CaseStudies from "./pages/CaseStudies";
 import Consulting from "./pages/Consulting";
 import About from "./pages/About";
@@ -72,6 +73,7 @@ const App = () => (
             <Route path="/factory-accept/:orderId" element={<FactoryAccept />} />
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/onboarding/factory" element={<FactoryOnboarding />} />
+            <Route path="/notifications" element={<Notifications />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </ErrorBoundary>
