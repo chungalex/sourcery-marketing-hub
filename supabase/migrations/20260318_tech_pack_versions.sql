@@ -17,7 +17,7 @@ ALTER TABLE tech_pack_versions ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "brand can manage tech pack versions"
   ON tech_pack_versions FOR ALL
   USING (
-    order_id IN (SELECT id FROM orders WHERE brand_user_id = auth.uid())
+    order_id IN (SELECT id FROM orders WHERE buyer_id = auth.uid())
   );
 
 -- Factory can read and acknowledge versions on their assigned orders

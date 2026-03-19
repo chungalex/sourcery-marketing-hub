@@ -76,7 +76,7 @@ async function calculateScore(db: any, factoryId: string) {
   // Join via orders
   const { data: orders } = await db
     .from("orders")
-    .select("id, status, created_at, delivery_window_end, brand_user_id")
+    .select("id, status, created_at, delivery_window_end, buyer_id")
     .eq("factory_id", factoryId);
 
   const allOrders = orders || [];
@@ -174,9 +174,9 @@ async function calculateScore(db: any, factoryId: string) {
   }
 
   // --- Brand retention score ---
-  const uniqueBrands = new Set(allOrders.map((o: any) => o.brand_user_id)).size;
+  const uniqueBrands = new Set(allOrders.map((o: any) => o.buyer_id)).size;
   const repeatBrands = allOrders.reduce((acc: Record<string, number>, o: any) => {
-    acc[o.brand_user_id] = (acc[o.brand_user_id] || 0) + 1;
+    acc[o.buyer_id] = (acc[o.buyer_id] || 0) + 1;
     return acc;
   }, {});
   const repeaters = Object.values(repeatBrands).filter((c: any) => c > 1).length;

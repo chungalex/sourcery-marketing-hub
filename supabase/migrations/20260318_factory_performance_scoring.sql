@@ -41,7 +41,7 @@ CREATE POLICY "brand can read scores for their factories"
   ON factory_performance_scores FOR SELECT
   USING (
     factory_id IN (
-      SELECT factory_id FROM orders WHERE brand_user_id = auth.uid()
+      SELECT factory_id FROM orders WHERE buyer_id = auth.uid()
     )
   );
 

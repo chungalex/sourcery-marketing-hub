@@ -22,7 +22,7 @@ ALTER TABLE revision_rounds ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "brand can manage revisions on own orders"
   ON revision_rounds FOR ALL
   USING (
-    order_id IN (SELECT id FROM orders WHERE brand_user_id = auth.uid())
+    order_id IN (SELECT id FROM orders WHERE buyer_id = auth.uid())
   );
 
 -- Factory can read and update (acknowledge/dispute) revisions on their orders

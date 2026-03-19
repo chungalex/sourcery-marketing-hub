@@ -20,7 +20,7 @@ ALTER TABLE defect_reports ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "brand can create and read defect reports on own orders"
   ON defect_reports FOR ALL
   USING (
-    order_id IN (SELECT id FROM orders WHERE brand_user_id = auth.uid())
+    order_id IN (SELECT id FROM orders WHERE buyer_id = auth.uid())
   );
 
 CREATE POLICY "factory can read defect reports on their orders"

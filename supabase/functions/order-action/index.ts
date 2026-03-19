@@ -329,9 +329,9 @@ Deno.serve(async (req) => {
         }
 
         // Notify brand
-        const { data: poOrder } = await serviceClient.from("orders").select("brand_user_id, order_number, factories(name)").eq("id", orderId).single();
-        if (poOrder?.brand_user_id) {
-          await notify("po_accepted", poOrder.brand_user_id, {
+        const { data: poOrder } = await serviceClient.from("orders").select("buyer_id, order_number, factories(name)").eq("id", orderId).single();
+        if (poOrder?.buyer_id) {
+          await notify("po_accepted", poOrder.buyer_id, {
             order_number: poOrder.order_number,
             factory_name: (poOrder.factories as any)?.name || "Your factory",
           });
@@ -892,9 +892,9 @@ Deno.serve(async (req) => {
         }
 
         // Notify brand that sample was submitted
-        const { data: sampleOrder } = await serviceClient.from("orders").select("brand_user_id, order_number, factories(name)").eq("id", orderId).single();
-        if (sampleOrder?.brand_user_id) {
-          await notify("sample_submitted", sampleOrder.brand_user_id, {
+        const { data: sampleOrder } = await serviceClient.from("orders").select("buyer_id, order_number, factories(name)").eq("id", orderId).single();
+        if (sampleOrder?.buyer_id) {
+          await notify("sample_submitted", sampleOrder.buyer_id, {
             order_number: sampleOrder.order_number,
             factory_name: (sampleOrder.factories as any)?.name || "Your factory",
             round: String(round),

@@ -43,7 +43,7 @@ CREATE POLICY "brand can read submissions on their orders"
   FOR SELECT
   USING (
     order_id IN (
-      SELECT id FROM orders WHERE brand_user_id = auth.uid()
+      SELECT id FROM orders WHERE buyer_id = auth.uid()
     )
   );
 
@@ -52,7 +52,7 @@ CREATE POLICY "brand can update submission status"
   FOR UPDATE
   USING (
     order_id IN (
-      SELECT id FROM orders WHERE brand_user_id = auth.uid()
+      SELECT id FROM orders WHERE buyer_id = auth.uid()
     )
   );
 
@@ -67,7 +67,7 @@ CREATE POLICY "all parties can read revisions on their orders"
   FOR SELECT
   USING (
     order_id IN (
-      SELECT id FROM orders WHERE brand_user_id = auth.uid()
+      SELECT id FROM orders WHERE buyer_id = auth.uid()
     )
     OR
     requested_by = auth.uid()
