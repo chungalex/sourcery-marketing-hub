@@ -250,30 +250,34 @@ export default function Brands() {
         </div>
       </section>
 
-      {/* Three pillars */}
+      {/* Four pillars */}
       <section className="section-padding bg-card/50">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Three things every production run needs.
+              Four things every production run needs.
             </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Protection for your capital. Traceability on every decision. Organisation that saves you time and prevents the mistakes that cost money.
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Structure in the order creation process. Security for your capital. Traceability on every decision. Organisation across the full lifecycle.
             </p>
           </motion.div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                title: "Protection",
-                body: "Your capital is gated at every milestone. Sample approved before bulk. QC passed before final release. Funds freeze in a dispute. You never release money without a verified result.",
+                title: "Structure",
+                body: "Every decision in the order creation process — incoterms, QC option, AQL standard, delivery window — is captured in a structured form with plain-English explanations at each step. Nothing left to assumption before a dollar moves.",
+              },
+              {
+                title: "Security",
+                body: "Payments held in milestone escrow and released only when verified stages are complete. Sample approved before bulk. QC passed before final release. Funds freeze in a dispute. You control every unlock.",
               },
               {
                 title: "Traceability",
-                body: "Every order record is permanent. Every spec, revision, defect, and payment — timestamped and searchable forever. Reorder from it months later. Use it in a dispute. Share it with a new team member.",
+                body: "Every order is a permanent record — every spec, revision, defect, payment, and message timestamped and searchable. Accessible for reorders, disputes, team onboarding, or factory evaluation.",
               },
               {
                 title: "Organisation",
-                body: "One place for everything. No more hunting for which version of the tech pack the factory built from. No more wondering if they acknowledged that spec change. Every answer is attached to the order it belongs to.",
+                body: "One place for the full production lifecycle. Every message attached to its order. Every tech pack version tracked. Every revision acknowledged. No more hunting across WhatsApp, email, and WeTransfer for information that should be in one place.",
               },
             ].map((pillar, i) => (
               <motion.div

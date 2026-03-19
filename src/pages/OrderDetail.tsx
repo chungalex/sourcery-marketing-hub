@@ -279,9 +279,433 @@ export default function OrderDetail() {
   return (
     <Layout>
       <SEO
-        title={`Order ${order.order_number} | Manufactory`}
-        description="View and manage your production order."
+        title={`Order ${order.order_number} | Sourcery`}
+        description="Manage your production order."
       />
+
+      <section className="section-padding">
+        <div className="container-wide">
+          {/* Back */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate("/dashboard?tab=orders")}
+            className="mb-6"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Orders
+          </Button>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            {/* Header */}
+            <div className="flex items-start justify-between mb-6 flex-wrap gap-4">
+              <div>
+                <div className="font-mono text-sm text-muted-foreground mb-0.5">{order.order_number}</div>
+                <h1 className="text-2xl font-semibold text-foreground mb-1">
+                  {order.factories?.name || "Order"}
+                </h1>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Building2 className="h-4 w-4" />
+                  {order.factories ? (
+                    <Link
+                      to={`/directory/${order.factories.slug}`}
+                      className="hover:text-primary transition-colors"
+                    >
+                      {order.factories.name}
+                    </Link>
+                  ) : "Factory unavailable"}
+                  <span>•</span>
+                  <span>{format(new Date(order.created_at), "MMM d, yyyy")}</span>
+                </div>
+              </div>
+              <StatusBadge status={order.status} />
+            </div>
+
+            {/* Needs attention banner */}
+            {(() => {
+              const attentionStatuses: Record<string, string> = {
+                draft: "This order is a draft. Set pricing and issue the PO to send it to the factory.",
+                po_accepted: "The factory has accepted the PO. Review and approve the sample before bulk production is funded.",
+                sample_sent: "Sample submitted by the factory. Review and approve or request a revision.",
+                sample_revision: "Revision requested. Awaiting updated sample from the factory.",
+                qc_uploaded: "QC report uploaded. Review and release the final payment milestone.",
+                qc_fail: "QC failed. File a defect report or request a remedy before releasing payment.",
+                disputed: "This order is in dispute. Submit your evidence through the platform.",
+              };
+              const msg = attentionStatuses[order.status];
+              if (!msg) return null;
+              return (
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/8 border border-amber-500/25 mb-6">
+                  <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-foreground">{msg}</p>
+                </div>
+              );
+            })()}
+
+            {/* Two-column layout */}
+            <div className="grid lg:grid-cols-[1fr_360px] gap-6 items-start">
+
+              {/* Left column — order content */}
+              <div className="space-y-6 min-w-0">
+
+                {/* Inquiry context */}
+                {specs?.product_description && (
+                  <div className="bg-muted/50 border border-border rounded-xl p-4">
+                    <div className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wide">From Inquiry</div>
+                    <p className="text-sm text-foreground">{String(specs.product_description)}</p>
+                  </div>
+                )}
+
+                {/* Editable fields (draft only) */}
+                <div className="bg-card border border-border rounded-xl p-6 space-y-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Package className="h-5 w-5 text-primary" />
+                    <h2 className="text-lg font-semibold text-foreground">Order Details</h2>
+                    {isDraft && (
+                      <Badge variant="outline" className="ml-auto text-xs">Editable</Badge>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-xs text-muted-foreground mb-1 block">Quantity</Label>
+                      {isDraft ? (
+                        <Input
+                          type="number"
+                          value={editQuantity}
+                          onChange={e => setEditQuantity(Number(e.target.value))}
+                          min={1}
+                          className="text-sm"
+                        />
+                      ) : (
+                        <p className="text-sm font-medium text-foreground">{order.quantity.toLocaleString()} units</p>
+                      )}
+                    </div>
+                    <div>
+                      <Label className="text-xs text-muted-foreground mb-1 block">Unit price</Label>
+                      {isDraft ? (
+                        <div className="flex gap-2">
+                          <Input
+                            type="number"
+                            value={editUnitPrice}
+                            onChange={e => setEditUnitPrice(Number(e.target.value))}
+                            min={0}
+                            step={0.01}
+                            className="text-sm"
+                          />
+                          <Select value={editCurrency} onValueChange={setEditCurrency}>
+                            <SelectTrigger className="w-24 text-sm">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {["USD","EUR","GBP","VND","SGD","HKD"].map(c => (
+                                <SelectItem key={c} value={c}>{c}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      ) : (
+                        <p className="text-sm font-medium text-foreground">
+                          {new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency }).format(order.unit_price)}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {(editQuantity > 0 && editUnitPrice > 0) && (
+                    <div className="pt-3 border-t border-border flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">Order total</span>
+                      <span className="text-sm font-semibold text-foreground">
+                        {new Intl.NumberFormat("en-US", { style: "currency", currency: editCurrency }).format(editQuantity * editUnitPrice)}
+                      </span>
+                    </div>
+                  )}
+
+                  {isDraft && (
+                    <div className="flex gap-2 pt-2">
+                      <Button size="sm" variant="outline" onClick={handleSave} disabled={saving}>
+                        {saving ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : null}
+                        Save changes
+                      </Button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Milestones */}
+                <div className="bg-card border border-border rounded-xl p-6">
+                  <div className="flex items-center gap-2 mb-5">
+                    <CreditCard className="h-5 w-5 text-primary" />
+                    <h2 className="text-lg font-semibold text-foreground">Payment milestones</h2>
+                  </div>
+
+                  {isDraft ? (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3 p-3 rounded-lg bg-muted/50">
+                        <AlertCircle className="h-3.5 w-3.5 flex-shrink-0" />
+                        Milestone percentages must total 100%. Payments release when each stage is verified.
+                      </div>
+                      {milestones.map((m, idx) => (
+                        <div key={idx} className="flex items-center gap-3 p-3 rounded-lg border border-border bg-background">
+                          <Input
+                            value={m.label}
+                            onChange={e => {
+                              const updated = [...milestones];
+                              updated[idx].label = e.target.value;
+                              setMilestones(updated);
+                            }}
+                            className="flex-1 text-sm h-8"
+                            placeholder="Milestone label"
+                          />
+                          <div className="flex items-center gap-1">
+                            <Input
+                              type="number"
+                              value={m.percentage}
+                              onChange={e => {
+                                const updated = [...milestones];
+                                updated[idx].percentage = Number(e.target.value);
+                                setMilestones(updated);
+                              }}
+                              className="w-20 text-sm h-8"
+                              min={0}
+                              max={100}
+                            />
+                            <span className="text-sm text-muted-foreground">%</span>
+                          </div>
+                        </div>
+                      ))}
+                      <div className="flex items-center justify-between pt-1">
+                        <span className="text-xs text-muted-foreground">
+                          Total: {milestones.reduce((s, m) => s + (m.percentage || 0), 0)}%
+                          {milestones.reduce((s, m) => s + (m.percentage || 0), 0) !== 100 && (
+                            <span className="text-amber-600 ml-1">(must equal 100%)</span>
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      {order.order_milestones
+                        .sort((a, b) => a.sequence_order - b.sequence_order)
+                        .map(m => (
+                          <div key={m.id} className={`flex items-center justify-between p-3 rounded-lg border ${
+                            m.status === "released" ? "bg-green-500/5 border-green-500/20" :
+                            m.status === "eligible" ? "bg-amber-500/8 border-amber-500/25" :
+                            "bg-background border-border"
+                          }`}>
+                            <div className="flex items-center gap-3">
+                              <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
+                                m.status === "released" ? "bg-green-500" :
+                                m.status === "eligible" ? "bg-amber-500" : "bg-muted-foreground/30"
+                              }`} />
+                              <div>
+                                <p className="text-sm font-medium text-foreground">{m.label}</p>
+                                <p className="text-xs text-muted-foreground">{m.percentage}% — {new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency }).format(m.amount)}</p>
+                              </div>
+                            </div>
+                            {m.status === "released" ? (
+                              <span className="text-xs text-green-600 font-medium">Paid</span>
+                            ) : m.status === "eligible" ? (
+                              <Button
+                                size="sm"
+                                onClick={() => handlePayMilestone(m.id)}
+                                disabled={payingMilestone === m.id}
+                              >
+                                {payingMilestone === m.id ? <Loader2 className="h-3 w-3 animate-spin" /> : "Release"}
+                              </Button>
+                            ) : (
+                              <span className="text-xs text-muted-foreground">Pending</span>
+                            )}
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Sampling */}
+                {["po_accepted", "sample_sent", "sample_approved", "sample_revision"].includes(order.status) && (
+                  <div className="bg-card border border-border rounded-xl p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="h-2 w-2 rounded-full bg-amber-500" />
+                      <h2 className="text-lg font-semibold text-foreground">Sample Review</h2>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Sample must be approved before bulk production milestones can be funded.
+                    </p>
+                    <SampleReviewPanel
+                      orderId={order.id}
+                      orderStatus={order.status}
+                      isFactory={false}
+                      onActionComplete={loadOrder}
+                    />
+                  </div>
+                )}
+
+                {/* Tech pack */}
+                {order.status !== "draft" && (
+                  <div className="bg-card border border-border rounded-xl p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="h-2 w-2 rounded-full bg-blue-500" />
+                      <h2 className="text-lg font-semibold text-foreground">Tech Pack</h2>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Every version is preserved. The factory confirms which version they're building from.
+                    </p>
+                    <TechPackVersions
+                      orderId={order.id}
+                      isFactory={false}
+                      onActionComplete={loadOrder}
+                    />
+                  </div>
+                )}
+
+                {/* Revision rounds */}
+                {["sample_approved", "in_production", "qc_scheduled", "qc_uploaded"].includes(order.status) && (
+                  <div className="bg-card border border-border rounded-xl p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="h-2 w-2 rounded-full bg-primary" />
+                      <h2 className="text-lg font-semibold text-foreground">Revision Rounds</h2>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      All spec changes must be formally logged and acknowledged by the factory before production continues.
+                    </p>
+                    <RevisionRounds
+                      orderId={order.id}
+                      isFactory={false}
+                      onActionComplete={loadOrder}
+                    />
+                  </div>
+                )}
+
+                {/* Defect reports */}
+                {["qc_scheduled", "qc_uploaded", "qc_pass", "qc_fail", "ready_to_ship", "shipped", "closed"].includes(order.status) && (
+                  <div className="bg-card border border-border rounded-xl p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="h-2 w-2 rounded-full bg-rose-500" />
+                      <h2 className="text-lg font-semibold text-foreground">Defect Reports</h2>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Structured defect log. Factory must respond to every report. Feeds into factory performance score.
+                    </p>
+                    <DefectReports
+                      orderId={order.id}
+                      totalQuantity={order.quantity}
+                      isFactory={false}
+                      onActionComplete={loadOrder}
+                    />
+                  </div>
+                )}
+
+                {/* Factory review */}
+                {order.factories && !isDraft && (
+                  <FactoryReview
+                    orderId={order.id}
+                    factoryId={order.factories.id}
+                    factoryName={order.factories.name}
+                    orderStatus={order.status}
+                  />
+                )}
+
+                {/* Reorder */}
+                {order.status === "closed" && order.factories && (
+                  <div className="bg-card border border-border rounded-xl p-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="h-2 w-2 rounded-full bg-green-500" />
+                      <h2 className="text-lg font-semibold text-foreground">Order again</h2>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Pre-fills all specs from this order. Confirm quantity and price before submitting.
+                    </p>
+                    <ReorderButton
+                      order={{
+                        id: order.id,
+                        order_number: order.order_number,
+                        factory_id: order.factories.id,
+                        quantity: order.quantity,
+                        unit_price: order.unit_price,
+                        currency: order.currency,
+                        incoterms: null,
+                        tech_pack_url: null,
+                        bom_url: null,
+                        specifications: order.specifications,
+                        factories: order.factories,
+                      }}
+                    />
+                  </div>
+                )}
+
+                {/* Issue PO */}
+                {isDraft && (
+                  <div className="bg-card border-2 border-primary/20 rounded-xl p-6">
+                    <h2 className="text-lg font-semibold text-foreground mb-2">Ready to issue the PO?</h2>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Issuing the PO sends this order to the factory for review. Ensure quantity and unit price are set before proceeding.
+                    </p>
+                    {!canIssuePO && (
+                      <div className="flex items-center gap-2 text-sm text-amber-600 mb-4">
+                        <AlertCircle className="h-4 w-4" />
+                        Set a unit price greater than 0 and confirm quantity to proceed.
+                      </div>
+                    )}
+                    <Button onClick={handleIssuePO} disabled={!canIssuePO || issuingPO}>
+                      {issuingPO ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <CheckCircle className="h-4 w-4 mr-2" />}
+                      Issue Purchase Order
+                    </Button>
+                  </div>
+                )}
+
+              </div>
+
+              {/* Right column — messaging always visible */}
+              <div className="lg:sticky lg:top-6 space-y-4">
+                <PlatformMessaging orderId={order.id} />
+
+                {/* Order meta */}
+                <div className="bg-card border border-border rounded-xl p-4 space-y-3 text-sm">
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Order details</p>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Status</span>
+                    <StatusBadge status={order.status} />
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Quantity</span>
+                    <span className="font-medium text-foreground">{order.quantity.toLocaleString()} units</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Unit price</span>
+                    <span className="font-medium text-foreground">
+                      {new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency }).format(order.unit_price)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between border-t border-border pt-3">
+                    <span className="text-muted-foreground">Order total</span>
+                    <span className="font-semibold text-foreground">
+                      {new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency }).format(order.total_amount || order.quantity * order.unit_price)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Created</span>
+                    <span className="text-foreground">{format(new Date(order.created_at), "MMM d, yyyy")}</span>
+                  </div>
+                  {order.factories && (
+                    <Link
+                      to={`/directory/${order.factories.slug}`}
+                      className="flex items-center gap-1 text-primary text-xs hover:underline pt-1"
+                    >
+                      View factory profile <ExternalLink className="h-3 w-3" />
+                    </Link>
+                  )}
+                </div>
+              </div>
+
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </Layout>
+  );
 
       <section className="section-padding">
         <div className="container-wide max-w-3xl mx-auto">

@@ -42,10 +42,13 @@ seamless · powerful · game-changing · revolutionary · transformative · robu
 ## Words — preferred
 structured · documented · logged · verified · tracked · protected · formal · accountable · traceable · permanent · enforced · milestone · gated · recorded · acknowledged
 
-## The three pillars — canonical descriptions
+## The four pillars — canonical descriptions
 
 **Structure**
 The order creation process guides every decision — incoterms, QC options, AQL standards — with explanations at each step. Every field is captured in the order record before production begins.
+
+**Structure**
+Every decision in the order creation process — incoterms, QC options, AQL standards — with explanations at each step. Every field captured in the order record before production begins.
 
 **Security**
 Payments are held in milestone escrow and released only when verified stages are complete. Sample approved before bulk. QC passed before final release. Funds freeze in a dispute.
