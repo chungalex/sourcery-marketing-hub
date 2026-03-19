@@ -8,37 +8,37 @@ import { ArrowRight, CheckCircle, TrendingUp, Shield, BarChart3, MessageSquare, 
 const benefits = [
   {
     icon: Package,
-    title: "Structured orders",
-    description: "Every order comes with clear specs, versioned tech packs, and formal revision rounds. You know exactly what you're building and have documentation of what was agreed.",
+    title: "Structured orders from day one",
+    description: "Every order arrives with versioned tech packs, documented specifications, and formal revision rounds. You know exactly what you're building — and have a permanent record of what was agreed before production begins.",
   },
   {
     icon: Shield,
-    title: "Milestone payments",
-    description: "Payment terms are structured and tracked on-platform. Both sides see the same milestones. Disputes are documented, not verbal.",
+    title: "Clear payment terms, tracked on-platform",
+    description: "Milestone terms are set in the order and visible to both sides. Every payment stage is documented. Disputes are resolved with evidence — not verbal disagreements about what was said over email.",
   },
   {
     icon: MessageSquare,
-    title: "Professional brand relationships",
-    description: "Brands on Sourcery are managing real production budgets with structured specs. Inquiries come with documentation, not vague messages.",
+    title: "Brands who come prepared",
+    description: "Brands on Sourcery manage real production budgets with structured specs. Inquiries come with documentation — tech packs attached, quantities confirmed, incoterms selected. Less back-and-forth before work begins.",
   },
   {
     icon: TrendingUp,
-    title: "Repeat business",
-    description: "Brands who have a good first order reorder. The platform makes it easy — one-click reorder from a closed order, pre-filled with all the original specs.",
+    title: "Reorders from closed orders",
+    description: "Brands who complete a good order reorder. The platform makes it one click — every spec from the original order is preserved and pre-filled. Strong performance on the first order drives the second.",
   },
   {
     icon: BarChart3,
-    title: "Performance builds placement",
-    description: "Strong QC pass rates, fast response times, and on-time delivery improve your ranking. Your track record is your placement — not paid promotion.",
+    title: "Performance determines placement",
+    description: "QC pass rate, response time, on-time delivery, and brand retention build your score. High-scoring factories receive featured placement in search and priority matching. Your track record is your placement — not paid promotion.",
   },
 ];
 
 const requirements = [
-  "Verified production capability in your category",
+  "Verified production capability in your stated category",
   "Relevant compliance certifications (BSCI, GOTS, OEKO-TEX, ISO 9001, or equivalent)",
   "Demonstrated quality control process",
   "Export experience with international brands",
-  "Responsive communication — brands expect timely responses",
+  "Responsive communication — documented response time standards apply",
 ];
 
 const steps = [
@@ -65,10 +65,10 @@ export default function Factories() {
                 For factories
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-                Join a network that takes quality seriously.
+                A platform that works for factories as much as it does for brands.
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-                Sourcery connects verified manufacturers with brands who are serious about production. Structured orders, milestone-protected payments, and full documentation — so both sides are protected on every order.
+                Structured orders. Documented specs. Milestone-tracked payments. Sourcery gives both sides a shared system of record — so every production cycle is traceable, every agreement is documented, and every payment is verified before it moves.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/apply">
@@ -105,8 +105,11 @@ export default function Factories() {
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Why factories join Sourcery
+              What the platform does for your side of the order.
             </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Every feature built for brands is matched by a factory-facing counterpart. Both sides operate in the same system, with the same information, at every stage.
+            </p>
           </motion.div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((b, i) => (
@@ -133,16 +136,16 @@ export default function Factories() {
       <section className="section-padding bg-card/50">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-6">Your reputation is your ranking.</h2>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-6">Your track record becomes your ranking.</h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                Every completed order contributes to your performance score — calculated from QC pass rate, response time, on-time delivery, defect history, and brand retention. High-scoring factories receive featured placement in search and priority matching with new brands.
+                Every completed order on Sourcery contributes to your factory performance score — calculated from QC pass rate, response time, on-time delivery, defect history, and brand retention rate. High-scoring factories receive featured placement in search results and priority matching with incoming brand inquiries.
               </p>
               <p>
-                The score is calculated from real order data only. Not self-reported claims. Not paid placement. Actual production history on the platform.
+                The score is built from real order data only. Not self-reported claims. Not paid placement. Actual production history verified through the platform. Factories see their full score breakdown at any time. Brands see your tier — Verified or Elite.
               </p>
               <p>
-                Factories see their full score breakdown. Brands see your tier — Verified or Elite. New factories build their track record from the first completed order.
+                New factories begin building their track record from the first completed order. Every order is an opportunity to improve placement.
               </p>
             </div>
           </motion.div>
@@ -195,8 +198,8 @@ export default function Factories() {
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
               Ready to join the network?
             </h2>
-            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-              Free to join. No fees to factories. Sourcery earns a transaction fee on orders — paid by brands, not manufacturers.
+            <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
+              Free to join. No fees to factories on any order. Sourcery earns a 3% transaction fee paid by brands — manufacturers pay nothing to be on the platform, receive orders, or complete production cycles.
             </p>
             <Link to="/apply">
               <Button variant="hero" size="xl">
