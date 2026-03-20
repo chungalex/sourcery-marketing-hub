@@ -53,7 +53,7 @@ export default function Factories() {
     <Layout>
       <SEO
         title="For Factories — Sourcery"
-        description="Join a network that takes quality seriously. Structured orders, milestone-protected payments, and a platform that documents everything — so both sides are protected."
+        description="Join a network that takes quality seriously. Structured orders, milestone-gated payments, and a platform that documents everything — so both sides are protected."
       />
 
       {/* Hero */}
@@ -199,7 +199,7 @@ export default function Factories() {
               Ready to join the network?
             </h2>
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-              Free to join. No fees to factories on any order. Sourcery earns a 3% transaction fee paid by brands — manufacturers pay nothing to be on the platform, receive orders, or complete production cycles.
+              Free to join. No fees to factories on any order. Joining the network, receiving orders, and managing production on the platform costs factories nothing.
             </p>
             <Link to="/apply">
               <Button variant="hero" size="xl">

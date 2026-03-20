@@ -35,7 +35,7 @@ const benefits = [
   {
     icon: Clock,
     title: "Sampling gate enforced",
-    description: "Bulk production milestones cannot be funded until sample is approved. This gate is enforced by the platform, not optional. No more wiring production funds before the sample is right.",
+    description: "Bulk production cannot begin until the sample is formally approved. This gate is enforced by the platform — not optional. Every sample submission is documented with photos and measurements.",
   },
 ];
 
@@ -63,7 +63,7 @@ const faqs = [
   },
   {
     question: "What does Sourcery cost?",
-    answer: "3% transaction fee on every order processed through the platform — BYOF and network orders alike. No subscription, no retainer, no upfront fee. We earn only when your production is moving.",
+    answer: "Your first order is free. After that: one-off at $79/order, or Builder at $399/year for unlimited orders and full marketplace access, or Pro at $899/year for teams. See the full breakdown on the pricing page.",
   },
   {
     question: "Can I negotiate terms directly with my factory?",
@@ -91,7 +91,7 @@ export default function Brands() {
                 Production management that brings structure, security, and traceability to every stage of the cycle.
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-                Sourcery manages the full production lifecycle — structured order creation, milestone-protected payments, revision tracking, QC documentation, and permanent order records. Everything in one place, from first sample to final delivery.
+                Sourcery manages the full production lifecycle — structured order creation, milestone-gated payments, revision tracking, QC documentation, and permanent order records. Everything in one place, from first sample to final delivery.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/auth?mode=signup">

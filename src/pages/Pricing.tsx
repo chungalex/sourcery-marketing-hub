@@ -37,22 +37,32 @@ const featureTooltips: Record<string, string> = {
   "Supplier contact book": "Store individual contacts at each factory — production manager, QC lead, shipping contact — attached permanently to the factory record.",
 };
 
+function FeatureGroup({ label }: { label: string }) {
+  return (
+    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest pt-3 pb-1 first:pt-0">
+      {label}
+    </p>
+  );
+}
+
 function Feature({ text, coming }: { text: string; coming?: boolean }) {
   const tooltip = featureTooltips[text];
   return (
-    <div className="flex items-start gap-2.5">
-      <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+    <div className="flex items-start gap-2.5 py-1">
+      <div className="w-4 h-4 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+        <Check className="h-2.5 w-2.5 text-primary" />
+      </div>
       <span className="text-sm text-foreground leading-snug flex items-center gap-1.5 flex-wrap">
         {text}
         {coming && (
-          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 border border-amber-500/20 font-medium">
-            coming
+          <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-600 border border-amber-500/20 font-medium">
+            soon
           </span>
         )}
         {tooltip && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Info className="h-3 w-3 text-muted-foreground/50 hover:text-muted-foreground cursor-help flex-shrink-0" />
+              <Info className="h-3 w-3 text-muted-foreground/40 hover:text-muted-foreground cursor-help flex-shrink-0" />
             </TooltipTrigger>
             <TooltipContent side="right" className="max-w-xs">
               <p className="text-xs leading-relaxed">{tooltip}</p>
@@ -174,10 +184,11 @@ export default function Pricing() {
                 <Link to="/auth?mode=signup" className="mb-8">
                   <Button variant="outline" className="w-full">Get started free</Button>
                 </Link>
-                <div className="space-y-3 flex-1">
-                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wide pb-2 border-b border-border">What's included</p>
+                <div className="space-y-0 flex-1">
+                  <FeatureGroup label="Infrastructure" />
                   <Feature text="Full production OS" />
                   <Feature text="Permanent order record" />
+                  <FeatureGroup label="Discovery" />
                   <Feature text="Marketplace browse" />
                 </div>
               </motion.div>
@@ -202,18 +213,21 @@ export default function Pricing() {
                   <p className="text-sm text-muted-foreground leading-relaxed mt-3">Brands managing active production with marketplace access.</p>
                 </div>
                 <Link to="/auth?mode=signup&plan=builder" className="mb-8">
-                  <Button className="w-full">Start 14-day free trial <ArrowRight className="h-4 w-4 ml-1.5" /></Button>
+                  <Button className="w-full">Get started <ArrowRight className="h-4 w-4 ml-1.5" /></Button>
                 </Link>
-                <div className="space-y-3 flex-1">
-                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wide pb-2 border-b border-border">Everything in Free, plus</p>
+                <div className="space-y-0 flex-1">
+                  <FeatureGroup label="Orders" />
                   <Feature text="5 active orders simultaneously" />
+                  <Feature text="Order templates" />
+                  <Feature text="AI dispute summary + PDF export" />
+                  <FeatureGroup label="Marketplace" />
                   <Feature text="Full marketplace access" />
                   <Feature text="AI factory matcher" />
+                  <FeatureGroup label="Communication" />
                   <Feature text="Message translation" />
                   <Feature text="Order chat summaries" />
-                  <Feature text="Order templates" />
                   <Feature text="Dispute filing" />
-                  <Feature text="AI dispute summary + PDF export" />
+                  <FeatureGroup label="AI tools" />
                   <Feature text="Tech pack reviewer" coming />
                   <Feature text="RFQ generator" coming />
                   <Feature text="Quote analyzer" coming />
@@ -239,17 +253,19 @@ export default function Pricing() {
                 <Link to="/auth?mode=signup&plan=pro" className="mb-8">
                   <Button variant="outline" className="w-full">Get started <ArrowRight className="h-4 w-4 ml-1.5" /></Button>
                 </Link>
-                <div className="space-y-3 flex-1">
-                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wide pb-2 border-b border-border">Everything in Builder, plus</p>
+                <div className="space-y-0 flex-1">
+                  <FeatureGroup label="Scale" />
                   <Feature text="Unlimited active orders" />
                   <Feature text="Unlimited AI factory matcher" />
+                  <Feature text="3 team seats" />
+                  <FeatureGroup label="Intelligence" />
                   <Feature text="Production calendar" />
-                  <Feature text="Spec library" />
-                  <Feature text="Supplier contact book" />
                   <Feature text="Factory health alerts" />
                   <Feature text="Reorder intelligence" />
                   <Feature text="Analytics dashboard" />
-                  <Feature text="3 team seats" />
+                  <FeatureGroup label="Organisation" />
+                  <Feature text="Spec library" />
+                  <Feature text="Supplier contact book" />
                 </div>
               </motion.div>
 

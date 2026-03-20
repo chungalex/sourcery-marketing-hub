@@ -53,7 +53,7 @@ const aiTools = [
 ];
 
 const proofPoints = [
-  "Every payment milestone-protected",
+  "Every payment milestone-gated",
   "Sampling gated before bulk production",
   "Full paper trail on every order",
 ];
@@ -87,7 +87,7 @@ export default function Home() {
     <Layout>
       <SEO
         title="Sourcery — The Manufacturing OS for Physical Product Brands"
-        description="Manage every production order — sampling, revisions, QC, and payments — in one structured system. Bring your existing factory or connect with one from our vetted network."
+        description="Every decision documented. Every payment gated. Every order permanently traceable. Bring your existing factory or find a new one through our vetted network — the platform works the same either way."
         canonical="/"
       />
 
@@ -104,7 +104,7 @@ export default function Home() {
                   The manufacturing OS for physical product brands.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
-                  Manage every production order — sampling, revisions, QC, and payments — in one structured system. Bring your existing factory or connect with one from our vetted network.
+                  Every decision documented. Every payment gated. Every order permanently traceable. Bring your existing factory or find a new one through our vetted network — the platform works the same either way.
                 </p>
 
                 <div className="space-y-3 mb-8">
@@ -386,7 +386,7 @@ export default function Home() {
               Ready to manage production properly?
             </h2>
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-              No retainer. No upfront fee. 3% transaction fee only when your production is moving. Get started free and bring your first factory on in under 10 minutes.
+              First order free — full infrastructure, no credit card required. Upgrade to Builder or Pro when you're ready to scale.
             </p>
 
             {!captured ? (

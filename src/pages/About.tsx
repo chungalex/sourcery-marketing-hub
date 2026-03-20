@@ -40,7 +40,10 @@ export default function About() {
               Production management for physical product brands is genuinely broken. Not because factories are bad or brands are careless — but because the infrastructure doesn't exist. Brands manage production across WhatsApp, email, file-sharing links for tech packs, bank wires for payments, and separate email chains for QC photos. Nothing is connected. No audit trail. No version control. No visibility into what spec the factory is actually building from.
             </p>
             <p>
-              We built Sourcery because we experienced this directly — from both sides. As a brand placing orders we couldn't properly track. As a manufacturer receiving specs we couldn't reliably confirm. The problems compound when there's no shared system of record.
+              We experienced this from both sides. Managing a brand's production orders and not being able to prove what was agreed when something went wrong. Running a production studio and receiving specs that changed mid-order with no paper trail either side could reference. The same order, two completely different accounts of what happened, and nothing to resolve it with.
+            </p>
+            <p>
+              Every tool we reached for solved one part of the problem. None of them solved the whole thing — the shared system of record that both sides operate from, with every decision documented, every payment gated, every spec version tracked.
             </p>
             <p className="text-foreground font-medium">
               The tools didn't exist. So we built them.

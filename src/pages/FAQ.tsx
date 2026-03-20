@@ -70,7 +70,7 @@ const faqSections = [
     faqs: [
       {
         q: "Does joining the network cost anything?",
-        a: "No. Network membership is free. Sourcery earns a transaction fee on orders processed through the platform — paid by brands, not factories.",
+        a: "No. Network membership is free. Sourcery charges brands a subscription fee — factories join and use the full platform at no cost.",
       },
       {
         q: "I was invited by a brand — do I need to apply to the network?",
@@ -95,15 +95,15 @@ const faqSections = [
     faqs: [
       {
         q: "How much does Sourcery cost?",
-        a: "3% transaction fee on every order processed through the platform — BYOF and network orders alike. No subscription, no retainer, no upfront fee. We earn only when your production is moving.",
+        a: "Sourcery offers a free first order, a one-off option at $79/order, and annual subscriptions — Builder at $399/year and Pro at $899/year. Your first order is always free, no credit card required. See the full breakdown on the pricing page.",
       },
       {
-        q: "What does the fee cover?",
-        a: "Milestone gate enforcement, structured order creation, sampling gate, revision round tracking, tech pack versioning, QC gating, defect documentation, on-platform messaging, dispute infrastructure, and AI toolkit access. Everything on the platform, for every order.",
+        q: "What does a subscription include?",
+        a: "Every subscription tier includes the full production OS — structured PO creation, sampling gates, revision rounds, tech pack versioning, QC documentation, defect reports, milestone tracking, on-platform messaging, and permanent order records. Builder adds full marketplace access, AI tools, and order templates. Pro adds unlimited orders, production calendar, spec library, analytics, and 3 team seats.",
       },
       {
         q: "Is there a free trial?",
-        a: "The platform is free to join. You only pay the transaction fee when you create a production order with milestones. You can invite factories, explore the platform, and use the AI Factory Matcher without any charge.",
+        a: "Yes. Your first order is completely free — full platform, no credit card, no time limit. After that, you can continue on a one-off basis ($79/order) or subscribe to Builder or Pro for ongoing production management.",
       },
     ],
   },

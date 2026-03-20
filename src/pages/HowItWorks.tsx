@@ -36,6 +36,12 @@ const steps = [
     description: "Quality inspection logged against the order with photos, defect reports, and pass/fail result. In a dispute, the brand withholds final payment and both parties submit documented evidence before resolution. The paper trail built throughout the order is your leverage.",
     gate: "Final milestone cannot release without QC pass. You control every payment release — nothing moves without your confirmation.",
   },
+  {
+    number: "06",
+    title: "The order closes — the record stays",
+    description: "Every closed order on Sourcery is a permanent record. Every spec, revision, defect, message, and payment — timestamped and searchable. Reorder from it in one click with all specs pre-filled. Use it as evidence in a dispute. Share it with a new team member. The platform builds institutional knowledge automatically, with every order.",
+    gate: null,
+  },
 ];
 
 const protectionFeatures = [

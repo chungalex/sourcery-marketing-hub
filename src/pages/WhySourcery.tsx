@@ -21,7 +21,7 @@ const failures = [
     total: "A $2,000–$3,000 direct loss. Potentially much more if it's a seasonal product.",
     root: "The sample approval was informal. Nothing was logged. The factory built from a verbal understanding, not a verified spec.",
     gate: "Sample gate",
-    gateDesc: "Sourcery requires the factory to submit the sample formally — with photos and measurements logged against the order. You approve or request a revision round with documented feedback the factory must acknowledge. Bulk production milestones cannot be funded until sample is approved. The gate is enforced by the platform.",
+    gateDesc: "Sourcery requires the factory to submit the sample formally — with photos and measurements logged against the order. You approve or request a revision round with documented feedback the factory must acknowledge. Bulk production cannot begin until sample is approved. The gate is enforced by the platform.",
   },
   {
     number: "02",
@@ -59,7 +59,7 @@ const failures = [
 ];
 
 const gates = [
-  { name: "Sample gate", desc: "Bulk production funded only after formal sample approval. Revision rounds logged and factory-acknowledged." },
+  { name: "Sample gate", desc: "Bulk production cannot begin until sample is formally approved. Revision rounds logged and factory-acknowledged." },
   { name: "Revision log", desc: "Every spec change is a formal revision round. Factory must acknowledge before production continues. Tech pack versions tracked." },
   { name: "QC gate", desc: "Final payment blocked until QC passes. Defects documented as structured reports with photos and factory response." },
 ];
@@ -172,7 +172,7 @@ export default function WhySourcery() {
               {[
                 {
                   title: "Milestone-gated payments",
-                  body: "Every order is structured around payment milestones — deposit, bulk production, final release. The platform enforces the conditions that must be met before each stage. Sample approved before bulk is funded. QC passed before final release. You release each milestone manually. Nothing moves without your confirmation.",
+                  body: "Every order is structured around payment milestones — deposit, bulk production, final release. The platform enforces the conditions that must be met before each stage. Sample approved before bulk production begins. QC passed before final release. You release each milestone manually. Nothing moves without your confirmation.",
                 },
                 {
                   title: "Dispute documentation",
@@ -351,7 +351,7 @@ export default function WhySourcery() {
               What does unstructured production cost you annually?
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-xl">
-              Enter your order volume. The calculator shows the estimated exposure from production failures — and what Sourcery's 3% fee amounts to across the same volume.
+              Enter your order volume. The calculator shows the estimated exposure from production failures — and what a Sourcery subscription costs across the same volume.
             </p>
             <SavingsCalculator />
           </motion.div>
@@ -366,7 +366,7 @@ export default function WhySourcery() {
               Get started free.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-              Bring your existing factory on in under 10 minutes. 3% transaction fee only when production moves. No subscription, no retainer.
+              Bring your existing factory on in under 10 minutes. First order free, no credit card required.
             </p>
             <div className="flex justify-center gap-3 flex-wrap">
               <Link to="/auth?mode=signup">
