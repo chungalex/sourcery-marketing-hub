@@ -117,7 +117,7 @@ export default function Pricing() {
                 Your first order is free.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-lg mx-auto">
-                Full infrastructure, no credit card, no time limit. If Sourcery works on a real order, the rest is straightforward.
+                Full infrastructure from your first order. No credit card, no time limit.
               </p>
             </motion.div>
           </div>

@@ -87,7 +87,7 @@ export default function Home() {
     <Layout>
       <SEO
         title="Sourcery — The Manufacturing OS for Physical Product Brands"
-        description="Every decision documented. Every payment gated. Every order permanently traceable. Bring your existing factory or find a new one through our vetted network — the platform works the same either way."
+        description="Production is one of the hardest parts of building a physical product brand — and one of the least transparent. Sourcery gives you the infrastructure, guidance, and visibility to navigate it with confidence, from your first order to your fiftieth."
         canonical="/"
       />
 
@@ -104,7 +104,7 @@ export default function Home() {
                   The manufacturing OS for physical product brands.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
-                  Every decision documented. Every payment gated. Every order permanently traceable. Bring your existing factory or find a new one through our vetted network — the platform works the same either way.
+                  Production is one of the hardest parts of building a physical product brand — and one of the least transparent. Sourcery gives you the infrastructure, guidance, and visibility to navigate it with confidence, from your first order to your fiftieth.
                 </p>
 
                 <div className="space-y-3 mb-8">
@@ -278,10 +278,10 @@ export default function Home() {
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mb-12">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Built for production — not just sourcing.
+              Built for the full production cycle — not just the introduction.
             </h2>
             <p className="text-lg text-muted-foreground">
-              Most platforms stop at the introduction. Sourcery manages the entire order lifecycle from first contact to closed delivery.
+              Most platforms help you find a factory and stop there. Sourcery manages the full lifecycle — from structured PO creation to closed delivery — with guidance, documentation, and accountability at every stage.
             </p>
           </motion.div>
 
@@ -383,10 +383,10 @@ export default function Home() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center">
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Ready to manage production properly?
+              Ready to build your company without production holding you back?
             </h2>
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-              First order free — full infrastructure, no credit card required. Upgrade to Builder or Pro when you're ready to scale.
+              Your first order is free — full infrastructure, no credit card required. Every decision guided. Every stage documented. Everything in one place.
             </p>
 
             {!captured ? (

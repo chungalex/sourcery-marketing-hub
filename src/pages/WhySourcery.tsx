@@ -80,7 +80,7 @@ export default function WhySourcery() {
               What does a production mistake actually cost you?
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Not in abstract terms. In dollars, delays, and leverage. Three failure types that happen on real orders — with the math shown.
+              Not in abstract terms. In dollars, delays, and leverage. Production is stressful enough without the added weight of knowing a single mistake can cost thousands. Three failure types that happen on real orders — and the gates that prevent them.
             </p>
           </motion.div>
         </div>

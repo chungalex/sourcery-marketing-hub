@@ -69,7 +69,7 @@ export default function HowItWorks() {
               One system. Every step of production.
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Sourcery is a platform, not an agency. It gives you the structure, documentation, and milestone gate enforcement to manage your own production relationships — with accountability built into every stage.
+              Manufacturing is complex and the supply chain has very little transparency. Sourcery is the platform that walks you through every stage of the production cycle — explaining every decision before you make it, keeping everything organised in one place, and building a permanent record automatically. So you can navigate production with confidence instead of uncertainty.
             </p>
           </motion.div>
         </div>

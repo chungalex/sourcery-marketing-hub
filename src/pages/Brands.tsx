@@ -91,7 +91,7 @@ export default function Brands() {
                 Production management that brings structure, security, and traceability to every stage of the cycle.
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-                Sourcery manages the full production lifecycle — structured order creation, milestone-gated payments, revision tracking, QC documentation, and permanent order records. Everything in one place, from first sample to final delivery.
+                Managing production is hard. Supply chains are complex, manufacturing has its own language, and there is very little transparency into how the other side works. Sourcery is the platform that walks you through every step — structured order creation, milestone-gated payments, revision tracking, QC documentation, and a permanent record of every decision. Everything in one place, so you can build your company with confidence.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/auth?mode=signup">
@@ -257,6 +257,9 @@ export default function Brands() {
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
               Four things every production run needs.
             </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
+              Sourcing overseas opens up your product quality and your margins. It also introduces a level of uncertainty — about what's being built, to what standard, and what happens if something goes wrong — that most brands manage badly or not at all. Sourcery is built to close that gap.
+            </p>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Structure in the order creation process. Security for your capital. Traceability on every decision. Organisation across the full lifecycle.
             </p>

@@ -18,10 +18,10 @@ export default function About() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Built by operators who have been on both sides.
+              Built for the founders navigating one of the hardest parts of building a product company.
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              As brands managing production and as manufacturers supplying them. Sourcery exists because the tools we needed didn't.
+              Production is complex, opaque, and unforgiving when things go wrong. We built Sourcery to change that — not just as a tool, but as the infrastructure that makes manufacturing navigable for any brand willing to take it seriously.
             </p>
           </motion.div>
         </div>
@@ -37,19 +37,22 @@ export default function About() {
             className="space-y-6 text-muted-foreground text-lg leading-relaxed"
           >
             <p>
-              Production management for physical product brands is genuinely broken. Not because factories are bad or brands are careless — but because the infrastructure doesn't exist. Brands manage production across WhatsApp, email, file-sharing links for tech packs, bank wires for payments, and separate email chains for QC photos. Nothing is connected. No audit trail. No version control. No visibility into what spec the factory is actually building from.
+              Running a brand is hard. Building a product from scratch, finding the right manufacturer, navigating a space that doesn't explain itself, wiring money overseas and hoping for the best — it's one of the most stressful and opaque things you can do as a founder.
             </p>
             <p>
-              We experienced this from both sides. Managing a brand's production orders and not being able to prove what was agreed when something went wrong. Running a production studio and receiving specs that changed mid-order with no paper trail either side could reference. The same order, two completely different accounts of what happened, and nothing to resolve it with.
+              The manufacturing industry has very little transparency. Supply chains are complex. There's a language to it — incoterms, AQL standards, sampling gates, revision rounds — that nobody teaches you. As a brand, you often don't know what you don't know. Whether the spec you sent is the spec they're building from. Whether the revision you requested last week was acknowledged. Whether the sample you approved will translate to bulk. And if something goes wrong, you have no record, no leverage, and no clear next step.
             </p>
             <p>
-              Every tool we reached for solved one part of the problem. None of them solved the whole thing — the shared system of record that both sides operate from, with every decision documented, every payment gated, every spec version tracked.
+              We built Sourcery because that opacity is the actual problem. Not bad factories. Not bad brands. Just no shared infrastructure that gives both sides visibility, accountability, and something to point to when something is unclear.
+            </p>
+            <p>
+              Every feature on the platform exists to take something that is normally stressful, opaque, or manual — and make it structured, documented, and navigable. So you can place an order with confidence. Track every decision. Know exactly where your production stands. And spend your energy building your company instead of managing uncertainty.
             </p>
             <p className="text-foreground font-medium">
               The tools didn't exist. So we built them.
             </p>
             <p>
-              Sourcery is the system of record. Every order, revision, sample, defect, and payment — documented, timestamped, and attached to the right place. Not a directory. Not an agency. Infrastructure.
+              Sourcery is the system of record. Every order, revision, sample, defect, and payment — documented, timestamped, and attached to the right place. Not a directory. Not an agency. Not a sourcing manager. Infrastructure that walks you through the process, keeps everything organised, and gives you the confidence to build your company around production instead of in spite of it.
             </p>
           </motion.div>
         </div>
