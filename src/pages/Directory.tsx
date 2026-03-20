@@ -489,6 +489,7 @@ export default function Directory() {
                             index={index}
                             onSave={handleSave}
                             isSaved={savedFactories.includes(factory.id)}
+                            hideIdentity={!isAuthenticated}
                           />
                           <button
                             onClick={() => toggleCompare(factory.id)}

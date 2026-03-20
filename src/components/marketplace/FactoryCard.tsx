@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MapPin, Package, Clock, Heart } from "lucide-react";
+import { MapPin, Package, Clock, Heart, Lock } from "lucide-react";
 import { FactoryPreview } from "@/data/mockData";
 import { FactoryTypeBadge } from "./FactoryTypeBadge";
 import { VerifiedBadge } from "./VerifiedBadge";
@@ -14,6 +14,7 @@ interface FactoryCardProps {
   className?: string;
   onSave?: (id: string) => void;
   isSaved?: boolean;
+  hideIdentity?: boolean;
 }
 
 export function FactoryCard({ 
@@ -22,6 +23,7 @@ export function FactoryCard({
   className,
   onSave,
   isSaved = false,
+  hideIdentity = false,
 }: FactoryCardProps) {
   return (
     <motion.div
@@ -75,14 +77,28 @@ export function FactoryCard({
       <div className="p-4 space-y-3">
         {/* Header */}
         <div>
-          <h3 className="font-heading font-semibold text-foreground text-lg leading-tight group-hover:text-primary transition-colors">
-            {factory.name}
-          </h3>
-          <div className="flex items-center gap-1.5 text-muted-foreground text-sm mt-1">
-            <MapPin className="w-3.5 h-3.5" />
-            <span>{factory.location.city}, {factory.location.country}</span>
-          </div>
-        </div>
+          {hideIdentity ? (
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <div className="h-5 w-40 bg-muted rounded animate-none" />
+                <Lock className="h-3.5 w-3.5 text-muted-foreground" />
+              </div>
+              <div className="flex items-center gap-1.5 text-muted-foreground text-sm mt-1">
+                <MapPin className="w-3.5 h-3.5" />
+                <span>{factory.location.country}</span>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <h3 className="font-heading font-semibold text-foreground text-lg leading-tight group-hover:text-primary transition-colors">
+                {factory.name}
+              </h3>
+              <div className="flex items-center gap-1.5 text-muted-foreground text-sm mt-1">
+                <MapPin className="w-3.5 h-3.5" />
+                <span>{factory.location.city}, {factory.location.country}</span>
+              </div>
+            </div>
+          )}
 
         {/* Categories */}
         <p className="text-sm text-muted-foreground line-clamp-1">
@@ -105,11 +121,20 @@ export function FactoryCard({
         <CertificationList certifications={factory.certifications} max={3} size="sm" />
 
         {/* CTA */}
-        <Link to={`/directory/${factory.slug}`} className="block pt-2">
-          <Button variant="outline" className="w-full">
-            View Profile
-          </Button>
-        </Link>
+        {hideIdentity ? (
+          <Link to="/pricing" className="block pt-2">
+            <Button variant="outline" className="w-full gap-2 text-xs">
+              <Lock className="h-3.5 w-3.5" />
+              Upgrade to Builder to contact
+            </Button>
+          </Link>
+        ) : (
+          <Link to={`/directory/${factory.slug}`} className="block pt-2">
+            <Button variant="outline" className="w-full">
+              View Profile
+            </Button>
+          </Link>
+        )}
       </div>
     </motion.div>
   );
