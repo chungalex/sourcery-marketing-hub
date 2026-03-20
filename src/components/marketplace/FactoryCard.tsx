@@ -99,6 +99,7 @@ export function FactoryCard({
               </div>
             </div>
           )}
+        </div>
 
         {/* Categories */}
         <p className="text-sm text-muted-foreground line-clamp-1">
