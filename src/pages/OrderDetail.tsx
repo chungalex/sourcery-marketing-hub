@@ -18,6 +18,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
+import { OrderChatSummary } from "@/components/orders/OrderChatSummary";
 import { FactoryReview } from "@/components/trust/FactoryReview";
 import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
 import { RevisionRounds } from "@/components/orders/RevisionRounds";
@@ -661,6 +662,7 @@ export default function OrderDetail() {
               {/* Right column — messaging always visible */}
               <div className="lg:sticky lg:top-6 space-y-4">
                 <PlatformMessaging orderId={order.id} />
+                <OrderChatSummary orderId={order.id} />
 
                 {/* Order meta */}
                 <div className="bg-card border border-border rounded-xl p-4 space-y-3 text-sm">

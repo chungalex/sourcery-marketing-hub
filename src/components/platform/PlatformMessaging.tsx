@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Loader2, MessageSquare, Shield } from "lucide-react";
+import { Send, Loader2, MessageSquare, Shield, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
@@ -28,6 +28,28 @@ interface PlatformMessagingProps {
 export function PlatformMessaging({ orderId, className }: PlatformMessagingProps) {
   const { user } = useAuth();
   const { hasFactoryAccess } = useFactoryMembership(user?.id);
+  const [translations, setTranslations] = useState<Record<string, string>>({});
+  const [translating, setTranslating] = useState<string | null>(null);
+
+  const translateMessage = async (msgId: string, content: string) => {
+    if (translations[msgId]) {
+      // Toggle off if already translated
+      setTranslations(prev => { const n = {...prev}; delete n[msgId]; return n; });
+      return;
+    }
+    setTranslating(msgId);
+    try {
+      const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(content)}&langpair=auto|en`);
+      const data = await res.json();
+      const translated = data?.responseData?.translatedText;
+      if (translated && translated !== content) {
+        setTranslations(prev => ({ ...prev, [msgId]: translated }));
+      }
+    } catch {
+      // silent fail — translation is enhancement not core
+    }
+    setTranslating(null);
+  };
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
@@ -179,7 +201,7 @@ export function PlatformMessaging({ orderId, className }: PlatformMessagingProps
                   <motion.div
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={cn("flex", isOwn ? "justify-end" : "justify-start")}
+                    className={cn("flex group", isOwn ? "justify-end" : "justify-start")}
                   >
                     <div className={cn(
                       "max-w-[75%] rounded-2xl px-4 py-2.5 text-sm",
@@ -195,12 +217,37 @@ export function PlatformMessaging({ orderId, className }: PlatformMessagingProps
                           {msg.sender_role}
                         </div>
                       )}
-                      <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+                      <p className="whitespace-pre-wrap leading-relaxed">
+                        {translations[msg.id] || msg.content}
+                      </p>
                       <div className={cn(
-                        "text-xs mt-1",
-                        isOwn ? "text-primary-foreground/60 text-right" : "text-muted-foreground"
+                        "flex items-center gap-2 mt-1",
+                        isOwn ? "justify-end" : "justify-start"
                       )}>
-                        {format(new Date(msg.created_at), "h:mm a")}
+                        <span className={cn(
+                          "text-xs",
+                          isOwn ? "text-primary-foreground/60" : "text-muted-foreground"
+                        )}>
+                          {format(new Date(msg.created_at), "h:mm a")}
+                        </span>
+                        <button
+                          onClick={() => translateMessage(msg.id, msg.content)}
+                          className={cn(
+                            "text-xs flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity",
+                            isOwn ? "text-primary-foreground/60 hover:text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                          )}
+                          title={translations[msg.id] ? "Show original" : "Translate"}
+                        >
+                          {translating === msg.id
+                            ? <Loader2 className="h-3 w-3 animate-spin" />
+                            : <Languages className="h-3 w-3" />
+                          }
+                        </button>
+                        {translations[msg.id] && (
+                          <span className={cn("text-[10px]", isOwn ? "text-primary-foreground/50" : "text-muted-foreground/60")}>
+                            translated
+                          </span>
+                        )}
                       </div>
                     </div>
                   </motion.div>

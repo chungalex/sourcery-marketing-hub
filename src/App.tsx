@@ -13,6 +13,9 @@ import Pricing from "./pages/Pricing";
 import WhySourcery from "./pages/WhySourcery";
 import Notifications from "./pages/Notifications";
 import FactoryCompare from "./pages/FactoryCompare";
+import ProductionCalendar from "./pages/ProductionCalendar";
+import SpecLibrary from "./pages/SpecLibrary";
+import Analytics from "./pages/Analytics";
 import CaseStudies from "./pages/CaseStudies";
 import Consulting from "./pages/Consulting";
 import About from "./pages/About";
@@ -76,6 +79,9 @@ const App = () => (
             <Route path="/onboarding/factory" element={<FactoryOnboarding />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/compare" element={<FactoryCompare />} />
+            <Route path="/calendar" element={<ProductionCalendar />} />
+            <Route path="/specs" element={<SpecLibrary />} />
+            <Route path="/analytics" element={<Analytics />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </ErrorBoundary>
