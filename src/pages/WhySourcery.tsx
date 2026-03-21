@@ -6,73 +6,42 @@ import { SEO } from "@/components/SEO";
 import { SavingsCalculator } from "@/components/calculator/SavingsCalculator";
 import { ArrowRight, Shield, Search } from "lucide-react";
 
-const failures = [
+const scenarios = [
   {
     number: "01",
-    type: "The measurement error",
-    question: "What does it cost when a spec issue slips past the sample stage?",
-    setup: "You approve a sample over email. The factory starts bulk production. 500 units in, someone notices the waistband is 2cm off spec. The bulk is already cut and sewn.",
-    costBreakdown: [
-      { label: "Rework cost (at $4–6/unit on 500 units)", value: "$2,000–$3,000" },
-      { label: "Production delay while rework completes", value: "2–3 weeks" },
-      { label: "If the season is missed", value: "Full order margin" },
-      { label: "Your leverage to recover costs", value: "None — you already approved the sample" },
-    ],
-    total: "A $2,000–$3,000 direct loss. Potentially much more if it's a seasonal product.",
-    root: "The sample approval was informal. Nothing was logged. The factory built from a verbal understanding, not a verified spec.",
-    gate: "Sample gate",
-    gateDesc: "Sourcery requires the factory to submit the sample formally — with photos and measurements logged against the order. You approve or request a revision round with documented feedback the factory must acknowledge. Bulk production cannot begin until sample is approved. The gate is enforced by the platform.",
+    type: "The wrong factory",
+    setup: "You find a factory through a referral or an Instagram DM. The samples look fine. You wire 30% upfront. Six weeks later, 40% of units are defective — and the factory says it wasn't in the spec.",
+    exposure: "$5,000–$15,000",
+    root: "No performance data before committing. The factory's QC history was invisible.",
+    fix: "Verified credentials and AI-matched recommendations before you reach out.",
+    isMarketplace: true,
   },
   {
     number: "02",
-    type: "The lost spec change",
-    question: "What does it cost when a change never makes it to the factory properly?",
-    setup: "Mid-production, you decide to change the fabric weight. You send a WhatsApp message. The factory reads it, maybe. They keep building from the original tech pack. 500 units arrive in the wrong fabric.",
-    costBreakdown: [
-      { label: "Remake cost if fabric is wrong (partial or full)", value: "$7,500–$15,000" },
-      { label: "Delay while remake is produced", value: "4–8 weeks" },
-      { label: "Your legal leverage without documentation", value: "Near zero — no paper trail" },
-      { label: "Factory's likely position", value: "Disputes the change was ever communicated" },
-    ],
-    total: "Up to the full cost of the order, with no recovery path if the factory disputes it.",
-    root: "The change was communicated informally. No version control. No acknowledgment from the factory. Nothing timestamped.",
-    gate: "Revision round + tech pack versioning",
-    gateDesc: "Every spec change on Sourcery is submitted as a formal revision round. The factory must acknowledge it before production continues. Each tech pack upload creates a new version — the factory confirms which version they're building from. If a dispute arises, the platform shows exactly what was communicated and when.",
+    type: "The measurement error",
+    setup: "You approve a sample over email. 500 units into bulk production, the waistband is 2cm off spec. The fabric is already cut and sewn.",
+    exposure: "$2,000–$3,000",
+    root: "The approval was informal. Nothing was logged against the order.",
+    fix: "Sample gate enforced by the platform. Bulk cannot begin until sample is formally approved.",
+    isMarketplace: false,
   },
   {
     number: "03",
-    type: "The post-payment defect",
-    question: "What does it cost when you find quality issues after the final wire?",
-    setup: "Goods arrive. You open the boxes. 15% of units — 75 out of 500 — have a stitching defect. They're unsellable. The factory has already received final payment.",
-    costBreakdown: [
-      { label: "Lost product cost on 75 unsellable units", value: "$1,125–$2,250" },
-      { label: "Lost revenue if those units were pre-sold", value: "2–3× cost" },
-      { label: "Cost of returning or disposing of defective units", value: "$300–$800" },
-      { label: "Factory's likely concession without leverage", value: "5–10% off next order" },
-      { label: "Your actual recovery", value: "Minimal" },
-    ],
-    total: "Direct loss of $1,500–$3,000+. Ongoing loss if defective units reach your customers.",
-    root: "Final payment released before quality was verified. No formal QC. No documentation. No leverage.",
-    gate: "QC gate",
-    gateDesc: "On Sourcery, the final payment milestone cannot release without a QC pass. Defects are filed as structured reports — defect type, severity, quantity affected, photos, factory response — all logged against the order with timestamps. In a dispute, you have the full documented record as your basis to withhold the final payment. You never release the last milestone without a verified result.",
+    type: "The lost spec change",
+    setup: "Mid-production, you change the fabric weight over WhatsApp. The factory maybe reads it. 500 units arrive in the wrong fabric and they dispute the change was ever communicated.",
+    exposure: "Up to $15,000",
+    root: "No version control. No factory acknowledgment. Nothing timestamped.",
+    fix: "Formal revision rounds — the factory must acknowledge before production continues.",
+    isMarketplace: false,
   },
   {
     number: "04",
-    type: "The wrong factory",
-    question: "What does it cost when you start with the wrong manufacturer?",
-    setup: "You find a factory through an Instagram DM or a friend's referral. The samples look acceptable. You wire a 30% deposit — around $4,500 on a $15,000 order. Six weeks into production, 40% of units have defects the factory says weren't in the spec. Their average QC pass rate is 72%. You had no way of knowing.",
-    costBreakdown: [
-      { label: "Deposit wired with no performance data", value: "$3,000–$6,000" },
-      { label: "3-week sourcing process that found the wrong factory", value: "Wasted entirely" },
-      { label: "Rework or partial remake on defective units", value: "$2,000–$9,000" },
-      { label: "Delay while issues are resolved", value: "4–8 weeks" },
-      { label: "Net result", value: "Still no reliable factory" },
-    ],
-    total: "$5,000–$15,000 in direct losses. Plus 8–12 weeks of momentum lost. And you start the search again.",
-    root: "No performance data before committing. The factory's track record — QC rates, response time, defect history — was invisible. You made a $15,000 decision on a gut feeling and a good-looking sample.",
-    gate: "AI factory matcher + verified performance scores",
-    gateDesc: "Every factory in the Sourcery marketplace has gone through credential review — certifications verified, categories confirmed, production capability assessed. A performance score builds with every order completed on the platform. Early in the network's life, scores are building — but credentials are verified from day one. Describe what you need and get AI-matched to factories that fit. Factory names and contact visible on Builder.",
-    isMarketplace: true,
+    type: "The post-payment defect",
+    setup: "The goods arrive. You open the boxes. 15% of units have a stitching defect — unsellable. The factory already has your final payment.",
+    exposure: "$1,500–$3,000+",
+    root: "Final payment released before quality was verified. No documentation. No leverage.",
+    fix: "Final milestone gated behind QC pass. You never release it without a verified result.",
+    isMarketplace: false,
   },
 ];
 
@@ -80,161 +49,88 @@ export default function WhySourcery() {
   return (
     <Layout>
       <SEO
-        title="Why Sourcery — What production mistakes actually cost"
-        description="A measurement error. A lost spec change. A post-payment defect. A wrong factory. Here's what each one costs — in dollars — and the gate Sourcery puts in the way."
+        title="Why Sourcery — What production without a system actually costs"
+        description="Finding the right factory is hard. Managing what happens next is harder. Here's what it costs when you have no system — and what Sourcery puts in the way."
       />
 
-      {/* Hero — emotional hook */}
+      {/* Hero */}
       <section className="section-padding bg-[var(--hero-gradient)]">
         <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-              Production is one of the hardest things you'll do as a brand.
+              Most brands building a product are managing production with the wrong tools.
             </h1>
-            <div className="space-y-4 text-xl text-muted-foreground leading-relaxed max-w-2xl">
+            <div className="space-y-3 text-lg text-muted-foreground leading-relaxed">
               <p>
-                You're coordinating across time zones in languages you might not speak. Wiring money to manufacturers you've met once, or never. Making decisions — incoterms, AQL standards, QC options — that nobody taught you. Managing specs across WhatsApp threads, email chains, and Google Drive folders, hoping the factory is building from the right version.
+                Instagram DMs to find a factory. WhatsApp for spec changes. A folder somewhere that might have the current tech pack. A bank wire before quality is confirmed.
               </p>
               <p>
-                Most of the time, it works. When it doesn't — and it doesn't, for most brands, at some point — you find out how much it costs to have no system. No paper trail. No leverage. No record of what was actually agreed.
-              </p>
-              <p className="text-foreground font-medium">
-                Sourcery exists for that moment. And for the thousand smaller ones before it.
+                When something goes wrong — and at some point, something does — there's no record of what was agreed, no paper trail to leverage, and no way to get your money back.
               </p>
             </div>
+            <p className="text-foreground font-semibold text-lg mt-6">
+              That's what Sourcery replaces.
+            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* What Sourcery protects against — overview */}
-      <section className="section-padding border-b border-border">
+      {/* Four scenarios — compact cards */}
+      <section className="section-padding">
         <div className="container-wide">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-              {[
-                { label: "Find the right factory", sub: "Verified credentials. Performance tracking. AI-matched to your requirements.", color: "border-primary/30 bg-primary/5" },
-                { label: "Structure every order", sub: "Guided PO creation. Sample gate. Revision rounds. Tech pack versioning.", color: "border-border bg-card" },
-                { label: "Gate every payment", sub: "Milestone-gated. Sample approved before bulk. QC passed before final release.", color: "border-border bg-card" },
-                { label: "Build a permanent record", sub: "Every decision timestamped. Every order searchable. Your paper trail, built automatically.", color: "border-border bg-card" },
-              ].map((item, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className={`p-5 rounded-xl border ${item.color}`}>
-                  <p className="font-semibold text-foreground text-sm mb-2">{item.label}</p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{item.sub}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Scenario navigator */}
-            <div className="mb-4">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">What it costs when these aren't in place</p>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                {[
-                  { num: "01", type: "The measurement error", cost: "Up to $3,000+", anchor: "scenario-01" },
-                  { num: "02", type: "The lost spec change", cost: "Up to $15,000", anchor: "scenario-02" },
-                  { num: "03", type: "The post-payment defect", cost: "Up to $3,000+", anchor: "scenario-03" },
-                  { num: "04", type: "The wrong factory", cost: "Up to $15,000", anchor: "scenario-04" },
-                ].map((s, i) => (
-                  <a key={i} href={`#${s.anchor}`} className="group p-4 rounded-xl bg-background border border-border hover:border-destructive/30 hover:bg-destructive/5 transition-colors cursor-pointer block">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-mono text-xs text-muted-foreground">{s.num}</span>
-                      <span className="text-xs font-semibold text-destructive">{s.cost}</span>
-                    </div>
-                    <p className="text-sm font-medium text-foreground group-hover:text-foreground">{s.type}</p>
-                  </a>
-                ))}
-              </div>
-            </div>
+          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-8">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Four failure types. Real orders. Real costs.</p>
           </motion.div>
-        </div>
-      </section>
 
-      {/* Four failure scenarios */}
-      <section className="section-padding scroll-mt-20" id="scenarios">
-        <div className="container-wide">
-          <div className="space-y-12">
-            {failures.map((f, i) => (
+          <div className="grid md:grid-cols-2 gap-5">
+            {scenarios.map((s, i) => (
               <motion.div
-                key={f.number}
-                initial={{ opacity: 0, y: 24 }}
+                key={s.number}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.04 }}
-                className="bg-card border border-border rounded-2xl overflow-hidden"
-                id={`scenario-0${i + 1}`}
+                transition={{ delay: i * 0.07 }}
+                className="bg-card border border-border rounded-2xl p-6 flex flex-col"
               >
-                {/* Header */}
-                <div className="p-6 md:p-8 border-b border-border">
-                  <div className="flex items-start gap-4">
-                    <div className="font-mono text-sm text-muted-foreground pt-1 flex-shrink-0 w-8">{f.number}</div>
-                    <div>
-                      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">{f.type}</p>
-                      <h2 className="font-heading text-xl font-bold text-foreground">{f.question}</h2>
-                    </div>
+                {/* Top */}
+                <div className="flex items-start justify-between gap-3 mb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-xs text-muted-foreground">{s.number}</span>
+                    <h2 className="font-heading font-bold text-foreground">{s.type}</h2>
                   </div>
+                  <span className="text-sm font-bold text-destructive flex-shrink-0">{s.exposure}</span>
                 </div>
 
-                <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
-                  {/* Left — scenario and cost */}
-                  <div className="p-6 md:p-8 space-y-6">
-                    <div>
-                      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">What happens</p>
-                      <p className="text-foreground leading-relaxed">{f.setup}</p>
-                    </div>
+                {/* Setup */}
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{s.setup}</p>
 
-                    <div>
-                      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">The cost breakdown</p>
-                      <div className="space-y-2">
-                        {f.costBreakdown.map((item, j) => (
-                          <div key={j} className="flex items-start justify-between gap-4 py-2 border-b border-border last:border-0">
-                            <span className="text-sm text-muted-foreground leading-snug">{item.label}</span>
-                            <span className="text-sm font-medium text-foreground flex-shrink-0">{item.value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="p-4 rounded-xl bg-destructive/5 border border-destructive/20">
-                      <p className="text-sm font-medium text-destructive mb-1">Total exposure</p>
-                      <p className="text-sm text-foreground">{f.total}</p>
-                    </div>
-
-                    <div>
-                      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">Root cause</p>
-                      <p className="text-sm text-muted-foreground leading-relaxed italic">{f.root}</p>
-                    </div>
+                {/* Root cause + fix */}
+                <div className="space-y-2.5 pt-4 border-t border-border">
+                  <div className="flex items-start gap-2">
+                    <span className="text-xs font-semibold text-rose-500 mt-0.5 flex-shrink-0">Why it happens</span>
+                    <span className="text-xs text-muted-foreground leading-relaxed">{s.root}</span>
                   </div>
-
-                  {/* Right — the gate */}
-                  <div className="p-6 md:p-8 bg-primary/5 space-y-4">
-                    <div className="flex items-center gap-2">
-                      {(f as any).isMarketplace
-                        ? <Search className="h-4 w-4 text-primary flex-shrink-0" />
-                        : <Shield className="h-4 w-4 text-primary flex-shrink-0" />
-                      }
-                      <p className="text-xs font-medium text-primary uppercase tracking-wide">
-                        {(f as any).isMarketplace ? "The Sourcery marketplace" : "The Sourcery gate"}
-                      </p>
-                    </div>
-                    <h3 className="font-semibold text-foreground text-lg">{f.gate}</h3>
-                    <p className="text-foreground leading-relaxed">{f.gateDesc}</p>
-                    {(f as any).isMarketplace && (
-                      <Link to="/marketplace">
-                        <Button size="sm" variant="outline" className="gap-1.5 mt-2 text-xs">
-                          Browse factory network <ArrowRight className="h-3.5 w-3.5" />
-                        </Button>
-                      </Link>
-                    )}
+                  <div className="flex items-start gap-2">
+                    <span className="text-xs font-semibold text-primary mt-0.5 flex-shrink-0">
+                      {s.isMarketplace ? "The marketplace" : "The gate"}
+                    </span>
+                    <span className="text-xs text-foreground leading-relaxed">{s.fix}</span>
                   </div>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Cumulative cost callout */}
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-8 p-6 rounded-xl bg-amber-500/5 border border-amber-500/20">
+          {/* Cumulative callout */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-5 p-6 rounded-xl bg-amber-500/5 border border-amber-500/20"
+          >
             <p className="text-sm font-semibold text-foreground mb-2">These don't happen in isolation.</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              A single bad order can involve all four. Wrong factory to begin with, spec approved informally, mid-production change lost in a WhatsApp thread, defects found after the final wire. On a $15,000 production run, the combination can exceed the order value. Each one is preventable. None of them require anything dramatic — just a platform that enforces the gates by default.
+              A single bad order can involve all four. Wrong factory to begin with, spec approved informally, mid-production change lost in WhatsApp, defects found after the final wire. On a $15,000 production run, the combination can exceed the order value. Each one is preventable with a platform that enforces the gates by default.
             </p>
           </motion.div>
         </div>
@@ -254,7 +150,7 @@ export default function WhySourcery() {
               {[
                 {
                   title: "Milestone-gated payments",
-                  body: "Every order is structured around payment milestones — deposit, bulk production, final release. Sample approved before bulk production begins. QC passed before final release. You release each milestone manually. Nothing moves without your confirmation.",
+                  body: "Every order is structured around payment milestones — deposit, bulk production, final release. Sample approved before bulk begins. QC passed before final release. You release each milestone manually. Nothing moves without your confirmation.",
                 },
                 {
                   title: "Dispute documentation",
@@ -286,25 +182,60 @@ export default function WhySourcery() {
         </div>
       </section>
 
-      {/* Traceability forever */}
+      {/* Organisation */}
       <section className="section-padding bg-card/50">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              One place. Everything attached to the right order.
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
+              The average production run is managed across 4–6 different tools — WhatsApp, email, WeTransfer, bank portals, spreadsheets, Google Drive. Sourcery replaces all of it. Not because it's neater, but because fragmentation is where things get lost — and lost things cost money.
+            </p>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  before: '"Which version of the tech pack did they build from?"',
+                  after: "Tech pack versions are numbered and factory-confirmed. You always know which version is current.",
+                },
+                {
+                  before: '"Did they acknowledge that revision?"',
+                  after: "Every revision round requires a formal factory acknowledgment before production continues. It's logged with a timestamp.",
+                },
+                {
+                  before: '"Where did we land on that defect from last season?"',
+                  after: "Every defect report — type, severity, factory response, resolution — is attached to the order permanently.",
+                },
+              ].map((item, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="p-6 rounded-xl bg-background border border-border">
+                  <p className="text-sm text-muted-foreground italic mb-4 pb-4 border-b border-border">{item.before}</p>
+                  <p className="text-sm text-foreground leading-relaxed">{item.after}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Traceability */}
+      <section className="section-padding">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
               Once it's on the platform, it's there forever.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              Every closed order on Sourcery is a permanent record. Not just for protection during production — but for everything that comes after.
+              Every closed order on Sourcery is a permanent record — not just for protection during production, but for everything that comes after.
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               {[
                 {
                   scenario: "Reordering 8 months later",
-                  detail: "Every spec, measurement, material, and revision from the original order is preserved. You know exactly what you built from. No reconstructing specs from memory or hunting through old emails.",
+                  detail: "Every spec, measurement, material, and revision from the original order is preserved. No reconstructing from memory or hunting through old emails.",
                 },
                 {
                   scenario: "A factory dispute after delivery",
-                  detail: "The full order record — every message timestamped, every revision acknowledged, every defect logged — is searchable and exportable. Your paper trail is built automatically throughout the order, not assembled after the fact.",
+                  detail: "The full order record — every message timestamped, every revision acknowledged, every defect logged — is searchable and exportable. Built automatically, not assembled after the fact.",
                 },
                 {
                   scenario: "Bringing in a new team member",
@@ -312,10 +243,10 @@ export default function WhySourcery() {
                 },
                 {
                   scenario: "Understanding your factory's track record",
-                  detail: "Performance tracking builds from real order data over time — QC results, response times, defect reports, on-time delivery. The longer you work together on the platform, the clearer the picture becomes. Starts from zero. Compounds permanently.",
+                  detail: "Performance tracking builds from order data over time — QC results, response times, defect reports, on-time delivery. The longer you work together on the platform, the clearer the picture.",
                 },
               ].map((item, i) => (
-                <motion.div key={item.scenario} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="flex items-start gap-4 p-5 rounded-xl bg-background border border-border">
+                <motion.div key={item.scenario} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="flex items-start gap-4 p-5 rounded-xl bg-card border border-border">
                   <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-2" />
                   <div>
                     <h3 className="font-semibold text-foreground mb-1.5">{item.scenario}</h3>
@@ -328,42 +259,7 @@ export default function WhySourcery() {
         </div>
       </section>
 
-      {/* Organisation */}
-      <section className="section-padding">
-        <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              One place. Everything attached to the right order.
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              The average production run is managed across 4–6 different tools — WhatsApp, email, WeTransfer, bank portals, spreadsheets, Google Drive. Sourcery replaces all of it. Not because it's neater, but because fragmentation is where things get lost — and lost things cost money.
-            </p>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  before: "\"Which version of the tech pack did they build from?\"",
-                  after: "Tech pack versions are numbered and factory-confirmed. You always know which version is current.",
-                },
-                {
-                  before: "\"Did they acknowledge that revision?\"",
-                  after: "Every revision round requires a formal factory acknowledgment before production continues. It's logged with a timestamp.",
-                },
-                {
-                  before: "\"Where did we land on that defect from last season?\"",
-                  after: "Every defect report — type, severity, factory response, resolution — is attached to the order permanently.",
-                },
-              ].map((item, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="p-6 rounded-xl bg-card border border-border">
-                  <p className="text-sm text-muted-foreground italic mb-4 pb-4 border-b border-border">{item.before}</p>
-                  <p className="text-sm text-foreground leading-relaxed">{item.after}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Honest close — last substantive section */}
+      {/* Honest close */}
       <section className="section-padding bg-card/50">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-xl bg-card border border-border">
@@ -392,14 +288,10 @@ export default function WhySourcery() {
             </p>
             <div className="flex justify-center gap-3 flex-wrap">
               <Link to="/auth?mode=signup">
-                <Button variant="hero" size="xl">
-                  Get started free <ArrowRight className="w-5 h-5" />
-                </Button>
+                <Button variant="hero" size="xl">Get started free <ArrowRight className="w-5 h-5" /></Button>
               </Link>
               <Link to="/marketplace">
-                <Button variant="hero-outline" size="xl">
-                  Browse factory network
-                </Button>
+                <Button variant="hero-outline" size="xl">Browse factory network</Button>
               </Link>
             </div>
           </motion.div>
