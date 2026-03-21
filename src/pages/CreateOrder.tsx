@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { MilestoneBuilder, type Milestone } from "@/components/orders/MilestoneBuilder";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
@@ -154,6 +155,11 @@ export default function CreateOrder() {
   const [loadingFactories, setLoadingFactories] = useState(true);
 
   const preselectedFactoryId = searchParams.get("factory");
+  const [milestones, setMilestones] = useState<Milestone[]>([
+    { id: "1", label: "Deposit", percentage: 30, release_condition: "On PO acceptance" },
+    { id: "2", label: "Bulk production", percentage: 40, release_condition: "After sample approval" },
+    { id: "3", label: "Final release", percentage: 30, release_condition: "After QC pass" },
+  ]);
 
   const form = useForm<OrderFormValues>({
     resolver: zodResolver(orderSchema),
@@ -636,22 +642,7 @@ export default function CreateOrder() {
                              watchedValues.currency === "CNY" ? "¥" : "$"}{watchedValues.unit_price.toFixed(2)} per unit
                         </p>
                         
-                        {totalAmount > 0 && (
-                          <div className="pt-3 border-t border-primary/20 space-y-2">
-                            <div className="flex items-center justify-between text-sm">
-                              <span className="text-muted-foreground">Platform fee</span>
-                              <span className="font-medium text-foreground">
-                                {watchedValues.currency === "EUR" ? "€" : 
-                                 watchedValues.currency === "GBP" ? "£" : 
-                                 watchedValues.currency === "CNY" ? "¥" : "$"}
-                                {(totalAmount * 0.03).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                              </span>
-                            </div>
-                            <p className="text-xs text-muted-foreground">
-                              Covers: Milestone gate enforcement, QC gating, revision tracking, dispute infrastructure
-                            </p>
-                          </div>
-                        )}
+
                       </div>
 
                       <TooltipProvider>
@@ -782,6 +773,17 @@ export default function CreateOrder() {
                               <FormMessage />
                             </FormItem>
                           )}
+                        />
+                      </div>
+
+                      {/* Milestone structure */}
+                      <div className="border-t border-border pt-6">
+                        <MilestoneBuilder
+                          value={milestones}
+                          onChange={setMilestones}
+                          isPro={false}
+                          orderTotal={totalAmount}
+                          currency={watchedValues.currency}
                         />
                       </div>
                     </div>
@@ -945,15 +947,7 @@ export default function CreateOrder() {
                                 {totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                               </span>
                             </div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-sm text-muted-foreground">Platform fee</span>
-                              <span className="font-medium text-foreground">
-                                {watchedValues.currency === "EUR" ? "€" : 
-                                 watchedValues.currency === "GBP" ? "£" : 
-                                 watchedValues.currency === "CNY" ? "¥" : "$"}
-                                {(totalAmount * 0.03).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                              </span>
-                            </div>
+                            
                             <div className="pt-2 border-t border-primary/20 flex items-center justify-between">
                               <span className="text-sm font-medium text-foreground">Total</span>
                               <span className="text-xl font-bold text-foreground">
@@ -964,10 +958,6 @@ export default function CreateOrder() {
                               </span>
                             </div>
                           </div>
-                          
-                          <p className="text-xs text-muted-foreground">
-                            Platform fee covers: milestone gate enforcement, QC gating, revision tracking, and dispute infrastructure.
-                          </p>
                           
                           <div className="text-sm text-muted-foreground mt-3 pt-3 border-t border-primary/20 space-y-1">
                             {watchedValues.incoterms && (

@@ -66,6 +66,8 @@ const sections = [
       { name: "Order templates", desc: "Save complete order setups — factory, milestone structure, QC standard, incoterms — and reuse in one click. For brands repeating similar production runs." },
       { name: "Supplier contact book", desc: "Store individual contacts at each factory — production manager, QC lead, shipping contact — all attached permanently to the factory record." },
       { name: "Document export", desc: "Export any order as a full PDF audit trail — every message, spec, revision, milestone, QC result. Formatted for legal proceedings, insurance claims, or due diligence." },
+      { name: "Custom milestone structures", desc: "Pro brands define their own payment stages, percentages, and release conditions. 4-6 stage structures for high-value orders — booking deposit, sample approval, fabric confirmation, bulk production, QC pass, shipment. Builder brands use the standard 3-stage structure.", pro: true },
+      { name: "White-label PDF exports", desc: "Export order audit trails with your brand name and logo — not Sourcery's. Every spec, revision, message, and milestone, formatted to look like it came from your company. For disputes, legal proceedings, investor due diligence, or any professional documentation.", pro: true },
     ],
   },
   {
@@ -124,6 +126,9 @@ export default function Features() {
                           <p className="text-sm font-semibold text-foreground">{feature.name}</p>
                           {feature.coming && (
                             <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-600 border border-amber-500/20 font-medium">coming</span>
+                          )}
+                          {(feature as any).pro && (
+                            <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20 font-medium">Pro</span>
                           )}
                         </div>
                         <p className="text-sm text-muted-foreground leading-relaxed">{feature.desc}</p>

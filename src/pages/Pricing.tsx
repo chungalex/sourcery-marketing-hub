@@ -34,6 +34,8 @@ const featureTooltips: Record<string, string> = {
   "Analytics dashboard": "Total spend, order frequency, average lead time, QC pass rates, and defect history across all your orders and factories.",
   "3 team seats": "Add your production manager, sourcing lead, or co-founder. Everyone works from the same orders, same history, same platform.",
   "Unlimited AI factory matcher": "No monthly search limit. Full AI matching across the entire verified factory network.",
+  "Custom milestone structures": "Define your own payment stages, percentages, and release conditions. Standard 3-stage structure for Builder brands. Pro brands can build 4-6 stage structures — deposit, fabric confirmation, bulk production, QC pass, shipment — matched to how their specific orders work.",
+  "White-label PDF exports": "Export any order as a full audit trail PDF with your brand name and logo — not Sourcery's. Every spec, revision, message, defect report, and milestone. Formatted for disputes, legal proceedings, or due diligence. Your documents look like they came from your company.",
   "Supplier contact book": "Store individual contacts at each factory — production manager, QC lead, shipping contact — attached permanently to the factory record.",
 };
 
@@ -130,7 +132,7 @@ export default function Pricing() {
               <Star className="h-4 w-4 text-primary flex-shrink-0" />
               <div>
                 <p className="text-sm font-semibold text-foreground">Founding member — 5 spots only</p>
-                <p className="text-xs text-muted-foreground mt-0.5">First 5 brands on Builder locked at $299/year forever. Standard rate is $399/year.</p>
+                <p className="text-xs text-muted-foreground mt-0.5">First 5 brands to subscribe to Builder get $299/year locked forever. Standard rate is $399/year.</p>
               </div>
             </div>
             <Link to="/auth?mode=signup&plan=builder&founding=true">
@@ -242,13 +244,13 @@ export default function Pricing() {
                 <div className="mb-6">
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">Pro</p>
                   <div className="flex items-baseline gap-1.5 mb-1">
-                    <span className="text-4xl font-bold text-foreground">${annual ? "899" : "99"}</span>
+                    <span className="text-4xl font-bold text-foreground">${annual ? "699" : "69"}</span>
                     <span className="text-muted-foreground text-sm">{annual ? "/year" : "/month"}</span>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    {annual ? "$75/month — billed annually" : "or $899/year, save $289"}
+                    {annual ? "$58/month — billed annually" : "or $699/year, save $119"}
                   </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-3">Teams running multiple orders across multiple factories.</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mt-3">Teams running serious production operations at volume.</p>
                 </div>
                 <Link to="/auth?mode=signup&plan=pro" className="mb-8">
                   <Button variant="outline" className="w-full">Get started <ArrowRight className="h-4 w-4 ml-1.5" /></Button>
@@ -258,9 +260,11 @@ export default function Pricing() {
                   <Feature text="Unlimited active orders" />
                   <Feature text="Unlimited AI factory matcher" />
                   <Feature text="3 team seats" />
+                  <FeatureGroup label="Control" />
+                  <Feature text="Custom milestone structures" />
+                  <Feature text="White-label PDF exports" />
                   <FeatureGroup label="Intelligence" />
                   <Feature text="Production calendar" />
-                  <Feature text="Factory health alerts" />
                   <Feature text="Reorder intelligence" />
                   <Feature text="Analytics dashboard" />
                   <FeatureGroup label="Organisation" />

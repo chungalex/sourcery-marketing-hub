@@ -21,6 +21,7 @@ import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { OrderChatSummary } from "@/components/orders/OrderChatSummary";
 import { DisputeFiling } from "@/components/orders/DisputeFiling";
 import { ReorderIntelligence } from "@/components/orders/ReorderIntelligence";
+import { OrderExport } from "@/components/orders/OrderExport";
 import { FactoryReview } from "@/components/trust/FactoryReview";
 import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
 import { RevisionRounds } from "@/components/orders/RevisionRounds";
@@ -682,6 +683,20 @@ export default function OrderDetail() {
               <div className="lg:sticky lg:top-6 space-y-4">
                 <PlatformMessaging orderId={order.id} />
                 <OrderChatSummary orderId={order.id} />
+                <OrderExport
+                  order={{
+                    id: order.id,
+                    order_number: order.order_number,
+                    status: order.status,
+                    quantity: order.quantity,
+                    unit_price: order.unit_price,
+                    currency: order.currency,
+                    specifications: order.specifications,
+                    created_at: order.created_at,
+                    factories: order.factories,
+                  }}
+                  isPro={false}
+                />
 
                 {/* Order meta */}
                 <div className="bg-card border border-border rounded-xl p-4 space-y-3 text-sm">
