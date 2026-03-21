@@ -117,7 +117,7 @@ export default function Checkout() {
     <Layout>
       <SEO 
         title={`Subscribe to ${selectedPlan.name} | Sourcery`}
-        description="Complete your subscription to connect with verified manufacturers worldwide."
+        description="Complete your Sourcery subscription."
       />
 
       <section className="section-padding min-h-[80vh]">

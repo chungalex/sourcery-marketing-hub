@@ -157,7 +157,7 @@ export default function Auth() {
                 Welcome to Sourcery
               </h1>
               <p className="text-muted-foreground">
-                Connect with verified manufacturers worldwide
+                Find and manage your manufacturing relationships
               </p>
             </div>
 

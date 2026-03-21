@@ -243,7 +243,7 @@ export default function FactoryProfile() {
                     About
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    This factory specializes in high-quality manufacturing with years of experience serving global brands. They offer comprehensive services from design consultation to final production, with a strong focus on quality and sustainability.
+                    This factory is part of the Sourcery network. Full profile details available once connected.
                   </p>
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center bg-card/80 rounded-xl">

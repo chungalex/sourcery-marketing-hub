@@ -143,7 +143,7 @@ export default function Apply() {
     <Layout>
       <SEO 
         title="Apply as a Factory | Sourcery" 
-        description="Join our network of verified manufacturers. Showcase your capabilities to global brands."
+        description="Apply to join the Sourcery factory network. Connect with brands managing production on the platform."
       />
       
       <section className="section-padding">
@@ -159,7 +159,7 @@ export default function Apply() {
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Complete your application to showcase your manufacturing capabilities 
-              to brands worldwide.
+              to brands managing production through Sourcery.
             </p>
           </motion.div>
 

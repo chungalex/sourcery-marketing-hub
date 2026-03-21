@@ -42,7 +42,7 @@ const auditOptions: AuditOption[] = [
     type: "document",
     label: "Document Review",
     description: "Remote verification of business documents and certifications",
-    duration: "2-3 business days",
+    duration: "Standard turnaround",
     price: "Free",
     icon: FileText,
     includes: [
