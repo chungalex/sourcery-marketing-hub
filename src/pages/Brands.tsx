@@ -228,29 +228,7 @@ export default function Brands() {
         </div>
       </section>
 
-      {/* Who it's for */}
-      <section className="section-padding bg-card/50">
-        <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Built for any brand managing production.</h2>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {[
-                "Brands placing their first production order",
-                "Founders managing production over WhatsApp and email",
-                "Brands scaling past their first production run",
-                "Teams who need everyone working from the same system",
-                "Brands who have been burned before and want accountability",
-                "Designer brands moving to overseas production",
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-background border border-border">
-                  <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
-                  <span className="text-sm text-foreground">{item}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
+
 
       {/* Honest framing */}
       <section className="section-padding">

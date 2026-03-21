@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { SavingsCalculator } from "@/components/calculator/SavingsCalculator";
-import { ArrowRight, Shield } from "lucide-react";
+import { ArrowRight, Shield, Search, CheckCircle, AlertTriangle } from "lucide-react";
 
 const failures = [
   {
@@ -326,6 +326,92 @@ export default function WhySourcery() {
         </div>
       </section>
 
+      {/* The factory problem — marketplace section */}
+      <section className="section-padding border-y border-border bg-card/40">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="text-center mb-10">
+              <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+                The most common production disaster starts before the first order.
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Wrong factory. Wrong category, wrong quality standard, wrong communication style, wrong minimum. Starting with the wrong manufacturer doesn't just delay one order — it sets the template for everything that follows. Finding the right one is the problem most brands get the least help with.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-4 mb-10">
+              {[
+                {
+                  icon: AlertTriangle,
+                  title: "Wrong category",
+                  desc: "A factory that makes t-shirts is not the right factory for technical outerwear. But without real data, you don't find out until sampling — after you've wired a deposit.",
+                  color: "text-rose-600",
+                  bg: "bg-rose-500/8 border-rose-500/20",
+                },
+                {
+                  icon: AlertTriangle,
+                  title: "Wrong quality tier",
+                  desc: "Factories have real quality ceilings. A factory whose average QC pass rate is 78% will not consistently meet a premium brand's standard — regardless of what they tell you in the first email.",
+                  color: "text-amber-600",
+                  bg: "bg-amber-500/8 border-amber-500/20",
+                },
+                {
+                  icon: AlertTriangle,
+                  title: "No accountability",
+                  desc: "A factory without a public performance record has no incentive to prioritise your order, respond quickly, or resolve issues — because there's no consequence if they don't.",
+                  color: "text-amber-600",
+                  bg: "bg-amber-500/8 border-amber-500/20",
+                },
+              ].map((item, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className={`p-5 rounded-xl border ${item.bg}`}>
+                  <item.icon className={`h-5 w-5 ${item.color} mb-3`} />
+                  <h3 className="font-semibold text-foreground text-sm mb-2">{item.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="p-8 rounded-2xl bg-background border border-border">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <Search className="h-5 w-5 text-primary" />
+                    <p className="text-xs font-semibold text-primary uppercase tracking-wide">The Sourcery marketplace</p>
+                  </div>
+                  <h3 className="font-heading text-2xl font-bold text-foreground mb-4">
+                    Start with the right factory. The rest is much easier.
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Every factory in the network has verified credentials and a real performance score built from completed orders — QC pass rates, response times, defect history, brand retention. You see the full picture before you reach out.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed mb-6">
+                    Describe what you need in plain language. Get AI-matched to factories that actually fit your product type, order size, quality requirements, and timeline. Free to browse. Builder to contact.
+                  </p>
+                  <Link to="/marketplace">
+                    <Button className="gap-1.5">Explore the marketplace <ArrowRight className="h-4 w-4" /></Button>
+                  </Link>
+                </div>
+                <div className="space-y-3">
+                  {[
+                    { label: "Verified credentials before listing", done: true },
+                    { label: "Real QC pass rates from completed orders", done: true },
+                    { label: "Response times tracked on every active order", done: true },
+                    { label: "Defect history visible before you commit", done: true },
+                    { label: "AI-matched by product type, MOQ, certifications", done: true },
+                    { label: "Performance score compounds with every order", done: true },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-2.5">
+                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span className="text-sm text-foreground">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Honest close */}
       <section className="section-padding">
         <div className="container-tight">
@@ -351,7 +437,7 @@ export default function WhySourcery() {
               What does unstructured production cost you annually?
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-xl">
-              Enter your order volume. The calculator shows the estimated exposure from production failures — and what a Sourcery subscription costs across the same volume.
+              Enter your order volume. The calculator shows the estimated exposure from production failures — and what a Builder plan ($399/year) costs across the same volume.
             </p>
             <SavingsCalculator />
           </motion.div>

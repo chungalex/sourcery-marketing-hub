@@ -99,7 +99,7 @@ export default function Home() {
     <Layout>
       <SEO
         title="Sourcery — The Manufacturing OS for Physical Product Brands"
-        description="Production is hard to manage, hard to trust, and hard to scale. Sourcery brings everything into one place — so you move faster, make better decisions, and build with confidence."
+        description="Production is hard to manage, hard to trust, and hard to scale. Sourcery brings everything into one place — from finding the right factory to closing every order with a permanent record."
         canonical="/"
       />
 
@@ -116,13 +116,13 @@ export default function Home() {
                   The manufacturing OS for physical product brands.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
-                  Production is hard to manage, hard to trust, and hard to scale. Sourcery brings everything into one place — so you move faster, make better decisions, and build with confidence.
+                  Production is hard to manage, hard to trust, and hard to scale. Sourcery brings everything into one place — from finding the right factory to closing every order with a permanent record.
                 </p>
 
                 <div className="space-y-3 mb-8">
                   {[
+                    { gate: "Find the right factory", desc: "AI-matched from verified network data — or bring your own" },
                     { gate: "Sample gate", desc: "Bulk production cannot begin until sample is approved" },
-                    { gate: "Revision log", desc: "Every spec change formally acknowledged by factory" },
                     { gate: "QC gate", desc: "Final payment blocked until quality inspection passes" },
                   ].map(item => (
                     <div key={item.gate} className="flex items-start gap-3">

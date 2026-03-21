@@ -78,33 +78,47 @@ export default function HowItWorks() {
       {/* Steps */}
       <section className="section-padding">
         <div className="container-tight">
-          <div className="space-y-12">
-            {steps.map((step, i) => (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="grid md:grid-cols-[80px_1fr] gap-6 md:gap-10"
-              >
-                <div className="flex md:flex-col items-center md:items-start gap-4 md:gap-0">
-                  <div className="text-4xl font-bold text-primary/20 font-heading leading-none">
-                    {step.number}
-                  </div>
-                </div>
-                <div className="bg-card border border-border rounded-xl p-6">
-                  <h3 className="font-heading text-xl font-semibold text-foreground mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">{step.description}</p>
-                  {step.gate && (
-                    <div className="flex items-start gap-2 p-3 rounded-lg bg-primary/5 border border-primary/20">
-                      <Shield className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-foreground font-medium">{step.gate}</p>
+          <div className="space-y-6">
+            {steps.map((step, i) => {
+              const isGate = (step as any).isGate;
+              return (
+                <motion.div
+                  key={step.number}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  className="grid md:grid-cols-[80px_1fr] gap-6 md:gap-10"
+                >
+                  <div className="flex md:flex-col items-center md:items-start gap-4 md:gap-0">
+                    <div className={`text-4xl font-bold font-heading leading-none ${isGate ? "text-primary" : "text-primary/20"}`}>
+                      {step.number}
                     </div>
-                  )}
-                </div>
-              </motion.div>
-            ))}
+                    {isGate && (
+                      <div className="hidden md:flex items-center gap-1 mt-2">
+                        <Shield className="h-3 w-3 text-primary" />
+                        <span className="text-[10px] text-primary font-semibold uppercase tracking-wide">Gate</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className={`rounded-xl p-6 border ${isGate ? "bg-primary/3 border-primary/25" : "bg-card border-border"}`}>
+                    <div className="flex items-center gap-2 mb-3">
+                      <h3 className="font-heading text-xl font-semibold text-foreground">{step.title}</h3>
+                      {isGate && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary text-primary-foreground font-semibold uppercase tracking-wide flex-shrink-0">enforced</span>
+                      )}
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed mb-4">{step.description}</p>
+                    {step.gate && (
+                      <div className="flex items-start gap-2 p-3 rounded-lg bg-primary/8 border border-primary/20">
+                        <Shield className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        <p className="text-sm text-foreground font-medium">{step.gate}</p>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>

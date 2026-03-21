@@ -10,9 +10,9 @@ import { NotificationBell } from "@/components/notifications/NotificationBell";
 import { GlobalSearch } from "@/components/GlobalSearch";
 
 const navItems = [
-  { label: "For brands", href: "/brands" },
+  { label: "For Brands", href: "/brands" },
+  { label: "For Factories", href: "/factories" },
   { label: "Marketplace", href: "/marketplace" },
-  { label: "Features", href: "/features" },
   { label: "Why Sourcery", href: "/why-sourcery" },
   { label: "Pricing", href: "/pricing" },
 ];

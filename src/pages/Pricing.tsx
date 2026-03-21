@@ -64,7 +64,7 @@ function Feature({ text, coming }: { text: string; coming?: boolean }) {
         {tooltip && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Info className="h-3 w-3 text-muted-foreground/40 hover:text-muted-foreground cursor-help flex-shrink-0" />
+              <Info className="h-3.5 w-3.5 text-muted-foreground/60 hover:text-primary cursor-help flex-shrink-0" />
             </TooltipTrigger>
             <TooltipContent side="right" className="max-w-xs">
               <p className="text-xs leading-relaxed">{tooltip}</p>

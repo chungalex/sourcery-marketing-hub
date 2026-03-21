@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 const tiers = [
   { id: "free", label: "Free", color: "bg-secondary text-foreground border-border" },
   { id: "builder", label: "Builder", color: "bg-primary/10 text-primary border-primary/30" },
-  { id: "pro", label: "Pro", color: "bg-amber-500/10 text-amber-700 border-amber-400/30" },
+  { id: "pro", label: "Pro", color: "bg-amber-100 text-amber-900 border-amber-300" },
 ];
 
 const sections = [
@@ -276,7 +276,7 @@ export default function Features() {
                 {[
                   { label: "Free", sub: "1 order, full OS", cls: "bg-secondary border-border text-foreground" },
                   { label: "Builder", sub: "$399/year", cls: "bg-primary/10 border-primary/20 text-primary" },
-                  { label: "Pro", sub: "$699/year", cls: "bg-amber-500/10 border-amber-400/30 text-amber-700" },
+                  { label: "Pro", sub: "$699/year", cls: "bg-amber-100 border-amber-300 text-amber-900" },
                 ].map(t => (
                   <div key={t.label} className={cn("flex items-center gap-2 px-3 py-2 rounded-lg border text-sm font-medium", t.cls)}>
                     <span>{t.label}</span>
@@ -383,7 +383,7 @@ export default function Features() {
                           {feature.coming && (
                             <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-600 border border-amber-500/20 font-medium whitespace-nowrap">soon</span>
                           )}
-                          <span className={cn("text-[10px] px-2 py-0.5 rounded-full font-medium whitespace-nowrap", tier.className)}>
+                          <span className={cn("text-[10px] px-2 py-1 rounded-full font-semibold whitespace-nowrap", tier.className)}>
                             {tier.label}
                           </span>
                         </div>
