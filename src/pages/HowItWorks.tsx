@@ -9,7 +9,7 @@ const steps = [
   {
     number: "01",
     title: "Connect your factory",
-    description: "Invite your existing manufacturer or browse the Sourcery network. BYOF factories don't need approval — invite them and start immediately. The platform works the same either way.",
+    description: "Already have a factory? Invite them directly — no network approval needed, full platform immediately. Need to find one? Browse the Sourcery marketplace — vetted manufacturers with real performance scores, AI-matched to your product and requirements. Both paths use the same platform.",
     gate: null,
   },
   {
@@ -126,6 +126,48 @@ export default function HowItWorks() {
       {/* Protection features */}
       
 
+      {/* Marketplace path callout */}
+      <section className="section-padding bg-card/50 border-y border-border">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Don't have a factory yet?</p>
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+                  Step 01 starts in the marketplace.
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  The hardest part of production for most brands isn't managing orders — it's finding the right factory to begin with. The Sourcery marketplace shows you verified manufacturers with real performance data, AI-matched to your product type, MOQ, and timeline.
+                </p>
+                <p className="text-muted-foreground leading-relaxed mb-6 text-sm">
+                  Free to browse. See capabilities, certifications, and performance scores before you commit to anything. Factory names and contact details visible on Builder.
+                </p>
+                <div className="flex gap-3 flex-wrap">
+                  <Link to="/marketplace">
+                    <Button className="gap-1.5">Browse the marketplace <ArrowRight className="h-4 w-4" /></Button>
+                  </Link>
+                  <Link to="/directory">
+                    <Button variant="outline" className="gap-1.5">See all factories</Button>
+                  </Link>
+                </div>
+              </div>
+              <div className="space-y-3">
+                {[
+                  { q: "Already have a factory?", a: "Invite them directly — no network approval, full platform immediately." },
+                  { q: "Need to find one?", a: "Browse the marketplace, filter by category and requirements, get AI-matched." },
+                  { q: "Not sure yet?", a: "Free to browse the full network. No commitment until you're ready to contact." },
+                ].map((item, i) => (
+                  <div key={i} className="p-4 rounded-xl bg-background border border-border">
+                    <p className="text-sm font-semibold text-foreground mb-1">{item.q}</p>
+                    <p className="text-sm text-muted-foreground">{item.a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Honest framing */}
       <section className="section-padding">
         <div className="container-tight">
@@ -145,9 +187,9 @@ export default function HowItWorks() {
       <section className="section-padding bg-card/50">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Ready to start?</h2>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Your first order is free.</h2>
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-              Free to get started. Bring your factory on in under 10 minutes.
+              Full infrastructure, no credit card, no time limit. Bring your factory or find one in the marketplace.
             </p>
             <div className="flex justify-center gap-3 flex-wrap">
               <Link to="/auth?mode=signup">
@@ -155,8 +197,8 @@ export default function HowItWorks() {
                   Get started free <ArrowRight className="w-5 h-5" />
                 </Button>
               </Link>
-              <Link to="/pricing">
-                <Button variant="hero-outline" size="xl">See pricing</Button>
+              <Link to="/marketplace">
+                <Button variant="hero-outline" size="xl">Browse factories</Button>
               </Link>
             </div>
           </motion.div>

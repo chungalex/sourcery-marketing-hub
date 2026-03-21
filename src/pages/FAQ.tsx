@@ -33,7 +33,19 @@ const faqSections = [
     faqs: [
       {
         q: "Do I have to use factories in your network?",
-        a: "No. Bring Your Own Factory is the primary entry point. Invite your existing manufacturer and manage every order on-platform immediately. The marketplace is available when you need to find a new manufacturing partner.",
+        a: "No. Bring Your Own Factory is the primary entry point. Invite your existing manufacturer and manage every order on-platform immediately. The marketplace is there when you need to find a new manufacturing partner — both paths work on the same platform.",
+      },
+      {
+        q: "How does the factory marketplace work?",
+        a: "Browse vetted manufacturers filtered by category, country, MOQ, lead time, and certifications. Every factory has a real performance score built from completed order data — QC pass rate, response time, defect history, brand retention. Free accounts see full capabilities, certifications, MOQ, and performance scores. Factory names and contact details are visible on Builder and above. This means you can confirm a factory is the right fit before upgrading to contact them.",
+      },
+      {
+        q: "How does the AI factory matcher work?",
+        a: "Describe what you need in plain language — product type, quantity, quality requirements, certifications, timeline, location preference. The AI reads real factory data from the network and returns ranked matches that actually fit your requirements — not a keyword search against titles. Available on Builder (10 searches/month) and Pro (unlimited).",
+      },
+      {
+        q: "What's the difference between BYOF and the marketplace?",
+        a: "BYOF (Bring Your Own Factory) is for brands who already have a manufacturer they work with. Invite them to the platform and manage every order on-platform immediately — no network membership required. The marketplace is for brands who need to find a new factory. Both paths use exactly the same order management, documentation, and payment infrastructure.",
       },
       {
         q: "I'm new to production. Will I understand what the platform is asking for?",

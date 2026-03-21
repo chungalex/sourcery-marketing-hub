@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
-import { ArrowRight, Check, X } from "lucide-react";
+import { ArrowRight, Check, X, CheckCircle } from "lucide-react";
 
 export default function About() {
   return (
@@ -51,6 +51,9 @@ export default function About() {
               <p>
                 Sourcery is the system of record. Every order, revision, sample, defect, and payment — documented, timestamped, and attached to the right place. Not a directory. Not an agency. Infrastructure that walks you through the process, keeps everything organised, and gives you the confidence to build your company around production instead of in spite of it.
               </p>
+              <p>
+                The platform has two equally important halves. The OS manages every order from PO creation to closed delivery. The marketplace helps brands find the right factory before the first order is ever placed — vetted manufacturers with real performance scores, AI-matched to your specific requirements. Finding the right factory is the problem most brands get the least help with. We built the infrastructure for that too.
+              </p>
             </motion.div>
 
             {/* Founder sidebar */}
@@ -73,6 +76,47 @@ export default function About() {
         </div>
       </section>
 
+      {/* Marketplace callout */}
+      <section className="py-0 pb-0">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="p-8 rounded-2xl bg-primary/3 border border-primary/20">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Factory marketplace</p>
+                  <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+                    The other half of the platform.
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Starting with the wrong factory is the single most common way production goes wrong — before a single order is placed. The Sourcery marketplace gives brands access to vetted manufacturers with verified credentials and real performance scores, AI-matched to their specific requirements. Because getting the production infrastructure right starts with getting the factory right.
+                  </p>
+                </div>
+                <div className="space-y-2.5">
+                  {[
+                    "Verified credentials — not just a listing",
+                    "Performance scores from real completed orders",
+                    "AI-matched to your product, MOQ, and timeline",
+                    "Free to browse — Builder to contact",
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-2.5">
+                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span className="text-sm text-foreground">{item}</span>
+                    </div>
+                  ))}
+                  <div className="pt-2">
+                    <Link to="/marketplace">
+                      <Button size="sm" variant="outline" className="gap-1.5 text-xs">
+                        Explore the marketplace <ArrowRight className="h-3.5 w-3.5" />
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* What it is and isn't */}
       <section className="section-padding bg-card/50 border-y border-border">
         <div className="container-tight">
@@ -84,7 +128,8 @@ export default function About() {
                 {[
                   "A manufacturing OS — infrastructure between your brand and your factory",
                   "BYOF-first — bring existing relationships, get value immediately",
-                  "A curated marketplace when you need to find a new manufacturing partner",
+                  "A curated marketplace with verified factories and real performance data",
+                  "AI-matched factory recommendations based on your actual requirements",
                   "Guidance through every decision in the production process",
                   "Built by operators, validated on real production",
                 ].map((item, i) => (

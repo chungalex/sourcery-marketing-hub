@@ -310,7 +310,8 @@ export default function Home() {
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <f.icon className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="font-heading font-semibold text-foreground mb-2">{f.title}</h3>
+                <h3 className="font-heading font-semibold text-foreground mb-0.5">{f.title}</h3>
+                <p className="text-xs text-primary font-medium mb-2">{(f as any).sub}</p>
                 <p className="text-muted-foreground text-sm leading-relaxed">{f.description}</p>
               </motion.div>
             ))}
@@ -362,31 +363,72 @@ export default function Home() {
             ))}
           </div>
 
-          <p className="text-sm text-muted-foreground text-center">
+          <p className="text-sm text-muted-foreground text-center mb-5">
             Every AI tool runs on real Sourcery data — factory profiles, performance scores, and anonymized order history. The more the network grows, the more accurate every tool becomes.
           </p>
+          <div className="text-center">
+            <Link to="/marketplace">
+              <Button variant="outline" size="sm" className="gap-1.5 text-xs">
+                Try AI factory matching → Builder <ArrowRight className="h-3.5 w-3.5" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Network */}
+      {/* Marketplace */}
       <section className="section-padding">
-        <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-6">
-              A network built on standards, not volume.
-            </h2>
-            <div className="space-y-4 text-muted-foreground leading-relaxed mb-8">
-              <p>
-                Factories enter the Sourcery network through an application and review process — credentials verified, certifications reviewed, production capability assessed based on submitted documentation and references. Once in the network, performance is tracked across every completed order.
+        <div className="container-wide">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-5">
+                Factory marketplace
+              </div>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-5">
+                Don't have a factory?<br />Find the right one here.
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                Finding the right factory is the hardest part of starting production — and the part brands get the least help with. The Sourcery marketplace shows you verified factories with real performance scores built from completed orders, not self-reported claims.
               </p>
-              <p>
-                High-performing factories receive featured placement and priority matching with new brands. Those that fall below threshold are removed. The network stays useful by staying selective.
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Describe what you need in plain language. Get AI-matched to factories that fit your product, quantity, certifications, and timeline. Free to browse. Builder to contact.
               </p>
-            </div>
-            <p className="text-sm text-muted-foreground italic border-l-2 border-border pl-4">
-              We recommend all brands conduct their own verification — including requesting samples and starting with smaller trial orders — regardless of network membership status.
-            </p>
-          </motion.div>
+              <div className="flex gap-3 flex-wrap">
+                <Link to="/marketplace">
+                  <Button className="gap-1.5">
+                    Explore the marketplace <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+                <Link to="/directory">
+                  <Button variant="outline" className="gap-1.5">Browse factories</Button>
+                </Link>
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+              <div className="bg-card border border-border rounded-2xl p-6">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Factory network standards</p>
+                <div className="space-y-3 mb-5">
+                  {[
+                    { label: "Credential review before listing", sub: "Certifications verified, capability assessed" },
+                    { label: "Performance score from real orders", sub: "QC rates, response time, defect history, retention" },
+                    { label: "AI-matched by your requirements", sub: "Product type, MOQ, certifications, timeline" },
+                    { label: "Free to browse, Builder to contact", sub: "See full capabilities before you upgrade" },
+                    { label: "Factories with declining scores flagged", sub: "Network stays useful by staying selective" },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50 border border-border">
+                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-sm font-medium text-foreground">{item.label}</p>
+                        <p className="text-xs text-muted-foreground">{item.sub}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground italic">We recommend all brands request samples and start with smaller trial orders regardless of network membership status.</p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -412,7 +454,7 @@ export default function Home() {
                   required
                 />
                 <Button type="submit" disabled={capturing}>
-                  {capturing ? <Loader2 className="h-4 w-4 animate-spin" /> : <>Get early access <ArrowRight className="ml-2 h-4 w-4" /></>}
+                  {capturing ? <Loader2 className="h-4 w-4 animate-spin" /> : <>Get started free <ArrowRight className="ml-2 h-4 w-4" /></>}
                 </Button>
               </form>
             ) : (
