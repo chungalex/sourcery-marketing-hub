@@ -84,22 +84,72 @@ export default function WhySourcery() {
         description="A measurement error. A lost spec change. A post-payment defect. A wrong factory. Here's what each one costs — in dollars — and the gate Sourcery puts in the way."
       />
 
-      {/* Hero */}
+      {/* Hero — emotional hook */}
       <section className="section-padding bg-[var(--hero-gradient)]">
         <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-              What does a production mistake actually cost you?
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl">
+            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+              Production is one of the hardest things you'll do as a brand.
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Not in abstract terms. In dollars, delays, and leverage. Four failure types that happen on real orders — and the gate Sourcery puts in the way of each one.
-            </p>
+            <div className="space-y-4 text-xl text-muted-foreground leading-relaxed max-w-2xl">
+              <p>
+                You're coordinating across time zones in languages you might not speak. Wiring money to manufacturers you've met once, or never. Making decisions — incoterms, AQL standards, QC options — that nobody taught you. Managing specs across WhatsApp threads, email chains, and Google Drive folders, hoping the factory is building from the right version.
+              </p>
+              <p>
+                Most of the time, it works. When it doesn't — and it doesn't, for most brands, at some point — you find out how much it costs to have no system. No paper trail. No leverage. No record of what was actually agreed.
+              </p>
+              <p className="text-foreground font-medium">
+                Sourcery exists for that moment. And for the thousand smaller ones before it.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* What Sourcery protects against — overview */}
+      <section className="section-padding border-b border-border">
+        <div className="container-wide">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+              {[
+                { label: "Find the right factory", sub: "Verified credentials. Performance tracking. AI-matched to your requirements.", color: "border-primary/30 bg-primary/5" },
+                { label: "Structure every order", sub: "Guided PO creation. Sample gate. Revision rounds. Tech pack versioning.", color: "border-border bg-card" },
+                { label: "Gate every payment", sub: "Milestone-gated. Sample approved before bulk. QC passed before final release.", color: "border-border bg-card" },
+                { label: "Build a permanent record", sub: "Every decision timestamped. Every order searchable. Your paper trail, built automatically.", color: "border-border bg-card" },
+              ].map((item, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className={`p-5 rounded-xl border ${item.color}`}>
+                  <p className="font-semibold text-foreground text-sm mb-2">{item.label}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.sub}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Scenario navigator */}
+            <div className="mb-4">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">What it costs when these aren't in place</p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {[
+                  { num: "01", type: "The measurement error", cost: "Up to $3,000+", anchor: "scenario-01" },
+                  { num: "02", type: "The lost spec change", cost: "Up to $15,000", anchor: "scenario-02" },
+                  { num: "03", type: "The post-payment defect", cost: "Up to $3,000+", anchor: "scenario-03" },
+                  { num: "04", type: "The wrong factory", cost: "Up to $15,000", anchor: "scenario-04" },
+                ].map((s, i) => (
+                  <a key={i} href={`#${s.anchor}`} className="group p-4 rounded-xl bg-background border border-border hover:border-destructive/30 hover:bg-destructive/5 transition-colors cursor-pointer block">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-xs text-muted-foreground">{s.num}</span>
+                      <span className="text-xs font-semibold text-destructive">{s.cost}</span>
+                    </div>
+                    <p className="text-sm font-medium text-foreground group-hover:text-foreground">{s.type}</p>
+                  </a>
+                ))}
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Four failure scenarios */}
-      <section className="section-padding">
+      <section className="section-padding scroll-mt-20" id="scenarios">
         <div className="container-wide">
           <div className="space-y-12">
             {failures.map((f, i) => (
@@ -110,6 +160,7 @@ export default function WhySourcery() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.04 }}
                 className="bg-card border border-border rounded-2xl overflow-hidden"
+                id={`scenario-0${i + 1}`}
               >
                 {/* Header */}
                 <div className="p-6 md:p-8 border-b border-border">
