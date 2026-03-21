@@ -429,6 +429,131 @@ export default function WhySourcery() {
         </div>
       </section>
 
+      {/* Marketplace case study */}
+      <section className="section-padding bg-card/50 border-y border-border">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+              <p className="text-xs font-semibold text-primary uppercase tracking-wide">Marketplace scenario</p>
+            </div>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-2">
+              The most expensive mistake happens before the first order.
+            </h2>
+            <p className="text-muted-foreground mb-10 max-w-xl">
+              Wrong factory. Wrong category fit, wrong quality standard, wrong communication. Most brands only find out after the deposit is wired.
+            </p>
+
+            {/* Before / With Sourcery columns */}
+            <div className="grid md:grid-cols-2 gap-6 mb-10">
+              {/* Before */}
+              <div className="rounded-2xl border border-border bg-background p-6">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-5">Without the marketplace</p>
+                <div className="space-y-5">
+                  {[
+                    {
+                      stage: "Finding a factory",
+                      what: "Instagram DM. Cold referral from a friend of a friend. A directory listing with a logo and a WhatsApp number.",
+                      cost: "No data. No track record. No way to know if they've ever successfully produced your category at your quality level.",
+                    },
+                    {
+                      stage: "Evaluating fit",
+                      what: "You send a message and wait. Maybe they respond quickly. Maybe they don't. You have no benchmark to judge by.",
+                      cost: "Three weeks of back-and-forth to discover the factory's MOQ is 5× what you need and their QC pass rate is 74%.",
+                    },
+                    {
+                      stage: "Committing",
+                      what: "You wire a 30% deposit because the samples looked fine and your gut said yes.",
+                      cost: "Bulk production begins. Six weeks later, defects across 40% of units. Factory disputes your spec version. No paper trail.",
+                    },
+                    {
+                      stage: "The cost",
+                      what: "Rework at $4–6/unit on 500 units. Season potentially missed. Deposit non-recoverable.",
+                      cost: "$2,000–$15,000. And you still don't have a reliable factory.",
+                      highlight: true,
+                    },
+                  ].map((item, i) => (
+                    <div key={i} className={`pl-4 border-l-2 ${item.highlight ? "border-rose-400" : "border-border"}`}>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">{item.stage}</p>
+                      <p className="text-sm text-foreground mb-1">{item.what}</p>
+                      <p className={`text-xs leading-relaxed ${item.highlight ? "text-rose-600 font-medium" : "text-muted-foreground"}`}>{item.cost}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* With Sourcery */}
+              <div className="rounded-2xl border border-primary/30 bg-primary/5 p-6">
+                <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-5">With the Sourcery marketplace</p>
+                <div className="space-y-5">
+                  {[
+                    {
+                      stage: "Finding a factory",
+                      what: "\"Premium denim outerwear, 300–500 units, 12-week lead time, Vietnam preferred, GOTS certified if possible.\"",
+                      result: "AI matcher returns 3 ranked factories. Category verified. Certifications confirmed. Real performance scores from completed orders.",
+                    },
+                    {
+                      stage: "Evaluating fit",
+                      what: "HU LA Studios: 9.4/10 score. 98% QC pass rate. Average response time under 8 hours. 91% brand retention — meaning 9 in 10 brands reorder.",
+                      result: "You know this before reaching out. Not after a 3-week conversation.",
+                    },
+                    {
+                      stage: "Committing",
+                      what: "You contact the factory through the platform. Inquiry logged. Order created with structured PO — spec versioned, AQL set, milestone gates in place.",
+                      result: "Deposit released only after PO accepted. Sample gate enforced. Final payment gated behind QC pass.",
+                    },
+                    {
+                      stage: "The outcome",
+                      what: "Sample approved. Bulk production begins with the correct spec version confirmed. QC passes. Final payment released.",
+                      result: "Order closed. Permanent record. Reorder in one click.",
+                      highlight: true,
+                    },
+                  ].map((item, i) => (
+                    <div key={i} className={`pl-4 border-l-2 ${item.highlight ? "border-primary" : "border-primary/20"}`}>
+                      <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">{item.stage}</p>
+                      <p className="text-sm text-foreground mb-1">{item.what}</p>
+                      <p className={`text-xs leading-relaxed ${item.highlight ? "text-primary font-medium" : "text-muted-foreground"}`}>{(item as any).result}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Summary callout */}
+            <div className="p-6 rounded-xl bg-background border border-border">
+              <div className="grid md:grid-cols-3 gap-6 text-center">
+                {[
+                  { label: "Deposit wired blind", before: "30% with no performance data", after: "Released after PO acceptance + milestone gate" },
+                  { label: "Factory QC rate", before: "Unknown until bulk arrives", after: "Visible before you reach out" },
+                  { label: "Cost of wrong factory", before: "$2,000–$15,000 to find out", after: "Confirmed fit before the first order" },
+                ].map((row, i) => (
+                  <div key={i}>
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">{row.label}</p>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 justify-center">
+                        <span className="text-rose-500 text-xs">✕</span>
+                        <span className="text-xs text-muted-foreground">{row.before}</span>
+                      </div>
+                      <div className="flex items-center gap-2 justify-center">
+                        <span className="text-green-600 text-xs">✓</span>
+                        <span className="text-xs text-foreground font-medium">{row.after}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="text-center mt-8">
+              <Link to="/marketplace">
+                <Button className="gap-1.5">Browse the factory network <ArrowRight className="h-4 w-4" /></Button>
+              </Link>
+              <p className="text-xs text-muted-foreground mt-3">Free to browse. Factory names and contact on Builder.</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Savings calculator */}
       <section className="section-padding">
         <div className="container-tight">
