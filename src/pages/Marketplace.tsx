@@ -5,14 +5,6 @@ import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Search, Sparkles, BarChart3, GitCompare, Lock, Building2, Shield } from "lucide-react";
 
-const performanceMetrics = [
-  { label: "QC pass rate", desc: "% of orders passing quality inspection" },
-  { label: "Response time", desc: "Average response to brand messages" },
-  { label: "On-time delivery", desc: "Orders delivered within agreed window" },
-  { label: "Defect rate", desc: "Defect reports per completed order" },
-  { label: "Brand retention", desc: "% of brands that reorder" },
-];
-
 const categories = ["Apparel", "Denim", "Outerwear", "Knitwear", "Accessories", "Footwear", "Bags", "Home goods", "Soft goods"];
 
 export default function Marketplace() {
@@ -161,11 +153,7 @@ export default function Marketplace() {
                         <p className="text-xs text-primary font-semibold">{f.match} match</p>
                         <p className="text-xs text-muted-foreground">Score: {f.score}</p>
                       </div>
-                      {i > 0 && (
-                        <div className="absolute ml-2">
-                          <Lock className="h-3 w-3 text-muted-foreground" />
-                        </div>
-                      )}
+
                     </div>
                   ))}
                 </div>
