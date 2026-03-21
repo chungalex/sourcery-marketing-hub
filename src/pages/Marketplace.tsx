@@ -3,16 +3,53 @@ import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Search, Sparkles, BarChart3, GitCompare, Lock, Building2, Shield } from "lucide-react";
+import { ArrowRight, CheckCircle, Search, Sparkles, BarChart3, Lock, Building2, Shield } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const categories = ["Apparel", "Denim", "Outerwear", "Knitwear", "Accessories", "Footwear", "Bags", "Home goods", "Soft goods"];
+
+const scoreMetrics = [
+  { label: "QC pass rate", val: "98%", w: 98 },
+  { label: "Response time", val: "< 8hr", w: 92 },
+  { label: "On-time delivery", val: "96%", w: 96 },
+  { label: "Brand retention", val: "91%", w: 91 },
+  { label: "Defect rate", val: "Low", w: 88 },
+];
+
+const whyPoints = [
+  "Performance scores built from real order data — not self-reported",
+  "Credential review and certification verification before listing",
+  "Factories with declining scores are flagged automatically",
+  "Every inquiry and order managed on the same platform",
+];
+
+const aiMatches = [
+  { name: "HU LA Studios", loc: "Vietnam", score: "9.4", match: "98%", locked: false },
+  { name: "████████ Co.", loc: "Vietnam", score: "8.9", match: "94%", locked: true },
+  { name: "████████ Ltd.", loc: "Portugal", score: "8.6", match: "87%", locked: true },
+];
+
+const scoreCards = [
+  { icon: BarChart3, title: "QC pass rate", desc: "What % of orders pass quality inspection on first submission. Calculated from every completed order." },
+  { icon: Search, title: "Response time", desc: "Average time to respond to brand messages on active orders. Tracked automatically." },
+  { icon: CheckCircle, title: "On-time delivery", desc: "Orders delivered within the agreed window. Logged against every closed order." },
+  { icon: Shield, title: "Defect rate", desc: "Defect reports per completed order. Factories must respond to every report." },
+  { icon: Building2, title: "Brand retention", desc: "% of brands that place a second order. The strongest signal of real satisfaction." },
+  { icon: BarChart3, title: "Score transparency", desc: "Factories see their full breakdown. Declining trends trigger alerts before they become problems." },
+];
+
+const freeTierItems = ["Category + capabilities", "MOQ and lead time", "Certifications", "Performance score", "Country"];
+const freeTierLocked = ["Factory name", "City", "Contact details"];
+const builderTierItems = ["Everything above", "Factory name", "City", "Contact directly", "Request quotes"];
+
+const factoryPerks = ["Join and list — free", "Receive and manage orders — free", "Build a verified performance score", "Priority AI matching as your score grows"];
 
 export default function Marketplace() {
   return (
     <Layout>
       <SEO
         title="Factory Marketplace — Sourcery"
-        description="Find vetted manufacturers with real performance scores. Or bring your own factory. Either way, all production runs on the same platform."
+        description="Find vetted manufacturers with real performance scores. Or bring your own factory. Both paths run on the same platform."
       />
 
       {/* Hero */}
@@ -28,15 +65,13 @@ export default function Marketplace() {
                 Or bring the one you have.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                Browse vetted manufacturers with real performance scores. Get AI-matched to the right factory for your product. Or invite your existing manufacturer and manage every order on the same platform. Both paths. Same infrastructure.
+                Browse vetted manufacturers with real performance scores. Get AI-matched to the right factory for your product. Or invite your existing manufacturer and manage every order on the same platform.
               </p>
-
-              {/* Two paths */}
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="p-6 rounded-2xl bg-background border-2 border-primary">
                   <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Looking for a factory</p>
                   <h3 className="font-semibold text-foreground text-lg mb-2">Browse the network</h3>
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">Vetted, verified manufacturers with real performance data. Search by category, location, MOQ, certifications.</p>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">Vetted, verified manufacturers with real performance data.</p>
                   <Link to="/directory">
                     <Button className="gap-1.5 text-sm">Browse factories <ArrowRight className="h-4 w-4" /></Button>
                   </Link>
@@ -44,7 +79,7 @@ export default function Marketplace() {
                 <div className="p-6 rounded-2xl bg-background border border-border">
                   <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Already have a factory</p>
                   <h3 className="font-semibold text-foreground text-lg mb-2">Bring your own</h3>
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">Invite your manufacturer directly. They get a free account. Full OS, same platform, no network required.</p>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">Invite your manufacturer directly. Free account. Full OS immediately.</p>
                   <Link to="/auth?mode=signup">
                     <Button variant="outline" className="gap-1.5 text-sm">Get started free <ArrowRight className="h-4 w-4" /></Button>
                   </Link>
@@ -55,7 +90,7 @@ export default function Marketplace() {
         </div>
       </section>
 
-      {/* Why the marketplace */}
+      {/* Why */}
       <section className="section-padding">
         <div className="container-wide">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -64,18 +99,13 @@ export default function Marketplace() {
                 Finding the right factory is hard.<br />Trusting one is harder.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Most factory directories show you a name and a location. Sourcery shows you a factory's complete production record — every QC result, every defect report, every response time, built from real completed orders. You can confirm a factory is the right fit before you even reach out.
+                Most directories show you a name and a location. Sourcery shows you a factory's complete production record — every QC result, every defect report, every response time, built from real completed orders.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                And once you place an order, everything — the order creation, sampling, revision rounds, QC, payments — runs through the same platform that sourced them. No handover, no starting over.
+                Once you find the right one, everything — order creation, sampling, revision rounds, QC, payments — runs through the same platform. No handover, no starting over.
               </p>
               <div className="space-y-2.5">
-                {[
-                  "Performance scores built from real order data — not self-reported",
-                  "Credential review and certification verification before listing",
-                  "Factories with disputes or declining scores are flagged automatically",
-                  "Every inquiry and order managed on the same platform",
-                ].map((item, i) => (
+                {whyPoints.map((item, i) => (
                   <div key={i} className="flex items-start gap-2.5">
                     <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-foreground">{item}</span>
@@ -84,7 +114,6 @@ export default function Marketplace() {
               </div>
             </motion.div>
 
-            {/* Score card visual */}
             <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
               <div className="bg-card border border-border rounded-2xl p-6">
                 <div className="flex items-center justify-between mb-5">
@@ -99,13 +128,7 @@ export default function Marketplace() {
                   </div>
                 </div>
                 <div className="space-y-2.5">
-                  {[
-                    { label: "QC pass rate", val: "98%", w: 98 },
-                    { label: "Response time", val: "< 8hr", w: 92 },
-                    { label: "On-time delivery", val: "96%", w: 96 },
-                    { label: "Brand retention", val: "91%", w: 91 },
-                    { label: "Defect rate", val: "Low", w: 88 },
-                  ].map((m) => (
+                  {scoreMetrics.map((m) => (
                     <div key={m.label}>
                       <div className="flex items-center justify-between text-xs mb-1">
                         <span className="text-muted-foreground">{m.label}</span>
@@ -139,21 +162,16 @@ export default function Marketplace() {
                   <p className="text-sm text-foreground italic">"Premium denim outerwear, 300–500 units, 12-week lead time, prefer Vietnam, GOTS certified if possible"</p>
                 </div>
                 <div className="space-y-2.5">
-                  {[
-                    { name: "HU LA Studios", loc: "Vietnam", score: "9.4", match: "98%" },
-                    { name: "████████ Co.", loc: "Vietnam", score: "8.9", match: "94%" },
-                    { name: "████████ Ltd.", loc: "Portugal", score: "8.6", match: "87%" },
-                  ].map((f, i) => (
-                    <div key={i} className={`flex items-center justify-between p-3 rounded-lg border ${i === 0 ? "border-primary/30 bg-primary/3" : "border-border bg-card"}`}>
+                  {aiMatches.map((f, i) => (
+                    <div key={i} className={cn("flex items-center justify-between p-3 rounded-lg border", i === 0 ? "border-primary/30 bg-primary/5" : "border-border bg-card")}>
                       <div>
-                        <p className={`text-sm font-medium ${i > 0 ? "blur-sm select-none" : "text-foreground"}`}>{f.name}</p>
+                        <p className={cn("text-sm font-medium", f.locked ? "blur-sm select-none text-foreground" : "text-foreground")}>{f.name}</p>
                         <p className="text-xs text-muted-foreground">{f.loc}</p>
                       </div>
                       <div className="text-right">
                         <p className="text-xs text-primary font-semibold">{f.match} match</p>
                         <p className="text-xs text-muted-foreground">Score: {f.score}</p>
                       </div>
-
                     </div>
                   ))}
                 </div>
@@ -167,10 +185,7 @@ export default function Marketplace() {
                 Describe what you need.<br />Get ranked matches.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Not a keyword search. Describe your product, quantity, timeline, and requirements in plain language. The AI reads real factory data — category expertise, order history, QC rates, certifications — and returns ranked matches that actually fit.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                The more orders completed on the platform, the better the matching gets. Every order adds to the real data the AI works from.
+                Not a keyword search. Describe your product, quantity, timeline, and requirements in plain language. The AI reads real factory data and returns ranked matches that actually fit.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
                 {categories.map(c => (
@@ -190,21 +205,14 @@ export default function Marketplace() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
             <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
-              Scores built from real orders.<br />Not claims.
+              Scores built from real orders. Not claims.
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Every factory's performance score is calculated from completed order data on the platform. No self-reporting. No paying for placement. The best-performing factories rank highest.
+              Every factory's score is calculated from completed order data. No self-reporting. No paying for placement. The best-performing factories rank highest.
             </p>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              { icon: BarChart3, title: "QC pass rate", desc: "What % of orders pass quality inspection on the first submission. Calculated from every completed order." },
-              { icon: Search, title: "Response time", desc: "Average time to respond to brand messages on active orders. Tracked on every order automatically." },
-              { icon: CheckCircle, title: "On-time delivery", desc: "Orders delivered within the agreed delivery window. Logged against every closed order." },
-              { icon: Shield, title: "Defect rate", desc: "Defect reports per completed order. Factories must respond to every report — it feeds directly into their score." },
-              { icon: Building2, title: "Brand retention", desc: "% of brands that place a second order with the same factory. The strongest signal of real satisfaction." },
-              { icon: GitCompare, title: "Score transparency", desc: "Factories see their full score breakdown. Declining trends trigger alerts before they become problems." },
-            ].map((item, i) => (
+            {scoreCards.map((item, i) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }} className="p-5 rounded-xl bg-card border border-border">
                 <item.icon className="h-5 w-5 text-primary mb-3" />
                 <h3 className="font-semibold text-foreground text-sm mb-1.5">{item.title}</h3>
@@ -215,7 +223,7 @@ export default function Marketplace() {
         </div>
       </section>
 
-      {/* Identity gating explained */}
+      {/* Identity gating */}
       <section className="section-padding bg-card/50 border-y border-border">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -225,45 +233,53 @@ export default function Marketplace() {
                   Confirm fit before you upgrade.
                 </h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  Free accounts can see every factory's capabilities, categories, certifications, MOQ, lead time, and performance scores. Factory names and contact details are visible on Builder and above.
+                  Free accounts see capabilities, certifications, MOQ, lead time, and performance scores. Factory names and contact details are visible on Builder and above.
                 </p>
                 <p className="text-muted-foreground leading-relaxed mb-6">
-                  This means you can browse the full network, filter by everything that matters, and confirm a factory is exactly what you need — before paying anything.
+                  Browse the full network and confirm a factory is exactly right before paying anything.
                 </p>
                 <Link to="/pricing">
                   <Button variant="outline" className="gap-1.5">See pricing <ArrowRight className="h-4 w-4" /></Button>
                 </Link>
               </div>
               <div className="space-y-3">
-                {[
-                  { label: "Free", items: ["Category + capabilities", "MOQ and lead time", "Certifications", "Performance score", "Country"], locked: ["Factory name", "City", "Contact details"] },
-                  { label: "Builder", items: ["Everything above", "Factory name", "City", "Contact directly", "Request quotes"], locked: [] },
-                ].map((tier) => (
-                  <div key={tier.label} className="p-4 rounded-xl bg-background border border-border">
-                    <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-2.5">{tier.label}</p>
-                    <div className="space-y-1.5">
-                      {tier.items.map(item => (
-                        <div key={item} className="flex items-center gap-2">
-                          <CheckCircle className="h-3.5 w-3.5 text-green-600 flex-shrink-0" />
-                          <span className="text-xs text-foreground">{item}</span>
-                        </div>
-                      ))}
-                      {tier.locked.map(item => (
-                        <div key={item} className="flex items-center gap-2">
-                          <Lock className="h-3.5 w-3.5 text-muted-foreground/40 flex-shrink-0" />
-                          <span className="text-xs text-muted-foreground/50">{item}</span>
-                        </div>
-                      ))}
-                    </div>
+                {/* Free tier */}
+                <div className="p-4 rounded-xl bg-background border border-border">
+                  <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-2.5">Free</p>
+                  <div className="space-y-1.5">
+                    {freeTierItems.map(item => (
+                      <div key={item} className="flex items-center gap-2">
+                        <CheckCircle className="h-3.5 w-3.5 text-green-600 flex-shrink-0" />
+                        <span className="text-xs text-foreground">{item}</span>
+                      </div>
+                    ))}
+                    {freeTierLocked.map(item => (
+                      <div key={item} className="flex items-center gap-2">
+                        <Lock className="h-3.5 w-3.5 text-muted-foreground/40 flex-shrink-0" />
+                        <span className="text-xs text-muted-foreground/50">{item}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+                {/* Builder tier */}
+                <div className="p-4 rounded-xl bg-background border border-border">
+                  <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-2.5">Builder</p>
+                  <div className="space-y-1.5">
+                    {builderTierItems.map(item => (
+                      <div key={item} className="flex items-center gap-2">
+                        <CheckCircle className="h-3.5 w-3.5 text-green-600 flex-shrink-0" />
+                        <span className="text-xs text-foreground">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* For factories callout */}
+      {/* For factories */}
       <section className="section-padding">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-card border border-border">
@@ -272,11 +288,11 @@ export default function Marketplace() {
                 <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">For factories</p>
                 <h2 className="font-heading text-2xl font-bold text-foreground mb-3">Join the network free.</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  Free to join, free to list, free to receive orders. Build a public performance record that compounds with every order. The best-performing factories get featured placement and priority AI matching.
+                  Free to join, free to list, free to receive orders. Build a public performance record that compounds with every order.
                 </p>
               </div>
-              <div className="space-y-2">
-                {["Join and list — free", "Receive and manage orders — free", "Build a verified performance score", "Priority AI matching as your score grows"].map((item, i) => (
+              <div className="space-y-2.5">
+                {factoryPerks.map((item, i) => (
                   <div key={i} className="flex items-center gap-2.5">
                     <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
                     <span className="text-sm text-foreground">{item}</span>
@@ -284,7 +300,7 @@ export default function Marketplace() {
                 ))}
                 <div className="pt-2">
                   <Link to="/factories">
-                    <Button variant="outline" size="sm" className="gap-1.5 text-xs">Learn more about factories <ArrowRight className="h-3.5 w-3.5" /></Button>
+                    <Button variant="outline" size="sm" className="gap-1.5 text-xs">Learn more <ArrowRight className="h-3.5 w-3.5" /></Button>
                   </Link>
                 </div>
               </div>
@@ -301,7 +317,7 @@ export default function Marketplace() {
               Find your factory. Then manage everything.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-              The marketplace and the OS are the same platform. Find a factory here, manage every order on the same system. No switching, no starting over.
+              The marketplace and the OS are the same platform. Find a factory here, manage every order on the same system.
             </p>
             <div className="flex justify-center gap-3 flex-wrap">
               <Link to="/directory">
