@@ -289,6 +289,24 @@ export default function Features() {
         </div>
       </section>
 
+      {/* Mobile category nav */}
+      <div className="lg:hidden border-b border-border bg-background sticky top-16 z-10">
+        <div className="container-wide overflow-x-auto">
+          <div className="flex gap-1 py-2 w-max">
+            {sections.map(s => (
+              <button
+                key={s.id}
+                onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs whitespace-nowrap text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+              >
+                <s.icon className="h-3 w-3 flex-shrink-0" />
+                {s.category}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Sticky nav + content */}
       <div className="flex gap-0 container-wide py-12">
 
@@ -346,7 +364,7 @@ export default function Features() {
               </div>
 
               {/* Feature cards grid */}
-              <div className="grid sm:grid-cols-2 gap-3 mt-5">
+              <div className="grid sm:grid-cols-2 gap-3 mt-5 [&>*]:max-w-none">
                 {section.features.map((feature, fi) => {
                   const tier = tierConfig[feature.tier as keyof typeof tierConfig];
                   return (

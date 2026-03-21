@@ -22,7 +22,7 @@ const steps = [
     number: "03",
     title: "Sample approval gate",
     description: "Factory submits sample with photos and measurements. You approve — or request a formal revision the factory must acknowledge. You know exactly what you approved and have a permanent record of it.",
-    gate: "Bulk production cannot begin until sample is approved. This gate is enforced by the platform.",
+    gate: "Bulk production cannot begin until sample is approved. This gate is enforced by the platform.", isGate: true,
   },
   {
     number: "04",
@@ -34,7 +34,7 @@ const steps = [
     number: "05",
     title: "QC gates the final payment",
     description: "QC logged with photos and defect reports. Final payment blocked until it passes. In a dispute, your full order record — every message, revision, defect — is your leverage. You built it automatically, just by using the platform.",
-    gate: "Final milestone cannot release without QC pass. You control every payment release — nothing moves without your confirmation.",
+    gate: "Final milestone cannot release without QC pass. You control every payment release — nothing moves without your confirmation.", isGate: true,
   },
   {
     number: "06",
@@ -110,36 +110,7 @@ export default function HowItWorks() {
       </section>
 
       {/* Protection features */}
-      <section className="section-padding bg-card/50">
-        <div className="container-wide">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Every protection mechanism — explained
-            </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              The platform enforces these at the code level. They're not optional. They're not guidelines.
-            </p>
-          </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {protectionFeatures.map((f, i) => (
-              <motion.div
-                key={f.title}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="flex items-start gap-3 p-4 rounded-xl bg-background border border-border"
-              >
-                <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-semibold text-foreground text-sm">{f.title}</p>
-                  <p className="text-muted-foreground text-sm mt-0.5">{f.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* Honest framing */}
       <section className="section-padding">

@@ -182,6 +182,52 @@ export default function Brands() {
         </div>
       </section>
 
+      {/* Marketplace section — co-equal feature */}
+      <section className="section-padding">
+        <div className="container-wide">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Factory marketplace</p>
+              <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+                Don't have a factory yet?<br />Find one here.
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                Browse vetted manufacturers with real performance scores — QC pass rates, response times, defect history, brand retention — built from actual completed orders. Not self-reported claims.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Describe what you need in plain language and get AI-matched to factories that actually fit. Once you find the right one, every order runs on the same platform. No handover, no starting over.
+              </p>
+              <div className="flex gap-3 flex-wrap">
+                <Link to="/marketplace">
+                  <Button className="gap-1.5">Explore the marketplace <ArrowRight className="h-4 w-4" /></Button>
+                </Link>
+                <Link to="/directory">
+                  <Button variant="outline" className="gap-1.5">Browse factories</Button>
+                </Link>
+              </div>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+              <div className="space-y-3">
+                {[
+                  { title: "AI factory matcher", sub: "Describe your product. Get ranked matches from real network data.", tag: "Builder" },
+                  { title: "Verified performance scores", sub: "QC rates, response times, defect history — from real orders, not claims.", tag: "Free to browse" },
+                  { title: "Side-by-side comparison", sub: "Compare up to 3 factories on every metric before you commit.", tag: "Free to browse" },
+                  { title: "Identity gating", sub: "See capabilities and scores free. Names and contact on Builder.", tag: "Builder" },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start justify-between gap-4 p-4 rounded-xl bg-card border border-border">
+                    <div>
+                      <p className="text-sm font-semibold text-foreground mb-0.5">{item.title}</p>
+                      <p className="text-xs text-muted-foreground">{item.sub}</p>
+                    </div>
+                    <span className="text-[10px] px-2 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium whitespace-nowrap flex-shrink-0">{item.tag}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Who it's for */}
       <section className="section-padding bg-card/50">
         <div className="container-tight">

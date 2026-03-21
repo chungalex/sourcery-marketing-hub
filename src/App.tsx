@@ -18,6 +18,7 @@ import SpecLibrary from "./pages/SpecLibrary";
 import Analytics from "./pages/Analytics";
 import SupplierContacts from "./pages/SupplierContacts";
 import Features from "./pages/Features";
+import Marketplace from "./pages/Marketplace";
 import CaseStudies from "./pages/CaseStudies";
 import Consulting from "./pages/Consulting";
 import About from "./pages/About";
@@ -86,6 +87,7 @@ const App = () => (
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/contacts" element={<SupplierContacts />} />
             <Route path="/features" element={<Features />} />
+            <Route path="/marketplace" element={<Marketplace />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </ErrorBoundary>

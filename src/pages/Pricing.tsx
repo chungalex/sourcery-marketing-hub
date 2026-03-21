@@ -183,9 +183,10 @@ export default function Pricing() {
                   <div className="text-4xl font-bold text-foreground mb-2">$0</div>
                   <p className="text-sm text-muted-foreground leading-relaxed">Your first order. No commitment.</p>
                 </div>
-                <Link to="/auth?mode=signup" className="mb-8">
+                <Link to="/auth?mode=signup" className="mb-6">
                   <Button variant="outline" className="w-full">Get started free</Button>
                 </Link>
+                <p className="text-xs text-muted-foreground text-center mb-8">Produce occasionally? <Link to="#oneoff" className="text-primary hover:underline">See one-off pricing ↓</Link></p>
                 <div className="space-y-0 flex-1">
                   <FeatureGroup label="Infrastructure" />
                   <Feature text="Full production OS" />
@@ -250,19 +251,19 @@ export default function Pricing() {
                   <p className="text-xs text-muted-foreground">
                     {annual ? "$58/month — billed annually" : "or $699/year, save $119"}
                   </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-3">Teams running serious production operations at volume.</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mt-3">Custom payment structures, white-label documents, and unlimited scale for serious production operations.</p>
                 </div>
                 <Link to="/auth?mode=signup&plan=pro" className="mb-8">
                   <Button variant="outline" className="w-full">Get started <ArrowRight className="h-4 w-4 ml-1.5" /></Button>
                 </Link>
                 <div className="space-y-0 flex-1">
+                  <FeatureGroup label="Signature Pro features" />
+                  <Feature text="Custom milestone structures" />
+                  <Feature text="White-label PDF exports" />
                   <FeatureGroup label="Scale" />
                   <Feature text="Unlimited active orders" />
                   <Feature text="Unlimited AI factory matcher" />
                   <Feature text="3 team seats" />
-                  <FeatureGroup label="Control" />
-                  <Feature text="Custom milestone structures" />
-                  <Feature text="White-label PDF exports" />
                   <FeatureGroup label="Intelligence" />
                   <Feature text="Production calendar" />
                   <Feature text="Reorder intelligence" />

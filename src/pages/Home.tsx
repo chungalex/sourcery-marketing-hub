@@ -49,6 +49,12 @@ const features = [
     sub: "No more wondering if the factory is reliable.",
     description: "Every completed order builds a factory's real record — QC pass rate, response time, defect history. Not self-reported claims.",
   },
+  {
+    icon: Search,
+    title: "Factory marketplace",
+    sub: "Find the right factory. Or bring your own.",
+    description: "Browse vetted manufacturers with real performance data. AI-matched recommendations in plain language. Or invite your existing factory — same platform either way.",
+  },
 ];
 
 const aiTools = [
