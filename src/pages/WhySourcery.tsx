@@ -110,7 +110,7 @@ export default function WhySourcery() {
               Most production runs on tools that weren't built for it. WhatsApp for spec changes. Email for sample approvals. A bank portal for payments. When things work, it's fine. When they don't, there's no record, no structure, and no clear path forward.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
-              Sourcery is the infrastructure that makes production efficient, visible, and secure — whether you're on your first order or your fiftieth.
+              Sourcery is the infrastructure that makes production efficient, visible, and protected — so your time and your capital are both working for you.
             </p>
           </motion.div>
         </div>
@@ -196,6 +196,39 @@ export default function WhySourcery() {
                 <div className="w-1.5 h-1.5 rounded-full bg-primary mb-4" />
                 <h3 className="font-semibold text-foreground text-sm mb-2">{item.title}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">{item.body}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Capital */}
+      <section className="section-padding">
+        <div className="container-wide">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
+            <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Capital</p>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
+              Your capital moves on your terms. Not theirs.
+            </h2>
+            <p className="text-muted-foreground max-w-2xl leading-relaxed">
+              Every production order involves real money moving to a manufacturer before you've seen the finished product. Sourcery doesn't hold your funds — but it gives you something more valuable: a documented, platform-enforced structure that tells you exactly when each payment should move, and the paper trail to back you up if it doesn't.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-5">
+            {[
+              {
+                title: "Milestone-gated payments",
+                body: "Deposit, bulk production, final release — each gated behind a verified condition. Sample approved before bulk begins. QC passed before final release. You release each milestone manually. Nothing moves without your explicit confirmation.",
+              },
+              {
+                title: "Your paper trail, built automatically",
+                body: "Every message timestamped. Every revision acknowledged. Every defect logged with factory response. If you need to withhold a payment or escalate a dispute, the record is already there — built throughout the order, not assembled after the fact.",
+              },
+            ].map((item, i) => (
+              <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="p-6 rounded-xl bg-card border border-border">
+                <h3 className="font-semibold text-foreground mb-3">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
               </motion.div>
             ))}
           </div>
