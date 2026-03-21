@@ -51,7 +51,7 @@ export default function Brands() {
           </motion.div>
           <div className="grid md:grid-cols-2 gap-5">
             {/* Marketplace half */}
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-primary/3 border-2 border-primary/30 flex flex-col">
+            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-primary/5 border-2 border-primary/30 flex flex-col">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center">
                   <Search className="h-4 w-4 text-primary" />

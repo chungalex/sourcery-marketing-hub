@@ -80,7 +80,7 @@ export default function About() {
       <section className="py-0 pb-0">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="p-8 rounded-2xl bg-primary/3 border border-primary/20">
+            <div className="p-8 rounded-2xl bg-primary/5 border border-primary/20">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Factory marketplace</p>

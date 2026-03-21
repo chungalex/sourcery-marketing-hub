@@ -101,7 +101,7 @@ export default function HowItWorks() {
                       </div>
                     )}
                   </div>
-                  <div className={`rounded-xl p-6 border ${isGate ? "bg-primary/3 border-primary/25" : "bg-card border-border"}`}>
+                  <div className={`rounded-xl p-6 border ${isGate ? "bg-primary/5 border-primary/20" : "bg-card border-border"}`}>
                     <div className="flex items-center gap-2 mb-3">
                       <h3 className="font-heading text-xl font-semibold text-foreground">{step.title}</h3>
                       {isGate && (
@@ -110,7 +110,7 @@ export default function HowItWorks() {
                     </div>
                     <p className="text-muted-foreground leading-relaxed mb-4">{step.description}</p>
                     {step.gate && (
-                      <div className="flex items-start gap-2 p-3 rounded-lg bg-primary/8 border border-primary/20">
+                      <div className="flex items-start gap-2 p-3 rounded-lg bg-primary/10 border border-primary/20">
                         <Shield className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                         <p className="text-sm text-foreground font-medium">{step.gate}</p>
                       </div>

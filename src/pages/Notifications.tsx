@@ -166,7 +166,7 @@ export default function Notifications() {
                             className={cn(
                               "flex items-start gap-4 p-4 rounded-xl border transition-colors",
                               n.order_id ? "cursor-pointer hover:border-primary/40" : "",
-                              isUnread ? "bg-primary/3 border-primary/20" : "bg-card border-border"
+                              isUnread ? "bg-primary/5 border-primary/20" : "bg-card border-border"
                             )}
                           >
                             <div className={cn(

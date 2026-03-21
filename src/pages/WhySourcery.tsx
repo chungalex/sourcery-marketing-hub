@@ -142,7 +142,7 @@ export default function WhySourcery() {
                   </div>
 
                   {/* Right — the gate */}
-                  <div className="p-6 md:p-8 bg-primary/3 space-y-4">
+                  <div className="p-6 md:p-8 bg-primary/5 space-y-4">
                     <div className="flex items-center gap-2">
                       <Shield className="h-4 w-4 text-primary flex-shrink-0" />
                       <p className="text-xs font-medium text-primary uppercase tracking-wide">The Sourcery gate</p>

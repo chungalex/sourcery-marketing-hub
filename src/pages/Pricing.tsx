@@ -199,7 +199,7 @@ export default function Pricing() {
               {/* Builder */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.07 }}
-                className="rounded-2xl border-2 border-primary bg-primary/3 p-7 flex flex-col"
+                className="rounded-2xl border-2 border-primary bg-primary/5 p-7 flex flex-col"
               >
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-3">

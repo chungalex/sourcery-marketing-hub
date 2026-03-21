@@ -54,7 +54,7 @@ export function BrandOnboardingPrompt({ hasFactory, hasOrder }: BrandOnboardingP
           return (
             <div key={step.number} className={cn(
               "flex items-start gap-4 p-4 rounded-xl border transition-colors",
-              isActive && "bg-primary/3 border-primary/30",
+              isActive && "bg-primary/5 border-primary/30",
               isComplete && "bg-secondary/50 border-border",
               isPending && "border-border opacity-40"
             )}>
