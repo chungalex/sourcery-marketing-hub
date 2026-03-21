@@ -4,29 +4,33 @@ import { cn } from "@/lib/utils";
 const fmt = (n: number) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 
+const BUILDER_ANNUAL = 399;
+
 export function SavingsCalculator() {
   const [orderValue, setOrderValue] = useState(15000);
   const [ordersPerYear, setOrdersPerYear] = useState(4);
 
   const annualVolume = orderValue * ordersPerYear;
 
-  const measurementErrorRate  = 0.03;
-  const lostSpecChangeRate    = 0.05;
-  const postPaymentDefectRate = 0.08;
+  // Failure rate assumptions — conservative, based on scenarios documented on this page
+  const measurementErrorRate  = 0.03; // 3% of orders hit a rework/measurement issue
+  const lostSpecChangeRate    = 0.05; // 5% of orders have a disputed spec change
+  const postPaymentDefectRate = 0.08; // 8% of orders surface post-payment defects
 
   const annualMeasurementRisk = ordersPerYear * measurementErrorRate  * (orderValue * 0.18);
   const annualSpecRisk        = ordersPerYear * lostSpecChangeRate    * (orderValue * 0.40);
   const annualDefectRisk      = ordersPerYear * postPaymentDefectRate * (orderValue * 0.10);
   const totalExposure         = annualMeasurementRisk + annualSpecRisk + annualDefectRisk;
-  const sourceryFee           = annualVolume * 0.03;
-  const net                   = totalExposure - sourceryFee;
-  const isPositive            = net > 0;
+
+  const net        = totalExposure - BUILDER_ANNUAL;
+  const isPositive = net > 0;
 
   const sliderClass = "w-full h-1.5 rounded-full appearance-none bg-border cursor-pointer accent-primary";
 
   return (
     <div className="bg-card border border-border rounded-2xl p-6 space-y-8">
 
+      {/* Inputs */}
       <div className="grid sm:grid-cols-2 gap-6">
         <div>
           <div className="flex justify-between mb-2">
@@ -50,11 +54,13 @@ export function SavingsCalculator() {
         </div>
       </div>
 
+      {/* Annual volume */}
       <div className="flex items-center justify-between py-3 border-y border-border">
         <span className="text-sm text-muted-foreground">Annual production volume</span>
         <span className="text-base font-semibold text-foreground">{fmt(annualVolume)}</span>
       </div>
 
+      {/* Failure exposure */}
       <div className="space-y-3">
         <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Estimated annual failure exposure</p>
         {[
@@ -70,44 +76,46 @@ export function SavingsCalculator() {
             <span className="text-sm font-semibold text-rose-600 ml-4 flex-shrink-0">{fmt(row.val)}</span>
           </div>
         ))}
-        <div className="flex items-center justify-between p-3 rounded-lg bg-rose-500/8 border border-rose-500/20">
+        <div className="flex items-center justify-between p-3 rounded-lg bg-destructive/5 border border-destructive/20">
           <span className="text-sm font-semibold text-foreground">Total estimated exposure</span>
           <span className="text-base font-bold text-rose-600">{fmt(totalExposure)}</span>
         </div>
       </div>
 
+      {/* Sourcery cost — subscription, not percentage */}
       <div className="space-y-2">
         <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sourcery cost</p>
         <div className="flex items-center justify-between p-3 rounded-lg bg-primary/5 border border-primary/20">
           <div>
-            <p className="text-sm text-foreground">3% platform fee on all orders</p>
-            <p className="text-xs text-muted-foreground">Covers milestone gate enforcement, sampling gate, QC gating, and dispute infrastructure</p>
+            <p className="text-sm text-foreground">Builder plan — flat annual subscription</p>
+            <p className="text-xs text-muted-foreground">Milestone gate enforcement, sample gate, QC gating, dispute documentation, marketplace access</p>
           </div>
-          <span className="text-base font-bold text-primary ml-4 flex-shrink-0">{fmt(sourceryFee)}</span>
+          <span className="text-base font-bold text-primary ml-4 flex-shrink-0">{fmt(BUILDER_ANNUAL)}/yr</span>
         </div>
       </div>
 
+      {/* Net */}
       <div className={cn(
         "flex items-center justify-between p-4 rounded-xl border",
-        isPositive ? "bg-green-500/6 border-green-500/25" : "bg-card border-border"
+        isPositive ? "bg-primary/5 border-primary/20" : "bg-card border-border"
       )}>
         <div>
           <p className="text-sm font-semibold text-foreground">
-            {isPositive ? "Estimated annual exposure saved" : "Net cost at this volume"}
+            {isPositive ? "Estimated exposure protected vs. subscription cost" : "Net cost at this volume"}
           </p>
           <p className="text-xs text-muted-foreground mt-0.5">
             {isPositive
-              ? "Failure exposure mitigated by Sourcery gates vs. platform fee"
-              : "Fee exceeds estimated failure exposure at this volume"}
+              ? `$${BUILDER_ANNUAL}/year protects against ${fmt(totalExposure)} in estimated failure exposure`
+              : "Subscription exceeds estimated failure exposure at this volume — may still save significant time"}
           </p>
         </div>
-        <span className={cn("text-xl font-bold ml-4 flex-shrink-0", isPositive ? "text-green-600" : "text-foreground")}>
+        <span className={cn("text-xl font-bold ml-4 flex-shrink-0", isPositive ? "text-primary" : "text-foreground")}>
           {isPositive ? "+" : ""}{fmt(net)}
         </span>
       </div>
 
       <p className="text-xs text-muted-foreground leading-relaxed">
-        Failure rates and cost estimates are illustrative — based on the production scenarios documented above. Actual results vary by factory, product type, order size, and circumstances.
+        Failure rates and cost estimates are illustrative — based on the production scenarios documented on this page. Actual results vary by factory, product type, order size, and circumstances.
       </p>
     </div>
   );
