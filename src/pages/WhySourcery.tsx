@@ -49,66 +49,59 @@ export default function WhySourcery() {
   return (
     <Layout>
       <SEO
-        title="Why Sourcery — The infrastructure production has always needed"
-        description="Finding the right factory is terrifying. Managing what happens next is even harder. Sourcery solves both — before you lock in capital, and every step after."
+        title="Why Sourcery"
+        description="Building a product is one thing. Getting it made is something else entirely. Sourcery is the infrastructure production has always needed."
       />
 
-      {/* Hero — the real fear */}
+      {/* Hero — a feeling, not a problem */}
       <section className="section-padding bg-[var(--hero-gradient)]">
         <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="max-w-2xl">
-              <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
-                Finding the factory is where most brands freeze.
-              </h1>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-3 max-w-xl">
-                There's no clear way to start. You search, get referrals, DM strangers on Instagram. Then you wire thousands of dollars upfront to someone you've never met — before a single sample, before you know if they can actually do what you need — and you just hope.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
-                And that's just finding them. Then comes negotiating, tech packs, sampling, revision rounds, bulk production, QC, freight, customs, duties, disputes. A whole process nobody teaches you.
-              </p>
-              <p className="text-base font-semibold text-foreground mt-6">
-                Sourcery is the infrastructure for both problems.
-              </p>
-            </div>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
+            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+              Building a product is one thing.<br />Getting it made is something else entirely.
+            </h1>
+            <p className="text-lg text-muted-foreground leading-relaxed mb-3 max-w-xl">
+              There's no training for this. You find a factory through a referral or a DM, wire thousands before you see a single sample, and manage the whole process through WhatsApp and a folder that might have the right spec version. When something goes wrong, there's no record of what was agreed and no leverage to fix it.
+            </p>
+            <p className="text-base text-foreground font-medium mt-6">
+              That's not a skills problem. It's an infrastructure problem. Sourcery is what that infrastructure looks like.
+            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Two halves */}
+      {/* The two halves — stated plainly, no cards */}
       <section className="section-padding border-b border-border">
-        <div className="container-wide">
-          <div className="grid md:grid-cols-2 gap-5">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-7 rounded-2xl bg-primary/5 border border-primary/20">
+        <div className="container-tight">
+          <div className="grid md:grid-cols-2 gap-12">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <div className="flex items-center gap-2 mb-4">
-                <Search className="h-4 w-4 text-primary" />
+                <Search className="h-4 w-4 text-primary flex-shrink-0" />
                 <p className="text-xs font-semibold text-primary uppercase tracking-wide">The marketplace</p>
               </div>
-              <h2 className="font-heading text-xl font-bold text-foreground mb-3">Find the right factory before you commit to anything.</h2>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                Browse verified manufacturers with credentials you can check before reaching out. AI-matched to your product type, MOQ, certifications, and timeline. Performance records build with every order on the platform — so the longer a factory operates here, the more you can see.
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+                Find the right factory before you lock in a dollar.
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-5">
+                The hardest decision in production is committing capital before you have confidence. Sourcery shows you verified manufacturers — credentials confirmed, categories verified, performance tracked from every order on platform — before you reach out, before you wire anything. Start with information. Commit when you're sure.
               </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                The biggest fear in sourcing is locking in capital before you know if the factory is right. The marketplace means you can confirm fit before you commit to anything.
-              </p>
-              <Link to="/marketplace" className="inline-block mt-5">
-                <Button size="sm" className="gap-1.5 text-xs">Browse factory network <ArrowRight className="h-3.5 w-3.5" /></Button>
+              <Link to="/marketplace">
+                <Button size="sm" variant="outline" className="gap-1.5 text-xs">Browse factory network <ArrowRight className="h-3.5 w-3.5" /></Button>
               </Link>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.07 }} className="p-7 rounded-2xl bg-card border border-border">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.08 }}>
               <div className="flex items-center gap-2 mb-4">
-                <Shield className="h-4 w-4 text-primary" />
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">The production OS</p>
+                <Shield className="h-4 w-4 text-primary flex-shrink-0" />
+                <p className="text-xs font-semibold text-primary uppercase tracking-wide">The production OS</p>
               </div>
-              <h2 className="font-heading text-xl font-bold text-foreground mb-3">Replace the stack with something built for production.</h2>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                Guided order creation, versioned specs, formal revision rounds, milestone-gated payments, QC documentation, defect reports, message translation, and a permanent record of every order. Works for a first-time founder learning the process and a team running 20 orders a year.
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+                Manage every order with a system built for it.
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-5">
+                From PO creation to closed delivery — every spec versioned, every revision acknowledged, every payment gated behind a verified condition, every defect documented with a timestamp. Whether you're on your first order or your fiftieth, the platform enforces the structure and builds the record automatically.
               </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Not another tool bolted on top of the stack. The infrastructure that replaces it.
-              </p>
-              <Link to="/how-it-works" className="inline-block mt-5">
+              <Link to="/how-it-works">
                 <Button size="sm" variant="outline" className="gap-1.5 text-xs">See how it works <ArrowRight className="h-3.5 w-3.5" /></Button>
               </Link>
             </motion.div>
@@ -116,42 +109,16 @@ export default function WhySourcery() {
         </div>
       </section>
 
-      {/* What nobody teaches you — the full journey */}
+      {/* The scenarios — while emotional temperature is highest */}
       <section className="section-padding">
-        <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
-              Every stage of production has a question most brands are figuring out as they go.
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              Whether it's your first order or your fiftieth, there are decisions in every production run that carry real financial risk. Sourcery surfaces the right information at the right moment — so you're making informed decisions at every stage, not discovering what you should have done after something goes wrong.
-            </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {[
-                { stage: "Finding a factory", q: "Where do I even start? How do I evaluate fit before wiring a deposit? What's a reasonable MOQ?", a: "Vetted network with verified credentials. AI-matched to your actual requirements." },
-                { stage: "Negotiating", q: "What's a fair price? What should I push back on? What terms actually protect me?", a: "Structured PO creation with guidance at every field. You know what you're agreeing to." },
-                { stage: "Tech packs & specs", q: "What goes in a tech pack? Which version is the factory building from?", a: "Versioned spec management. Factory confirms the version they're building from." },
-                { stage: "Sampling", q: "How many rounds is normal? What constitutes a passing sample? How do I ensure this scales to bulk?", a: "Formal sample gate. Bulk cannot begin until sample is approved on platform." },
-                { stage: "Quality control", q: "Do I need a third party? What's AQL? What defect rate is acceptable?", a: "AQL explained before you choose. QC documented and gated against final payment." },
-                { stage: "Payments & leverage", q: "When do I pay? What if something goes wrong after I wire the final amount?", a: "Milestone-gated payments. Final release blocked until QC passes. You hold the keys." },
-              ].map((item, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }} className="p-5 rounded-xl bg-card border border-border">
-                  <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">{item.stage}</p>
-                  <p className="text-xs text-muted-foreground italic leading-relaxed mb-3">"{item.q}"</p>
-                  <p className="text-xs text-foreground leading-relaxed">{item.a}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Four failure types */}
-      <section className="section-padding bg-card/50 border-y border-border">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-8">
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-2">What it costs when there's no system in place.</h2>
-            <p className="text-muted-foreground text-sm max-w-xl">Four failure types that happen on real orders. Not edge cases — common ones.</p>
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-2">
+              What it costs when the infrastructure isn't there.
+            </h2>
+            <p className="text-sm text-muted-foreground max-w-xl">
+              Four failure types from real production orders. Not edge cases.
+            </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-5">
@@ -162,7 +129,7 @@ export default function WhySourcery() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.07 }}
-                className="bg-background border border-border rounded-2xl p-6 flex flex-col"
+                className="bg-card border border-border rounded-2xl p-6 flex flex-col"
               >
                 <div className="flex items-start justify-between gap-3 mb-4">
                   <div className="flex items-center gap-3">
@@ -188,24 +155,25 @@ export default function WhySourcery() {
             ))}
           </div>
 
+          {/* Cumulative callout */}
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-5 p-6 rounded-xl bg-amber-500/5 border border-amber-500/20">
             <p className="text-sm font-semibold text-foreground mb-1.5">These don't happen in isolation.</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              A single bad order can involve all four — wrong factory, informal sample approval, lost spec change, defects after the final wire. On a $15,000 run, the combination can exceed the order value. Each one is preventable with a platform that enforces the right gates by default.
+              A single bad order can involve all four — wrong factory, informal sample approval, lost spec change, defects after the final wire. On a $15,000 production run, the combination can exceed the order value. Each one is preventable with a platform that enforces the right gates by default.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Capital protection */}
-      <section className="section-padding">
+      <section className="section-padding bg-card/50">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Every production run puts real capital at risk. Sourcery gives you the structure to manage it.
+              You're moving real money. The structure should reflect that.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              Sourcery doesn't hold your funds — money moves directly between you and your factory. What it gives you is more durable: a documented, platform-enforced milestone structure that tells you exactly when each payment should move, and a permanent paper trail when something goes wrong.
+              Sourcery doesn't hold your funds — money moves directly between you and your factory. What it gives you is more durable: milestone gates both parties agreed to before production started, and a complete paper trail if something goes wrong.
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               {[
@@ -214,11 +182,11 @@ export default function WhySourcery() {
                   body: "Every order is structured around payment milestones — deposit, bulk production, final release. Sample approved before bulk begins. QC passed before final release. You release each milestone manually. Nothing moves without your confirmation.",
                 },
                 {
-                  title: "Dispute documentation",
-                  body: "If something goes wrong, the full order record is your leverage — every message timestamped, every revision acknowledged, every defect logged. You have documented grounds to withhold the final payment. You don't go into a dispute without evidence.",
+                  title: "Your paper trail — built automatically",
+                  body: "Every message timestamped. Every revision acknowledged. Every defect logged. If something goes wrong, the full order record is your leverage — not something you have to reconstruct after the fact. You never go into a dispute without documented evidence.",
                 },
               ].map((item, i) => (
-                <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="p-6 rounded-xl bg-card border border-border">
+                <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="p-6 rounded-xl bg-background border border-border">
                   <h3 className="font-semibold text-foreground mb-3">{item.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
                 </motion.div>
@@ -229,7 +197,7 @@ export default function WhySourcery() {
       </section>
 
       {/* Calculator */}
-      <section className="section-padding bg-card/50">
+      <section className="section-padding">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
@@ -243,63 +211,42 @@ export default function WhySourcery() {
         </div>
       </section>
 
-      {/* Organisation */}
-      <section className="section-padding">
-        <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              One place. Everything attached to the right order.
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              The average production run is managed across 4–6 different tools — WhatsApp, email, WeTransfer, bank portals, spreadsheets, Google Drive. Sourcery replaces all of it. Not because it's neater, but because fragmentation is where things get lost — and lost things cost money.
-            </p>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  before: '"Which version of the tech pack did they build from?"',
-                  after: "Tech pack versions are numbered and factory-confirmed. You always know which version is current.",
-                },
-                {
-                  before: '"Did they acknowledge that revision?"',
-                  after: "Every revision round requires a formal factory acknowledgment before production continues. It's logged with a timestamp.",
-                },
-                {
-                  before: '"Where did we land on that defect from last season?"',
-                  after: "Every defect report — type, severity, factory response, resolution — is attached to the order permanently.",
-                },
-              ].map((item, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="p-6 rounded-xl bg-card border border-border">
-                  <p className="text-sm text-muted-foreground italic mb-4 pb-4 border-b border-border">{item.before}</p>
-                  <p className="text-sm text-foreground leading-relaxed">{item.after}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Traceability */}
+      {/* The record — organisation + traceability compressed into one */}
       <section className="section-padding bg-card/50">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Once it's on the platform, it's there forever.
+              The record that keeps paying off.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              Every closed order on Sourcery is a permanent record — not just for protection during production, but for everything that comes after.
+              Every closed order on Sourcery is a permanent, searchable record. The production run is managed in one place — not scattered across WhatsApp, email, WeTransfer, and a bank portal — which means nothing gets lost during the order. And after it closes, everything is still there.
             </p>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-4">
               {[
-                { scenario: "Reordering 8 months later", detail: "Every spec, measurement, material, and revision from the original order is preserved. No reconstructing from memory or hunting through old emails." },
-                { scenario: "A factory dispute after delivery", detail: "The full order record — every message timestamped, every revision acknowledged, every defect logged — is searchable and exportable. Built automatically, not assembled after the fact." },
-                { scenario: "Bringing in a new team member", detail: "Your entire production history lives in one place. New hires see every past order, every factory relationship, every QC result. Institutional knowledge doesn't live in someone's inbox." },
-                { scenario: "Understanding your factory's track record", detail: "Performance tracking builds from order data over time — QC results, response times, defect reports, on-time delivery. The longer you work together on the platform, the clearer the picture." },
-              ].map((item, i) => (
-                <motion.div key={item.scenario} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="flex items-start gap-4 p-5 rounded-xl bg-background border border-border">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-2" />
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1.5">{item.scenario}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{item.detail}</p>
+                {
+                  title: "During production",
+                  items: [
+                    { q: '"Which version of the tech pack did they build from?"', a: "Tech pack versions are numbered and factory-confirmed. You always know which version is current." },
+                    { q: '"Did they acknowledge that revision?"', a: "Every revision round requires factory acknowledgment before production continues. Timestamped." },
+                  ],
+                },
+                {
+                  title: "After the order closes",
+                  items: [
+                    { q: "Reordering 8 months later", a: "Every spec, measurement, material, and revision is preserved. No reconstructing from memory." },
+                    { q: "A dispute after delivery", a: "The full record — messages, revisions, defects — is searchable and exportable. Built automatically." },
+                  ],
+                },
+              ].map((col, ci) => (
+                <motion.div key={ci} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: ci * 0.08 }}>
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">{col.title}</p>
+                  <div className="space-y-3">
+                    {col.items.map((item, j) => (
+                      <div key={j} className="p-5 rounded-xl bg-background border border-border">
+                        <p className="text-sm text-muted-foreground italic mb-3 pb-3 border-b border-border">"{item.q}"</p>
+                        <p className="text-sm text-foreground leading-relaxed">{item.a}</p>
+                      </div>
+                    ))}
                   </div>
                 </motion.div>
               ))}
@@ -333,7 +280,7 @@ export default function WhySourcery() {
               Your first order is free.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-              Bring your existing factory or find one in the marketplace. Full infrastructure, no credit card, no time limit.
+              Bring your existing factory or find one in the marketplace. Full infrastructure from day one. No credit card, no time limit.
             </p>
             <div className="flex justify-center gap-3 flex-wrap">
               <Link to="/auth?mode=signup">
