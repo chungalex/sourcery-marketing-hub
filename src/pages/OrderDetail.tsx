@@ -19,6 +19,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { OrderChatSummary } from "@/components/orders/OrderChatSummary";
+import { DisputeFiling } from "@/components/orders/DisputeFiling";
+import { ReorderIntelligence } from "@/components/orders/ReorderIntelligence";
 import { FactoryReview } from "@/components/trust/FactoryReview";
 import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
 import { RevisionRounds } from "@/components/orders/RevisionRounds";
@@ -609,32 +611,49 @@ export default function OrderDetail() {
                   />
                 )}
 
+                {/* Dispute filing — available for in-production and QC-stage orders */}
+                {["in_production", "qc_scheduled", "qc_uploaded", "qc_fail", "ready_to_ship"].includes(order.status) && order.factories && (
+                  <DisputeFiling
+                    orderId={order.id}
+                    orderNumber={order.order_number}
+                    factoryName={order.factories.name}
+                    onFiled={loadOrder}
+                  />
+                )}
+
                 {/* Reorder */}
                 {order.status === "closed" && order.factories && (
-                  <div className="bg-card border border-border rounded-xl p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="h-2 w-2 rounded-full bg-green-500" />
-                      <h2 className="text-lg font-semibold text-foreground">Order again</h2>
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Pre-fills all specs from this order. Confirm quantity and price before submitting.
-                    </p>
-                    <ReorderButton
-                      order={{
-                        id: order.id,
-                        order_number: order.order_number,
-                        factory_id: order.factories.id,
-                        quantity: order.quantity,
-                        unit_price: order.unit_price,
-                        currency: order.currency,
-                        incoterms: null,
-                        tech_pack_url: null,
-                        bom_url: null,
-                        specifications: order.specifications,
-                        factories: order.factories,
-                      }}
+                  <>
+                    <ReorderIntelligence
+                      orderId={order.id}
+                      factoryId={order.factories.id}
+                      factoryName={order.factories.name}
                     />
-                  </div>
+                    <div className="bg-card border border-border rounded-xl p-6">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="h-2 w-2 rounded-full bg-green-500" />
+                        <h2 className="text-lg font-semibold text-foreground">Order again</h2>
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Pre-fills all specs from this order. Confirm quantity and price before submitting.
+                      </p>
+                      <ReorderButton
+                        order={{
+                          id: order.id,
+                          order_number: order.order_number,
+                          factory_id: order.factories.id,
+                          quantity: order.quantity,
+                          unit_price: order.unit_price,
+                          currency: order.currency,
+                          incoterms: null,
+                          tech_pack_url: null,
+                          bom_url: null,
+                          specifications: order.specifications,
+                          factories: order.factories,
+                        }}
+                      />
+                    </div>
+                  </>
                 )}
 
                 {/* Issue PO */}

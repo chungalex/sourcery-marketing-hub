@@ -15,9 +15,11 @@ import { cn } from "@/lib/utils";
 import {
   Building2, MessageSquare, Settings, Search,
   Clock, CheckCircle, XCircle, ArrowRight, Package,
-  RefreshCw, Loader2, UserPlus, AlertCircle, ChevronRight
+  RefreshCw, Loader2, UserPlus, AlertCircle, ChevronRight,
+  Calendar, FileText, BarChart3, Wrench, User
 } from "lucide-react";
 import { format } from "date-fns";
+import { BrandOnboardingPrompt } from "@/components/onboarding/BrandOnboardingPrompt";
 
 // ── Status config ─────────────────────────────────────────────
 const STATUS_CONFIG: Record<string, { label: string; color: string; needsAction: boolean; isFactory: boolean }> = {
@@ -219,6 +221,14 @@ export default function BrandDashboard() {
             ))}
           </div>
 
+          {/* Onboarding prompt — shown until brand has factory + order */}
+          {!loadingByof && !ordersLoading && (
+            <BrandOnboardingPrompt
+              hasFactory={byofFactories.length > 0}
+              hasOrder={orders.length > 0}
+            />
+          )}
+
           {/* Tabs */}
           <Tabs defaultValue={defaultTab} className="space-y-5">
             <TabsList className="h-auto p-1">
@@ -246,6 +256,10 @@ export default function BrandDashboard() {
               <TabsTrigger value="settings" className="flex items-center gap-1.5 text-xs">
                 <Settings className="h-3.5 w-3.5" />
                 Settings
+              </TabsTrigger>
+              <TabsTrigger value="tools" className="flex items-center gap-1.5 text-xs">
+                <Wrench className="h-3.5 w-3.5" />
+                Tools
               </TabsTrigger>
             </TabsList>
 
@@ -297,12 +311,15 @@ export default function BrandDashboard() {
                 <div className="text-center py-16 bg-card border border-dashed border-border rounded-xl">
                   <Package className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
                   <h3 className="text-base font-semibold text-foreground mb-1">No orders yet</h3>
-                  <p className="text-sm text-muted-foreground mb-6 max-w-xs mx-auto">
-                    Invite your factory and create your first order in under 10 minutes.
+                  <p className="text-sm text-muted-foreground mb-2 max-w-xs mx-auto">
+                    Your first order is free — full platform, no credit card.
+                  </p>
+                  <p className="text-xs text-muted-foreground mb-6 max-w-sm mx-auto">
+                    Invite your factory first, then create a structured PO with guided incoterms, AQL standard, and QC setup. Every decision explained before you commit.
                   </p>
                   <div className="flex gap-2 justify-center">
-                    <Button asChild><Link to="/orders/create"><Package className="mr-2 h-4 w-4" />Create Order</Link></Button>
-                    <Button variant="outline" asChild><Link to="/directory"><Search className="mr-2 h-4 w-4" />Browse Network</Link></Button>
+                    <Button asChild><Link to="/orders/create"><Package className="mr-2 h-4 w-4" />Create first order</Link></Button>
+                    <Button variant="outline" asChild><Link to="/directory"><Search className="mr-2 h-4 w-4" />Browse factory network</Link></Button>
                   </div>
                 </div>
               )}
@@ -338,12 +355,15 @@ export default function BrandDashboard() {
               ) : (
                 <div className="text-center py-16 bg-card border border-dashed border-border rounded-xl">
                   <Building2 className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
-                  <h3 className="text-base font-semibold text-foreground mb-1">No factories yet</h3>
-                  <p className="text-sm text-muted-foreground mb-6 max-w-sm mx-auto">
-                    Bring your existing factory relationships onto Sourcery, or find new ones in the network.
+                  <h3 className="text-base font-semibold text-foreground mb-1">No factories connected yet</h3>
+                  <p className="text-sm text-muted-foreground mb-2 max-w-sm mx-auto">
+                    Already working with a manufacturer? Invite them directly — they get a free account and you can start managing orders together immediately.
+                  </p>
+                  <p className="text-xs text-muted-foreground mb-6 max-w-sm mx-auto">
+                    Or browse the Sourcery network to discover vetted factories with real performance scores.
                   </p>
                   <div className="flex gap-2 justify-center">
-                    <Button asChild><Link to="/dashboard?tab=invite"><UserPlus className="mr-2 h-4 w-4" />Invite a Factory</Link></Button>
+                    <Button asChild><Link to="/dashboard?tab=invite"><UserPlus className="mr-2 h-4 w-4" />Invite your factory</Link></Button>
                     <Button variant="outline" asChild><Link to="/directory"><Search className="mr-2 h-4 w-4" />Browse network</Link></Button>
                   </div>
                 </div>
@@ -433,6 +453,80 @@ export default function BrandDashboard() {
                     <Button>Save changes</Button>
                   </div>
                 </div>
+              </div>
+            </TabsContent>
+
+            {/* Tools */}
+            <TabsContent value="tools">
+              <div className="grid sm:grid-cols-2 gap-4">
+                {[
+                  {
+                    icon: Calendar,
+                    title: "Production calendar",
+                    desc: "Visual timeline of all active orders by delivery window. See what's due when and what needs attention.",
+                    link: "/calendar",
+                    cta: "Open calendar",
+                  },
+                  {
+                    icon: FileText,
+                    title: "Spec library",
+                    desc: "Save product specs, measurements, and materials for reuse across orders. No more rebuilding from scratch.",
+                    link: "/specs",
+                    cta: "Open spec library",
+                  },
+                  {
+                    icon: BarChart3,
+                    title: "Analytics",
+                    desc: "Total spend, order frequency, QC rates, and factory breakdown across your full production history.",
+                    link: "/analytics",
+                    cta: "View analytics",
+                  },
+                  {
+                    icon: Search,
+                    title: "Factory network",
+                    desc: "Browse and compare vetted factories. AI-matched recommendations based on your product and requirements.",
+                    link: "/directory",
+                    cta: "Browse factories",
+                  },
+                  {
+                    icon: Wrench,
+                    title: "AI toolkit",
+                    desc: "Factory matcher, tech pack reviewer, RFQ generator, and quote analyzer — all running on real network data.",
+                    link: "/toolkit",
+                    cta: "Open toolkit",
+                  },
+                  {
+                    icon: User,
+                    title: "Supplier contacts",
+                    desc: "Store production managers, QC leads, and shipping contacts for each factory — all in one place.",
+                    link: "/contacts",
+                    cta: "Open contacts",
+                  },
+                  {
+                    icon: MessageSquare,
+                    title: "Notifications",
+                    desc: "Full notification history — every order event, timestamped and organised.",
+                    link: "/notifications",
+                    cta: "View all",
+                  },
+                ].map((tool) => (
+                  <Link key={tool.title} to={tool.link} className="block group">
+                    <div className="p-5 bg-card border border-border rounded-xl hover:border-primary/40 transition-colors h-full">
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <tool.icon className="h-4 w-4 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{tool.title}</p>
+                          <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{tool.desc}</p>
+                        </div>
+                      </div>
+                      <p className="text-xs text-primary font-medium flex items-center gap-1">
+                        {tool.cta} <ArrowRight className="h-3 w-3" />
+                      </p>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </TabsContent>
           </Tabs>

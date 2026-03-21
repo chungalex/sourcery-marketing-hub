@@ -12,8 +12,8 @@ import { GlobalSearch } from "@/components/GlobalSearch";
 const navItems = [
   { label: "For brands", href: "/brands" },
   { label: "For factories", href: "/factories" },
+  { label: "Features", href: "/features" },
   { label: "Why Sourcery", href: "/why-sourcery" },
-  { label: "How it works", href: "/how-it-works" },
   { label: "Pricing", href: "/pricing" },
 ];
 

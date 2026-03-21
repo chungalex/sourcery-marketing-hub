@@ -16,6 +16,8 @@ import FactoryCompare from "./pages/FactoryCompare";
 import ProductionCalendar from "./pages/ProductionCalendar";
 import SpecLibrary from "./pages/SpecLibrary";
 import Analytics from "./pages/Analytics";
+import SupplierContacts from "./pages/SupplierContacts";
+import Features from "./pages/Features";
 import CaseStudies from "./pages/CaseStudies";
 import Consulting from "./pages/Consulting";
 import About from "./pages/About";
@@ -82,6 +84,8 @@ const App = () => (
             <Route path="/calendar" element={<ProductionCalendar />} />
             <Route path="/specs" element={<SpecLibrary />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/contacts" element={<SupplierContacts />} />
+            <Route path="/features" element={<Features />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </ErrorBoundary>
