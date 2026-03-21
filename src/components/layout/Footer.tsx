@@ -3,17 +3,18 @@ import { Newsletter } from "@/components/Newsletter";
 
 const footerLinks = {
   product: [
-    { label: "How it Works", href: "/how-it-works" },
-    { label: "For Brands", href: "/brands" },
-    { label: "For Factories", href: "/factories" },
-    { label: "Consulting", href: "/consulting" },
+    { label: "For brands", href: "/brands" },
+    { label: "Marketplace", href: "/marketplace" },
+    { label: "For factories", href: "/factories" },
+    { label: "Features", href: "/features" },
+    { label: "How it works", href: "/how-it-works" },
     { label: "Pricing", href: "/pricing" },
   ],
   company: [
+    { label: "Why Sourcery", href: "/why-sourcery" },
     { label: "About", href: "/about" },
-    { label: "Case Studies", href: "/case-studies" },
-    { label: "Contact", href: "/contact" },
     { label: "FAQ", href: "/faq" },
+    { label: "Contact", href: "/contact" },
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy" },
@@ -37,7 +38,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-              Premium sourcing, vetted factories, quality control, and production tracking for modern brands.
+              The manufacturing OS for physical product brands. Structure, security, and traceability on every order.
             </p>
             <Newsletter variant="compact" />
           </div>
