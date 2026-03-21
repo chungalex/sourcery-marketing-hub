@@ -3,80 +3,14 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
-import { ArrowRight, CheckCircle, Shield, Clock, Package, MessageSquare, FileText, RotateCcw } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-
-const benefits = [
-  {
-    icon: Package,
-    title: "Immediate value — no ramp up",
-    description: "Invite your existing factory and create your first order in under 10 minutes. Full platform functionality from day one. The marketplace is available when you need it.",
-  },
-  {
-    icon: Shield,
-    title: "Payment you control",
-    description: "Deposit on PO, production milestone after sample approval, final release after QC pass. Every stage requires verification. You never release funds without a confirmed milestone.",
-  },
-  {
-    icon: MessageSquare,
-    title: "On-platform communication",
-    description: "Every message logged, timestamped, attached to the order. No more scattered threads or lost conversations. One place. Full history. Searchable forever.",
-  },
-  {
-    icon: RotateCcw,
-    title: "Formal revision tracking",
-    description: "Every spec change submitted as a revision round the factory must formally acknowledge. No ambiguity about what was agreed and when.",
-  },
-  {
-    icon: FileText,
-    title: "Tech pack versioning",
-    description: "Every upload creates a new version. Old versions preserved. The factory confirms which version they're building from. Version conflicts cause production errors — this prevents them.",
-  },
-  {
-    icon: Clock,
-    title: "Sampling gate enforced",
-    description: "Bulk production cannot begin until the sample is formally approved. This gate is enforced by the platform — not optional. Every sample submission is documented with photos and measurements.",
-  },
-];
-
-const idealFor = [
-  "Brands placing their first production order",
-  "Brands 1–5 years in with established factory relationships",
-  "Founders currently managing production over WhatsApp and email",
-  "Brands who have experienced production losses and want accountability on the next order",
-  "DTC labels scaling past their first production run into repeat orders",
-  "Designer brands moving from domestic sampling to overseas production",
-];
-
-const faqs = [
-  {
-    question: "Do I have to use factories in your network?",
-    answer: "No. Bring Your Own Factory is the primary way most brands start. Invite your existing manufacturer and manage every order on-platform immediately. The marketplace is available when you need to find a new manufacturing partner.",
-  },
-  {
-    question: "What if there's a quality dispute?",
-    answer: "Every defect is documented as a structured report — type, severity, quantity affected, photos, factory response — all timestamped against the order. The platform requires QC pass before releasing final payment. In a formal dispute, the brand withholds final payment and both parties submit documented evidence before resolution. The paper trail built throughout the order is your protection.",
-  },
-  {
-    question: "How does vetting work for network factories?",
-    answer: "Network factories go through credential review, certification verification, and production capability assessment before being listed. Performance is tracked across every completed order. We actively remove factories that fall below threshold. We recommend brands also conduct their own verification — requesting samples and starting with smaller trial orders regardless of network status.",
-  },
-  {
-    question: "What does Sourcery cost?",
-    answer: "Your first order is free. After that: one-off at $79/order, or Builder at $399/year for unlimited orders and full marketplace access, or Pro at $899/year for teams. See the full breakdown on the pricing page.",
-  },
-  {
-    question: "Can I negotiate terms directly with my factory?",
-    answer: "Absolutely. Sourcery is a platform, not an intermediary. Your commercial relationship with your factory is your own. The platform provides the structure, documentation, and payment protection — it doesn't manage the relationship for you.",
-  },
-];
+import { ArrowRight, CheckCircle } from "lucide-react";
 
 export default function Brands() {
   return (
     <Layout>
       <SEO
         title="For Brands — Sourcery"
-        description="Production management built for growing brands. Milestone-protected payments, formal sampling gates, revision tracking, and QC documentation — all on one platform."
+        description="Production management that gives you confidence, visibility, and control at every stage."
       />
 
       {/* Hero */}
@@ -87,23 +21,20 @@ export default function Brands() {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
                 For brands
               </div>
-              <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-                Production management that brings structure, security, and traceability to every stage of the cycle.
+              <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
+                Production is where most brands lose confidence. This is where you get it back.
               </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-                Managing production is hard. Supply chains are complex, manufacturing has its own language, and there is very little transparency into how the other side works. Sourcery is the platform that walks you through every step — structured order creation, milestone-gated payments, revision tracking, QC documentation, and a permanent record of every decision. Everything in one place, so you can build your company with confidence.
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+                Whether you're placing your first order or your fiftieth, Sourcery brings everything into one place — so you move faster, make better decisions, and spend your energy building your company instead of managing uncertainty.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/auth?mode=signup">
                   <Button variant="hero" size="xl">
-                    Get started free
-                    <ArrowRight className="w-5 h-5" />
+                    Get started free <ArrowRight className="w-5 h-5" />
                   </Button>
                 </Link>
-                <Link to="/how-it-works">
-                  <Button variant="hero-outline" size="xl">
-                    See how it works
-                  </Button>
+                <Link to="/why-sourcery">
+                  <Button variant="hero-outline" size="xl">See the cost math</Button>
                 </Link>
               </div>
             </motion.div>
@@ -111,237 +42,166 @@ export default function Brands() {
         </div>
       </section>
 
-      {/* Who it's for */}
+      {/* What it replaces — two audiences */}
       <section className="section-padding">
-        <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Built for any brand managing production.
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              New to production or ten years in — the same problems come up. Sourcery is structured to handle them at every stage of experience.
-            </p>
-            <ul className="space-y-3">
-              {idealFor.map((item, i) => (
-                <motion.li
-                  key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
-                  className="flex items-start gap-3"
-                >
-                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground">{item}</span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Benefits */}
-      <section className="section-padding bg-card/50">
         <div className="container-wide">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Every step of production. Documented.
-            </h2>
-          </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {benefits.map((b, i) => (
-              <motion.div
-                key={b.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07 }}
-                className="p-6 rounded-xl bg-background border border-border"
-              >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <b.icon className="w-5 h-5 text-primary" />
-                </div>
-                <h3 className="font-semibold text-foreground mb-2">{b.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{b.description}</p>
-              </motion.div>
-            ))}
+          <div className="grid md:grid-cols-2 gap-6">
+
+            {/* New brands */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-card border border-border">
+              <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">New to production</p>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+                You shouldn't have to figure this out alone.
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-5">
+                Manufacturing has its own language. Incoterms, AQL standards, sampling gates, revision rounds — nobody teaches you this. Sourcery explains every decision before you make it, walks you through every step, and builds a permanent record of everything automatically.
+              </p>
+              <p className="text-sm text-muted-foreground italic">
+                "Never heard of incoterms? Not sure what AQL means? Every decision is explained before you commit. You learn by doing."
+              </p>
+            </motion.div>
+
+            {/* Experienced brands */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.07 }} className="p-8 rounded-2xl bg-card border border-border">
+              <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">Already managing production</p>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+                Replace the chaos. Get your time back.
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-5">
+                If you're already running production, Sourcery isn't about learning the basics. It's about replacing the scattered WhatsApp threads, the email chains nobody can find, the spreadsheet that's always out of date. Everything in one place. Every revision acknowledged. Every order permanently searchable.
+              </p>
+              <p className="text-sm text-muted-foreground italic">
+                "Production stops living across five different apps. You get time back — and a platform your whole team can work from."
+              </p>
+            </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* Structured order creation */}
-      <section className="section-padding">
-        <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mb-10">
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Built for brands at every stage of production experience.
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Whether you're placing your first production order or your fiftieth, the same problems come up: incomplete specs, missed incoterms, unclear QC standards, vague delivery windows. Sourcery's order creation process is structured to walk you through every decision that matters — so nothing critical gets skipped.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            {[
-              {
-                step: "01",
-                title: "Factory, product & specifications",
-                desc: "Select your factory, enter quantity, and document your product specifications in a structured form. Attach your tech pack URL and Bill of Materials. Both factory and brand see the same spec from the same place from the moment the order is created.",
-              },
-              {
-                step: "02",
-                title: "Pricing, delivery window & incoterms",
-                desc: "Unit price, currency, delivery window, and incoterms — each with a plain-English explanation of what you're agreeing to. Not sure whether to use FOB or DDP? The form explains the difference before you choose. Everything captured in the order record before a dollar moves.",
-              },
-              {
-                step: "03",
-                title: "Quality control preference & AQL standard",
-                desc: "Choose how QC is handled — Sourcery-coordinated, your own inspector, or factory self-inspection — and set your AQL standard (1.0, 2.5, or 4.0). Each option is explained before you choose. The QC standard is written into the order record so the factory knows the threshold before production begins.",
-              },
-              {
-                step: "04",
-                title: "Full review before submit",
-                desc: "Every field — factory, quantity, price, delivery, incoterms, QC option — is displayed for review before the PO is issued. Nothing moves until you confirm it's right.",
-              },
-            ].map((item, i) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07 }}
-                className="flex gap-4 p-5 rounded-xl bg-card border border-border"
-              >
-                <div className="font-mono text-2xl font-bold text-primary/30 flex-shrink-0 w-10 pt-0.5">{item.step}</div>
-                <div>
-                  <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="p-6 rounded-xl bg-card border border-border"
-          >
-            <h3 className="font-semibold text-foreground mb-4">After the PO — every stage of production documented</h3>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-              {[
-                { label: "Tech pack versioning", desc: "Every upload is versioned. Factory confirms which version they're building from." },
-                { label: "Revision rounds", desc: "Every spec change requires formal factory acknowledgment before work continues." },
-                { label: "Sample submission", desc: "Factory submits with photos and measurements. You approve or request a documented revision." },
-                { label: "Defect reporting", desc: "Type, severity, quantity, photos, factory response — all logged against the order." },
-                { label: "QC gate with AQL standard", desc: "Final payment blocked until QC result is logged against your set AQL threshold. You control the release." },
-                { label: "Reorder in one click", desc: "Closed orders preserve every spec, AQL standard, and incoterms. Reorder with the same details — no reconstruction." },
-              ].map((tool, i) => (
-                <div key={tool.label} className="flex items-start gap-2 p-3 rounded-lg bg-background border border-border">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-1.5" />
-                  <div>
-                    <p className="text-xs font-semibold text-foreground mb-0.5">{tool.label}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{tool.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Four pillars */}
+      {/* Four pillars — short and emotional */}
       <section className="section-padding bg-card/50">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
               Four things every production run needs.
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
-              Sourcing overseas opens up your product quality and your margins. It also introduces a level of uncertainty — about what's being built, to what standard, and what happens if something goes wrong — that most brands manage badly or not at all. Sourcery is built to close that gap.
-            </p>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Structure in the order creation process. Security for your capital. Traceability on every decision. Organisation across the full lifecycle.
+            <p className="text-muted-foreground max-w-lg mx-auto">
+              Sourcing overseas opens up your quality and your margins. It also introduces uncertainty most brands manage badly. Sourcery closes that gap.
             </p>
           </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               {
                 title: "Structure",
-                body: "Every decision in the order creation process — incoterms, QC option, AQL standard, delivery window — is captured in a structured form with plain-English explanations at each step. Nothing left to assumption before a dollar moves.",
+                feeling: "So you never guess what you agreed to.",
+                desc: "Guided order creation — incoterms, AQL, QC — explained before you commit.",
               },
               {
                 title: "Security",
-                body: "Every payment stage is gated behind a verified condition — sample approval, QC pass, delivery confirmation. The brand releases each milestone manually only when the gate is met. Every release is logged permanently against the order. Final payment withheld pending dispute resolution.",
+                feeling: "Your money moves when you say it moves.",
+                desc: "Milestone-gated payments. Sample approved before bulk. QC passed before final release.",
               },
               {
                 title: "Traceability",
-                body: "Every order is a permanent record — every spec, revision, defect, payment, and message timestamped and searchable. Accessible for reorders, disputes, team onboarding, or factory evaluation.",
+                feeling: "Every decision is permanently yours to reference.",
+                desc: "Every spec, revision, message, and payment — timestamped and searchable forever.",
               },
               {
                 title: "Organisation",
-                body: "One place for the full production lifecycle. Every message attached to its order. Every tech pack version tracked. Every revision acknowledged. No more hunting across WhatsApp, email, and WeTransfer for information that should be in one place.",
+                feeling: "Production stops living across five apps.",
+                desc: "One place for everything. Every message attached to the order it belongs to.",
               },
-            ].map((pillar, i) => (
-              <motion.div
-                key={pillar.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="p-6 rounded-xl bg-background border border-border"
-              >
-                <h3 className="font-heading text-xl font-bold text-foreground mb-3">{pillar.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{pillar.body}</p>
+            ].map((p, i) => (
+              <motion.div key={p.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="p-6 rounded-xl bg-background border border-border">
+                <h3 className="font-bold text-foreground text-lg mb-1">{p.title}</h3>
+                <p className="text-primary text-sm font-medium mb-3">{p.feeling}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">{p.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* New brand owner callout */}
+      {/* What the platform does — concise */}
       <section className="section-padding">
-        <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-card border border-border">
-            <div className="max-w-2xl">
-              <p className="text-xs font-medium text-primary uppercase tracking-wide mb-3">New to production?</p>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
-                The platform is navigable without prior production experience.
+        <div className="container-wide">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+                Every stage of production. One system.
               </h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                Every decision in the order creation process includes a plain-English explanation before you commit. Incoterms, AQL standards, and QC options are each defined at the point of selection — so you understand what you're agreeing to before the order is issued.
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                From structured PO creation to closed delivery — with guided decisions, documented milestones, and a permanent record built automatically at every step.
               </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Every decision is written into the order record. Each order builds institutional knowledge — spec history, factory performance, revision patterns — that carries forward to the next one.
-              </p>
-            </div>
-          </motion.div>
+              <div className="space-y-3">
+                {[
+                  { label: "Guided order creation", sub: "Incoterms, AQL, QC — explained before you choose" },
+                  { label: "Sampling gate", sub: "Bulk can't begin until sample is formally approved" },
+                  { label: "Revision rounds", sub: "Every spec change acknowledged before work continues" },
+                  { label: "Tech pack versioning", sub: "Factory always confirms the version they're building from" },
+                  { label: "QC gate", sub: "Final payment blocked until quality is confirmed" },
+                  { label: "Permanent record", sub: "Every order searchable forever — reorder in one click" },
+                ].map((item, i) => (
+                  <div key={item.label} className="flex items-start gap-3">
+                    <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-sm font-medium text-foreground">{item.label}</span>
+                      <span className="text-sm text-muted-foreground"> — {item.sub}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8">
+              <h3 className="font-semibold text-foreground mb-5 text-lg">What it replaces</h3>
+              <div className="space-y-4">
+                {[
+                  { before: "Spec changes over WhatsApp", after: "Formal revision rounds, factory-acknowledged" },
+                  { before: "Tech pack emailed as attachment", after: "Versioned, factory-confirmed, permanent" },
+                  { before: "Sample approved in a message", after: "Formal approval with photos + measurements logged" },
+                  { before: "Payment wired before QC", after: "Final milestone gated behind QC pass" },
+                  { before: "Dispute with no paper trail", after: "Full record — every message, revision, defect" },
+                ].map((row, i) => (
+                  <div key={i} className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="flex items-start gap-2">
+                      <span className="text-rose-500 flex-shrink-0 mt-0.5">✕</span>
+                      <span className="text-muted-foreground leading-snug">{row.before}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-green-500 flex-shrink-0 mt-0.5">✓</span>
+                      <span className="text-foreground leading-snug">{row.after}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Why Sourcery callout */}
-      <section className="section-padding">
+      {/* Who it's for */}
+      <section className="section-padding bg-card/50">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <Link to="/why-sourcery" className="block group">
-              <div className="p-8 rounded-2xl bg-card border border-border hover:border-primary/40 transition-all">
-                <div className="flex items-start justify-between gap-6 flex-wrap">
-                  <div className="max-w-xl">
-                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">The cost of not using it</p>
-                    <h3 className="font-heading text-xl font-bold text-foreground mb-3">
-                      Unstructured production has a cost. A spec change in a WhatsApp thread. A sample approved over email. A final payment wired before QC. See what each one typically costs — and what Sourcery does about it.
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      See three real production scenarios — with and without Sourcery — and what each one typically costs.
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all">
-                    See the scenarios
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Built for any brand managing production.</h2>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {[
+                "Brands placing their first production order",
+                "Founders managing production over WhatsApp and email",
+                "Brands scaling past their first production run",
+                "Teams who need everyone working from the same system",
+                "Brands who have been burned before and want accountability",
+                "Designer brands moving to overseas production",
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-background border border-border">
+                  <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                  <span className="text-sm text-foreground">{item}</span>
                 </div>
-              </div>
-            </Link>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
@@ -349,54 +209,38 @@ export default function Brands() {
       {/* Honest framing */}
       <section className="section-padding">
         <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-xl bg-card border border-border">
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
-              What Sourcery is — and isn't
-            </h2>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-card border border-border">
+            <h2 className="font-heading text-xl font-bold text-foreground mb-4">What Sourcery is — and isn't</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Sourcery is a platform, not an agent. We don't manage your factory relationships, negotiate on your behalf, or intervene in production. What we do is give every order the structure, documentation, and milestone gate enforcement that most brands only discover they needed after learning the hard way.
+              Sourcery is a platform, not an agent. We don't manage your factory relationships, negotiate on your behalf, or intervene in production. What we do is give every order the structure, documentation, and gate enforcement that most brands only discover they needed after learning the hard way.
             </p>
-            <p className="text-muted-foreground leading-relaxed">
-              The system works best when both parties use it properly — orders created formally, communication on-platform, revision rounds acknowledged. The more you put in, the stronger your paper trail.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="section-padding bg-card/50">
-        <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-8">Common questions</h2>
-            <Accordion type="single" collapsible className="space-y-2">
-              {faqs.map((faq, i) => (
-                <AccordionItem key={i} value={`faq-${i}`} className="bg-background border border-border rounded-xl px-6">
-                  <AccordionTrigger className="text-left font-medium text-foreground py-5">{faq.question}</AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pb-5">{faq.answer}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            <p className="text-sm text-muted-foreground">The system works best when both parties use it properly — orders created formally, communication on-platform, revision rounds acknowledged. The more you put in, the stronger your paper trail.</p>
           </motion.div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="section-padding">
+      <section className="section-padding bg-card/50 border-t border-border">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Get started in minutes.</h2>
-            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-              Free to start. Bring your first factory on in under 10 minutes. No retainer, no subscription.
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              Your first order is free.
+            </h2>
+            <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
+              No credit card, no commitment. If it changes how you manage production — great. If not, no hard feelings.
             </p>
-            <Link to="/auth?mode=signup">
-              <Button size="xl" variant="hero">
-                Create free account
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
+            <div className="flex justify-center gap-3 flex-wrap">
+              <Link to="/auth?mode=signup">
+                <Button variant="hero" size="xl">Get started free <ArrowRight className="w-5 h-5" /></Button>
+              </Link>
+              <Link to="/features">
+                <Button variant="hero-outline" size="xl">See all features</Button>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
+
     </Layout>
   );
 }

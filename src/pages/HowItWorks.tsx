@@ -9,37 +9,37 @@ const steps = [
   {
     number: "01",
     title: "Connect your factory",
-    description: "Invite an existing manufacturer or browse the Sourcery network. Either way, all order management runs through the same system. BYOF factories don't need network approval — invite them and start immediately.",
+    description: "Invite your existing manufacturer or browse the Sourcery network. BYOF factories don't need approval — invite them and start immediately. The platform works the same either way.",
     gate: null,
   },
   {
     number: "02",
     title: "Create a production order",
-    description: "Quantity, pricing, incoterms, QC option, AQL standard, and delivery window — all captured in a structured form with plain-English guidance at each step. Not sure what FOB means or which AQL standard to use? The form explains each option before you choose. Tech pack attached and versioned. Both parties see the same spec from the same place.",
+    description: "Quantity, pricing, incoterms, QC option, AQL standard, delivery window — all captured with plain-English guidance at each step. Not sure what FOB means? The form explains it. You know exactly what you're agreeing to before you commit.",
     gate: null,
   },
   {
     number: "03",
     title: "Sample approval gate",
-    description: "Factory submits sample with photos and measurements. You review and approve — or request a formal revision round with documented feedback the factory must acknowledge before production continues.",
+    description: "Factory submits sample with photos and measurements. You approve — or request a formal revision the factory must acknowledge. You know exactly what you approved and have a permanent record of it.",
     gate: "Bulk production cannot begin until sample is approved. This gate is enforced by the platform.",
   },
   {
     number: "04",
     title: "Production with full documentation",
-    description: "Every spec change is a formal revision round the factory must acknowledge. Tech pack versions are tracked — the factory confirms which version they're building from. Defects are filed as structured reports. Nothing important is communicated outside the platform.",
+    description: "Every spec change is a formal revision round, factory-acknowledged. Tech pack versions are tracked — the factory confirms which version they're building from. No more 'which file did you use' disputes.",
     gate: null,
   },
   {
     number: "05",
     title: "QC gates the final payment",
-    description: "Quality inspection logged against the order with photos, defect reports, and pass/fail result. In a dispute, the brand withholds final payment and both parties submit documented evidence before resolution. The paper trail built throughout the order is your leverage.",
+    description: "QC logged with photos and defect reports. Final payment blocked until it passes. In a dispute, your full order record — every message, revision, defect — is your leverage. You built it automatically, just by using the platform.",
     gate: "Final milestone cannot release without QC pass. You control every payment release — nothing moves without your confirmation.",
   },
   {
     number: "06",
     title: "The order closes — the record stays",
-    description: "Every closed order on Sourcery is a permanent record. Every spec, revision, defect, message, and payment — timestamped and searchable. Reorder from it in one click with all specs pre-filled. Use it as evidence in a dispute. Share it with a new team member. The platform builds institutional knowledge automatically, with every order.",
+    description: "The order closes. The record stays — permanently. Every spec, revision, and decision searchable forever. Reorder in one click. Reference it in a dispute. Share it with your team. Each order makes the next one easier.",
     gate: null,
   },
 ];
@@ -69,7 +69,7 @@ export default function HowItWorks() {
               One system. Every step of production.
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Manufacturing is complex and the supply chain has very little transparency. Sourcery is the platform that walks you through every stage of the production cycle — explaining every decision before you make it, keeping everything organised in one place, and building a permanent record automatically. So you can navigate production with confidence instead of uncertainty.
+              Manufacturing is complex. The supply chain has its own language. And there's very little transparency into how the other side works. Sourcery walks you through every stage — so you always know where you stand.
             </p>
           </motion.div>
         </div>

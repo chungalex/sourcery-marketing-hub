@@ -16,32 +16,38 @@ const features = [
   {
     icon: Building2,
     title: "Bring your own factory",
-    description: "Already working with a manufacturer? Invite them and manage every order on-platform from day one. No marketplace required to get started.",
+    sub: "No marketplace required.",
+    description: "Invite your existing manufacturer and manage every order on-platform from day one. Full platform functionality immediately.",
   },
   {
     icon: Shield,
     title: "Milestone-gated payments",
-    description: "Every payment stage is gated behind a verified condition. Sample approved before bulk. QC passed before final release. You control each release manually — nothing moves without your confirmation.",
+    sub: "Your money moves when you approve it.",
+    description: "Sample approved before bulk. QC passed before final release. Nothing moves without your confirmation.",
   },
   {
     icon: Package,
     title: "Structured order creation",
-    description: "Every decision that matters — incoterms, QC option, AQL standard, delivery window — captured in a guided form with plain-English explanations at each step. Built for first-time brands and experienced operators alike.",
+    sub: "Every decision explained before you make it.",
+    description: "Incoterms, QC standard, AQL threshold — each with plain-English guidance. Built for first orders and experienced operators alike.",
   },
   {
     icon: FileText,
     title: "QC documentation",
-    description: "Defects filed as structured reports — type, severity, quantity, photos, factory response. Logged against the order with timestamps.",
+    sub: "No more 'defect found after the wire.'",
+    description: "Defects filed as structured reports — type, severity, quantity, photos, factory response. Final payment blocked until QC passes.",
   },
   {
     icon: MessageSquare,
     title: "On-platform communication",
-    description: "Every message between you and your factory is logged, timestamped, and attached to the order. Full history. No scattered threads.",
+    sub: "No more scattered WhatsApp threads.",
+    description: "Every message logged, timestamped, and attached to the right order. Full history. Nothing important communicated outside the platform.",
   },
   {
     icon: BarChart3,
     title: "Factory performance scores",
-    description: "Every completed order builds a factory's performance record — QC pass rate, response time, defect history. Real data, not self-reported claims.",
+    sub: "No more wondering if the factory is reliable.",
+    description: "Every completed order builds a factory's real record — QC pass rate, response time, defect history. Not self-reported claims.",
   },
 ];
 
@@ -87,7 +93,7 @@ export default function Home() {
     <Layout>
       <SEO
         title="Sourcery — The Manufacturing OS for Physical Product Brands"
-        description="Production is one of the hardest parts of building a physical product brand — and one of the least transparent. Sourcery gives you the infrastructure, guidance, and visibility to navigate it with confidence, from your first order to your fiftieth."
+        description="Production is hard to manage, hard to trust, and hard to scale. Sourcery brings everything into one place — so you move faster, make better decisions, and build with confidence."
         canonical="/"
       />
 
@@ -104,7 +110,7 @@ export default function Home() {
                   The manufacturing OS for physical product brands.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
-                  Production is one of the hardest parts of building a physical product brand — and one of the least transparent. Sourcery gives you the infrastructure, guidance, and visibility to navigate it with confidence, from your first order to your fiftieth.
+                  Production is hard to manage, hard to trust, and hard to scale. Sourcery brings everything into one place — so you move faster, make better decisions, and build with confidence.
                 </p>
 
                 <div className="space-y-3 mb-8">
@@ -278,10 +284,10 @@ export default function Home() {
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mb-12">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Built for the full production cycle — not just the introduction.
+              Everything you need to manage production properly.
             </h2>
             <p className="text-lg text-muted-foreground">
-              Most platforms help you find a factory and stop there. Sourcery manages the full lifecycle — from structured PO creation to closed delivery — with guidance, documentation, and accountability at every stage.
+              From your first PO to a closed order with a permanent record — every stage documented, every payment gated, every decision guided.
             </p>
           </motion.div>
 
@@ -386,7 +392,7 @@ export default function Home() {
               Ready to build your company without production holding you back?
             </h2>
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-              Your first order is free — full infrastructure, no credit card required. Every decision guided. Every stage documented. Everything in one place.
+              Your first order is free. No credit card, no commitment. If it changes how you manage production — great. If not, no hard feelings.
             </p>
 
             {!captured ? (
