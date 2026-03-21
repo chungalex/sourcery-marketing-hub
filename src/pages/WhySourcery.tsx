@@ -57,19 +57,14 @@ export default function WhySourcery() {
       <section className="section-padding bg-[var(--hero-gradient)]">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-              Most brands building a product are managing production with the wrong tools.
+            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
+              Production is hard. Finding the right factory is harder.
             </h1>
-            <div className="space-y-3 text-lg text-muted-foreground leading-relaxed">
-              <p>
-                Instagram DMs to find a factory. WhatsApp for spec changes. A folder somewhere that might have the current tech pack. A bank wire before quality is confirmed.
-              </p>
-              <p>
-                When something goes wrong — and at some point, something does — there's no record of what was agreed, no paper trail to leverage, and no way to get your money back.
-              </p>
-            </div>
-            <p className="text-foreground font-semibold text-lg mt-6">
-              That's what Sourcery replaces.
+            <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-xl">
+              Most brands manage production with consumer tools — WhatsApp, email, a wire before QC. When something goes wrong, there's no record of what was agreed and no leverage to fix it.
+            </p>
+            <p className="text-base font-medium text-foreground">
+              Sourcery is the system both sides should have been using from the start.
             </p>
           </motion.div>
         </div>
