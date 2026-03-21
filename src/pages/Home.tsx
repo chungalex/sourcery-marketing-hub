@@ -7,7 +7,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import {
   ArrowRight, CheckCircle, Shield, Package, MessageSquare,
-  FileText, BarChart3, Sparkles, Building2, Loader2
+  FileText, BarChart3, Sparkles, Building2, Loader2, Search
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
