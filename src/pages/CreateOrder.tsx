@@ -639,7 +639,7 @@ export default function CreateOrder() {
                         {totalAmount > 0 && (
                           <div className="pt-3 border-t border-primary/20 space-y-2">
                             <div className="flex items-center justify-between text-sm">
-                              <span className="text-muted-foreground">Platform Fee (3%)</span>
+                              <span className="text-muted-foreground">Platform fee</span>
                               <span className="font-medium text-foreground">
                                 {watchedValues.currency === "EUR" ? "€" : 
                                  watchedValues.currency === "GBP" ? "£" : 
@@ -946,7 +946,7 @@ export default function CreateOrder() {
                               </span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-sm text-muted-foreground">Platform Fee (3%)</span>
+                              <span className="text-sm text-muted-foreground">Platform fee</span>
                               <span className="font-medium text-foreground">
                                 {watchedValues.currency === "EUR" ? "€" : 
                                  watchedValues.currency === "GBP" ? "£" : 

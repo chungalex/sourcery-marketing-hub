@@ -116,7 +116,7 @@ export default function Checkout() {
   return (
     <Layout>
       <SEO 
-        title={`Subscribe to ${selectedPlan.name} | Manufactory`}
+        title={`Subscribe to ${selectedPlan.name} | Sourcery`}
         description="Complete your subscription to connect with verified manufacturers worldwide."
       />
 

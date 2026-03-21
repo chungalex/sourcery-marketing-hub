@@ -128,7 +128,7 @@ export default function Apply() {
     
     // API Call: POST /api/applications
     // Request: FormData with all form fields and files
-    console.log("Submitting application:", formData);
+    // Application submitted
     
     setTimeout(() => {
       setIsSubmitting(false);
@@ -142,7 +142,7 @@ export default function Apply() {
   return (
     <Layout>
       <SEO 
-        title="Apply as a Factory | Manufactory" 
+        title="Apply as a Factory | Sourcery" 
         description="Join our network of verified manufacturers. Showcase your capabilities to global brands."
       />
       

@@ -331,7 +331,7 @@ export default function OrderDetail() {
             {(() => {
               const attentionStatuses: Record<string, string> = {
                 draft: "This order is a draft. Set pricing and issue the PO to send it to the factory.",
-                po_accepted: "The factory has accepted the PO. Review and approve the sample before bulk production is funded.",
+                po_accepted: "The factory has accepted the PO. Review and approve the sample before bulk production can begin.",
                 sample_sent: "Sample submitted by the factory. Review and approve or request a revision.",
                 sample_revision: "Revision requested. Awaiting updated sample from the factory.",
                 qc_uploaded: "QC report uploaded. Review and release the final payment milestone.",
@@ -535,7 +535,7 @@ export default function OrderDetail() {
                       <h2 className="text-lg font-semibold text-foreground">Sample Review</h2>
                     </div>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Sample must be approved before bulk production milestones can be funded.
+                      Sample must be approved before bulk production can begin.
                     </p>
                     <SampleReviewPanel
                       orderId={order.id}
