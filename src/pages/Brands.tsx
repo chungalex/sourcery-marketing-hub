@@ -10,7 +10,7 @@ export default function Brands() {
     <Layout>
       <SEO
         title="For Brands — Sourcery"
-        description="Finding a factory is terrifying. Managing everything after is overwhelming. Sourcery solves both — a vetted marketplace to find the right fit, and an OS that walks you through every step after."
+        description="Production is hard to start and just as hard to scale. Sourcery is the marketplace to find the right factory and the OS to manage every order — first-time founders to experienced operators."
       />
 
       {/* Hero */}
@@ -22,13 +22,13 @@ export default function Brands() {
                 For brands
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
-                Finding the right factory is the hardest part. Everything after it is the longest part.
+                Production is hard to start. It's just as hard to scale.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-2xl">
-                There's no clear way to find a manufacturer when you're starting out. No database, no guide, no way to know who to trust before you wire a deposit. And once you have a factory, there's a whole process ahead — tech packs, sampling, revisions, QC, payments, freight — that nobody teaches you.
+                Whether you're finding your first factory or replacing one that's let you down — whether you're placing your first order or running multiple production lines — the underlying problem is the same: production runs on tools that weren't built for it.
               </p>
               <p className="text-base font-medium text-foreground mb-8 max-w-2xl">
-                Sourcery is built for both.
+                Sourcery is the infrastructure it's always needed.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/auth?mode=signup">
@@ -91,9 +91,9 @@ export default function Brands() {
                 </div>
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Production OS</p>
               </div>
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Navigate the whole process — not just part of it.</h3>
+              <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Replace the chaos with a system that actually scales.</h3>
               <p className="text-muted-foreground leading-relaxed mb-4 flex-1">
-                After the factory comes everything else. Negotiating, tech packs, sampling, revision rounds, QC, payments, freight, disputes. None of it is taught. Sourcery walks you through every decision — incoterms, AQL, QC options — with plain-English guidance at each step, and enforces the gates that protect you.
+                Tech packs versioned. Revision rounds logged and factory-acknowledged. Sample gates enforced. QC gated against final payment. Every message, spec, defect, and milestone attached to the right order — permanently. Whether you're managing one production run or ten.
               </p>
               <div className="space-y-2 mb-5">
                 {[
@@ -126,9 +126,9 @@ export default function Brands() {
                 You shouldn't have to figure this out alone.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Manufacturing has its own language. Incoterms, AQL standards, sampling gates, MOQs — nobody teaches you this. Sourcery explains every decision before you make it, walks you through every step, and gives you a factory network to start from if you don't have one yet.
+                Production has its own language and its own process — incoterms, AQL standards, sampling gates, revision rounds. Sourcery explains every decision before you make it, walks you through every stage, and gives you a vetted factory network to start from if you don't have one.
               </p>
-              <p className="text-sm text-muted-foreground italic">"Never heard of incoterms? Not sure what AQL means? Every decision is explained before you commit. You learn by doing."</p>
+              <p className="text-sm text-muted-foreground italic">"Every decision is explained before you commit. You start with the same information an experienced buyer has."</p>
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.07 }} className="p-8 rounded-2xl bg-background border border-border">
@@ -137,9 +137,9 @@ export default function Brands() {
                 Replace the chaos. Get your time back.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                If you're already running production, this isn't about learning the basics. It's about replacing scattered WhatsApp threads, email chains nobody can find, and the spreadsheet that's always out of date — with one system where everything is in the right place.
+                If you're already running production, this isn't about learning the basics — it's about building the infrastructure your operation actually needs. A single system your team works from. A paper trail that doesn't depend on someone's inbox. A record that holds up in a dispute.
               </p>
-              <p className="text-sm text-muted-foreground italic">"Production stops living across five different apps. You get time back and a platform your whole team can work from."</p>
+              <p className="text-sm text-muted-foreground italic">"Not another tool on top of the stack — the system that replaces the stack."</p>
             </motion.div>
           </div>
         </div>

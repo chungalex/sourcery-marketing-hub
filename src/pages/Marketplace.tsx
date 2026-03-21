@@ -54,10 +54,10 @@ export default function Marketplace() {
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
                 The right factory changes everything.<br className="hidden md:block" />
-                Finding it shouldn't be a leap of faith.
+                Finding one you can trust shouldn't require a leap of faith.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                Most brands find their first manufacturer through a DM, a referral, or a Google search with no way to evaluate the results. The Sourcery marketplace shows you verified manufacturers with real credentials — before you reach out, before you wire a deposit. The network is intentionally small and every factory is personally vetted before listing.
+                Whether you're sourcing for the first time or replacing a factory that's let you down, the same problem applies — you're making a significant capital commitment with limited data. The Sourcery marketplace shows you verified manufacturers with credentials you can check before you reach out or wire anything. The network is intentionally small — every factory personally vetted before listing.
               </p>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="p-6 rounded-2xl bg-background border-2 border-primary">
@@ -88,13 +88,13 @@ export default function Marketplace() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-                The fear isn't production.<br />It's the capital you lock in before it starts.
+                The hardest part of sourcing is committing capital before you have confidence.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Wiring a 30% deposit to a manufacturer you found through a DM — before a single sample, before you know if they can produce your category at your quality level — is one of the most anxiety-inducing moments in building a brand. And once the money is sent, your leverage to fix anything is minimal.
+                It doesn't matter if it's your first factory or your fifth — locking in a 30% deposit before you have real data on a manufacturer's track record is a risk that most sourcing processes don't address. A good sample doesn't tell you the factory's QC pass rate, response time, or how they handle disputes.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                The marketplace exists to close that gap. See credentials, certifications, MOQ, and a performance record that builds from real orders — before you commit to anything. Then manage every order on the same platform with full milestone protection.
+                The marketplace exists to give you that information first. Credentials, certifications, MOQ, and a performance record that builds from real completed orders — before you reach out, before you commit.
               </p>
               <div className="space-y-2.5">
                 {whyPoints.map((item, i) => (

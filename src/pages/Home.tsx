@@ -98,8 +98,8 @@ export default function Home() {
   return (
     <Layout>
       <SEO
-        title="Sourcery — Find the Right Factory. Manage Every Order After It."
-        description="Most brands start production with an Instagram DM and a bank wire. No data, no system, no record. Sourcery is the marketplace to find the right factory and the OS to manage everything after."
+        title="Sourcery — The Manufacturing OS for Physical Product Brands"
+        description="Whether you're placing your first order or your fiftieth, production deserves better than WhatsApp and spreadsheets. Sourcery is the marketplace to find the right factory and the OS to manage every order properly."
         canonical="/"
       />
 
@@ -113,10 +113,10 @@ export default function Home() {
               {/* Left — copy */}
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-6">
-                  Find the right factory. Then manage everything after it.
+                  The manufacturing OS for brands who take production seriously.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
-                  Most brands start production with an Instagram DM and a bank wire. No data, no system, no record of what was agreed. Sourcery gives you the marketplace to find the right factory — and the OS to manage every order from there with confidence.
+                  Whether you're placing your first order or your fiftieth, production deserves better infrastructure than WhatsApp and spreadsheets. Sourcery is the marketplace to find the right factory and the OS to manage every order — documented, gated, and traceable from PO to delivery.
                 </p>
 
                 <div className="space-y-3 mb-8">
@@ -290,10 +290,10 @@ export default function Home() {
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mb-12">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              From finding the factory to closing the order.
+              Everything production needs. Nothing it doesn't.
             </h2>
             <p className="text-lg text-muted-foreground">
-              Everything a brand needs to run production properly — documented, gated, and guided at every stage.
+              From finding the right factory to closing an order with a permanent record — structured, gated, and traceable at every stage.
             </p>
           </motion.div>
 
@@ -385,13 +385,13 @@ export default function Home() {
                 Factory marketplace
               </div>
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-5">
-                The biggest obstacle is finding the factory in the first place.
+                Don't have a factory yet — or ready to find a better one?
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                There's no clear starting point. You search, you ask around, you DM strangers — and then you wire thousands upfront to someone you've never met, with no data on whether they're the right fit. The Sourcery marketplace shows you verified manufacturers with credentials you can check before you ever reach out.
+                Finding a manufacturer is hard whether it's your first order or you're replacing a factory that's let you down. The Sourcery marketplace shows you verified manufacturers with credentials confirmed before listing — AI-matched to your product, MOQ, certifications, and timeline. Browse free. Commit with data.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                AI-matched to your product, MOQ, certifications, and timeline. Free to browse. Confirm fit before you commit to anything.
+                Already have a factory? Invite them directly. BYOF brings your existing relationship onto the platform immediately — no marketplace needed.
               </p>
               <div className="flex gap-3 flex-wrap">
                 <Link to="/marketplace">
@@ -437,10 +437,10 @@ export default function Home() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center">
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Stop managing production with the wrong tools.
+              Production this serious deserves better infrastructure.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-              Find your factory in the marketplace or bring your own. First order free — full infrastructure from day one. No credit card, no hard feelings if it's not for you.
+              Find your factory in the marketplace or bring your own. First order free — full platform from day one. No credit card, no time limit.
             </p>
 
             {!captured ? (

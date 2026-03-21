@@ -101,12 +101,12 @@ export default function WhySourcery() {
                 <Shield className="h-4 w-4 text-primary" />
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">The production OS</p>
               </div>
-              <h2 className="font-heading text-xl font-bold text-foreground mb-3">Manage every step of production with a system built for it.</h2>
+              <h2 className="font-heading text-xl font-bold text-foreground mb-3">Replace the stack with something built for production.</h2>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                Guided order creation that explains every decision — incoterms, AQL standards, QC options — before you make it. Structured spec management, formal revision rounds, milestone-gated payments, QC documentation, defect reports, and a permanent record of every order.
+                Guided order creation, versioned specs, formal revision rounds, milestone-gated payments, QC documentation, defect reports, message translation, and a permanent record of every order. Works for a first-time founder learning the process and a team running 20 orders a year.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Not a tool you bolt on. Infrastructure that walks you through the entire process — from PO to closed delivery — so you're not making $15,000 decisions on a gut feeling.
+                Not another tool bolted on top of the stack. The infrastructure that replaces it.
               </p>
               <Link to="/how-it-works" className="inline-block mt-5">
                 <Button size="sm" variant="outline" className="gap-1.5 text-xs">See how it works <ArrowRight className="h-3.5 w-3.5" /></Button>
@@ -121,17 +121,17 @@ export default function WhySourcery() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
-              Nobody teaches you any of this.
+              Every stage of production has a question most brands are figuring out as they go.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              Every step of production involves decisions that experienced buyers make instinctively — because they've made them wrong before. Sourcery puts that knowledge into the platform, so first-time founders and scaling brands are making the same decisions with the same information.
+              Whether it's your first order or your fiftieth, there are decisions in every production run that carry real financial risk. Sourcery surfaces the right information at the right moment — so you're making informed decisions at every stage, not discovering what you should have done after something goes wrong.
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {[
-                { stage: "Finding a factory", q: "Where do I even start? How do I know they're legitimate? What's a reasonable MOQ?", a: "Vetted network with verified credentials. AI-matched to your actual requirements." },
+                { stage: "Finding a factory", q: "Where do I even start? How do I evaluate fit before wiring a deposit? What's a reasonable MOQ?", a: "Vetted network with verified credentials. AI-matched to your actual requirements." },
                 { stage: "Negotiating", q: "What's a fair price? What should I push back on? What terms actually protect me?", a: "Structured PO creation with guidance at every field. You know what you're agreeing to." },
                 { stage: "Tech packs & specs", q: "What goes in a tech pack? Which version is the factory building from?", a: "Versioned spec management. Factory confirms the version they're building from." },
-                { stage: "Sampling", q: "How many rounds is normal? What do I actually approve? What if it's wrong?", a: "Formal sample gate. Bulk cannot begin until sample is approved on platform." },
+                { stage: "Sampling", q: "How many rounds is normal? What constitutes a passing sample? How do I ensure this scales to bulk?", a: "Formal sample gate. Bulk cannot begin until sample is approved on platform." },
                 { stage: "Quality control", q: "Do I need a third party? What's AQL? What defect rate is acceptable?", a: "AQL explained before you choose. QC documented and gated against final payment." },
                 { stage: "Payments & leverage", q: "When do I pay? What if something goes wrong after I wire the final amount?", a: "Milestone-gated payments. Final release blocked until QC passes. You hold the keys." },
               ].map((item, i) => (
@@ -202,10 +202,10 @@ export default function WhySourcery() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              You're locking in real capital. You deserve real protection.
+              Every production run puts real capital at risk. Sourcery gives you the structure to manage it.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              Sourcery doesn't hold your funds — money moves directly between you and your factory. What it gives you is more durable: a documented, platform-enforced milestone structure that tells you exactly when each payment should move, and a permanent paper trail if something goes wrong.
+              Sourcery doesn't hold your funds — money moves directly between you and your factory. What it gives you is more durable: a documented, platform-enforced milestone structure that tells you exactly when each payment should move, and a permanent paper trail when something goes wrong.
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               {[
