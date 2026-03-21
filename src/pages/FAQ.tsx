@@ -29,7 +29,7 @@ const faqSections = [
     ],
   },
   {
-    title: "For brands",
+    title: "For Brands",
     faqs: [
       {
         q: "Do I have to use factories in your network?",
@@ -78,7 +78,7 @@ const faqSections = [
     ],
   },
   {
-    title: "For factories",
+    title: "For Factories",
     faqs: [
       {
         q: "Does joining the network cost anything?",

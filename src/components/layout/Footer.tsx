@@ -2,18 +2,20 @@ import { Link } from "react-router-dom";
 import { Newsletter } from "@/components/Newsletter";
 
 const footerLinks = {
-  product: [
-    { label: "For brands", href: "/brands" },
+  platform: [
     { label: "Marketplace", href: "/marketplace" },
-    { label: "For factories", href: "/factories" },
+    { label: "For Brands", href: "/brands" },
+    { label: "For Factories", href: "/factories" },
     { label: "Features", href: "/features" },
-    { label: "How it works", href: "/how-it-works" },
     { label: "Pricing", href: "/pricing" },
   ],
-  company: [
+  learn: [
     { label: "Why Sourcery", href: "/why-sourcery" },
-    { label: "About", href: "/about" },
+    { label: "How it works", href: "/how-it-works" },
     { label: "FAQ", href: "/faq" },
+  ],
+  company: [
+    { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ],
   legal: [
@@ -26,7 +28,7 @@ export function Footer() {
   return (
     <footer className="bg-card border-t border-border">
       <div className="container-wide section-padding">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
@@ -43,16 +45,13 @@ export function Footer() {
             <Newsletter variant="compact" />
           </div>
 
-          {/* Product Links */}
+          {/* Platform */}
           <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Product</h4>
+            <h4 className="font-heading font-semibold text-foreground mb-4">Platform</h4>
             <ul className="space-y-3">
-              {footerLinks.product.map((link) => (
+              {footerLinks.platform.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
+                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -60,38 +59,41 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Company Links */}
+          {/* Learn */}
+          <div>
+            <h4 className="font-heading font-semibold text-foreground mb-4">Learn</h4>
+            <ul className="space-y-3">
+              {footerLinks.learn.map((link) => (
+                <li key={link.href}>
+                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
           <div>
             <h4 className="font-heading font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
+                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Legal Links */}
-          <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Legal</h4>
-            <ul className="space-y-3">
+            <div className="mt-4 space-y-3">
               {footerLinks.legal.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
+                <div key={link.href}>
+                  <Link to={link.href} className="text-xs text-muted-foreground/70 hover:text-muted-foreground transition-colors">
                     {link.label}
                   </Link>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
 

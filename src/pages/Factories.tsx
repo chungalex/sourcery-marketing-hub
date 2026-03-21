@@ -64,7 +64,7 @@ export default function Factories() {
               <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">Join the marketplace</p>
               <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Apply and get discovered by new brands.</h2>
               <p className="text-muted-foreground leading-relaxed mb-5">
-                Apply to the Sourcery network, complete a credential review, and build a public profile. Brands searching for your category see your capabilities, certifications, and performance score.
+                Apply to the Sourcery network, complete a credential review, and build a public profile. Brands searching for your category see your capabilities, certifications, and growing performance record.
               </p>
               <Link to="/apply">
                 <Button size="sm" variant="outline" className="gap-1.5">Apply to the network <ArrowRight className="h-3.5 w-3.5" /></Button>
@@ -101,7 +101,7 @@ export default function Factories() {
                 icon: Star,
                 title: "A performance record that compounds.",
                 sub: "Your track record becomes your ranking.",
-                desc: "Every completed order updates your public performance score — QC pass rate, response time, on-time delivery, brand retention. High-performing factories get priority placement in search and AI matching.",
+                desc: "Every completed order on the platform adds to your public performance record — QC results, response times, on-time delivery, brand retention. It starts from zero and builds permanently. High-performing factories get priority placement over time.",
               },
             ].map((item, i) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="p-6 rounded-2xl bg-background border border-border">
@@ -122,7 +122,7 @@ export default function Factories() {
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Your track record becomes your ranking.</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Sourcery scores are built entirely from real completed order data. Factories can't pay for better placement. The only way up is performance.
+                Sourcery scores build from completed order data on the platform. Factories can't pay for better placement. The score starts from zero and the only way to build it is through real orders.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Factories with high scores get featured placement in search results and priority matching in the AI matcher — meaning more brands see your profile first.

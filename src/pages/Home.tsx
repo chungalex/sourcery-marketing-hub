@@ -45,9 +45,9 @@ const features = [
   },
   {
     icon: BarChart3,
-    title: "Factory performance scores",
-    sub: "No more wondering if the factory is reliable.",
-    description: "Every completed order builds a factory's real record — QC pass rate, response time, defect history. Not self-reported claims.",
+    title: "Factory performance tracking",
+    sub: "Know exactly what you're working with.",
+    description: "Every order completed on the platform adds to a factory's verified record — QC results, response times, defect reports. Builds from the first order. Never self-reported.",
   },
   {
     icon: Search,
@@ -364,7 +364,7 @@ export default function Home() {
           </div>
 
           <p className="text-sm text-muted-foreground text-center mb-5">
-            Every AI tool runs on real Sourcery data — factory profiles, performance scores, and anonymized order history. The more the network grows, the more accurate every tool becomes.
+            Every AI tool improves as the platform grows — factory profiles, order history, and performance records all feed in. The more orders completed on the platform, the sharper every recommendation becomes.
           </p>
           <div className="text-center">
             <Link to="/marketplace">
@@ -388,7 +388,7 @@ export default function Home() {
                 Don't have a factory?<br />Find the right one here.
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                Finding the right factory is the hardest part of starting production — and the part brands get the least help with. The Sourcery marketplace shows you verified factories with real performance scores built from completed orders, not self-reported claims.
+                Finding the right factory is the hardest part of starting production — and the part brands get the least help with. The Sourcery marketplace shows you verified factories — credentials confirmed, and a performance record that builds with every order placed through the platform.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Describe what you need in plain language. Get AI-matched to factories that fit your product, quantity, certifications, and timeline. Free to browse. Builder to contact.

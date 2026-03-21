@@ -95,7 +95,7 @@ const faqs = [
   },
   {
     q: "What is the founding member offer?",
-    a: "The first 5 brands to subscribe to Builder are locked at $299/year forever. Once those 5 spots are filled, the standard rate applies.",
+    a: "The founding membership is for the first 5 brands to join on a paid plan. They get Builder at $299/year locked permanently, direct access to the team, and input on what gets built — including which factories join the network. Once the 5 spots are filled, founding membership closes and the standard $399/year rate applies.",
   },
 ];
 
@@ -125,21 +125,51 @@ export default function Pricing() {
           </div>
         </section>
 
-        {/* Founding member */}
-        <div className="bg-primary/5 border-y border-primary/20 py-4">
-          <div className="container-tight flex items-center justify-between gap-4 flex-wrap">
-            <div className="flex items-center gap-3">
-              <Star className="h-4 w-4 text-primary flex-shrink-0" />
-              <div>
-                <p className="text-sm font-semibold text-foreground">Founding member — 5 spots only</p>
-                <p className="text-xs text-muted-foreground mt-0.5">First 5 brands to subscribe to Builder get $299/year locked forever. Standard rate is $399/year.</p>
+        {/* Founding member — proper section */}
+        <div className="section-padding">
+          <div className="container-tight">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="rounded-2xl border-2 border-primary bg-primary/5 p-8">
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Star className="h-4 w-4 text-primary" />
+                      <p className="text-xs font-semibold text-primary uppercase tracking-wide">Founding member — 5 spots</p>
+                    </div>
+                    <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+                      Be among the first brands to shape the platform.
+                    </h2>
+                    <p className="text-muted-foreground leading-relaxed mb-4">
+                      This isn't a discount. It's an invitation to be part of how Sourcery is built. Founding members get the Builder plan at $299/year locked permanently — but more importantly, they get direct access to the team, influence over what gets prioritised, and a factory network that's shaped around their production needs from day one.
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Once the five spots are filled, the standard rate applies. No exceptions after that.
+                    </p>
+                  </div>
+                  <div className="space-y-3">
+                    {[
+                      { label: "Builder plan", val: "$299/year locked", sub: "Standard rate is $399/year — never changes for you" },
+                      { label: "Direct access", val: "To the team", sub: "Your feedback shapes what gets built next" },
+                      { label: "Factory network", val: "Shaped around you", sub: "Early input on which factories join the network" },
+                      { label: "Spots remaining", val: "5 of 5", sub: "Once filled, founding membership closes permanently" },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-start justify-between gap-4 p-3 rounded-xl bg-background border border-border">
+                        <div>
+                          <p className="text-xs font-semibold text-foreground">{item.label}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{item.sub}</p>
+                        </div>
+                        <p className="text-xs font-semibold text-primary flex-shrink-0 text-right">{item.val}</p>
+                      </div>
+                    ))}
+                    <Link to="/auth?mode=signup&plan=builder&founding=true" className="block pt-1">
+                      <Button className="w-full gap-1.5">
+                        Apply for founding membership <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
               </div>
-            </div>
-            <Link to="/auth?mode=signup&plan=builder&founding=true">
-              <Button size="sm" variant="outline" className="flex-shrink-0 text-xs">
-                Claim your spot <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
-              </Button>
-            </Link>
+            </motion.div>
           </div>
         </div>
 

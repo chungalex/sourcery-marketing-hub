@@ -66,7 +66,7 @@ export function FilterSidebar({ filters, onFiltersChange, onReset, className }: 
       <FilterSection title="Factory Type" defaultOpen>
         <div className="space-y-2">
           {(Object.keys(factoryTypeLabels) as FactoryType[]).map((type) => (
-            <label key={type} className="flex items-center gap-2 cursor-pointer">
+            <label key={type} className="flex items-start gap-2 cursor-pointer">
               <Checkbox
                 checked={filters.types.includes(type)}
                 onCheckedChange={(checked) => {
@@ -77,8 +77,12 @@ export function FilterSidebar({ filters, onFiltersChange, onReset, className }: 
                       : filters.types.filter((t) => t !== type),
                   });
                 }}
+                className="mt-0.5"
               />
-              <span className="text-sm">{factoryTypeLabels[type].label}</span>
+              <div>
+                <span className="text-sm font-medium">{factoryTypeLabels[type].label}</span>
+                <p className="text-xs text-muted-foreground">{(factoryTypeLabels[type] as any).desc}</p>
+              </div>
             </label>
           ))}
         </div>

@@ -71,7 +71,7 @@ const failures = [
     total: "$5,000–$15,000 in direct losses. Plus 8–12 weeks of momentum lost. And you start the search again.",
     root: "No performance data before committing. The factory's track record — QC rates, response time, defect history — was invisible. You made a $15,000 decision on a gut feeling and a good-looking sample.",
     gate: "AI factory matcher + verified performance scores",
-    gateDesc: "Every factory in the Sourcery marketplace has gone through credential review and has a real performance score built from completed orders — QC pass rates, response times, defect history, brand retention. Describe what you need in plain language and get AI-matched to factories that actually fit your category, MOQ, and quality standard. You see the full picture before you reach out. Factory names and contact details visible on Builder.",
+    gateDesc: "Every factory in the Sourcery marketplace has gone through credential review — certifications verified, categories confirmed, production capability assessed. A performance score builds with every order completed on the platform. Early in the network's life, scores are building — but credentials are verified from day one. Describe what you need and get AI-matched to factories that fit. Factory names and contact visible on Builder.",
     isMarketplace: true,
   },
 ];
@@ -261,7 +261,7 @@ export default function WhySourcery() {
                 },
                 {
                   scenario: "Understanding your factory's track record",
-                  detail: "Performance scores build from real order data over time — QC pass rate, response time, defect history, on-time delivery. The longer you work together on the platform, the clearer the picture becomes.",
+                  detail: "Performance tracking builds from real order data over time — QC results, response times, defect reports, on-time delivery. The longer you work together on the platform, the clearer the picture becomes. Starts from zero. Compounds permanently.",
                 },
               ].map((item, i) => (
                 <motion.div key={item.scenario} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="flex items-start gap-4 p-5 rounded-xl bg-background border border-border">

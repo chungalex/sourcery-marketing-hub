@@ -35,10 +35,10 @@ import type { Factory, FactoryPreview } from "@/types/database";
 import type { FactoryPreview as MockFactoryPreview, FactoryType } from "@/data/mockData";
 
 const quickFilters: { label: string; type: FactoryType | 'all' }[] = [
-  { label: 'All', type: 'all' },
-  { label: 'Mass Production', type: 'mass_production' },
-  { label: 'Boutique', type: 'boutique' },
-  { label: 'Artisan', type: 'artisan' },
+  { label: 'All factories', type: 'all' },
+  { label: 'Full Package', type: 'full_package' },
+  { label: 'Specialist', type: 'specialist' },
+  { label: 'Low MOQ', type: 'low_moq' },
 ];
 
 type SortOption = 'newest' | 'completeness' | 'moq_low' | 'moq_high' | 'lead_time';
@@ -52,7 +52,7 @@ function transformFactory(f: Factory): MockFactoryPreview {
     id: f.id,
     slug: f.slug,
     name: f.name,
-    type: (f.factory_type as FactoryType) || 'mass_production',
+    type: (f.factory_type as FactoryType) || 'full_package',
     location: {
       city: f.city || '',
       country: f.country,
@@ -76,7 +76,7 @@ function transformPreview(f: FactoryPreview): MockFactoryPreview {
     id: f.id,
     slug: f.slug,
     name: f.name,
-    type: (f.factory_type as FactoryType) || 'mass_production',
+    type: (f.factory_type as FactoryType) || 'full_package',
     location: {
       city: f.city || '',
       country: f.country,
@@ -293,8 +293,8 @@ export default function Directory() {
   return (
     <Layout>
       <SEO
-        title="Factory Directory | Discover Vetted Manufacturing Partners"
-        description="Browse our curated network of certified factories, boutique workshops, and artisan producers. Find the perfect manufacturing partner for your brand."
+        title="Factory Network — Sourcery"
+        description="Browse vetted manufacturers with verified credentials. Find the right factory by category, location, MOQ, and certifications."
       />
 
       {/* Hero */}
@@ -306,10 +306,10 @@ export default function Directory() {
             className="text-center max-w-3xl mx-auto mb-8"
           >
             <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-              Discover Vetted Manufacturing Partners
+              Find your manufacturing partner.
             </h1>
             <p className="text-lg text-muted-foreground">
-              Browse our curated network of certified factories, boutique workshops, and artisan producers
+              Verified credentials, growing performance records, and AI matching. Bring your own factory or find one here
             </p>
           </motion.div>
 

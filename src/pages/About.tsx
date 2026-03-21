@@ -10,7 +10,7 @@ export default function About() {
     <Layout>
       <SEO
         title="About — Sourcery"
-        description="Sourcery is a manufacturing OS built by operators who experienced the problem on both sides. Every feature exists because we needed it and it didn't exist."
+        description="Sourcery is a manufacturing OS built by people who managed production on both sides. Every feature exists because we encountered the problem it solves."
       />
 
       {/* Hero */}
@@ -18,10 +18,10 @@ export default function About() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
-              Built for the founders navigating one of the hardest parts of building a product company.
+              Built by people who managed production on both sides.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Production is complex, opaque, and unforgiving when things go wrong. Sourcery exists to change that — not just as a tool, but as the infrastructure that makes manufacturing navigable for any brand willing to take it seriously.
+              As brands placing orders and as manufacturers receiving them. Every feature on this platform exists because we encountered the problem it solves — and couldn't find anything that solved it properly.
             </p>
           </motion.div>
         </div>
@@ -30,54 +30,46 @@ export default function About() {
       {/* Story */}
       <section className="section-padding">
         <div className="container-tight">
-          <div className="grid lg:grid-cols-3 gap-12">
-            {/* Main story — 2 cols */}
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:col-span-2 space-y-5 text-muted-foreground text-base leading-relaxed">
+          <div className="max-w-2xl space-y-5 text-muted-foreground text-base leading-relaxed">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <p>
                 Running a brand is hard. Building a product from scratch, finding the right manufacturer, navigating a space that doesn't explain itself, wiring money overseas and hoping for the best — it's one of the most stressful and opaque things you can do as a founder.
               </p>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <p>
                 The manufacturing industry has very little transparency. Supply chains are complex. There's a language to it — incoterms, AQL standards, sampling gates, revision rounds — that nobody teaches you. As a brand, you often don't know what you don't know. Whether the spec you sent is the spec they're building from. Whether the revision you requested last week was acknowledged. Whether the sample you approved will translate to bulk. And if something goes wrong, you have no record, no leverage, and no clear next step.
               </p>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <p>
-                We experienced this from both sides — managing a brand's production orders and not being able to prove what was agreed when something went wrong, and running a production studio and receiving specs that changed mid-order with no paper trail either side could reference. The same order. Two completely different accounts of what happened. Nothing to resolve it with.
+                We experienced this on both sides. Managing production as a brand — unable to prove what was agreed when something went wrong. Receiving orders as a manufacturer — specs that changed mid-production with no paper trail either party could reference. The same order. Two completely different accounts of what happened. Nothing to resolve it with.
               </p>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <p>
-                Every tool we reached for solved one part of the problem. None of them solved the whole thing — the shared system of record that both sides operate from, with every decision documented, every payment gated, every spec version tracked.
+                Every tool we reached for solved one part of the problem. None of them solved the whole thing — a shared system of record that both sides operate from, with every decision documented, every payment gated, every spec version tracked.
               </p>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <p className="text-foreground font-semibold text-lg">
                 The tools didn't exist. So we built them.
               </p>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <p>
                 Sourcery is the system of record. Every order, revision, sample, defect, and payment — documented, timestamped, and attached to the right place. Not a directory. Not an agency. Infrastructure that walks you through the process, keeps everything organised, and gives you the confidence to build your company around production instead of in spite of it.
               </p>
-              <p>
-                The platform has two equally important halves. The OS manages every order from PO creation to closed delivery. The marketplace helps brands find the right factory before the first order is ever placed — vetted manufacturers with real performance scores, AI-matched to your specific requirements. Finding the right factory is the problem most brands get the least help with. We built the infrastructure for that too.
+              <p className="mt-4">
+                The platform has two equally important halves. The OS manages every order from PO creation to closed delivery. The marketplace helps brands find the right factory before the first order is placed — vetted manufacturers with verified credentials, matched to your requirements. Because getting production right starts with getting the factory right.
               </p>
-            </motion.div>
-
-            {/* Founder sidebar */}
-            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <div className="bg-card border border-border rounded-2xl p-6 sticky top-24">
-                <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center mb-4">
-                  <span className="text-primary font-bold text-sm">A</span>
-                </div>
-                <p className="text-sm font-semibold text-foreground mb-1">Alex Chung</p>
-                <p className="text-xs text-muted-foreground mb-4">Founder, Sourcery</p>
-                <div className="space-y-2 text-xs text-muted-foreground">
-                  <p>Founder of OKIO Denim — premium denim brand designed in LA, manufactured in Vietnam.</p>
-                  <p>Founder of HU LA Studios — garment production studio, Ho Chi Minh City.</p>
-                  <p>Real estate development student, USC.</p>
-                  <p className="text-foreground font-medium pt-1">Both sides of the same problem. Built the platform both sides needed.</p>
-                </div>
-              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Marketplace callout */}
-      <section className="py-0 pb-0">
+      <section className="section-padding">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <div className="p-8 rounded-2xl bg-primary/5 border border-primary/20">
@@ -88,15 +80,15 @@ export default function About() {
                     The other half of the platform.
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    Starting with the wrong factory is the single most common way production goes wrong — before a single order is placed. The Sourcery marketplace gives brands access to vetted manufacturers with verified credentials and real performance scores, AI-matched to their specific requirements. Because getting the production infrastructure right starts with getting the factory right.
+                    Finding the right factory is the single hardest problem in production — and the part brands get the least help with. The marketplace is intentionally selective: every factory has been personally vetted, credentials verified, and standards confirmed before listing. As the platform grows, so does the network — with the same standard applied to every new entry.
                   </p>
                 </div>
                 <div className="space-y-2.5">
                   {[
-                    "Verified credentials — not just a listing",
-                    "Performance scores from real completed orders",
-                    "AI-matched to your product, MOQ, and timeline",
-                    "Free to browse — Builder to contact",
+                    "Every factory personally vetted before listing",
+                    "Verified credentials — not self-reported",
+                    "Performance tracking starts from the first order",
+                    "Network grows with the same standard applied",
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
                       <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
@@ -128,8 +120,8 @@ export default function About() {
                 {[
                   "A manufacturing OS — infrastructure between your brand and your factory",
                   "BYOF-first — bring existing relationships, get value immediately",
-                  "A curated marketplace with verified factories and real performance data",
-                  "AI-matched factory recommendations based on your actual requirements",
+                  "A selective marketplace with personally vetted factories",
+                  "AI-matched factory recommendations based on real requirements",
                   "Guidance through every decision in the production process",
                   "Built by operators, validated on real production",
                 ].map((item, i) => (
@@ -143,7 +135,7 @@ export default function About() {
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">What it isn't</p>
                 {[
                   "A sourcing agency that manages production for you",
-                  "An unverified factory directory",
+                  "An unverified factory directory with thousands of listings",
                   "A subscription you pay before seeing value",
                   "Built for enterprise procurement teams",
                   "A replacement for your own judgment and due diligence",

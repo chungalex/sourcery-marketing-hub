@@ -60,12 +60,12 @@ export default function Brands() {
               </div>
               <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Find the right factory.</h3>
               <p className="text-muted-foreground leading-relaxed mb-4 flex-1">
-                Browse vetted manufacturers with real performance scores — QC pass rates, response times, defect history. Get AI-matched to factories that fit your product, MOQ, certifications, and timeline. Free to browse. The hardest problem in production, solved before you place a single order.
+                Browse vetted manufacturers with verified credentials — categories, certifications, MOQ, lead times — and a performance record that builds with every order on the platform. Get AI-matched to factories that fit your requirements. Free to browse.
               </p>
               <div className="space-y-2 mb-5">
                 {[
                   "Verified credentials before listing",
-                  "Performance scores from real completed orders",
+                  "Performance tracking that builds with every order",
                   "AI-matched by product type, MOQ, certifications",
                   "Free to browse — Builder to contact",
                 ].map((item, i) => (

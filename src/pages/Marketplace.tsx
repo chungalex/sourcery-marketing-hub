@@ -8,29 +8,21 @@ import { cn } from "@/lib/utils";
 
 const categories = ["Apparel", "Denim", "Outerwear", "Knitwear", "Accessories", "Footwear", "Bags", "Home goods", "Soft goods"];
 
-const scoreMetrics = [
-  { label: "QC pass rate", val: "98%", w: 98 },
-  { label: "Response time", val: "< 8hr", w: 92 },
-  { label: "On-time delivery", val: "96%", w: 96 },
-  { label: "Brand retention", val: "91%", w: 91 },
-  { label: "Defect rate", val: "Low", w: 88 },
-];
-
 const whyPoints = [
-  "Performance scores built from real order data — not self-reported",
+  "Performance scores that build with every completed order — not self-reported",
   "Credential review and certification verification before listing",
   "Factories with declining scores are flagged automatically",
   "Every inquiry and order managed on the same platform",
 ];
 
 const aiMatches = [
-  { name: "HU LA Studios", loc: "Vietnam", score: "9.4", match: "98%", locked: false },
-  { name: "████████ Co.", loc: "Vietnam", score: "8.9", match: "94%", locked: true },
-  { name: "████████ Ltd.", loc: "Portugal", score: "8.6", match: "87%", locked: true },
+  { name: "HU LA Studios", loc: "Vietnam", match: "Top match", locked: false },
+  { name: "████████ Co.", loc: "Vietnam", match: "Strong match", locked: true },
+  { name: "████████ Ltd.", loc: "Portugal", match: "Good match", locked: true },
 ];
 
 const scoreCards = [
-  { icon: BarChart3, title: "QC pass rate", desc: "What % of orders pass quality inspection on first submission. Calculated from every completed order." },
+  { icon: BarChart3, title: "QC pass rate", desc: "What % of orders pass quality inspection on first submission. Calculated from every order completed on platform — starts empty, compounds over time." },
   { icon: Search, title: "Response time", desc: "Average time to respond to brand messages on active orders. Tracked automatically." },
   { icon: CheckCircle, title: "On-time delivery", desc: "Orders delivered within the agreed window. Logged against every closed order." },
   { icon: Shield, title: "Defect rate", desc: "Defect reports per completed order. Factories must respond to every report." },
@@ -49,7 +41,7 @@ export default function Marketplace() {
     <Layout>
       <SEO
         title="Factory Marketplace — Sourcery"
-        description="Find vetted manufacturers with real performance scores. Or bring your own factory. Both paths run on the same platform."
+        description="Find vetted manufacturers with verified credentials. Or bring your own factory. Both paths run on the same platform."
       />
 
       {/* Hero */}
@@ -65,7 +57,7 @@ export default function Marketplace() {
                 Or bring the one you have.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                Browse vetted manufacturers with real performance scores. Get AI-matched to the right factory for your product. Or invite your existing manufacturer and manage every order on the same platform.
+                Browse vetted manufacturers with verified credentials. The network is intentionally small right now — every factory personally vetted before listing. Get AI-matched to the right fit, or invite your existing manufacturer and manage every order on the same platform.
               </p>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="p-6 rounded-2xl bg-background border-2 border-primary">
@@ -99,7 +91,7 @@ export default function Marketplace() {
                 Finding the right factory is hard.<br />Trusting one is harder.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Most directories show you a name and a location. Sourcery shows you a factory's complete production record — every QC result, every defect report, every response time, built from real completed orders.
+                Most directories show you a name and a location. Sourcery shows you a factory's verified credentials — categories, certifications, MOQ, and a performance record that builds with every order completed on the platform.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Once you find the right one, everything — order creation, sampling, revision rounds, QC, payments — runs through the same platform. No handover, no starting over.
@@ -118,29 +110,31 @@ export default function Marketplace() {
               <div className="bg-card border border-border rounded-2xl p-6">
                 <div className="flex items-center justify-between mb-5">
                   <div>
-                    <p className="text-xs text-muted-foreground mb-0.5">Factory performance</p>
+                    <p className="text-xs text-muted-foreground mb-0.5">Factory profile</p>
                     <p className="font-semibold text-foreground">HU LA Studios</p>
                     <p className="text-xs text-muted-foreground">Ho Chi Minh City, Vietnam</p>
                   </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-primary">9.4</div>
-                    <div className="text-xs text-muted-foreground">/ 10</div>
+                  <div className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                    <p className="text-xs font-semibold text-primary">Verified</p>
                   </div>
                 </div>
-                <div className="space-y-2.5">
-                  {scoreMetrics.map((m) => (
-                    <div key={m.label}>
-                      <div className="flex items-center justify-between text-xs mb-1">
-                        <span className="text-muted-foreground">{m.label}</span>
-                        <span className="font-medium text-foreground">{m.val}</span>
-                      </div>
-                      <div className="h-1.5 bg-secondary rounded-full">
-                        <div className="h-full bg-primary rounded-full" style={{ width: `${m.w}%` }} />
-                      </div>
+                <div className="space-y-0 mb-5">
+                  {[
+                    { label: "Categories", val: "Denim, Outerwear, Woven" },
+                    { label: "MOQ", val: "300 units" },
+                    { label: "Lead time", val: "10–14 weeks" },
+                    { label: "Location", val: "Ho Chi Minh City, Vietnam" },
+                    { label: "Certifications", val: "ISO 9001, WRAP" },
+                  ].map((m) => (
+                    <div key={m.label} className="flex items-center justify-between text-xs py-2 border-b border-border last:border-0">
+                      <span className="text-muted-foreground">{m.label}</span>
+                      <span className="font-medium text-foreground">{m.val}</span>
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-muted-foreground mt-4 text-center">Built from real completed order data</p>
+                <div className="p-3 rounded-lg bg-secondary/50 text-center">
+                  <p className="text-xs text-muted-foreground">Performance record builds from the first order placed on platform</p>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -169,8 +163,8 @@ export default function Marketplace() {
                         <p className="text-xs text-muted-foreground">{f.loc}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-xs text-primary font-semibold">{f.match} match</p>
-                        <p className="text-xs text-muted-foreground">Score: {f.score}</p>
+                        <p className="text-xs text-primary font-semibold">{f.match}</p>
+                
                       </div>
                     </div>
                   ))}
@@ -205,10 +199,10 @@ export default function Marketplace() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
             <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
-              Scores built from real orders. Not claims.
+              Scores that build with every order. Not claims.
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Every factory's score is calculated from completed order data. No self-reporting. No paying for placement. The best-performing factories rank highest.
+              Every completed order on the platform contributes to a factory's performance score. No self-reporting. No paying for placement. The score builds from zero — transparently — from the first order placed.
             </p>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -233,7 +227,7 @@ export default function Marketplace() {
                   Confirm fit before you upgrade.
                 </h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  Free accounts see capabilities, certifications, MOQ, lead time, and performance scores. Factory names and contact details are visible on Builder and above.
+                  Free accounts see capabilities, certifications, MOQ, lead time, and any performance score already built. Factory names and contact details are visible on Builder and above.
                 </p>
                 <p className="text-muted-foreground leading-relaxed mb-6">
                   Browse the full network and confirm a factory is exactly right before paying anything.

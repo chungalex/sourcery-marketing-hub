@@ -1,6 +1,6 @@
 // Mock data for the marketplace - simulating API responses
 
-export type FactoryType = 'mass_production' | 'boutique' | 'artisan';
+export type FactoryType = 'full_package' | 'specialist' | 'low_moq';
 export type InquiryStatus = 'pending' | 'responded' | 'closed';
 export type ApplicationStatus = 'pending' | 'approved' | 'rejected';
 
@@ -115,16 +115,16 @@ export interface SubscriptionTier {
 
 // Mock Categories
 export const mockCategories: Category[] = [
-  { slug: 'apparel-womenswear', name: 'Apparel - Womenswear', count: 45 },
-  { slug: 'apparel-menswear', name: 'Apparel - Menswear', count: 38 },
-  { slug: 'apparel-childrenswear', name: 'Apparel - Childrenswear', count: 22 },
-  { slug: 'footwear', name: 'Footwear', count: 18 },
-  { slug: 'accessories', name: 'Accessories', count: 31 },
-  { slug: 'bags-leather', name: 'Bags & Leather Goods', count: 24 },
-  { slug: 'swimwear', name: 'Swimwear', count: 12 },
-  { slug: 'activewear', name: 'Activewear', count: 28 },
-  { slug: 'knitwear', name: 'Knitwear', count: 19 },
-  { slug: 'denim', name: 'Denim', count: 15 },
+  { slug: 'apparel', name: 'Apparel' },
+
+
+  { slug: 'footwear', name: 'Footwear' },
+  { slug: 'accessories', name: 'Accessories' },
+  { slug: 'bags-leather', name: 'Bags & Leather Goods' },
+  { slug: 'swimwear', name: 'Swimwear' },
+  { slug: 'activewear', name: 'Activewear' },
+  { slug: 'knitwear', name: 'Knitwear' },
+  { slug: 'denim', name: 'Denim' },
 ];
 
 // Mock Certifications
@@ -141,14 +141,14 @@ export const mockCertifications: CertificationBadge[] = [
 
 // Mock Countries
 export const mockCountries = [
-  { code: 'CN', name: 'China', count: 156 },
-  { code: 'VN', name: 'Vietnam', count: 48 },
-  { code: 'BD', name: 'Bangladesh', count: 42 },
-  { code: 'IN', name: 'India', count: 35 },
-  { code: 'TR', name: 'Turkey', count: 28 },
-  { code: 'PT', name: 'Portugal', count: 18 },
-  { code: 'IT', name: 'Italy', count: 22 },
-  { code: 'ID', name: 'Indonesia', count: 15 },
+  { code: 'CN', name: 'China' },
+  { code: 'VN', name: 'Vietnam' },
+  { code: 'BD', name: 'Bangladesh' },
+  { code: 'IN', name: 'India' },
+  { code: 'TR', name: 'Turkey' },
+  { code: 'PT', name: 'Portugal' },
+  { code: 'IT', name: 'Italy' },
+  { code: 'ID', name: 'Indonesia' },
 ];
 
 // Mock Factories
@@ -157,7 +157,7 @@ export const mockFactories: FactoryPreview[] = [
     id: '1',
     slug: 'summit-textiles',
     name: 'Summit Textiles Co.',
-    type: 'mass_production',
+    type: 'full_package',
     location: { city: 'Guangzhou', country: 'China', countryCode: 'CN' },
     coverImageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
     categories: ['Apparel - Womenswear', 'Knitwear', 'Activewear'],
@@ -176,7 +176,7 @@ export const mockFactories: FactoryPreview[] = [
     id: '2',
     slug: 'artisan-leather-works',
     name: 'Artisan Leather Works',
-    type: 'boutique',
+    type: 'specialist',
     location: { city: 'Florence', country: 'Italy', countryCode: 'IT' },
     coverImageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=600&fit=crop',
     categories: ['Bags & Leather Goods', 'Accessories'],
@@ -193,7 +193,7 @@ export const mockFactories: FactoryPreview[] = [
     id: '3',
     slug: 'eco-threads-vietnam',
     name: 'Eco Threads Vietnam',
-    type: 'mass_production',
+    type: 'full_package',
     location: { city: 'Ho Chi Minh City', country: 'Vietnam', countryCode: 'VN' },
     coverImageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop',
     categories: ['Apparel - Womenswear', 'Apparel - Menswear', 'Denim'],
@@ -212,7 +212,7 @@ export const mockFactories: FactoryPreview[] = [
     id: '4',
     slug: 'heritage-crafts',
     name: 'Heritage Crafts Collective',
-    type: 'artisan',
+    type: 'low_moq',
     location: { city: 'Jaipur', country: 'India', countryCode: 'IN' },
     coverImageUrl: 'https://images.unsplash.com/photo-1604937455095-ef2fe3d46f4d?w=800&h=600&fit=crop',
     categories: ['Accessories', 'Apparel - Womenswear'],
@@ -229,7 +229,7 @@ export const mockFactories: FactoryPreview[] = [
     id: '5',
     slug: 'precision-footwear',
     name: 'Precision Footwear Ltd.',
-    type: 'mass_production',
+    type: 'full_package',
     location: { city: 'Dongguan', country: 'China', countryCode: 'CN' },
     coverImageUrl: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800&h=600&fit=crop',
     categories: ['Footwear', 'Activewear'],
@@ -248,7 +248,7 @@ export const mockFactories: FactoryPreview[] = [
     id: '6',
     slug: 'coastal-swim',
     name: 'Coastal Swim Manufacturing',
-    type: 'boutique',
+    type: 'specialist',
     location: { city: 'Bali', country: 'Indonesia', countryCode: 'ID' },
     coverImageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
     categories: ['Swimwear', 'Activewear'],
@@ -265,7 +265,7 @@ export const mockFactories: FactoryPreview[] = [
     id: '7',
     slug: 'nova-denim',
     name: 'Nova Denim Factory',
-    type: 'mass_production',
+    type: 'full_package',
     location: { city: 'Istanbul', country: 'Turkey', countryCode: 'TR' },
     coverImageUrl: 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=800&h=600&fit=crop',
     categories: ['Denim', 'Apparel - Menswear', 'Apparel - Womenswear'],
@@ -284,7 +284,7 @@ export const mockFactories: FactoryPreview[] = [
     id: '8',
     slug: 'alpine-knitwear',
     name: 'Alpine Knitwear Studio',
-    type: 'boutique',
+    type: 'specialist',
     location: { city: 'Porto', country: 'Portugal', countryCode: 'PT' },
     coverImageUrl: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800&h=600&fit=crop',
     categories: ['Knitwear', 'Apparel - Womenswear'],
@@ -458,8 +458,8 @@ export const mockSubscriptionTiers: SubscriptionTier[] = [
 ];
 
 // Factory type labels
-export const factoryTypeLabels: Record<FactoryType, { label: string; color: string }> = {
-  mass_production: { label: 'Mass Production', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' },
-  boutique: { label: 'Boutique', color: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' },
-  artisan: { label: 'Artisan', color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' },
+export const factoryTypeLabels: Record<FactoryType, { label: string; color: string; desc: string }> = {
+  full_package: { label: 'Full Package', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300', desc: '500+ units, end-to-end production' },
+  specialist: { label: 'Specialist', color: 'bg-primary/10 text-primary border border-primary/20', desc: 'Deep category expertise, premium quality' },
+  low_moq: { label: 'Low MOQ', color: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300', desc: '100–300 unit runs, suited to early-stage brands' },
 };
