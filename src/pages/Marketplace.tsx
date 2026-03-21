@@ -53,11 +53,11 @@ export default function Marketplace() {
                 Factory marketplace
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
-                Find your next factory.<br className="hidden md:block" />
-                Or bring the one you have.
+                The right factory changes everything.<br className="hidden md:block" />
+                Finding it shouldn't be a leap of faith.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                Browse vetted manufacturers with verified credentials. The network is intentionally small right now — every factory personally vetted before listing. Get AI-matched to the right fit, or invite your existing manufacturer and manage every order on the same platform.
+                Most brands find their first manufacturer through a DM, a referral, or a Google search with no way to evaluate the results. The Sourcery marketplace shows you verified manufacturers with real credentials — before you reach out, before you wire a deposit. The network is intentionally small and every factory is personally vetted before listing.
               </p>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="p-6 rounded-2xl bg-background border-2 border-primary">
@@ -88,13 +88,13 @@ export default function Marketplace() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-                Finding the right factory is hard.<br />Trusting one is harder.
+                The fear isn't production.<br />It's the capital you lock in before it starts.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Most directories show you a name and a location. Sourcery shows you a factory's verified credentials — categories, certifications, MOQ, and a performance record that builds with every order completed on the platform.
+                Wiring a 30% deposit to a manufacturer you found through a DM — before a single sample, before you know if they can produce your category at your quality level — is one of the most anxiety-inducing moments in building a brand. And once the money is sent, your leverage to fix anything is minimal.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Once you find the right one, everything — order creation, sampling, revision rounds, QC, payments — runs through the same platform. No handover, no starting over.
+                The marketplace exists to close that gap. See credentials, certifications, MOQ, and a performance record that builds from real orders — before you commit to anything. Then manage every order on the same platform with full milestone protection.
               </p>
               <div className="space-y-2.5">
                 {whyPoints.map((item, i) => (

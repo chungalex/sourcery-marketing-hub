@@ -10,7 +10,7 @@ export default function Brands() {
     <Layout>
       <SEO
         title="For Brands — Sourcery"
-        description="Find the right factory. Manage every order with full structure, security, and traceability. Your first order is free."
+        description="Finding a factory is terrifying. Managing everything after is overwhelming. Sourcery solves both — a vetted marketplace to find the right fit, and an OS that walks you through every step after."
       />
 
       {/* Hero */}
@@ -22,10 +22,13 @@ export default function Brands() {
                 For brands
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
-                Production is where most brands lose confidence. This is where you get it back.
+                Finding the right factory is the hardest part. Everything after it is the longest part.
               </h1>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                Whether you're placing your first order or your fiftieth, Sourcery gives you two things every brand needs — the right factory to work with, and the infrastructure to manage every order with confidence.
+              <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-2xl">
+                There's no clear way to find a manufacturer when you're starting out. No database, no guide, no way to know who to trust before you wire a deposit. And once you have a factory, there's a whole process ahead — tech packs, sampling, revisions, QC, payments, freight — that nobody teaches you.
+              </p>
+              <p className="text-base font-medium text-foreground mb-8 max-w-2xl">
+                Sourcery is built for both.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/auth?mode=signup">
@@ -58,16 +61,16 @@ export default function Brands() {
                 </div>
                 <p className="text-xs font-semibold text-primary uppercase tracking-wide">Factory marketplace</p>
               </div>
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Find the right factory.</h3>
+              <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Find the right factory before you commit to anything.</h3>
               <p className="text-muted-foreground leading-relaxed mb-4 flex-1">
-                Browse vetted manufacturers with verified credentials — categories, certifications, MOQ, lead times — and a performance record that builds with every order on the platform. Get AI-matched to factories that fit your requirements. Free to browse.
+                The biggest fear in sourcing is locking in capital before you know if the factory is right. Sourcery shows you verified credentials, certifications, and a performance record that builds with every order — before you reach out, before you wire a deposit.
               </p>
               <div className="space-y-2 mb-5">
                 {[
-                  "Verified credentials before listing",
-                  "Performance tracking that builds with every order",
+                  "Browse the full network free — no commitment",
+                  "Credentials verified before listing",
                   "AI-matched by product type, MOQ, certifications",
-                  "Free to browse — Builder to contact",
+                  "Factory names and contact on Builder",
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <CheckCircle className="h-3.5 w-3.5 text-primary flex-shrink-0" />
@@ -88,16 +91,16 @@ export default function Brands() {
                 </div>
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Production OS</p>
               </div>
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Manage every order properly.</h3>
+              <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Navigate the whole process — not just part of it.</h3>
               <p className="text-muted-foreground leading-relaxed mb-4 flex-1">
-                Structured PO creation, milestone-gated payments, formal revision rounds, sampling gates, QC documentation, and a permanent order record — all in one place. Works with your existing factory or one from the marketplace.
+                After the factory comes everything else. Negotiating, tech packs, sampling, revision rounds, QC, payments, freight, disputes. None of it is taught. Sourcery walks you through every decision — incoterms, AQL, QC options — with plain-English guidance at each step, and enforces the gates that protect you.
               </p>
               <div className="space-y-2 mb-5">
                 {[
-                  "Every decision guided with plain-English explanations",
-                  "Sample approved before bulk — enforced by the platform",
-                  "Final payment blocked until QC passes",
-                  "Every order a permanent, searchable record",
+                  "Every decision explained before you make it",
+                  "Sample gate — bulk can't begin until formally approved",
+                  "Final payment gated behind QC pass",
+                  "Full permanent record on every order",
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <CheckCircle className="h-3.5 w-3.5 text-primary flex-shrink-0" />

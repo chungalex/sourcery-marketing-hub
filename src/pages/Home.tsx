@@ -98,8 +98,8 @@ export default function Home() {
   return (
     <Layout>
       <SEO
-        title="Sourcery — The Manufacturing OS for Physical Product Brands"
-        description="Production is hard to manage, hard to trust, and hard to scale. Sourcery brings everything into one place — from finding the right factory to closing every order with a permanent record."
+        title="Sourcery — Find the Right Factory. Manage Every Order After It."
+        description="Most brands start production with an Instagram DM and a bank wire. No data, no system, no record. Sourcery is the marketplace to find the right factory and the OS to manage everything after."
         canonical="/"
       />
 
@@ -113,17 +113,17 @@ export default function Home() {
               {/* Left — copy */}
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-6">
-                  The manufacturing OS for physical product brands.
+                  Find the right factory. Then manage everything after it.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
-                  Production is hard to manage, hard to trust, and hard to scale. Sourcery brings everything into one place — from finding the right factory to closing every order with a permanent record.
+                  Most brands start production with an Instagram DM and a bank wire. No data, no system, no record of what was agreed. Sourcery gives you the marketplace to find the right factory — and the OS to manage every order from there with confidence.
                 </p>
 
                 <div className="space-y-3 mb-8">
                   {[
-                    { gate: "Find the right factory", desc: "AI-matched from verified network data — or bring your own" },
-                    { gate: "Sample gate", desc: "Bulk production cannot begin until sample is approved" },
-                    { gate: "QC gate", desc: "Final payment blocked until quality inspection passes" },
+                    { gate: "Verified factory network", desc: "Find manufacturers with credentials confirmed before you reach out" },
+                    { gate: "Guided from first PO to delivery", desc: "Every decision explained — incoterms, AQL, QC — before you make it" },
+                    { gate: "Your money moves when you confirm it", desc: "Milestone-gated payments. Sample gate. QC gate. Nothing moves without you" },
                   ].map(item => (
                     <div key={item.gate} className="flex items-start gap-3">
                       <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -290,10 +290,10 @@ export default function Home() {
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mb-12">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Everything you need to manage production properly.
+              From finding the factory to closing the order.
             </h2>
             <p className="text-lg text-muted-foreground">
-              From your first PO to a closed order with a permanent record — every stage documented, every payment gated, every decision guided.
+              Everything a brand needs to run production properly — documented, gated, and guided at every stage.
             </p>
           </motion.div>
 
@@ -385,13 +385,13 @@ export default function Home() {
                 Factory marketplace
               </div>
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-5">
-                Don't have a factory?<br />Find the right one here.
+                The biggest obstacle is finding the factory in the first place.
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                Finding the right factory is the hardest part of starting production — and the part brands get the least help with. The Sourcery marketplace shows you verified factories — credentials confirmed, and a performance record that builds with every order placed through the platform.
+                There's no clear starting point. You search, you ask around, you DM strangers — and then you wire thousands upfront to someone you've never met, with no data on whether they're the right fit. The Sourcery marketplace shows you verified manufacturers with credentials you can check before you ever reach out.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Describe what you need in plain language. Get AI-matched to factories that fit your product, quantity, certifications, and timeline. Free to browse. Builder to contact.
+                AI-matched to your product, MOQ, certifications, and timeline. Free to browse. Confirm fit before you commit to anything.
               </p>
               <div className="flex gap-3 flex-wrap">
                 <Link to="/marketplace">
@@ -437,10 +437,10 @@ export default function Home() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center">
             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Ready to build your company without production holding you back?
+              Stop managing production with the wrong tools.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-              Your first order is free. No credit card, no commitment. If it changes how you manage production — great. If not, no hard feelings.
+              Find your factory in the marketplace or bring your own. First order free — full infrastructure from day one. No credit card, no hard feelings if it's not for you.
             </p>
 
             {!captured ? (
