@@ -111,7 +111,7 @@ const faqSections = [
       },
       {
         q: "What does a subscription include?",
-        a: "Every subscription tier includes the full production OS — structured PO creation, sampling gates, revision rounds, tech pack versioning, QC documentation, defect reports, milestone tracking, on-platform messaging, and permanent order records. Builder adds full marketplace access, AI tools, and order templates. Pro adds unlimited orders, production calendar, spec library, analytics, and 3 team seats.",
+        a: "Every subscription tier includes the full production OS — structured PO creation, sampling gates, revision rounds, tech pack versioning, QC documentation, defect reports, milestone tracking, on-platform messaging, and permanent order records. Builder adds full marketplace access, AI tools, and order templates. Pro adds unlimited orders, production calendar, spec library, analytics, 3 team seats, and full supply chain coordination — multi-supplier handoffs, bill of materials tracking, landed cost calculator, and freight documentation.",
       },
       {
         q: "Is there a free trial?",

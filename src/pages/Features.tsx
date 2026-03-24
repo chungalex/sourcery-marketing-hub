@@ -242,6 +242,44 @@ const sections = [
       },
     ],
   },
+  {
+    category: "Supply Chain",
+    id: "supply",
+    desc: "Coordinate across your entire supply chain — not just one factory.",
+    icon: Truck,
+    features: [
+      {
+        name: "Multi-supplier coordination",
+        sub: "Trims, fabric, components — all tracked.",
+        desc: "Link trim, fabric, or component suppliers to a production order. Create material handoffs between suppliers — trim supplier ships to garment factory, both confirm receipt, production gates on it. Full visibility across your supply chain on one order.",
+        tier: "pro",
+      },
+      {
+        name: "Bill of materials tracker",
+        sub: "Replace the spreadsheet that's always out of date.",
+        desc: "Track every material, trim, and component — supplier, unit, quantity, cost, lead time. Attached permanently to the order. Reorders pull the full BOM automatically.",
+        tier: "pro",
+      },
+      {
+        name: "Landed cost calculator",
+        sub: "Know your real cost before you commit.",
+        desc: "Manufacturing cost + freight estimate + import duties by destination country + insurance = landed cost per unit. Know your margin before the order is placed, not after the wire.",
+        tier: "pro",
+      },
+      {
+        name: "Freight document checklist",
+        sub: "Never hold up cargo for a missing document.",
+        desc: "Know exactly which documents your shipment needs — commercial invoice, packing list, bill of lading, certificate of origin, certificates required by destination country — and when each needs to be ready.",
+        tier: "pro",
+      },
+      {
+        name: "Factory health alerts",
+        sub: "Know before you reorder.",
+        desc: "Proactive alerts when a factory's QC pass rate, response time, or defect rate declines — before you place your next order with them.",
+        tier: "pro",
+      },
+    ],
+  },
 ];
 
 const tierConfig = {

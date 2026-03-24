@@ -120,6 +120,7 @@ export default function About() {
                 {[
                   "A manufacturing OS — infrastructure between your brand and your factory",
                   "BYOF-first — bring existing relationships, get value immediately",
+                  "Full supply chain coordination — trim suppliers, material handoffs, landed costs",
                   "A selective marketplace with personally vetted factories",
                   "AI-matched factory recommendations based on real requirements",
                   "Guidance through every decision in the production process",

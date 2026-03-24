@@ -30,6 +30,10 @@ const featureTooltips: Record<string, string> = {
   "Production calendar": "Visual timeline of all active orders by delivery window. See what's due when, what's behind, and what needs attention across your full production schedule.",
   "Spec library": "Save product specs, measurements, and materials as reusable templates. Pull into any new order instead of rebuilding from scratch.",
   "Factory health alerts": "Proactive alerts when a factory's QC pass rate, response time, or defect rate declines — before you place your next order with them.",
+  "Multi-supplier coordination": "Link trim, fabric, or component suppliers to a production order. Create material handoffs between suppliers — factory A ships trims to factory B, both parties confirm receipt, production gates on it. Full visibility across your entire supply chain on one order.",
+  "Landed cost calculator": "Calculate your real cost per unit — manufacturing cost, freight estimate, import duties, and insurance — by destination country. Know your landed cost before you commit to a production run.",
+  "Bill of materials tracker": "Track every material, trim, and component for an order — supplier, unit, quantity, cost, lead time. Replaces the spreadsheet that's always out of date. Attached permanently to the order record.",
+  "Freight document checklist": "Know exactly which documents you need for your shipment — commercial invoice, packing list, bill of lading, certificate of origin, any certificates required by destination country. Never hold up cargo because you missed a document.",
   "Reorder intelligence": "When reordering, AI flags what changed or went wrong last time. Catches issues before they repeat.",
   "Analytics dashboard": "Total spend, order frequency, average lead time, QC pass rates, and defect history across all your orders and factories.",
   "3 team seats": "Add your production manager, sourcing lead, or co-founder. Everyone works from the same orders, same history, same platform.",
@@ -281,7 +285,7 @@ export default function Pricing() {
                   <p className="text-xs text-muted-foreground">
                     {annual ? "$58/month — billed annually" : "or $699/year, save $119"}
                   </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-3">Custom payment structures, white-label documents, and unlimited scale for serious production operations.</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mt-3">Custom payment structures, white-label documents, full supply chain coordination, and unlimited scale for serious production operations.</p>
                 </div>
                 <Link to="/auth?mode=signup&plan=pro" className="mb-8">
                   <Button variant="outline" className="w-full">Get started <ArrowRight className="h-4 w-4 ml-1.5" /></Button>
@@ -301,6 +305,11 @@ export default function Pricing() {
                   <FeatureGroup label="Organisation" />
                   <Feature text="Spec library" />
                   <Feature text="Supplier contact book" />
+                  <FeatureGroup label="Supply chain" />
+                  <Feature text="Multi-supplier coordination" />
+                  <Feature text="Bill of materials tracker" />
+                  <Feature text="Landed cost calculator" />
+                  <Feature text="Freight document checklist" />
                 </div>
               </motion.div>
 
