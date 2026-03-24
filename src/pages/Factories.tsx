@@ -145,10 +145,10 @@ export default function Factories() {
 
             <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
               <div className="bg-card border border-border rounded-2xl p-6">
-                <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">What happens as your score grows</p>
+                <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">What happens as your score builds over time</p>
                 <div className="space-y-4">
                   {[
-                    { score: "7.0+", label: "Listed in network", desc: "Your profile appears in search results. Brands can see your capabilities and certifications." },
+                    { score: "7.0+", label: "Listed in network", desc: "Your profile appears in search results. Brands can see your capabilities and certifications. Score begins building from your first completed order." },
                     { score: "8.0+", label: "Verified badge", desc: "Verified status shown on your profile. Higher placement in search results." },
                     { score: "9.0+", label: "Elite status", desc: "Featured placement. Priority in AI matching. First seen by brands searching your category." },
                   ].map((tier, i) => (

@@ -107,7 +107,7 @@ const faqSections = [
     faqs: [
       {
         q: "How much does Sourcery cost?",
-        a: "Sourcery offers a free first order, a one-off option at $79/order, and annual subscriptions — Builder at $399/year and Pro at $899/year. Your first order is always free, no credit card required. See the full breakdown on the pricing page.",
+        a: "Sourcery offers a free first order, a one-off option at $79/order, and annual subscriptions — Builder at $399/year and Pro at $699/year. Your first order is always free, no credit card required. See the full breakdown on the pricing page.",
       },
       {
         q: "What does a subscription include?",

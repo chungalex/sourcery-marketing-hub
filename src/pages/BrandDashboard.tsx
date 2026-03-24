@@ -180,7 +180,7 @@ export default function BrandDashboard() {
           {needsActionOrders.length > 0 && (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-6 space-y-2">
               {needsActionOrders.map(order => (
-                <Link key={order.id} to={`/orders/${order.id}`} className="flex items-center justify-between p-4 rounded-xl bg-amber-500/8 border border-amber-500/25 hover:bg-amber-500/12 transition-colors group">
+                <Link key={order.id} to={`/orders/${order.id}`} className="flex items-center justify-between p-4 rounded-xl bg-amber-500/10 border border-amber-500/25 hover:bg-amber-500/10 transition-colors group">
                   <div className="flex items-center gap-3">
                     <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0" />
                     <div>
@@ -275,7 +275,7 @@ export default function BrandDashboard() {
                     <Link key={order.id} to={`/orders/${order.id}`} className="block">
                       <div className={cn(
                         "bg-card border rounded-xl p-5 hover:border-primary/40 transition-all group",
-                        needsAction ? "border-amber-400/40 bg-amber-500/3" : isClosed ? "border-border opacity-70" : "border-border",
+                        needsAction ? "border-amber-400/40 bg-amber-500/5" : isClosed ? "border-border opacity-70" : "border-border",
                         highlightId === order.id && "ring-2 ring-primary/20 border-primary"
                       )}>
                         {needsAction && (

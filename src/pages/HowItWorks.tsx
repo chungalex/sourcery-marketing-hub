@@ -9,7 +9,7 @@ const steps = [
   {
     number: "01",
     title: "Connect your factory",
-    description: "Already have a factory? Invite them directly — no network approval needed, full platform immediately. Need to find one? Browse the Sourcery marketplace — vetted manufacturers with real performance scores, AI-matched to your product and requirements. Both paths use the same platform.",
+    description: "Already have a factory? Invite them directly — no network approval needed, full platform immediately. That's BYOF — Bring Your Own Factory. Need to find one? Browse the Sourcery marketplace — vetted manufacturers with verified credentials, matched to your requirements. Both paths use the same platform.",
     gate: null,
   },
   {

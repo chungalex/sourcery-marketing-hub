@@ -58,7 +58,7 @@ const features = [
 ];
 
 const aiTools = [
-  { name: "AI Factory Matcher", desc: "Describe what you need in plain language. Get ranked recommendations from verified network data.", live: true },
+  { name: "AI Factory Matcher", desc: "Describe what you need in plain language. Get ranked recommendations from verified network data.", live: false },
   { name: "AI Tech Pack Reviewer", desc: "Risk analysis on your tech pack before it goes to the factory. Catches what becomes revision rounds.", live: false },
   { name: "AI RFQ Generator", desc: "Describe your product. Get a professional, structured RFQ ready to send to any manufacturer.", live: false },
   { name: "AI Quote Analyzer", desc: "Paste a factory quote. Get an independent analysis benchmarked against real order data.", live: false },
@@ -175,7 +175,7 @@ export default function Home() {
                     </div>
 
                     {/* Sample submitted alert */}
-                    <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-500/8 border border-amber-500/20 mb-5">
+                    <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 mb-5">
                       <div className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0 animate-pulse" />
                       <div>
                         <p className="text-xs font-medium text-foreground">Sample submitted — round 1</p>

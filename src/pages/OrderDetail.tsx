@@ -342,7 +342,7 @@ export default function OrderDetail() {
               const msg = attentionStatuses[order.status];
               if (!msg) return null;
               return (
-                <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/8 border border-amber-500/25 mb-6">
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/25 mb-6">
                   <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
                   <p className="text-sm text-foreground">{msg}</p>
                 </div>
@@ -496,7 +496,7 @@ export default function OrderDetail() {
                         .map(m => (
                           <div key={m.id} className={`flex items-center justify-between p-3 rounded-lg border ${
                             m.status === "released" ? "bg-green-500/5 border-green-500/20" :
-                            m.status === "eligible" ? "bg-amber-500/8 border-amber-500/25" :
+                            m.status === "eligible" ? "bg-amber-500/10 border-amber-500/25" :
                             "bg-background border-border"
                           }`}>
                             <div className="flex items-center gap-3">
