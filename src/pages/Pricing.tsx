@@ -34,6 +34,9 @@ const featureTooltips: Record<string, string> = {
   "Landed cost calculator": "Calculate your real cost per unit — manufacturing cost, freight estimate, import duties, and insurance — by destination country. Know your landed cost before you commit to a production run.",
   "Bill of materials tracker": "Track every material, trim, and component for an order — supplier, unit, quantity, cost, lead time. Replaces the spreadsheet that's always out of date. Attached permanently to the order record.",
   "Freight document checklist": "Know exactly which documents you need for your shipment — commercial invoice, packing list, bill of lading, certificate of origin, any certificates required by destination country. Never hold up cargo because you missed a document.",
+  "Shipment tracking": "Add your tracking number or bill of lading once goods ship. Sourcery monitors cargo status and surfaces alerts for delays, customs holds, or short deliveries — without leaving the platform.",
+  "QC agency coordination": "Schedule a third-party QC inspection directly from the order. Sourcery coordinates the booking, receives the report, and gates final payment on the result. Works with SGS, QIMA, Bureau Veritas, and others.",
+  "FX rate alerts": "When a major currency moves more than a set threshold while an order is open, you get an updated landed cost estimate automatically. Know when your margin changes before the wire.",
   "Reorder intelligence": "When reordering, AI flags what changed or went wrong last time. Catches issues before they repeat.",
   "Analytics dashboard": "Total spend, order frequency, average lead time, QC pass rates, and defect history across all your orders and factories.",
   "3 team seats": "Add your production manager, sourcing lead, or co-founder. Everyone works from the same orders, same history, same platform.",
@@ -285,7 +288,7 @@ export default function Pricing() {
                   <p className="text-xs text-muted-foreground">
                     {annual ? "$58/month — billed annually" : "or $699/year, save $119"}
                   </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-3">Custom payment structures, white-label documents, full supply chain coordination, and unlimited scale for serious production operations.</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mt-3">Custom payment structures, white-label documents, full supply chain coordination, shipment tracking, and FX alerts — complete infrastructure for serious production operations.</p>
                 </div>
                 <Link to="/auth?mode=signup&plan=pro" className="mb-8">
                   <Button variant="outline" className="w-full">Get started <ArrowRight className="h-4 w-4 ml-1.5" /></Button>
@@ -310,6 +313,9 @@ export default function Pricing() {
                   <Feature text="Bill of materials tracker" />
                   <Feature text="Landed cost calculator" />
                   <Feature text="Freight document checklist" />
+                  <Feature text="Shipment tracking" />
+                  <Feature text="QC agency coordination" />
+                  <Feature text="FX rate alerts" />
                 </div>
               </motion.div>
 

@@ -278,6 +278,24 @@ const sections = [
         desc: "Proactive alerts when a factory's QC pass rate, response time, or defect rate declines — before you place your next order with them.",
         tier: "pro",
       },
+      {
+        name: "Shipment tracking",
+        sub: "Know where your cargo is without leaving the platform.",
+        desc: "Add your tracking number or bill of lading once goods ship. Sourcery monitors cargo status and surfaces alerts if the shipment is delayed, held at customs, or delivered short. Every brand asks 'where is my container?' — now the answer is always one place.",
+        tier: "pro",
+      },
+      {
+        name: "QC agency coordination",
+        sub: "Third-party inspection, managed within the order.",
+        desc: "Schedule a third-party QC inspection (SGS, QIMA, Bureau Veritas) directly from the order. Sourcery coordinates the booking, receives the inspection report, and gates the final payment milestone on the result — without leaving the platform or manually uploading a PDF.",
+        tier: "pro",
+      },
+      {
+        name: "FX rate alerts",
+        sub: "Your landed cost changed. You should know.",
+        desc: "When a major currency moves more than a set threshold while an order is open, Sourcery alerts you with an updated landed cost estimate. A 3% VND shift on a $20,000 order is $600 you didn't account for. Now you know before it hits.",
+        tier: "pro",
+      },
     ],
   },
 ];
