@@ -250,7 +250,7 @@ export default function Pricing() {
                 </Link>
                 <div className="space-y-0 flex-1">
                   <FeatureGroup label="Orders" />
-                  <Feature text="5 active orders simultaneously" />
+                  <Feature text="10 active orders simultaneously" />
                   <Feature text="Order templates" />
                   <Feature text="AI dispute summary + PDF export" />
                   <FeatureGroup label="Marketplace" />
