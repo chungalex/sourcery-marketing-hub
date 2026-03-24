@@ -150,7 +150,7 @@ export default function FAQ() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Frequently asked questions
+              Everything you need to know before you start.
             </h1>
             <p className="text-xl text-muted-foreground">
               If you don't find what you're looking for, <Link to="/contact" className="text-primary hover:underline">get in touch</Link>.

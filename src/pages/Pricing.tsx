@@ -357,7 +357,7 @@ export default function Pricing() {
           <div className="container-tight text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-                Start with your first order — free.
+                Join the first brands building on Sourcery.
               </h2>
               <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
                 No credit card. No time limit. Full infrastructure from the first order.

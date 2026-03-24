@@ -26,7 +26,7 @@ const steps = [
   },
   {
     number: "04",
-    title: "Production with full documentation",
+    title: "Production runs on a verified spec.",
     description: "Every spec change is a formal revision round, factory-acknowledged. Tech pack versions are tracked — the factory confirms which version they're building from. No more 'which file did you use' disputes.",
     gate: null,
   },

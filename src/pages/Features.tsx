@@ -266,7 +266,7 @@ export default function Features() {
           <div className="max-w-2xl">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5">
-                Everything on the platform.
+                Every tool production actually needs.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
                 Every feature exists to take something normally stressful, opaque, or manual — and make it structured, documented, and something you can build a company around.

@@ -64,7 +64,7 @@ export default function Contact() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-xl">
             <h1 className="font-heading text-4xl font-bold text-foreground mb-4">
-              Get in touch.
+              We'll respond to everything.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
               Questions about the platform, the factory network, or anything else — send us a message and we'll get back to you.
