@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/hooks/useAuth";
+import { ProductionAssistant } from "@/components/va/ProductionAssistant";
 import { useInquiries, type InquiryWithFactory } from "@/hooks/useInquiries";
 import { useOrders, type OrderWithDetails } from "@/hooks/useOrders";
 import { supabase } from "@/integrations/supabase/client";
@@ -532,6 +533,10 @@ export default function BrandDashboard() {
           </Tabs>
         </div>
       </section>
+      {/* Floating dashboard VA */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <ProductionAssistant mode="dashboard" className="w-80 shadow-xl" />
+      </div>
     </Layout>
   );
 }

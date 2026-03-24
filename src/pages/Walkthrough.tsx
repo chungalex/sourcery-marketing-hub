@@ -6,6 +6,7 @@ import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft, CheckCircle, Shield, Search, FileText, MessageSquare, Package, Archive } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ProductionAssistant } from "@/components/va/ProductionAssistant";
 
 const steps = [
   {
@@ -439,6 +440,27 @@ export default function Walkthrough() {
           />
         ))}
       </div>
+
+      {/* Demo VA */}
+      <section className="section-padding border-t border-border">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              <div>
+                <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Production assistant</p>
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+                  Have a production question? Ask it here.
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Before you sign up — ask anything. Incoterms, factory evaluation, lead times, freight documents, QC standards. The assistant knows production. On a live order it knows your specific context.
+                </p>
+                <p className="text-sm text-muted-foreground">Try: "What incoterms should I use for Vietnam?" or "How do I know if a factory quote is fair?"</p>
+              </div>
+              <ProductionAssistant mode="demo" className="w-full" />
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Bottom CTA */}
       <section className="section-padding bg-card/50 border-t border-border">

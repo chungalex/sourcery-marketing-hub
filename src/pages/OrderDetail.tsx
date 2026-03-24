@@ -28,6 +28,7 @@ import { RevisionRounds } from "@/components/orders/RevisionRounds";
 import { TechPackVersions } from "@/components/orders/TechPackVersions";
 import { DefectReports } from "@/components/orders/DefectReports";
 import { ReorderButton } from "@/components/orders/ReorderButton";
+import { ProductionAssistant } from "@/components/va/ProductionAssistant";
 import { toast } from "sonner";
 import {
   ArrowLeft,
@@ -734,6 +735,22 @@ export default function OrderDetail() {
                     </Link>
                   )}
                 </div>
+
+                {/* Production Assistant */}
+                <ProductionAssistant
+                  mode="order"
+                  orderContext={{
+                    orderNumber: order.order_number,
+                    status: order.status,
+                    factoryName: order.factories?.name,
+                    quantity: order.quantity,
+                    unitPrice: order.unit_price,
+                    currency: order.currency,
+                    totalAmount: order.total_amount ?? order.quantity * order.unit_price,
+                    milestones: order.order_milestones,
+                    specifications: order.specifications ?? undefined,
+                  }}
+                />
               </div>
 
             </div>

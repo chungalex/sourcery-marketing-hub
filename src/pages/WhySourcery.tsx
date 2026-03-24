@@ -345,6 +345,26 @@ export default function WhySourcery() {
         </div>
       </section>
 
+      {/* Demo VA */}
+      <section className="section-padding border-t border-border">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              <div>
+                <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Production assistant</p>
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+                  Have a production question? Ask it now.
+                </h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Every question you have about production — incoterms, lead times, factory evaluation, QC standards, freight — gets a real answer. On a live order, it knows your specific context. Ask it anything.
+                </p>
+              </div>
+              <ProductionAssistant mode="demo" className="w-full" />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Honest close */}
       <section className="section-padding bg-card/50">
         <div className="container-tight">
