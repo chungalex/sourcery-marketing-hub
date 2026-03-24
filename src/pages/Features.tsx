@@ -411,6 +411,9 @@ export default function Features() {
               <Link to="/auth?mode=signup">
                 <Button variant="hero" size="xl">Get started free <ArrowRight className="w-5 h-5" /></Button>
               </Link>
+              <Link to="/walkthrough">
+                <Button variant="hero-outline" size="xl">See a walkthrough</Button>
+              </Link>
               <Link to="/pricing">
                 <Button variant="hero-outline" size="xl">See pricing</Button>
               </Link>

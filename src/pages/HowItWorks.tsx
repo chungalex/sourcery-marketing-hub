@@ -200,6 +200,9 @@ export default function HowItWorks() {
               <Link to="/marketplace">
                 <Button variant="hero-outline" size="xl">Browse factories</Button>
               </Link>
+              <Link to="/walkthrough">
+                <Button variant="outline" size="xl">See it in action <ArrowRight className="w-4 h-4" /></Button>
+              </Link>
             </div>
           </motion.div>
         </div>

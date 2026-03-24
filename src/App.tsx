@@ -19,6 +19,7 @@ import Analytics from "./pages/Analytics";
 import SupplierContacts from "./pages/SupplierContacts";
 import Features from "./pages/Features";
 import Marketplace from "./pages/Marketplace";
+import Walkthrough from "./pages/Walkthrough";
 import CaseStudies from "./pages/CaseStudies";
 import Consulting from "./pages/Consulting";
 import About from "./pages/About";
@@ -88,6 +89,7 @@ const App = () => (
             <Route path="/contacts" element={<SupplierContacts />} />
             <Route path="/features" element={<Features />} />
             <Route path="/marketplace" element={<Marketplace />} />
+            <Route path="/walkthrough" element={<Walkthrough />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </ErrorBoundary>
