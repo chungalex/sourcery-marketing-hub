@@ -6,7 +6,7 @@ import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight, Package, Shield, FileText, MessageSquare,
-  BarChart3, Sparkles, Building2, Calendar, Check
+  BarChart3, Sparkles, Building2, Calendar, Check, Truck
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
