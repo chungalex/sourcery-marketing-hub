@@ -58,6 +58,7 @@ const features = [
 ];
 
 const aiTools = [
+  { name: "Production assistant", desc: "An AI with full order context — risk, timing, factory communication, defect leverage. Answers in the context of your actual order.", live: true },
   { name: "AI Factory Matcher", desc: "Describe what you need in plain language. Get ranked recommendations from verified network data.", live: false },
   { name: "AI Tech Pack Reviewer", desc: "Risk analysis on your tech pack before it goes to the factory. Catches what becomes revision rounds.", live: false },
   { name: "AI RFQ Generator", desc: "Describe your product. Get a professional, structured RFQ ready to send to any manufacturer.", live: false },
@@ -328,7 +329,7 @@ export default function Home() {
               AI toolkit
             </div>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Intelligence built in. Not bolted on.
+              Intelligence built into every order.
             </h2>
             <p className="text-lg text-muted-foreground">
               The Sourcery AI toolkit integrates directly into the production workflow — factory matching, tech pack review, RFQ generation, and quote analysis, all running on real network and order data.
@@ -366,10 +367,15 @@ export default function Home() {
           <p className="text-sm text-muted-foreground text-center mb-5">
             Every AI tool improves as the platform grows — factory profiles, order history, and performance records all feed in. The more orders completed on the platform, the sharper every recommendation becomes.
           </p>
-          <div className="text-center">
+          <div className="flex justify-center gap-3 flex-wrap">
             <Link to="/marketplace">
               <Button variant="outline" size="sm" className="gap-1.5 text-xs">
                 Try AI factory matching → Builder <ArrowRight className="h-3.5 w-3.5" />
+              </Button>
+            </Link>
+            <Link to="/assistant">
+              <Button variant="outline" size="sm" className="gap-1.5 text-xs">
+                Meet the production assistant → Pro <ArrowRight className="h-3.5 w-3.5" />
               </Button>
             </Link>
           </div>

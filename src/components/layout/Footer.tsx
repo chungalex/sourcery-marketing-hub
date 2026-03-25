@@ -7,6 +7,7 @@ const footerLinks = {
     { label: "For Brands", href: "/brands" },
     { label: "For Factories", href: "/factories" },
     { label: "Features", href: "/features" },
+    { label: "Assistant", href: "/assistant" },
     { label: "Pricing", href: "/pricing" },
   ],
   learn: [

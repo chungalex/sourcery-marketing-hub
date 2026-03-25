@@ -150,6 +150,12 @@ const sections = [
         tier: "builder",
         coming: true,
       },
+      {
+        name: "Production assistant",
+        sub: "An AI that knows your order, not just production in general.",
+        desc: "Full context on every active order — factory, spec, milestones, message thread. Ask about risk, timing, next steps, draft factory messages, get a plain-English briefing. Logs every conversation against the order record. Lives inside each order and on your dashboard.",
+        tier: "pro",
+      },
     ],
   },
   {

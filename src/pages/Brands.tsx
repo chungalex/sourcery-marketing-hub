@@ -101,6 +101,7 @@ export default function Brands() {
                   "Sample gate — bulk can't begin until formally approved",
                   "Final payment gated behind QC pass",
                   "Full permanent record on every order",
+                  "Production assistant — knows your order context",
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <CheckCircle className="h-3.5 w-3.5 text-primary flex-shrink-0" />

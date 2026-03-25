@@ -38,6 +38,7 @@ const featureTooltips: Record<string, string> = {
   "QC agency coordination": "Schedule a third-party QC inspection directly from the order. Sourcery coordinates the booking, receives the report, and gates final payment on the result. Works with SGS, QIMA, Bureau Veritas, and others.",
   "FX rate alerts": "When a major currency moves more than a set threshold while an order is open, you get an updated landed cost estimate automatically. Know when your margin changes before the wire.",
   "Reorder intelligence": "When reordering, AI flags what changed or went wrong last time. Catches issues before they repeat.",
+  "Production assistant": "An AI assistant with full context on every active order — factory, spec, milestones, message thread. Ask about risk, timing, defect leverage, draft factory messages, or get a plain-English order briefing. Every conversation logged against the order record.",
   "Analytics dashboard": "Total spend, order frequency, average lead time, QC pass rates, and defect history across all your orders and factories.",
   "3 team seats": "Add your production manager, sourcing lead, or co-founder. Everyone works from the same orders, same history, same platform.",
   "Unlimited AI factory matcher": "No monthly search limit. Full AI matching across the entire verified factory network.",
@@ -303,6 +304,7 @@ export default function Pricing() {
                   <Feature text="3 team seats" />
                   <FeatureGroup label="Intelligence" />
                   <Feature text="Production calendar" />
+                  <Feature text="Production assistant" />
                   <Feature text="Reorder intelligence" />
                   <Feature text="Analytics dashboard" />
                   <FeatureGroup label="Organisation" />

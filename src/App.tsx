@@ -20,6 +20,7 @@ import SupplierContacts from "./pages/SupplierContacts";
 import Features from "./pages/Features";
 import Marketplace from "./pages/Marketplace";
 import Walkthrough from "./pages/Walkthrough";
+import Assistant from "./pages/Assistant";
 import CaseStudies from "./pages/CaseStudies";
 import Consulting from "./pages/Consulting";
 import About from "./pages/About";
@@ -90,6 +91,7 @@ const App = () => (
             <Route path="/features" element={<Features />} />
             <Route path="/marketplace" element={<Marketplace />} />
             <Route path="/walkthrough" element={<Walkthrough />} />
+            <Route path="/assistant" element={<Assistant />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </ErrorBoundary>

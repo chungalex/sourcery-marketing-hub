@@ -13,7 +13,8 @@ const navItems = [
   { label: "For Brands", href: "/brands" },
   { label: "For Factories", href: "/factories" },
   { label: "Marketplace", href: "/marketplace" },
-  { label: "Why Sourcery", href: "/why-sourcery" },
+  { label: "Assistant", href: "/assistant" },
+    { label: "Why Sourcery", href: "/why-sourcery" },
   { label: "Pricing", href: "/pricing" },
 ];
 
