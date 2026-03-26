@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, CheckCircle, Shield, Search, FileText, MessageSquare, Package, Archive } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle, Shield, Search, FileText, MessageSquare, Package, Archive, Truck, BookOpen, Users, Zap, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ProductionAssistant } from "@/components/va/ProductionAssistant";
 
@@ -459,6 +459,118 @@ export default function Walkthrough() {
               <ProductionAssistant mode="demo" className="w-full" />
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Supply chain — what Pro unlocks */}
+      <section className="section-padding bg-card/50 border-t border-border">
+        <div className="container-wide">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Supply chain — Pro</p>
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+              Coordinate your full supply chain on one order.
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+              Pro brands can link trim and fabric suppliers directly to a production order. Material handoffs between suppliers are tracked — both parties confirm receipt, production gates on it. Your BOM, landed costs, freight docs, and shipment tracking all live on the same record.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                { icon: Truck, title: "Multi-supplier coordination", body: "Trim supplier ships to garment factory. Both confirm. Production gates on receipt." },
+                { icon: FileText, title: "Bill of materials tracker", body: "Every material, trim, and component with supplier, cost, and lead time." },
+                { icon: Globe, title: "Landed cost calculator", body: "Manufacturing + freight + import duties by country = real cost per unit." },
+                { icon: TrendingUp, title: "FX rate alerts", body: "Currency moves while your order is open. You get an updated landed cost estimate." },
+              ].map((item, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="p-5 rounded-xl bg-background border border-border">
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <item.icon className="h-4 w-4 text-primary" />
+                  </div>
+                  <h3 className="font-semibold text-foreground text-sm mb-1.5">{item.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.body}</p>
+                </motion.div>
+              ))}
+            </div>
+            <div className="mt-4 text-right">
+              <Link to="/features" className="text-xs text-primary hover:underline inline-flex items-center gap-1">
+                See all supply chain features <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Platform overview — everything else */}
+      <section className="section-padding border-t border-border">
+        <div className="container-wide">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+              Everything else on the platform.
+            </h2>
+            <p className="text-muted-foreground leading-relaxed max-w-2xl">
+              The production order walkthrough above is the core. Around it, Sourcery is building the full infrastructure layer for physical product brands.
+            </p>
+          </motion.div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              {
+                icon: Search,
+                label: "Marketplace",
+                href: "/marketplace",
+                headline: "Find the right factory before you commit.",
+                body: "Vetted manufacturers with verified credentials — categories, certifications, MOQ, lead times. AI-matched to your product. Browse free. Every factory personally vetted before listing.",
+              },
+              {
+                icon: Zap,
+                label: "Production assistant",
+                href: "/assistant",
+                headline: "An AI that knows your order.",
+                body: "Ask anything about an active order — risk, timing, draft a factory message, supply chain timing. Reads your full order context before you ask. Use with discretion — verify before acting.",
+              },
+              {
+                icon: BookOpen,
+                label: "Resource library",
+                href: "/resources",
+                headline: "The knowledge experienced buyers have.",
+                body: "AQL, incoterms, supply chain traceability, compliance certifications, import duties, factory evaluation, market guides for Vietnam, China, Portugal, and India.",
+              },
+              {
+                icon: Globe,
+                label: "Intelligence feed",
+                href: "/intelligence",
+                headline: "Current supply chain signals.",
+                body: "Weekly briefings on freight rates, trade policy, tariff changes, and market moves. AI-synthesised from live public data — Freightos, USTR, Federal Register — with full methodology disclosure.",
+              },
+              {
+                icon: Users,
+                label: "Community forum",
+                href: "/forum",
+                headline: "Brands and factories talking to each other.",
+                body: "Three spaces: founder forum (brand-to-brand), factory channel (capacity and discovery), and supply chain discussion (tariffs, freight, logistics, market moves).",
+              },
+              {
+                icon: Shield,
+                label: "Full feature list",
+                href: "/features",
+                headline: "38 features across 7 categories.",
+                body: "Production OS, marketplace, AI toolkit, communication, organisation, intelligence, and supply chain. Free tier, Builder ($399/yr), and Pro ($699/yr) with supply chain coordination.",
+              },
+            ].map((item, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
+                <Link to={item.href} className="group block p-5 rounded-xl bg-card border border-border hover:border-primary/30 transition-all hover:-translate-y-0.5 h-full">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="h-3.5 w-3.5 text-primary" />
+                    </div>
+                    <span className="text-xs font-semibold text-primary uppercase tracking-wide">{item.label}</span>
+                  </div>
+                  <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{item.headline}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.body}</p>
+                  <div className="flex items-center gap-1 text-xs text-primary mt-3 font-medium">
+                    Explore <ArrowRight className="h-3 w-3" />
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
