@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, CheckCircle, Shield, Search, FileText, MessageSquare, Package, Archive, Truck, BookOpen, Users, Zap, Globe } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle, Shield, Search, FileText, MessageSquare, Package, Archive, Truck, BookOpen, Users, Zap, Globe, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ProductionAssistant } from "@/components/va/ProductionAssistant";
 
