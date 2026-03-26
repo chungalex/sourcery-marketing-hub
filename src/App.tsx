@@ -25,7 +25,6 @@ import Resources from "./pages/Resources";
 import ResourceArticle from "./pages/ResourceArticle";
 import Forum from "./pages/Forum";
 import Intelligence from "./pages/Intelligence";
-import ResourceArticle from "./pages/ResourceArticle";
 import CaseStudies from "./pages/CaseStudies";
 import Consulting from "./pages/Consulting";
 import About from "./pages/About";
