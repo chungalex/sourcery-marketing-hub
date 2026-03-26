@@ -198,6 +198,173 @@ const articles: Record<string, {
     takeaway: "Verify every certification in the public database — not from factory copies. Ask for brand references and actually call them. Treat the sample as a process evaluation, not just a quality check. The factory that delivers a complete, correct sample quickly is showing you the same process they'll use in bulk.",
     related: ["factory-auditing", "milestone-payments", "reading-factory-quote"],
   },
+
+  "us-tariffs-apparel-2025": {
+    title: "US tariffs on apparel in 2025",
+    category: "Tariffs & trade",
+    readTime: "8 min",
+    tags: ["Tariffs", "USA"],
+    intro: "US tariffs on imported apparel are significant and often misunderstood. MFN baseline rates, Section 301 on Chinese goods, and Vietnam's current status all affect your landed cost more than most brands account for.",
+    sections: [
+      {
+        heading: "MFN baseline rates",
+        body: "The US charges Most Favoured Nation rates on imports from all WTO members including Vietnam. Common rates: cotton woven jackets 27.9%, cotton trousers 16.6%, knit sweaters 16.5%, synthetic outerwear 27.7%. Applied on FOB value.",
+      },
+      {
+        heading: "Section 301: China pays more",
+        body: "Chinese goods face an additional 25% Section 301 tariff on top of MFN rates. A woven jacket from China: 27.9% + 25% = 52.9%. From Vietnam: 27.9%. This tariff gap is the primary driver of sourcing diversification out of China since 2018.",
+      },
+      {
+        heading: "Vietnam's status",
+        body: "Vietnam receives MFN treatment \u2014 no Section 301 tariffs as of 2025. However, goods claiming Vietnamese origin must meet the substantial transformation test. Using significant Chinese fabric or components in Vietnam may not qualify for Vietnamese origin.",
+      },
+      {
+        heading: "De minimis changes",
+        body: "The $800 de minimis threshold allowing duty-free imports is under active legislative pressure, particularly for Chinese goods. Brands relying on de minimis for direct-from-China fulfillment should model economics without it.",
+      },
+      {
+        heading: "Calculate your exposure",
+        body: "Find your 10-digit HTS code on the USITC database. Apply the rate to your FOB value. A 27.9% duty on a $28 FOB jacket is $7.84 per unit. Add Section 301 if sourcing from China. Know this before you price your product.",
+      }
+    ],
+    takeaway: "MFN apparel rates run 15-30% by category. China adds 25% Section 301. Vietnam is at MFN only currently. Verify your HTS code before every production run.",
+    related: ["landed-cost-calculation", "vietnam-manufacturing-guide", "freight-documents"],
+  },
+  "ocean-freight-rates-explained": {
+    title: "Ocean freight rates \u2014 how they work and why they spike",
+    category: "Tariffs & trade",
+    readTime: "6 min",
+    tags: ["Freight", "Logistics"],
+    intro: "A 40-foot container from Shanghai to LA cost $2,000 in 2019, peaked above $14,000 in 2022, dropped below $2,000 in 2023, then hit $7,000+ in 2024 during Red Sea disruptions. Understanding rate volatility is essential for landed cost planning.",
+    sections: [
+      {
+        heading: "How freight is priced",
+        body: "Base rate plus surcharges: Peak Season Surcharge, Bunker Adjustment Factor tied to fuel, Equipment Imbalance surcharge, Port Congestion surcharge, destination terminal handling. Quotes showing only base rate are incomplete. Always ask for all-in including destination handling.",
+      },
+      {
+        heading: "Why rates spike",
+        body: "Supply-demand imbalance: Covid disrupted port operations while consumer demand surged. Geopolitical disruption: Red Sea attacks in 2024 forced vessels around Cape of Good Hope, adding 10-14 days and tightening vessel availability. Seasonal peaks: rates rise before Chinese Golden Week and Lunar New Year. Port congestion: LA/Long Beach backlogs in 2021-22 created weeks-long queues.",
+      },
+      {
+        heading: "Spot vs contract rates",
+        body: "Spot rates are market rates on any given day \u2014 volatile and expensive at peak. Contract rates are negotiated annually and require volume commitments. Most small brands can't access contracts directly but freight forwarders aggregate volume to offer contract-adjacent pricing.",
+      },
+      {
+        heading: "Planning for volatility",
+        body: "Model landed cost at 1.5x and 2x current freight. If economics only work at current rates, they do not work. Book freight early for Lunar New Year, Golden Week, and Q4. Track the Freightos Baltic Index as a free benchmark for current spot rates by route.",
+      }
+    ],
+    takeaway: "Build 1.5x freight buffer into every landed cost calculation. Book early for predictable seasonal peaks. Track the Freightos Baltic Index for current rates.",
+    related: ["landed-cost-calculation", "freight-documents", "supply-chain-disruption-playbook"],
+  },
+  "supply-chain-disruption-playbook": {
+    title: "When supply chains break \u2014 the brand playbook",
+    category: "Tariffs & trade",
+    readTime: "7 min",
+    tags: ["Disruption", "Risk"],
+    intro: "Port closures, factory delays, freight spikes, tariff changes \u2014 disruptions are not edge cases. The brands who handle them best are the ones with documented orders, clear payment gates, and full visibility into where each order stands.",
+    sections: [
+      {
+        heading: "Disruptions that actually hit brands",
+        body: "Factory delay: most common. Fabric late, machine down, bigger client prioritised. You find out when you ask. Freight spike: order in production at one rate, market moved. Your margin changed. Raw material shortage: factory cannot source your specification at the agreed price. Tariff change: executive action while goods are in transit.",
+      },
+      {
+        heading: "What protects you",
+        body: "Documented orders: formal PO with agreed spec, pricing, and delivery date. Legal basis for any dispute. WhatsApp threads are not documentation. Milestone gates: if production is delayed you have not released 70% of value. Payment structure is leverage. Revision acknowledgment: every change formally on record. Landed cost visibility: know immediately when freight or duty changes affect your margin.",
+      },
+      {
+        heading: "Responding to a delay",
+        body: "Get it in writing through the platform message thread. Assess how much value has been released and what leverage you have. Quantify downstream impact on your delivery window. Make a documented decision \u2014 whether you accept, renegotiate, or escalate, write it in the order record.",
+      },
+      {
+        heading: "Building resilience",
+        body: "Maintain a second factory relationship for critical categories. Build 4-6 weeks buffer into every production timeline. Know at what freight rate or duty rate your margin becomes unacceptable so you know when to act.",
+      }
+    ],
+    takeaway: "Disruptions are inevitable. Documentation, payment gates, and cost visibility are your protection. The formal order record gives you leverage and clarity when things go wrong.",
+    related: ["milestone-payments", "ocean-freight-rates-explained", "lead-time-stacking"],
+  },
+  "lead-time-stacking": {
+    title: "Lead time stacking \u2014 why brands underestimate production by 6 weeks",
+    category: "Supply chain",
+    readTime: "5 min",
+    tags: ["Lead time", "Planning"],
+    intro: "The most common production planning error is calculating lead time wrong. Most brands count only cut-and-sew time. The full timeline includes fabric sourcing, trims, sampling, production, QC, and freight \u2014 and most of those stages run sequentially.",
+    sections: [
+      {
+        heading: "The full timeline",
+        body: "Tech pack and factory approval: 1-2 weeks. Fabric sourcing and mill production: 3-6 weeks. Trim sourcing: 2-4 weeks. Sampling, two rounds typical: 4-6 weeks total. Sample approval and revisions: 1-2 weeks per round. Bulk production: 4-8 weeks. QC and packing: 1 week. Ocean freight to US: 3-4 weeks. Total realistic from approved tech pack to warehouse: 16-22 weeks.",
+      },
+      {
+        heading: "Why brands get this wrong",
+        body: "Factories quote production time only. When a factory says 6-week lead time, they mean 6 weeks of production once they have approved materials. Fabric and trim sourcing are not included. Two or three sampling rounds are common. Each adds 2-3 weeks. Transit time is forgotten \u2014 3-4 weeks of freight and clearance happens after production.",
+      },
+      {
+        heading: "The cascade effect",
+        body: "A 2-week delay at fabric sourcing does not add 2 weeks to delivery. Production cannot start until fabric arrives. A 2-week early delay typically becomes 3-4 weeks at delivery because every subsequent stage is pushed back.",
+      },
+      {
+        heading: "How to plan correctly",
+        body: "Start from your required delivery date and work backwards. Add the full sequence including fabric, trims, sampling, and freight. Buffer 4 weeks for the delay that happens on most orders. Book freight early for predictable peaks.",
+      }
+    ],
+    takeaway: "16-22 weeks is realistic from approved tech pack to warehouse for most Asia production. The factory's lead time quote is production only. Plan backwards from delivery date and buffer 4 weeks.",
+    related: ["trim-coordination", "garment-supply-chain-map", "ocean-freight-rates-explained"],
+  },
+  "freight-documents": {
+    title: "Freight documents \u2014 what you need and when",
+    category: "Imports & exports",
+    readTime: "6 min",
+    tags: ["Freight", "Documents"],
+    intro: "Missing or incorrect freight documents are among the most avoidable causes of cargo delays. A shipment held at customs while storage fees accumulate is painful and almost always the result of a document that was missing, wrong, or not ready in time.",
+    sections: [
+      {
+        heading: "Commercial invoice",
+        body: "The primary financial document. Lists goods, quantities, unit prices, total value, buyer and seller details, country of origin. Produced by the factory. Customs uses it to determine duty liability. Understated value is fraud with liability on you. Description of goods must match your HTS code. Ready before goods arrive at destination port.",
+      },
+      {
+        heading: "Packing list",
+        body: "Every carton in the shipment \u2014 carton number, contents, quantities, weight, dimensions. Produced by the factory. Customs may verify against actual goods. Discrepancies trigger holds. Verify packing list matches your PO quantity before goods leave the factory.",
+      },
+      {
+        heading: "Bill of lading",
+        body: "The contract between shipper and carrier. Proves ownership of the goods. Required to claim your shipment at port. Without it you cannot collect your goods. Original BOL is a physical document \u2014 treat it like a bearer instrument. Telex release or sea waybill is electronic and faster. Know which type your forwarder is arranging.",
+      },
+      {
+        heading: "Certificate of origin",
+        body: "Certifies where goods were manufactured. Required for customs to apply the correct duty rate. Produced by the factory or chamber of commerce. A Vietnamese certificate for goods substantially made in China is fraud \u2014 serious penalties apply to you.",
+      },
+      {
+        heading: "Destination-specific",
+        body: "US: your customs broker prepares the CBP Entry Summary. Provide all above documents promptly. EU: EUR.1 certificate for preferential duty treatment under trade agreements. Always ask your freight forwarder what is required for your specific route before goods ship.",
+      }
+    ],
+    takeaway: "Have commercial invoice, packing list, and bill of lading ready before goods arrive at the destination port. Verify the commercial invoice accurately values the goods. Ask your forwarder about destination-specific requirements before production completes.",
+    related: ["incoterms-explained", "us-tariffs-apparel-2025", "landed-cost-calculation"],
+  },
+  "milestone-payments": {
+    title: "How milestone payments protect you \u2014 and when they do not",
+    category: "Production fundamentals",
+    readTime: "5 min",
+    tags: ["Payments", "Basics"],
+    intro: "The standard payment structure is 30% deposit, 40% on bulk confirmation, 30% on QC pass. Most brands accept this without understanding what makes each milestone actually protective \u2014 or why factories push to change it.",
+    sections: [
+      {
+        heading: "Why the 30-40-30 structure exists",
+        body: "Deposit covers the factory's material sourcing costs \u2014 they need capital before production starts. The bulk milestone releases mid-production. The final payment at 30% is your leverage \u2014 the holdback that gives you a position in any dispute.",
+      },
+      {
+        heading: "What makes each milestone protective",
+        body: "The deposit is protective only if the PO and spec are formally documented before you pay it. Without documentation you have no basis for what you ordered. The bulk milestone is protective only when sample approval is a formal gate \u2014 not when it releases automatically on a date. The final payment must be gated on a QC result, not on a date or shipment. A final payment that releases 30 days after production regardless of QC gives up all leverage.",
+      },
+      {
+        heading: "When factories push to change the structure",
+        body: "Larger deposit of 50% or more is not unreasonable for first orders and acceptable if the spec is fully documented. Final payment on shipment rather than QC is common \u2014 acceptable only if you have independent third-party QC completed and reviewed before goods ship. No holdback at all removes all leverage and should not be accepted for any new factory relationship.",
+      }
+    ],
+    takeaway: "The final payment holdback is your primary leverage. Never release it before QC is complete and documented. Gate the bulk milestone on sample approval. Pay the deposit only after the spec is formally documented.",
+    related: ["what-is-aql", "evaluating-factory-before-wiring", "freight-documents"],
+  },
 };
 
 const relatedTitles: Record<string, string> = {
@@ -215,6 +382,15 @@ const relatedTitles: Record<string, string> = {
   "factory-auditing": "How to audit a factory before you commit",
   "supply-chain-traceability": "Supply chain traceability — why it matters more than ever",
   "evaluating-factory-before-wiring": "How to evaluate a factory before wiring a deposit",
+  "us-tariffs-apparel-2025": "US tariffs on apparel in 2025 — what brands actually need to know",
+  "ocean-freight-rates-explained": "Ocean freight rates — how they work and why they spike",
+  "supply-chain-disruption-playbook": "When supply chains break — the brand playbook",
+  "lead-time-stacking": "Lead time stacking — why brands underestimate production by 6 weeks",
+  "freight-documents": "Freight documents — what you need and when",
+  "milestone-payments": "How milestone payments protect you — and when they don't",
+  "vietnam-vs-china": "Vietnam vs China — which is right for your brand?",
+  "china-plus-one": "China Plus One — the sourcing diversification strategy explained",
+  "vietnam-tariff-status": "Vietnam's tariff status — current rates and what's changing",
   "vietnam-manufacturing-guide": "Vietnam — the production guide for apparel brands",
   "vietnam-vs-china": "Vietnam vs China — which is right for your brand?",
   "reading-factory-quote": "How to read a factory quote — and what to push back on",

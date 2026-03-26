@@ -250,6 +250,50 @@ const categories = [
       },
     ],
   },
+  {
+    id: "tariffs-trade",
+    icon: TrendingUp,
+    label: "Tariffs & trade",
+    desc: "How trade policy, tariffs, and shipping disruptions affect your production costs.",
+    color: "text-rose-700 bg-rose-500/10 border-rose-400/30",
+    articles: [
+      {
+        slug: "us-tariffs-apparel-2025",
+        title: "US tariffs on apparel in 2025 — what brands actually need to know",
+        sub: "Section 301 tariffs on China, Vietnam's tariff status, GSP expiry, and how to calculate your real duty exposure before committing to a sourcing decision.",
+        readTime: "8 min",
+        tags: ["Tariffs", "USA", "Trade policy"],
+      },
+      {
+        slug: "vietnam-tariff-status",
+        title: "Vietnam's tariff status — current rates and what's changing",
+        sub: "Vietnam enjoys favourable tariff treatment in most markets but that position is under review. What the current rates are, what's at risk, and how to plan around uncertainty.",
+        readTime: "6 min",
+        tags: ["Vietnam", "Tariffs"],
+      },
+      {
+        slug: "supply-chain-disruption-playbook",
+        title: "When supply chains break — the brand playbook",
+        sub: "Port congestion, factory shutdowns, freight rate spikes, raw material shortages. What to do when the supply chain breaks and how to build resilience before it does.",
+        readTime: "7 min",
+        tags: ["Disruption", "Risk"],
+      },
+      {
+        slug: "ocean-freight-rates-explained",
+        title: "Ocean freight rates — how they work and why they spike",
+        sub: "Why a container that cost $2,000 in 2019 cost $15,000 in 2021 and $1,800 in 2024. How spot rates, contract rates, and surcharges work — and how to protect against volatility.",
+        readTime: "6 min",
+        tags: ["Freight", "Logistics"],
+      },
+      {
+        slug: "china-plus-one",
+        title: "China Plus One — the sourcing diversification strategy explained",
+        sub: "Why brands are diversifying production out of China, where they're going, and how to evaluate whether it makes sense for your specific product and volume.",
+        readTime: "7 min",
+        tags: ["China", "Strategy"],
+      },
+    ],
+  },
 ];
 
 const featuredArticle = {
@@ -417,9 +461,9 @@ export default function Resources() {
                 <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                   Weekly briefings on freight rate movements, trade policy changes, regulatory updates, and market shifts — curated for brands sourcing from Asia. Current, specific, and opinionated. Not a news aggregator.
                 </p>
-                <Link to="/contact">
+                <Link to="/intelligence">
                   <Button size="sm" variant="outline" className="gap-1.5 text-xs">
-                    Get notified when it launches <ArrowRight className="h-3 w-3" />
+                    See the intelligence feed <ArrowRight className="h-3 w-3" />
                   </Button>
                 </Link>
               </div>

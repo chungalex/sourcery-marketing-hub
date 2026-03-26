@@ -23,6 +23,9 @@ import Walkthrough from "./pages/Walkthrough";
 import Assistant from "./pages/Assistant";
 import Resources from "./pages/Resources";
 import ResourceArticle from "./pages/ResourceArticle";
+import Forum from "./pages/Forum";
+import Intelligence from "./pages/Intelligence";
+import ResourceArticle from "./pages/ResourceArticle";
 import CaseStudies from "./pages/CaseStudies";
 import Consulting from "./pages/Consulting";
 import About from "./pages/About";
@@ -96,6 +99,8 @@ const App = () => (
             <Route path="/assistant" element={<Assistant />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/resources/:slug" element={<ResourceArticle />} />
+            <Route path="/forum" element={<Forum />} />
+            <Route path="/intelligence" element={<Intelligence />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </ErrorBoundary>
