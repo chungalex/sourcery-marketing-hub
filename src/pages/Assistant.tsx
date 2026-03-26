@@ -11,8 +11,8 @@ const capabilities = [
     icon: Search,
     stage: "Before you commit",
     headline: "Is this factory quote reasonable?",
-    body: "The assistant benchmarks against order history on the platform. It knows what brands in your category typically pay, flags if a quote is significantly above or below typical for this factory type and country, and tells you where to push back.",
-    examples: ["Is this lead time realistic for this factory?", "Should I be worried about this MOQ?", "What incoterms should I use for this order?"],
+    body: "The assistant draws on your own order history — what you paid this factory before, what your previous quotes looked like, what revisions came up last time. It also applies deep production expertise: what's realistic for this factory location, this product category, this order volume. It tells you if something looks off and where to push back — based on your data and real production knowledge, not other brands' private information.",
+    examples: ["Is this lead time realistic for this order?", "Should I be worried about this MOQ?", "What incoterms should I use for this order?"],
   },
   {
     icon: FileText,
@@ -111,7 +111,7 @@ export default function Assistant() {
               The difference between a chatbot and a production assistant.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              You can ask ChatGPT "what's a fair price for 500 denim jackets in Vietnam?" and get a generic answer. The Sourcery assistant knows your factory's quote history, what you paid last season, your BOM, your delivery window, and your open milestones. The answer it gives is about your order.
+              You can ask ChatGPT "what's a fair price for 500 denim jackets in Vietnam?" and get a generic answer. The Sourcery assistant knows your factory's quote history, what you paid last season, your BOM, your delivery window, and your open milestones. The answer it gives is about your order — and only your order. Your production data is never used to answer questions for other brands.
             </p>
             <div className="grid md:grid-cols-3 gap-5">
               {[
@@ -185,7 +185,7 @@ export default function Assistant() {
               What it actually does.
             </h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
-              Six capabilities across the full production lifecycle. Each one grounded in your real order data.
+              Six capabilities across the full production lifecycle. Every answer grounded in your own order data — your factory, your spec, your history. Never any other brand's.
             </p>
           </motion.div>
 

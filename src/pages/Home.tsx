@@ -446,7 +446,7 @@ export default function Home() {
               Production this serious deserves better infrastructure.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-              Find your factory in the marketplace or bring your own. First order free — full platform from day one. No credit card, no time limit.
+              Find your factory in the marketplace or bring your own. First order free — full platform from day one. No credit card, no time limit. Not sure where to start? Read the <a href="/resources" class="text-primary hover:underline">production resources</a>.
             </p>
 
             {!captured ? (

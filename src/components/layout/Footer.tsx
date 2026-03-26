@@ -13,6 +13,7 @@ const footerLinks = {
   learn: [
     { label: "Why Sourcery", href: "/why-sourcery" },
     { label: "How it works", href: "/how-it-works" },
+    { label: "Resources", href: "/resources" },
     { label: "Walkthrough", href: "/walkthrough" },
     { label: "FAQ", href: "/faq" },
   ],
