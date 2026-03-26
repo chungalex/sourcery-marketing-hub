@@ -273,6 +273,7 @@ export function ProductionAssistant({ mode, orderContext, className }: Productio
             {mode !== "demo" && (
               <p className="text-xs text-muted-foreground mt-1.5 text-center">Conversations are logged against this order</p>
             )}
+            <p className="text-xs text-muted-foreground mt-1 text-center opacity-60">Use with discretion — verify before acting</p>
           </div>
         </>
       )}

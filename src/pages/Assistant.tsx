@@ -339,8 +339,27 @@ export default function Assistant() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Discretion notice */}
       <section className="section-padding">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="p-6 rounded-xl bg-card border border-border">
+              <h2 className="font-heading text-lg font-bold text-foreground mb-3">
+                Use the assistant with discretion.
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-3">
+                The production assistant is built to help — with real production knowledge, grounded in your actual order context. We do everything we can to give you the best tools AI's capabilities allow. But it is still AI, and AI can be wrong.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Treat every answer as a well-informed starting point, not a final word. Verify figures — duty rates, freight costs, lead time estimates, AQL standards — against authoritative sources before making decisions. The assistant's job is to give you the right direction fast. Your job is to confirm before you act on it.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section-padding bg-card/50">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
