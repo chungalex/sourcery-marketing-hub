@@ -56,7 +56,7 @@ export default function Marketplace() {
                 A small network of factories you can actually trust.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-2xl">
-                The Sourcery marketplace is intentionally small. Every factory is personally evaluated before listing — categories verified, capabilities confirmed, credentials checked. We'd rather show you four manufacturers you can trust than fifty you'd have to filter through yourself.
+                The Sourcery marketplace is intentionally small. Every factory is personally evaluated before listing — categories verified, capabilities confirmed, credentials checked. We'd rather show you four manufacturers we've personally evaluated than fifty you'd have to figure out yourself.
               </p>
               <p className="text-base text-muted-foreground leading-relaxed mb-8 max-w-2xl">
                 We're a new platform and the network is growing. If you have a factory you work with and trust, invite them directly — that's what BYOF is for.
@@ -208,7 +208,7 @@ export default function Marketplace() {
             </p>
             <div className="mt-6 p-5 rounded-xl bg-card border border-border max-w-2xl mx-auto text-left">
               <p className="text-sm font-semibold text-foreground mb-1.5">We're building this network carefully.</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">Sourcery is a new platform. The factory network is intentionally small right now — every manufacturer is personally evaluated before listing. We'd rather grow slowly with factories we can stand behind than list broadly and leave brands to figure out who's reliable. Have a factory you trust and would like to recommend? <Link to="/contact" className="text-primary hover:underline">Reach out.</Link></p>
+              <p className="text-sm text-muted-foreground leading-relaxed">Sourcery is a new platform. The factory network is intentionally small right now — every manufacturer is personally evaluated before listing. We'd rather grow slowly with factories we've personally evaluated than list broadly and hope for the best. Have a factory you trust and would like to recommend? <Link to="/contact" className="text-primary hover:underline">Reach out.</Link></p>
             </div>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

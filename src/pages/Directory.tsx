@@ -48,6 +48,7 @@ const RECENTLY_VIEWED_KEY = 'sourcery_recently_viewed';
 // Transform DB factory to display format
 // Note: null values for moqMin/leadTimeWeeks are preserved as null for proper filter handling
 function transformFactory(f: Factory): MockFactoryPreview {
+  const country = f.country || 'Unknown';
   return {
     id: f.id,
     slug: f.slug,
@@ -55,8 +56,8 @@ function transformFactory(f: Factory): MockFactoryPreview {
     type: (f.factory_type as FactoryType) || 'full_package',
     location: {
       city: f.city || '',
-      country: f.country,
-      countryCode: f.country.substring(0, 2).toUpperCase(),
+      country,
+      countryCode: country.substring(0, 2).toUpperCase(),
     },
     coverImageUrl: f.logo_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
     categories: f.categories || [],
@@ -72,6 +73,7 @@ function transformFactory(f: Factory): MockFactoryPreview {
 // Transform DB preview to display format
 // Note: null values for moqMin/leadTimeWeeks are preserved as null for proper filter handling
 function transformPreview(f: FactoryPreview): MockFactoryPreview {
+  const country = f.country || 'Unknown';
   return {
     id: f.id,
     slug: f.slug,
@@ -79,8 +81,8 @@ function transformPreview(f: FactoryPreview): MockFactoryPreview {
     type: (f.factory_type as FactoryType) || 'full_package',
     location: {
       city: f.city || '',
-      country: f.country,
-      countryCode: f.country.substring(0, 2).toUpperCase(),
+      country,
+      countryCode: country.substring(0, 2).toUpperCase(),
     },
     coverImageUrl: f.logo_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
     categories: f.categories || [],
@@ -147,7 +149,7 @@ export default function Directory() {
       } catch (error) {
         console.error("Failed to load factories:", error);
         if (!cancelled) {
-          toast.error("Failed to load factories. Please try again.");
+          setFactories([]); // Show empty state instead of crashing
         }
       } finally {
         if (!cancelled) {

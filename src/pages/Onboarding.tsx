@@ -4,32 +4,27 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import {
-  ArrowRight, ArrowLeft, Building2, Package,
-  Users, CheckCircle, Loader2, UserPlus
-} from "lucide-react";
+import { ArrowRight, ArrowLeft, Building2, Package, Users, CheckCircle, Loader2, UserPlus, Sparkles } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { cn } from "@/lib/utils";
 
 const CATEGORIES = [
-  "Apparel","Denim","Knitwear","Outerwear","Footwear",
-  "Accessories","Bags","Home goods","Electronics","Other"
+  "Apparel", "Denim", "Knitwear", "Outerwear",
+  "Footwear", "Accessories", "Bags", "Home goods", "Other"
 ];
 
 const VOLUMES = [
-  { value: "under_300", label: "Under 300 units/style" },
-  { value: "300_1000", label: "300–1,000 units/style" },
-  { value: "1000_5000", label: "1,000–5,000 units/style" },
-  { value: "over_5000", label: "5,000+ units/style" },
+  { value: "under_300", label: "Under 300 units", sub: "per style" },
+  { value: "300_1000", label: "300–1,000 units", sub: "per style" },
+  { value: "1000_5000", label: "1,000–5,000 units", sub: "per style" },
+  { value: "over_5000", label: "5,000+ units", sub: "per style" },
 ];
 
-type Step = "welcome" | "brand_profile" | "factories" | "invite" | "first_order" | "done";
-
-const STEPS: Step[] = ["welcome","brand_profile","factories","invite","first_order","done"];
+type Step = "welcome" | "brand_profile" | "factories" | "invite" | "done";
+const STEPS: Step[] = ["welcome", "brand_profile", "factories", "invite", "done"];
 
 export default function Onboarding() {
   const navigate = useNavigate();
@@ -38,13 +33,10 @@ export default function Onboarding() {
   const [saving, setSaving] = useState(false);
   const [hasByof, setHasByof] = useState<boolean | null>(null);
 
-  // Brand profile
   const [brandName, setBrandName] = useState("");
   const [category, setCategory] = useState("");
   const [volume, setVolume] = useState("");
-  const [markets, setMarkets] = useState("");
 
-  // BYOF invite
   const [factoryName, setFactoryName] = useState("");
   const [factoryEmail, setFactoryEmail] = useState("");
   const [factoryCountry, setFactoryCountry] = useState("");
@@ -54,13 +46,12 @@ export default function Onboarding() {
   const stepIndex = STEPS.indexOf(step);
 
   const next = () => {
-    const nextStep = STEPS[stepIndex + 1];
-    if (nextStep) setStep(nextStep);
+    const n = STEPS[stepIndex + 1];
+    if (n) setStep(n);
   };
-
   const back = () => {
-    const prevStep = STEPS[stepIndex - 1];
-    if (prevStep) setStep(prevStep);
+    const p = STEPS[stepIndex - 1];
+    if (p) setStep(p);
   };
 
   const saveBrandProfile = async () => {
@@ -68,16 +59,10 @@ export default function Onboarding() {
     setSaving(true);
     try {
       await supabase.auth.updateUser({
-        data: {
-          brand_name: brandName.trim(),
-          category,
-          volume,
-          markets: markets.trim(),
-          onboarding_step: "brand_profile_done",
-        }
+        data: { brand_name: brandName.trim(), category, volume, onboarding_step: "brand_profile_done" }
       });
       next();
-    } catch (e: any) {
+    } catch {
       toast.error("Failed to save — try again.");
     } finally {
       setSaving(false);
@@ -92,12 +77,7 @@ export default function Onboarding() {
     setSendingInvite(true);
     try {
       const { error } = await supabase.functions.invoke("factory-invite", {
-        body: {
-          action: "send",
-          factory_name: factoryName.trim(),
-          factory_email: factoryEmail.trim(),
-          country: factoryCountry.trim() || undefined,
-        },
+        body: { action: "send", factory_name: factoryName.trim(), factory_email: factoryEmail.trim(), country: factoryCountry.trim() || undefined },
       });
       if (error) throw new Error(error.message);
       setInviteSent(true);
@@ -112,75 +92,70 @@ export default function Onboarding() {
   const completeOnboarding = async () => {
     setSaving(true);
     try {
-      await supabase.auth.updateUser({
-        data: { onboarding_completed: true }
-      });
-      navigate("/dashboard");
-    } catch {
-      navigate("/dashboard");
-    } finally {
-      setSaving(false);
-    }
+      await supabase.auth.updateUser({ data: { onboarding_completed: true } });
+    } catch {}
+    navigate("/dashboard");
+    setSaving(false);
   };
 
-  const slideVariants = {
-    enter: { opacity: 0, x: 24 },
+  const slide = {
+    enter: { opacity: 0, x: 20 },
     center: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -24 },
+    exit: { opacity: 0, x: -20 },
   };
+
+  const progress = step === "welcome" || step === "done" ? 0 : (stepIndex / (STEPS.length - 2)) * 100;
 
   return (
     <>
       <SEO title="Welcome to Sourcery" description="Set up your account" />
       <div className="min-h-screen bg-background flex flex-col">
-        {/* Progress bar */}
+
+        {/* Progress */}
         {step !== "welcome" && step !== "done" && (
           <div className="h-0.5 bg-border">
-            <div
-              className="h-full bg-primary transition-all duration-500"
-              style={{ width: `${((stepIndex) / (STEPS.length - 2)) * 100}%` }}
-            />
+            <div className="h-full bg-primary transition-all duration-500" style={{ width: `${progress}%` }} />
           </div>
         )}
 
         <div className="flex-1 flex items-center justify-center p-6">
-          <div className="w-full max-w-lg">
+          <div className="w-full max-w-md">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={step}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.25 }}
-              >
+              <motion.div key={step} variants={slide} initial="enter" animate="center" exit="exit" transition={{ duration: 0.2 }}>
 
                 {/* WELCOME */}
                 {step === "welcome" && (
-                  <div className="text-center space-y-6">
-                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 mb-2">
-                      <Building2 className="h-7 w-7 text-primary" />
+                  <div className="text-center space-y-7">
+                    <div className="space-y-4">
+                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10">
+                        <Sparkles className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h1 className="text-2xl font-bold text-foreground mb-2">You're in.</h1>
+                        <p className="text-muted-foreground leading-relaxed">
+                          Sourcery is built for brands managing physical production — structured orders, milestone payments, QC gates, and a permanent record on every run. Let's get you set up in two minutes.
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h1 className="text-2xl font-semibold text-foreground mb-3">Welcome to Sourcery</h1>
-                      <p className="text-muted-foreground leading-relaxed max-w-sm mx-auto">
-                        Built in Ho Chi Minh City by a brand and a factory. Everything you need to manage production — without the WhatsApp chaos.
-                      </p>
-                    </div>
-                    <div className="text-left space-y-3 bg-secondary/50 rounded-xl p-5">
+
+                    <div className="text-left space-y-2.5 bg-secondary/50 rounded-xl p-5">
                       {[
-                        "Bring your existing factory relationships onto Sourcery",
-                        "Manage sampling, revisions, QC, and payments in one place",
-                        "Every order has a paper trail — no more disputes over WhatsApp",
-                      ].map((t, i) => (
+                        { title: "Bring your factory or find one", sub: "Invite your existing manufacturer or browse the network" },
+                        { title: "Every order has a paper trail", sub: "Specs, revisions, payments, and QC — all in one place" },
+                        { title: "Your first order is free", sub: "No credit card needed. Full platform from day one." },
+                      ].map((item, i) => (
                         <div key={i} className="flex items-start gap-3">
                           <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                          <p className="text-sm text-foreground">{t}</p>
+                          <div>
+                            <p className="text-sm font-medium text-foreground">{item.title}</p>
+                            <p className="text-xs text-muted-foreground">{item.sub}</p>
+                          </div>
                         </div>
                       ))}
                     </div>
-                    <Button size="lg" className="w-full" onClick={next}>
-                      Get started <ArrowRight className="ml-2 h-4 w-4" />
+
+                    <Button size="lg" className="w-full gap-2" onClick={next}>
+                      Let's go <ArrowRight className="h-4 w-4" />
                     </Button>
                   </div>
                 )}
@@ -189,49 +164,46 @@ export default function Onboarding() {
                 {step === "brand_profile" && (
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-xl font-semibold text-foreground mb-1">Tell us about your brand</h2>
-                      <p className="text-sm text-muted-foreground">Takes 60 seconds. Helps us match you with the right factories.</p>
+                      <h2 className="text-xl font-bold text-foreground mb-1">Tell us about your brand</h2>
+                      <p className="text-sm text-muted-foreground">Helps us show you the right factories and set up your account correctly.</p>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="space-y-5">
                       <div className="space-y-1.5">
                         <Label>Brand name <span className="text-rose-500">*</span></Label>
                         <Input
                           placeholder="e.g. OKIO Denim"
                           value={brandName}
                           onChange={e => setBrandName(e.target.value)}
+                          autoFocus
                         />
                       </div>
 
-                      <div className="space-y-1.5">
-                        <Label>Product category</Label>
+                      <div className="space-y-2">
+                        <Label>What do you make?</Label>
                         <div className="flex flex-wrap gap-2">
                           {CATEGORIES.map(c => (
                             <button
-                              key={c}
-                              type="button"
-                              onClick={() => setCategory(c)}
+                              key={c} type="button"
+                              onClick={() => setCategory(cat => cat === c ? "" : c)}
                               className={cn(
                                 "px-3 py-1.5 rounded-full text-sm border transition-all",
                                 category === c
                                   ? "bg-primary text-primary-foreground border-primary"
                                   : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
                               )}
-                            >
-                              {c}
-                            </button>
+                            >{c}</button>
                           ))}
                         </div>
                       </div>
 
-                      <div className="space-y-1.5">
-                        <Label>Production volume per style</Label>
+                      <div className="space-y-2">
+                        <Label>Typical production volume</Label>
                         <div className="grid grid-cols-2 gap-2">
                           {VOLUMES.map(v => (
                             <button
-                              key={v.value}
-                              type="button"
-                              onClick={() => setVolume(v.value)}
+                              key={v.value} type="button"
+                              onClick={() => setVolume(vol => vol === v.value ? "" : v.value)}
                               className={cn(
                                 "p-3 rounded-lg text-sm border text-left transition-all",
                                 volume === v.value
@@ -239,80 +211,72 @@ export default function Onboarding() {
                                   : "border-border text-muted-foreground hover:border-primary/30"
                               )}
                             >
-                              {v.label}
+                              <span className="font-medium text-foreground">{v.label}</span>
+                              <span className="text-xs text-muted-foreground block">{v.sub}</span>
                             </button>
                           ))}
                         </div>
                       </div>
-
-                      <div className="space-y-1.5">
-                        <Label>Primary markets (optional)</Label>
-                        <Input
-                          placeholder="e.g. US, UK, Australia"
-                          value={markets}
-                          onChange={e => setMarkets(e.target.value)}
-                        />
-                      </div>
                     </div>
 
                     <div className="flex gap-3">
-                      <Button variant="outline" onClick={back} className="w-24">
-                        <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                      <Button variant="outline" onClick={back} className="w-20 gap-1">
+                        <ArrowLeft className="h-4 w-4" />
                       </Button>
-                      <Button className="flex-1" onClick={saveBrandProfile} disabled={saving || !brandName.trim()}>
-                        {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                        Continue <ArrowRight className="ml-2 h-4 w-4" />
+                      <Button className="flex-1 gap-2" onClick={saveBrandProfile} disabled={saving || !brandName.trim()}>
+                        {saving && <Loader2 className="h-4 w-4 animate-spin" />}
+                        Continue <ArrowRight className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
                 )}
 
-                {/* DO YOU HAVE FACTORIES? */}
+                {/* FACTORIES */}
                 {step === "factories" && (
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-xl font-semibold text-foreground mb-1">Do you already work with factories?</h2>
+                      <h2 className="text-xl font-bold text-foreground mb-1">Do you already work with a factory?</h2>
                       <p className="text-sm text-muted-foreground">
-                        Bring your existing relationships onto Sourcery — they get a free account and full platform access.
+                        If you have an existing manufacturer, invite them to Sourcery — it's free for them and you can start managing orders immediately.
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-3">
+                    <div className="space-y-3">
                       <button
                         type="button"
                         onClick={() => { setHasByof(true); next(); }}
-                        className="p-5 rounded-xl border border-border hover:border-primary/50 text-left transition-all group"
+                        className="w-full p-5 rounded-xl border border-border hover:border-primary/40 text-left transition-all group"
                       >
                         <div className="flex items-start gap-4">
-                          <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                            <Building2 className="h-5 w-5 text-primary" />
+                          <div className="h-9 w-9 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <Building2 className="h-4.5 w-4.5 text-primary" style={{ width: 18, height: 18 }} />
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-foreground">Yes — I have factory relationships</p>
-                            <p className="text-sm text-muted-foreground mt-0.5">Invite them to Sourcery and start managing orders immediately.</p>
+                            <p className="text-sm font-semibold text-foreground">Yes — invite my factory</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">Send them a link. They join free, you start managing orders together.</p>
                           </div>
                         </div>
                       </button>
 
                       <button
                         type="button"
-                        onClick={() => { setHasByof(false); setStep("first_order"); }}
-                        className="p-5 rounded-xl border border-border hover:border-primary/50 text-left transition-all"
+                        onClick={() => { setHasByof(false); setStep("done"); }}
+                        className="w-full p-5 rounded-xl border border-border hover:border-primary/40 text-left transition-all"
                       >
                         <div className="flex items-start gap-4">
-                          <div className="h-10 w-10 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0">
-                            <Users className="h-5 w-5 text-muted-foreground" />
+                          <div className="h-9 w-9 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0">
+                            <Users className="h-4.5 w-4.5 text-muted-foreground" style={{ width: 18, height: 18 }} />
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-foreground">No — I'm looking for factories</p>
-                            <p className="text-sm text-muted-foreground mt-0.5">Browse the Sourcery network to find verified manufacturers.</p>
+                            <p className="text-sm font-semibold text-foreground">Not yet — I'll set this up later</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">Go to your dashboard and invite a factory when you're ready.</p>
                           </div>
                         </div>
                       </button>
                     </div>
 
-                    <Button variant="ghost" onClick={back} size="sm" className="text-muted-foreground">
-                      <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                    <Button variant="ghost" onClick={back} size="sm" className="text-muted-foreground gap-1">
+                      <ArrowLeft className="h-4 w-4" /> Back
                     </Button>
                   </div>
                 )}
@@ -321,9 +285,9 @@ export default function Onboarding() {
                 {step === "invite" && (
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-xl font-semibold text-foreground mb-1">Invite your factory</h2>
+                      <h2 className="text-xl font-bold text-foreground mb-1">Invite your factory</h2>
                       <p className="text-sm text-muted-foreground">
-                        They'll get an email with a link to create a free account and connect with you.
+                        They'll get an email with a link to join Sourcery — free for them, no commitment. Once they're in, you can create orders together.
                       </p>
                     </div>
 
@@ -331,50 +295,33 @@ export default function Onboarding() {
                       <div className="space-y-4">
                         <div className="space-y-1.5">
                           <Label>Factory name <span className="text-rose-500">*</span></Label>
-                          <Input
-                            placeholder="e.g. HU LA Studios"
-                            value={factoryName}
-                            onChange={e => setFactoryName(e.target.value)}
-                          />
+                          <Input placeholder="e.g. HU LA Studios" value={factoryName} onChange={e => setFactoryName(e.target.value)} autoFocus />
                         </div>
                         <div className="space-y-1.5">
                           <Label>Contact email <span className="text-rose-500">*</span></Label>
-                          <Input
-                            type="email"
-                            placeholder="factory@example.com"
-                            value={factoryEmail}
-                            onChange={e => setFactoryEmail(e.target.value)}
-                          />
+                          <Input type="email" placeholder="factory@example.com" value={factoryEmail} onChange={e => setFactoryEmail(e.target.value)} />
                         </div>
                         <div className="space-y-1.5">
-                          <Label>Country (optional)</Label>
-                          <Input
-                            placeholder="e.g. Vietnam"
-                            value={factoryCountry}
-                            onChange={e => setFactoryCountry(e.target.value)}
-                          />
+                          <Label>Country <span className="text-xs text-muted-foreground">(optional)</span></Label>
+                          <Input placeholder="e.g. Vietnam" value={factoryCountry} onChange={e => setFactoryCountry(e.target.value)} />
                         </div>
 
                         <div className="flex gap-3">
-                          <Button variant="outline" onClick={back} className="w-24">
-                            <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                          <Button variant="outline" onClick={back} className="w-20">
+                            <ArrowLeft className="h-4 w-4" />
                           </Button>
                           <Button
-                            className="flex-1"
+                            className="flex-1 gap-2"
                             onClick={sendInvite}
                             disabled={sendingInvite || !factoryName.trim() || !factoryEmail.trim()}
                           >
-                            {sendingInvite ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <UserPlus className="mr-2 h-4 w-4" />}
-                            Send Invite
+                            {sendingInvite ? <Loader2 className="h-4 w-4 animate-spin" /> : <UserPlus className="h-4 w-4" />}
+                            Send invite
                           </Button>
                         </div>
 
-                        <button
-                          type="button"
-                          onClick={next}
-                          className="w-full text-center text-sm text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                          Skip for now — invite later from dashboard
+                        <button type="button" onClick={next} className="w-full text-center text-sm text-muted-foreground hover:text-foreground transition-colors py-1">
+                          Skip — invite from dashboard later
                         </button>
                       </div>
                     ) : (
@@ -382,71 +329,57 @@ export default function Onboarding() {
                         <div className="flex items-start gap-3 p-4 rounded-xl bg-green-500/5 border border-green-500/20">
                           <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                           <div>
-                            <p className="text-sm font-medium text-foreground">Invite sent to {factoryEmail}</p>
-                            <p className="text-xs text-muted-foreground mt-1">
-                              They'll get a link to join Sourcery and connect with your account. You can invite more factories from your dashboard.
-                            </p>
+                            <p className="text-sm font-semibold text-foreground">Invite sent to {factoryEmail}</p>
+                            <p className="text-xs text-muted-foreground mt-1">Once they join, you'll be connected and can start creating orders together.</p>
                           </div>
                         </div>
-                        <Button className="w-full" onClick={next}>
-                          Continue <ArrowRight className="ml-2 h-4 w-4" />
+                        <Button className="w-full gap-2" onClick={next}>
+                          Go to dashboard <ArrowRight className="h-4 w-4" />
                         </Button>
                       </div>
                     )}
                   </div>
                 )}
 
-                {/* FIRST ORDER */}
-                {step === "first_order" && (
-                  <div className="space-y-6">
-                    <div>
-                      <h2 className="text-xl font-semibold text-foreground mb-1">You're set up</h2>
-                      <p className="text-sm text-muted-foreground">
-                        What do you want to do first?
-                      </p>
+                {/* DONE */}
+                {step === "done" && (
+                  <div className="text-center space-y-7">
+                    <div className="space-y-4">
+                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-green-500/10">
+                        <CheckCircle className="h-6 w-6 text-green-600" />
+                      </div>
+                      <div>
+                        <h2 className="text-2xl font-bold text-foreground mb-2">You're all set.</h2>
+                        <p className="text-muted-foreground leading-relaxed">
+                          Your account is ready. Create your first order, invite a factory, or explore the platform from your dashboard.
+                        </p>
+                      </div>
                     </div>
 
-                    <div className="space-y-3">
-                      <button
-                        type="button"
+                    <div className="space-y-2.5">
+                      <Button
+                        size="lg"
+                        className="w-full gap-2"
                         onClick={() => navigate("/orders/create")}
-                        className="w-full p-5 rounded-xl border border-border hover:border-primary/50 text-left transition-all"
                       >
-                        <div className="flex items-start gap-4">
-                          <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                            <Package className="h-5 w-5 text-primary" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium text-foreground">Create your first order</p>
-                            <p className="text-sm text-muted-foreground mt-0.5">Start a production order with your factory or browse the network.</p>
-                          </div>
-                        </div>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => navigate("/directory")}
-                        className="w-full p-5 rounded-xl border border-border hover:border-primary/50 text-left transition-all"
-                      >
-                        <div className="flex items-start gap-4">
-                          <div className="h-10 w-10 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0">
-                            <Users className="h-5 w-5 text-muted-foreground" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium text-foreground">Browse the factory network</p>
-                            <p className="text-sm text-muted-foreground mt-0.5">Find verified manufacturers in Vietnam, Cambodia, Portugal and beyond.</p>
-                          </div>
-                        </div>
-                      </button>
-
-                      <button
-                        type="button"
+                        <Package className="h-4 w-4" />
+                        Create your first order
+                      </Button>
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="w-full gap-2"
                         onClick={completeOnboarding}
-                        className="w-full text-center text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                        disabled={saving}
                       >
+                        {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                         Go to dashboard
-                      </button>
+                      </Button>
                     </div>
+
+                    <p className="text-xs text-muted-foreground">
+                      Your first order is completely free — no credit card, no time limit.
+                    </p>
                   </div>
                 )}
 
