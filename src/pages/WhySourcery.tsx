@@ -5,6 +5,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { SavingsCalculator } from "@/components/calculator/SavingsCalculator";
 import { ArrowRight, Shield, Search, Clock, Eye, FileCheck, Zap } from "lucide-react";
+import { ProductionAssistant } from "@/components/va/ProductionAssistant";
 
 const efficiencyPoints = [
   {
