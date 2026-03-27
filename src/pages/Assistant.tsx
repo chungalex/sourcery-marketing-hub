@@ -4,58 +4,51 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { ProductionAssistant } from "@/components/va/ProductionAssistant";
-import { ArrowRight, Sparkles, FileText, MessageSquare, TrendingUp, Search, Shield, Clock } from "lucide-react";
+import { ArrowRight, Sparkles, FileText, MessageSquare, TrendingUp, Search, Shield, Clock, Info } from "lucide-react";
 
 const capabilities = [
   {
     icon: Search,
     stage: "Before you commit",
-    headline: "Is this factory quote reasonable?",
-    body: "The assistant draws on your own order history — what you paid this factory before, what your previous quotes looked like, what revisions came up last time. It also applies deep production expertise: what's realistic for this factory location, this product category, this order volume. It tells you if something looks off and where to push back — based on your data and real production knowledge, not other brands' private information.",
-    examples: ["Is this lead time realistic for this order?", "Should I be worried about this MOQ?", "What incoterms should I use for this order?"],
+    headline: "Is this quote reasonable for this type of order?",
+    body: "Ask before you sign anything. The assistant applies production expertise — what's realistic for this factory location, this product category, this volume — and helps you know where to push back.",
+    examples: ["Is this lead time realistic?", "What incoterms should I use?", "Should I be worried about this MOQ?"],
   },
   {
     icon: FileText,
     stage: "During production",
-    headline: "What's happening on this order right now?",
-    body: "The assistant reads your full order record — every message, every milestone, every revision — and gives you a plain-English briefing. Ask it to summarise the week, flag what needs your attention, or tell you if the factory is behind.",
-    examples: ["Summarise what's happened this week", "Is the factory behind on this order?", "What do I need to do next?"],
+    headline: "What needs my attention right now?",
+    body: "Get a plain-English summary of where your order stands — what's happened, what's next, whether anything looks off. No hunting through message threads.",
+    examples: ["Summarise this order for me", "Is anything behind schedule?", "What do I need to do next?"],
   },
   {
     icon: MessageSquare,
     stage: "Communication",
-    headline: "Draft a message to the factory.",
-    body: "Describe what you need to say and the assistant drafts it — professionally, in the right tone, in Vietnamese or Chinese if needed. It knows the order context so the message is specific, not generic. No more staring at a blank message field.",
-    examples: ["Draft a message about this spec change", "How do I push back on this timeline professionally?", "Write a follow-up on the missing revision"],
+    headline: "Help me write this message to the factory.",
+    body: "Describe what you need to say. The assistant drafts it — professional tone, specific to your order, in Vietnamese or Chinese if needed.",
+    examples: ["Draft a message about this spec change", "How do I push back on this timeline?", "Write a follow-up on the missing revision"],
   },
   {
     icon: Shield,
     stage: "When things go wrong",
-    headline: "Is this defect serious? What's my leverage?",
-    body: "When something goes wrong, the assistant reads the full order record and tells you exactly where you stand. What was agreed, what was delivered, what the documented discrepancy is, and what your options are before you release the final payment.",
-    examples: ["What are my options on this defect?", "Is the documented revision enough to withhold payment?", "Draft a formal dispute summary"],
+    headline: "What are my options here?",
+    body: "When something goes wrong, the assistant helps you understand what was agreed, what was delivered, and what leverage you have before you release the final payment.",
+    examples: ["Is this defect serious enough to withhold payment?", "What's my position on this dispute?", "Draft a formal defect summary"],
   },
   {
     icon: TrendingUp,
     stage: "Supply chain",
     headline: "When do I need to order trims to hit this delivery?",
-    body: "The assistant knows your BOM, your factory location, your delivery window, and your trim supplier lead times. It works backwards from the delivery date and tells you the exact date you need to place your trim order — and flags if you've already missed it.",
-    examples: ["When do I need to order trims?", "What's my real landed cost if freight goes up 20%?", "Which currency exposure do I have on open orders?"],
+    body: "Ask supply chain timing questions based on your actual delivery window and BOM. The assistant works the numbers so you don't have to.",
+    examples: ["When do I need to place my trim order?", "What's my real landed cost if freight goes up?", "Walk me through the timeline on this order"],
   },
   {
     icon: Clock,
-    stage: "Institutional memory",
-    headline: "What went wrong last time with this factory?",
-    body: "The assistant reads your entire order history with a factory — every QC result, every revision round, every defect, every dispute. Before you reorder, it tells you what to spec differently and what to watch for. Your institutional knowledge doesn't live in anyone's inbox.",
-    examples: ["What changed last time we ran this style?", "Which factory has our best QC pass rate?", "What issues should I carry forward to the reorder?"],
+    stage: "Reordering",
+    headline: "What should I do differently this time?",
+    body: "Before you reorder a style, ask what happened last time — QC results, revision rounds, defects, factory notes. Don't repeat avoidable mistakes.",
+    examples: ["What changed on the last run of this style?", "Any issues I should carry forward?", "Which factory performed best on this category?"],
   },
-];
-
-const orderSuggested = [
-  "Is this lead time realistic?",
-  "What could go wrong here?",
-  "Draft a message to the factory",
-  "What do I need to do next?",
 ];
 
 export default function Assistant() {
@@ -63,13 +56,13 @@ export default function Assistant() {
     <Layout>
       <SEO
         title="Production Assistant — Sourcery"
-        description="An AI assistant that knows your order. Not a generic chatbot — a production expert with full context on every order, factory, and decision in your operation."
+        description="A production assistant that works with your order context — not a generic chatbot. Get specific answers on any active order, fast."
       />
 
       {/* Hero */}
       <section className="section-padding bg-[var(--hero-gradient)]">
         <div className="container-wide">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <div className="flex items-center gap-2 mb-5">
                 <Sparkles className="h-4 w-4 text-primary" />
@@ -77,15 +70,21 @@ export default function Assistant() {
                 <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">Pro</span>
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
-                An AI that knows your order. Not just production in general.
+                Get specific answers on your production — not generic advice.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-xl">
-                Every question you ask the production assistant is answered in the context of your actual order — your factory, your spec, your milestone status, your message thread. Not a generic chatbot. A production expert who has read everything before you ask.
+                The production assistant works with the context of your active order — factory, specs, milestones, timeline — so every answer is relevant to your actual situation. No re-explaining. No generic responses.
               </p>
-              <p className="text-base text-muted-foreground leading-relaxed max-w-xl">
-                Ask it about risk, timing, factory communication, defect leverage, supply chain timing, landed cost — anything. Every conversation is logged against the order record.
+              <p className="text-muted-foreground leading-relaxed max-w-xl mb-4">
+                Ask it anything: whether a quote looks right, what to say to the factory, how your timeline is tracking, what your options are when something goes wrong.
               </p>
-              <div className="flex gap-3 mt-8 flex-wrap">
+              <div className="flex items-start gap-2 p-3 rounded-lg bg-primary/5 border border-primary/20 max-w-xl mb-8">
+                <Info className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Use with discretion. The assistant is a well-informed starting point — always verify numbers and decisions against your own sources before acting.
+                </p>
+              </div>
+              <div className="flex gap-3 flex-wrap">
                 <Link to="/auth?mode=signup">
                   <Button variant="hero" size="xl">Get started free <ArrowRight className="w-5 h-5" /></Button>
                 </Link>
@@ -95,58 +94,55 @@ export default function Assistant() {
               </div>
             </motion.div>
 
-            {/* Live demo */}
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 }}>
-              <ProductionAssistant mode="demo" className="w-full shadow-lg" />
+            {/* Hero right — closed by default, inviting */}
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 }} className="bg-card border border-border rounded-2xl p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <Sparkles className="h-4 w-4 text-primary" />
+                <p className="text-sm font-semibold text-foreground">Try a production question</p>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                This is demo mode — no order context. Ask anything about production and get a real answer. On a live order, answers are specific to your factory, spec, and timeline.
+              </p>
+              <div className="space-y-1.5 mb-5">
+                {[
+                  "What incoterms should I use for Vietnam?",
+                  "Is a 12-week lead time realistic for 500 garments?",
+                  "What documents do I need to import into the US?",
+                  "How do milestone payments protect me?",
+                ].map((q, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <span className="text-xs text-primary mt-0.5 flex-shrink-0">→</span>
+                    <span className="text-xs text-muted-foreground italic">"{q}"</span>
+                  </div>
+                ))}
+              </div>
+              <ProductionAssistant mode="demo" className="w-full" />
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* What makes it different */}
+      {/* How it's different — simpler, less scary */}
       <section className="section-padding border-b border-border">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              The difference between a chatbot and a production assistant.
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+              Why it's more useful than a general AI tool.
             </h2>
-            <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              You can ask ChatGPT "what's a fair price for 500 denim jackets in Vietnam?" and get a generic answer. The Sourcery assistant knows your factory's quote history, what you paid last season, your BOM, your delivery window, and your open milestones. The answer it gives is about your order — and only your order. Your production data is never used to answer questions for other brands.
+            <p className="text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+              Ask ChatGPT "is this lead time reasonable?" and you get a general answer. Ask the Sourcery assistant the same question on an active order, and the answer is based on that specific factory, your delivery window, and the current milestone status. The difference is context — your order context, used only to answer your questions.
             </p>
-            <div className="grid md:grid-cols-3 gap-5">
+            <div className="grid md:grid-cols-2 gap-5">
               {[
                 {
-                  label: "Generic AI",
-                  points: [
-                    "No order context",
-                    "No factory history",
-                    "Generic production advice",
-                    "No connection to your data",
-                    "Conversation disappears",
-                  ],
-                  bad: true,
+                  title: "Without order context",
+                  items: ["Generic production advice", "You have to re-explain your situation every time", "No connection to your actual factory or timeline", "Answers based on general knowledge only"],
+                  muted: true,
                 },
                 {
-                  label: "Sourcery assistant — on an order",
-                  points: [
-                    "Knows your order number, status, milestones",
-                    "Knows your factory name and location",
-                    "Has read your message thread",
-                    "Knows your spec and revision history",
-                    "Every conversation logged against the order",
-                  ],
-                  bad: false,
-                },
-                {
-                  label: "Sourcery assistant — on the dashboard",
-                  points: [
-                    "Knows all your active orders",
-                    "Knows your factory performance history",
-                    "Flags orders that need attention",
-                    "Tracks open exposure across all orders",
-                    "Answers portfolio-level questions",
-                  ],
-                  bad: false,
+                  title: "With your order context",
+                  items: ["Answers specific to your factory, spec, and timeline", "No re-explaining — the context is already there", "Advice grounded in what's actually in your order", "Your data stays yours — never shared with other users"],
+                  muted: false,
                 },
               ].map((col, i) => (
                 <motion.div
@@ -155,18 +151,18 @@ export default function Assistant() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
-                  className={`p-6 rounded-2xl border ${col.bad ? "bg-card border-border opacity-60" : "bg-primary/5 border-primary/20"}`}
+                  className={`p-6 rounded-2xl border ${col.muted ? "bg-card border-border" : "bg-primary/5 border-primary/20"}`}
                 >
-                  <p className={`text-xs font-semibold uppercase tracking-wide mb-4 ${col.bad ? "text-muted-foreground" : "text-primary"}`}>
-                    {col.label}
+                  <p className={`text-xs font-semibold uppercase tracking-wide mb-4 ${col.muted ? "text-muted-foreground" : "text-primary"}`}>
+                    {col.title}
                   </p>
-                  <div className="space-y-2">
-                    {col.points.map((p, j) => (
-                      <div key={j} className="flex items-start gap-2">
-                        <span className={`text-xs mt-0.5 flex-shrink-0 ${col.bad ? "text-muted-foreground" : "text-primary"}`}>
-                          {col.bad ? "—" : "✓"}
+                  <div className="space-y-2.5">
+                    {col.items.map((item, j) => (
+                      <div key={j} className="flex items-start gap-2.5">
+                        <span className={`text-sm mt-0.5 flex-shrink-0 ${col.muted ? "text-muted-foreground" : "text-primary"}`}>
+                          {col.muted ? "—" : "✓"}
                         </span>
-                        <span className="text-sm text-foreground">{p}</span>
+                        <span className="text-sm text-foreground leading-snug">{item}</span>
                       </div>
                     ))}
                   </div>
@@ -177,39 +173,39 @@ export default function Assistant() {
         </div>
       </section>
 
-      {/* Six capabilities */}
+      {/* Six capabilities — tighter cards */}
       <section className="section-padding">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
-              What it actually does.
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+              What you can ask it.
             </h2>
-            <p className="text-muted-foreground max-w-2xl leading-relaxed">
-              Six capabilities across the full production lifecycle. Every answer grounded in your own order data — your factory, your spec, your history. Never any other brand's.
+            <p className="text-muted-foreground max-w-xl leading-relaxed">
+              Six types of questions across the full production lifecycle.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {capabilities.map((cap, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
-                className="p-6 rounded-2xl bg-card border border-border"
+                transition={{ delay: i * 0.05 }}
+                className="p-5 rounded-xl bg-card border border-border"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <cap.icon className="h-4 w-4 text-primary" />
+                <div className="flex items-center gap-2.5 mb-3">
+                  <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <cap.icon className="h-3.5 w-3.5 text-primary" />
                   </div>
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{cap.stage}</span>
                 </div>
-                <h3 className="font-heading font-bold text-foreground mb-2">{cap.headline}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{cap.body}</p>
-                <div className="space-y-1.5 pt-4 border-t border-border">
+                <h3 className="font-semibold text-foreground text-sm mb-2 leading-snug">{cap.headline}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed mb-3">{cap.body}</p>
+                <div className="space-y-1 pt-3 border-t border-border">
                   {cap.examples.map((ex, j) => (
-                    <div key={j} className="flex items-start gap-2">
+                    <div key={j} className="flex items-start gap-1.5">
                       <span className="text-xs text-primary mt-0.5 flex-shrink-0">→</span>
                       <span className="text-xs text-muted-foreground italic">"{ex}"</span>
                     </div>
@@ -221,35 +217,38 @@ export default function Assistant() {
         </div>
       </section>
 
-      {/* Where it lives */}
+      {/* Where it lives — simplified */}
       <section className="section-padding bg-card/50">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
-              Where it lives.
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+              Available in three places.
             </h2>
-            <p className="text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              The assistant is available in three places — each with a different level of context.
+            <p className="text-muted-foreground leading-relaxed mb-8 max-w-xl">
+              The more context it has, the more specific the answers.
             </p>
-            <div className="grid md:grid-cols-3 gap-5">
+            <div className="grid md:grid-cols-3 gap-4">
               {[
                 {
-                  title: "Inside every order",
-                  sub: "Highest context",
-                  body: "The assistant opens with your full order record loaded — number, status, factory, milestones, spec, and the entire message thread. Every question is answered in the context of that specific order.",
-                  badge: "Pro feature",
+                  num: "01",
+                  title: "Inside an active order",
+                  body: "Works with that order's factory, specs, milestones, and message history. Best for order-specific questions.",
+                  badge: "Pro",
+                  primary: true,
                 },
                 {
+                  num: "02",
                   title: "On your dashboard",
-                  sub: "Portfolio context",
-                  body: "A floating assistant on your production dashboard. Knows all your active orders across all factories. Tells you which orders need attention, which factories are performing, and what your exposure is.",
-                  badge: "Pro feature",
+                  body: "Works across all your active orders. Good for portfolio questions — what needs attention, how factories are performing.",
+                  badge: "Pro",
+                  primary: true,
                 },
                 {
+                  num: "03",
                   title: "On this page",
-                  sub: "Before you sign up",
-                  body: "Ask production questions before you commit to anything. Incoterms, lead times, factory evaluation, freight documents — the assistant answers genuinely. Once you're in, it answers specifically.",
-                  badge: "Available now",
+                  body: "No account needed. Answers general production questions — incoterms, lead times, factory evaluation, freight. Good starting point.",
+                  badge: "Free",
+                  primary: false,
                 },
               ].map((item, i) => (
                 <motion.div
@@ -258,16 +257,16 @@ export default function Assistant() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
-                  className="p-6 rounded-xl bg-background border border-border"
+                  className="p-5 rounded-xl bg-background border border-border"
                 >
-                  <div className="flex items-start justify-between gap-2 mb-3">
-                    <h3 className="font-semibold text-foreground">{item.title}</h3>
-                    <span className={`text-xs px-2 py-0.5 rounded-full flex-shrink-0 ${i === 2 ? "bg-secondary text-muted-foreground border border-border" : "bg-primary/10 text-primary border border-primary/20"}`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-mono text-xs text-muted-foreground">{item.num}</span>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${item.primary ? "bg-primary/10 text-primary border border-primary/20" : "bg-secondary text-muted-foreground border border-border"}`}>
                       {item.badge}
                     </span>
                   </div>
-                  <p className="text-xs font-medium text-primary mb-2">{item.sub}</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+                  <h3 className="font-semibold text-foreground text-sm mb-2">{item.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.body}</p>
                 </motion.div>
               ))}
             </div>
@@ -275,84 +274,32 @@ export default function Assistant() {
         </div>
       </section>
 
-      {/* The logged record */}
+      {/* Paper trail — reframed positively */}
       <section className="section-padding">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-              Every conversation becomes part of the order record.
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+              Decisions saved to your order record.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-              This is what separates the production assistant from any other AI tool. When you ask "should I be worried about this lead time?" and the assistant tells you it's tight based on this factory's history — that question and answer are logged against the order. Six months later in a dispute, that's evidence. You didn't just make a decision — you documented it.
+              When the assistant helps you think through a decision — whether to approve a sample, how to respond to a defect, whether a timeline is realistic — that conversation is saved against the order. Six months later, you have a record of what you considered and why you decided. That's useful in a dispute, and useful when you reorder.
             </p>
-            <div className="grid md:grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-2 gap-4">
               {[
                 {
-                  title: "Decisions are documented",
-                  body: "Every recommendation the assistant gives is logged with a timestamp. When someone asks later why a spec was approved or why a timeline was accepted, the answer is in the record.",
+                  title: "A record of your decisions",
+                  body: "If someone asks why a timeline was accepted or a spec was approved, the conversation is there. You don't have to reconstruct it from memory.",
                 },
                 {
-                  title: "Context survives team changes",
-                  body: "When a new production manager joins, they can ask the assistant what happened on any previous order and get a full briefing. Institutional knowledge doesn't live in anyone's inbox.",
+                  title: "Context that transfers",
+                  body: "When a new person joins the team, they can get up to speed on any order without relying on what's in someone else's inbox.",
                 },
               ].map((item, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="p-6 rounded-xl bg-card border border-border">
-                  <h3 className="font-semibold text-foreground mb-3">{item.title}</h3>
+                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="p-5 rounded-xl bg-card border border-border">
+                  <h3 className="font-semibold text-foreground text-sm mb-2">{item.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
                 </motion.div>
               ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Live demo section */}
-      <section className="section-padding bg-card/50">
-        <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="grid md:grid-cols-2 gap-10 items-start">
-              <div>
-                <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-                  Try it now.
-                </h2>
-                <p className="text-muted-foreground leading-relaxed mb-4">
-                  Ask a real production question. This is the demo mode — it answers genuinely without order context. On a live order, it answers in the context of your specific factory, spec, and milestone status.
-                </p>
-                <div className="space-y-2">
-                  {[
-                    "What incoterms should I use for a Vietnam order?",
-                    "How do I know if a factory lead time is realistic?",
-                    "What documents do I need to import apparel into the US?",
-                    "How do milestone payments protect me as a buyer?",
-                    "What's a fair AQL standard for garment production?",
-                  ].map((q, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <span className="text-xs text-primary mt-0.5">→</span>
-                      <span className="text-sm text-muted-foreground italic">"{q}"</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <ProductionAssistant mode="demo" className="w-full" />
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Discretion notice */}
-      <section className="section-padding">
-        <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="p-6 rounded-xl bg-card border border-border">
-              <h2 className="font-heading text-lg font-bold text-foreground mb-3">
-                Use the assistant with discretion.
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-3">
-                The production assistant is built to help — with real production knowledge, grounded in your actual order context. We do everything we can to give you the best tools AI's capabilities allow. But it is still AI, and AI can be wrong.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Treat every answer as a well-informed starting point, not a final word. Verify figures — duty rates, freight costs, lead time estimates, AQL standards — against authoritative sources before making decisions. The assistant's job is to give you the right direction fast. Your job is to confirm before you act on it.
-              </p>
             </div>
           </motion.div>
         </div>
@@ -363,10 +310,13 @@ export default function Assistant() {
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
-              Production intelligence on every order.
+              Better answers on every order.
             </h2>
-            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-              The production assistant is included in every Pro plan. Your first order is free on any plan.
+            <p className="text-muted-foreground mb-2 max-w-md mx-auto">
+              Included in every Pro plan. Your first order is free on any plan.
+            </p>
+            <p className="text-xs text-muted-foreground mb-8 max-w-md mx-auto">
+              Use with discretion — treat answers as a starting point and verify before acting.
             </p>
             <div className="flex justify-center gap-3 flex-wrap">
               <Link to="/auth?mode=signup">

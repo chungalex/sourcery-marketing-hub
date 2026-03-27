@@ -53,11 +53,13 @@ export default function Marketplace() {
                 Factory marketplace
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
-                The right factory changes everything.<br className="hidden md:block" />
-                Finding one you can trust shouldn't require a leap of faith.
+                A small network of factories you can actually trust.
               </h1>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                Whether you're sourcing for the first time or replacing a factory that's let you down, the same problem applies — you're making a significant capital commitment with limited data. The Sourcery marketplace shows you verified manufacturers with credentials you can check before you reach out or wire anything. The network is intentionally small — every factory personally vetted before listing.
+              <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-2xl">
+                The Sourcery marketplace is intentionally small. Every factory is personally evaluated before listing — categories verified, capabilities confirmed, credentials checked. We'd rather show you four manufacturers you can trust than fifty you'd have to filter through yourself.
+              </p>
+              <p className="text-base text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+                We're a new platform and the network is growing. If you have a factory you work with and trust, invite them directly — that's what BYOF is for.
               </p>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="p-6 rounded-2xl bg-background border-2 border-primary">
@@ -88,13 +90,13 @@ export default function Marketplace() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-                The hardest part of sourcing is committing capital before you have confidence.
+                See credentials before you commit to anything.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                It doesn't matter if it's your first factory or your fifth — locking in a 30% deposit before you have real data on a manufacturer's track record is a risk that most sourcing processes don't address. A good sample doesn't tell you the factory's QC pass rate, response time, or how they handle disputes.
+                Locking in a 30% deposit before you've seen real data on a manufacturer is one of the most stressful moments in production. A good sample is useful — but it doesn't tell you QC pass rates, response time, or how the factory handles disputes.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                The marketplace exists to give you that information first. Credentials, certifications, MOQ, and a performance record that builds from real completed orders — before you reach out, before you commit.
+                Every factory in the Sourcery network has been personally evaluated. You see what they're verified for, what categories they produce, their MOQ range, and a performance record that builds from real completed orders. Browse before you reach out. Reach out before you commit.
               </p>
               <div className="space-y-2.5">
                 {whyPoints.map((item, i) => (
@@ -204,6 +206,10 @@ export default function Marketplace() {
             <p className="text-muted-foreground max-w-xl mx-auto">
               Every completed order on the platform contributes to a factory's performance score. No self-reporting. No paying for placement. The score builds from zero — transparently — from the first order placed.
             </p>
+            <div className="mt-6 p-5 rounded-xl bg-card border border-border max-w-2xl mx-auto text-left">
+              <p className="text-sm font-semibold text-foreground mb-1.5">We're building this network carefully.</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">Sourcery is a new platform. The factory network is intentionally small right now — every manufacturer is personally evaluated before listing. We'd rather grow slowly with factories we can stand behind than list broadly and leave brands to figure out who's reliable. Have a factory you trust and would like to recommend? <Link to="/contact" className="text-primary hover:underline">Reach out.</Link></p>
+            </div>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {scoreCards.map((item, i) => (
