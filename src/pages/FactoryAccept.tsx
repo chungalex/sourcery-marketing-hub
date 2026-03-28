@@ -171,10 +171,10 @@ export default function FactoryAccept() {
             {/* Header */}
             <div>
               <h1 className="text-2xl font-bold text-foreground">
-                Review Purchase Order
+                New order from your brand
               </h1>
               <p className="text-sm text-muted-foreground mt-1">
-                Review the details below and accept or decline this order.
+                Review the order details below. Accept to confirm you can produce this order, or decline if you cannot.
               </p>
             </div>
 
@@ -190,7 +190,7 @@ export default function FactoryAccept() {
                 {!isPOIssued && (
                   <div className="flex items-center gap-2 p-4 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-800">
                     <AlertCircle className="h-4 w-4 shrink-0" />
-                    This PO is no longer awaiting acceptance (status:{" "}
+                    This order has already been actioned (status:{" "}
                     <span className="font-semibold capitalize">
                       {order.status.replace(/_/g, " ")}
                     </span>

@@ -22,7 +22,7 @@ export default function Factories() {
                 For factories
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
-                Better clients. Structured orders.<br className="hidden md:block" />
+                Better orders. Less back-and-forth.<br className="hidden md:block" />
                 A reputation that builds itself.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">

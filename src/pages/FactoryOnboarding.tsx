@@ -138,14 +138,14 @@ export default function FactoryOnboarding() {
                       <Building2 className="h-7 w-7 text-primary" />
                     </div>
                     <div>
-                      <h1 className="text-2xl font-semibold text-foreground mb-3">Welcome to Sourcery</h1>
+                      <h1 className="text-2xl font-bold text-foreground mb-3">Your account is ready.</h1>
                       <p className="text-muted-foreground leading-relaxed max-w-sm mx-auto">
-                        Built in Ho Chi Minh City. Set up your profile in 5 minutes and start receiving orders from brands who are done managing production over WhatsApp.
+                        Set up your factory profile in a few minutes and start managing orders with your brands — all in one place, with a full record of every order.
                       </p>
                     </div>
                     <div className="text-left space-y-3 bg-secondary/50 rounded-xl p-5">
                       {[
-                        "Orders managed with full paper trail — no more miscommunication",
+                        "Messages can be translated — communicate in your language",
                         "Sampling, revisions, and QC all on-platform",
                         "Milestone-gated payments — each stage released only when verified",
                         "Your performance score builds your reputation over time",
@@ -179,7 +179,7 @@ export default function FactoryOnboarding() {
                     <div className="space-y-1.5">
                       <Label className="text-sm">About your factory <span className="text-rose-500">*</span></Label>
                       <Textarea
-                        placeholder="Describe your factory — what you make, your strengths, your production setup, what makes you different. Write like you're talking to a brand founder, not filling out a form."
+                        placeholder="What does your factory make? How many workers? What are you best at? A few sentences is enough."
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                         className="min-h-[120px] resize-none text-sm"
@@ -351,9 +351,9 @@ export default function FactoryOnboarding() {
 
                     <div className="space-y-3">
                       {[
-                        { target: "Inquiries", time: "Within 24 hours", note: "A late response on an inquiry almost always means losing the brand to someone else." },
-                        { target: "Messages on active orders", time: "Within 12 hours", note: "Brands are managing multiple relationships. Silence reads as a problem." },
-                        { target: "Sample submissions", time: "When committed", note: "If a date slips, communicate early — brands can handle delays, not surprises." },
+                        { target: "New inquiries", time: "Within 24 hours", note: "Brands move fast. A quick reply means they choose you." },
+                        { target: "Messages on active orders", time: "Within 12 hours", note: "Quick replies build trust. Slow replies cause worry." },
+                        { target: "Sample delivery", time: "On the date you commit to", note: "If something changes, tell the brand early. They can work with it." },
                       ].map(s => (
                         <div key={s.target} className="p-4 rounded-xl border border-border bg-card space-y-1">
                           <div className="flex items-center justify-between">

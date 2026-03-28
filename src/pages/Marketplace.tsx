@@ -53,7 +53,7 @@ export default function Marketplace() {
                 Factory marketplace
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
-                A small network of factories you can actually trust.
+                Start with your factory — or find one here.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-2xl">
                 The Sourcery marketplace is intentionally small. Every factory is personally evaluated before listing — categories verified, capabilities confirmed, credentials checked. We'd rather show you four manufacturers we've personally evaluated than fifty you'd have to figure out yourself.
