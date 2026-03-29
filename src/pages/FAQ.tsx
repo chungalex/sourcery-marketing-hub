@@ -75,6 +75,26 @@ const faqSections = [
         q: "Does Sourcery handle shipping and logistics?",
         a: "Not currently. Shipping is coordinated between you and your factory or freight forwarder. The platform tracks order status through to shipped and closed, and shipment documentation can be uploaded to the order record. Logistics integration is on the roadmap.",
       },
+      {
+        q: "Who can see my order data?",
+        a: "Only you and the factory on that specific order. Order data is not visible to other brands, not accessible to other factories, and not aggregated across accounts. This is enforced at the database level — a technical constraint, not just a policy.",
+      },
+      {
+        q: "Is my pricing visible to other brands?",
+        a: "No. What you pay your factory is visible only to you and the factory on that order. It is not used to benchmark, compare, or inform any other brand's experience on the platform.",
+      },
+      {
+        q: "Can other brands see which factory I work with?",
+        a: "No. Factories you connect through BYOF are private — not listed in the marketplace and not discoverable by other brands. Your manufacturer does not appear anywhere outside your own orders.",
+      },
+      {
+        q: "What happens to my data if I cancel?",
+        a: "Your order history is exportable as PDF from any closed order. If you cancel, your account and data remain accessible until you choose to delete them. You can request full deletion at any time by contacting us.",
+      },
+      {
+        q: "Can my factory independently list in the marketplace?",
+        a: "A factory you've connected privately can apply to the marketplace on their own — we can't prevent that and wouldn't misrepresent it. But a factory's public profile shows categories, certifications, location, and MOQ — not which brands they work with or what those brands pay. Your order history and pricing stay private regardless.",
+      },
     ],
   },
   {

@@ -8,13 +8,15 @@ const sections = [
   },
   {
     title: "Description of Services",
-    content: `Sourcery provides a platform connecting brands with vetted manufacturing partners. Our services include:
+    content: `Sourcery is a manufacturing operating system for physical product brands. Our services include:
 
-• Factory matching and vetting
-• Quality control and inspection services
-• Production tracking and management
-• Sourcing consultation and support
-• Sample management and coordination`,
+• A structured order management system for production runs
+• A factory marketplace connecting brands with evaluated manufacturers
+• BYOF (Bring Your Own Factory) — tools to manage existing factory relationships on-platform
+• Milestone-gated payment infrastructure for production orders
+• On-platform communication with message translation
+• AI-powered production tools including the production assistant
+• Resources, community forum, and supply chain intelligence`,
   },
   {
     title: "User Accounts",
@@ -129,7 +131,7 @@ Upon termination, you must settle any outstanding payments. Access to platform f
     content: `For questions about these Terms of Service, please contact:
 
 Email: legal@sourcery.com
-Address: 123 Manufacturing Way, San Francisco, CA 94102`,
+Address: contact us through the platform`,
   },
 ];
 

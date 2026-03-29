@@ -94,6 +94,8 @@ export default function Brands() {
               <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Replace the chaos with a system that actually scales.</h3>
               <p className="text-muted-foreground leading-relaxed mb-4 flex-1">
                 Tech packs versioned. Revision rounds logged and factory-acknowledged. Sample gates enforced. QC gated against final payment. Every message, spec, defect, and milestone attached to the right order — permanently. Whether you're managing one production run or ten.
+
+Bring your existing manufacturer or find one in the marketplace. Either way, your factory connection and order data are private to your account — not visible to other brands on the platform.
               </p>
               <div className="space-y-2 mb-5">
                 {[
@@ -203,7 +205,7 @@ export default function Brands() {
               <h3 className="font-semibold text-foreground mb-5 text-lg">What it replaces</h3>
               <div className="space-y-4">
                 {[
-                  { before: "Spec changes over WhatsApp", after: "Formal revision rounds, factory-acknowledged" },
+                  { before: "Spec changes sent informally", after: "Formal revision rounds, factory-acknowledged" },
                   { before: "Tech pack emailed as attachment", after: "Versioned, factory-confirmed, permanent" },
                   { before: "Sample approved in a message", after: "Formal approval with photos + measurements logged" },
                   { before: "Payment wired before QC", after: "Final milestone gated behind QC pass" },

@@ -10,6 +10,8 @@ import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { SEO } from "@/components/SEO";
+import { useLanguage, t } from "@/hooks/useLanguage";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { ArrowRight, ArrowLeft, Building2, Camera, DollarSign, Clock, CheckCircle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -26,6 +28,7 @@ export default function FactoryOnboarding() {
   const { user } = useAuth();
   const { factoryIds } = useFactoryMembership(user?.id);
   const factoryId = factoryIds[0];
+  const { lang, setLang } = useLanguage();
 
   const [step, setStep] = useState<Step>("welcome");
   const [saving, setSaving] = useState(false);
@@ -117,6 +120,11 @@ export default function FactoryOnboarding() {
     <>
       <SEO title="Set up your factory profile — Sourcery" description="Complete your factory profile to start receiving orders." />
       <div className="min-h-screen bg-background flex flex-col">
+        {/* Language selector — always visible */}
+        <div className="flex justify-end px-4 pt-3">
+          <LanguageToggle lang={lang} onChange={setLang} />
+        </div>
+
         {step !== "welcome" && step !== "done" && (
           <div className="h-0.5 bg-border">
             <div
@@ -138,9 +146,9 @@ export default function FactoryOnboarding() {
                       <Building2 className="h-7 w-7 text-primary" />
                     </div>
                     <div>
-                      <h1 className="text-2xl font-bold text-foreground mb-3">Your account is ready.</h1>
+                      <h1 className="text-2xl font-bold text-foreground mb-3">{t(lang, "welcome.title")}</h1>
                       <p className="text-muted-foreground leading-relaxed max-w-sm mx-auto">
-                        Set up your factory profile in a few minutes and start managing orders with your brands — all in one place, with a full record of every order.
+{t(lang, "welcome.body")}
                       </p>
                     </div>
                     <div className="text-left space-y-3 bg-secondary/50 rounded-xl p-5">
@@ -172,14 +180,14 @@ export default function FactoryOnboarding() {
                 {step === "profile" && (
                   <div className="space-y-5">
                     <div>
-                      <h2 className="text-xl font-semibold text-foreground mb-1">Your factory</h2>
-                      <p className="text-sm text-muted-foreground">This is what brands see first. Be specific — vague profiles rank lower.</p>
+                      <h2 className="text-xl font-semibold text-foreground mb-1">{t(lang, "profile.title")}</h2>
+                      <p className="text-sm text-muted-foreground">{t(lang, "profile.sub")}</p>
                     </div>
 
                     <div className="space-y-1.5">
                       <Label className="text-sm">About your factory <span className="text-rose-500">*</span></Label>
                       <Textarea
-                        placeholder="What does your factory make? How many workers? What are you best at? A few sentences is enough."
+                        placeholder={t(lang, "profile.desc.placeholder")}
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                         className="min-h-[120px] resize-none text-sm"
@@ -345,15 +353,15 @@ export default function FactoryOnboarding() {
                 {step === "sla" && (
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-xl font-semibold text-foreground mb-1">One last thing</h2>
-                      <p className="text-sm text-muted-foreground">Response time is how brands choose between factories with similar capabilities.</p>
+                      <h2 className="text-xl font-semibold text-foreground mb-1">{t(lang, "sla.title")}</h2>
+                      <p className="text-sm text-muted-foreground">{t(lang, "sla.sub")}</p>
                     </div>
 
                     <div className="space-y-3">
                       {[
-                        { target: "New inquiries", time: "Within 24 hours", note: "Brands move fast. A quick reply means they choose you." },
-                        { target: "Messages on active orders", time: "Within 12 hours", note: "Quick replies build trust. Slow replies cause worry." },
-                        { target: "Sample delivery", time: "On the date you commit to", note: "If something changes, tell the brand early. They can work with it." },
+                        { target: t(lang, "sla.inquiries"), time: t(lang, "sla.inquiries.time"), note: t(lang, "sla.inquiries.note") },
+                        { target: t(lang, "sla.messages"), time: t(lang, "sla.messages.time"), note: t(lang, "sla.messages.note") },
+                        { target: t(lang, "sla.samples"), time: t(lang, "sla.samples.time"), note: t(lang, "sla.samples.note") },
                       ].map(s => (
                         <div key={s.target} className="p-4 rounded-xl border border-border bg-card space-y-1">
                           <div className="flex items-center justify-between">
@@ -369,7 +377,7 @@ export default function FactoryOnboarding() {
                       <Button variant="outline" onClick={back} className="w-20"><ArrowLeft className="mr-1 h-4 w-4" />Back</Button>
                       <Button className="flex-1" onClick={complete} disabled={saving}>
                         {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle className="mr-2 h-4 w-4" />}
-                        Go to my dashboard
+                        {t(lang, "sla.cta")}
                       </Button>
                     </div>
                   </div>

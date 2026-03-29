@@ -12,7 +12,7 @@ const efficiencyPoints = [
     icon: Clock,
     title: "Spec management that doesn't chase itself",
     time: "Saves 2–4 hrs per revision round",
-    body: "Every change is a formal revision round the factory must acknowledge before production continues. No following up to confirm they read your WhatsApp message. No wondering if the right version made it to the floor.",
+    body: "Every change is a formal revision round the factory must acknowledge before production continues. No following up to confirm the message was read. No wondering if the right version made it to the floor.",
   },
   {
     icon: FileCheck,
@@ -75,7 +75,7 @@ const scenarios = [
   {
     number: "03",
     type: "The lost spec change",
-    setup: "You change the fabric weight over WhatsApp mid-production. The factory maybe reads it. 500 units arrive in the wrong fabric. They dispute the change was communicated.",
+    setup: "You change the fabric weight mid-production over email or a message thread. The factory maybe reads it. 500 units arrive in the wrong fabric. They dispute the change was communicated.",
     exposure: "Up to $15,000 + 4–8 weeks",
     root: "No version control. No factory acknowledgment. Nothing timestamped.",
     fix: "Formal revision rounds — the factory must acknowledge before production continues.",
@@ -108,7 +108,7 @@ export default function WhySourcery() {
               Production should be something you're in control of — not something you're constantly managing around.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-3 max-w-xl">
-              Most production runs on tools that weren't built for it. WhatsApp for spec changes. Email for sample approvals. A bank portal for payments. When things work, it's fine. When they don't, there's no record, no structure, and no clear path forward.
+              Most production runs on tools that weren't built for it. Spec changes over messaging apps. Sample approvals over email. A bank portal for payments. When things work, it's fine. When they don't, there's no record, no structure, and no clear path forward.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
               Sourcery is the infrastructure that makes production efficient, visible, and protected — so your time and your capital are both working for you.

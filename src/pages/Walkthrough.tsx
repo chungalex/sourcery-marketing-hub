@@ -78,7 +78,7 @@ const steps = [
     label: "Revision rounds",
     headline: "Every spec change acknowledged before work continues.",
     description: "Every change during production is submitted as a formal revision round. The factory must acknowledge it before production continues. Tech pack versions are numbered and factory-confirmed. No more 'which file did you use?' disputes.",
-    note: "Not sent over WhatsApp. Logged with a timestamp. Permanent.",
+    note: "Not sent informally. Logged with a timestamp. Permanent.",
     tag: "Production OS",
     tagColor: "text-muted-foreground bg-secondary",
     mockup: {

@@ -23,21 +23,7 @@ import {
   ArrowLeft
 } from "lucide-react";
 
-/**
- * Factory Application Page
- * 
- * API Endpoints:
- * - POST /api/applications
- *   Request: FormData (multipart)
- *   Response: { applicationId: string, status: "submitted" }
- * 
- * - PUT /api/applications/:id/draft
- *   Request: Partial<ApplicationData>
- *   Response: { success: boolean }
- * 
- * - GET /api/applications/:id
- *   Response: ApplicationData
- */
+
 
 const steps = [
   { id: 1, title: "Basic Info", icon: Building2 },
@@ -155,7 +141,7 @@ export default function Apply() {
             className="text-center mb-12"
           >
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Join Our Factory Network
+              Apply to the Sourcery network.
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Complete your application to showcase your manufacturing capabilities 

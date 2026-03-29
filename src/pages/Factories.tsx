@@ -193,6 +193,76 @@ export default function Factories() {
         </div>
       </section>
 
+      {/* What joining looks like */}
+      <section className="section-padding">
+        <div className="container-tight">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">Less chaos. More clarity. Starting from the first order.</h2>
+            <p className="text-muted-foreground leading-relaxed max-w-xl">
+              You don't need to change how you produce. You just get a better system around it — one that works in your language, tracks everything automatically, and makes you look more professional to every brand you work with.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              {
+                label: "Clarity",
+                title: "No more unclear orders.",
+                body: "Every order that comes through has the spec, timeline, payment milestones, and QC standard already defined. You know exactly what's being asked before you say yes.",
+              },
+              {
+                label: "Language",
+                title: "Work in Vietnamese or Chinese.",
+                body: "A language selector on your dashboard and in every message thread. You write the way you think. Brands read in their language. No misunderstandings from rough translation.",
+              },
+              {
+                label: "Protection",
+                title: "A record that protects you too.",
+                body: "Every spec change, revision, and message is timestamped and attached to the order. If there's ever a disagreement about what was agreed, the record is there for both sides.",
+              },
+              {
+                label: "Payments",
+                title: "You always know what triggers the next payment.",
+                body: "Each milestone is defined at the start — what needs to happen, what gets released. No chasing. No ambiguity. The structure is the agreement.",
+              },
+              {
+                label: "AI tools",
+                title: "Production intelligence built in.",
+                body: "Order summaries so you always know where things stand. Suggested responses when a brand asks something complex. Smart tools that help you manage multiple orders without losing track.",
+              },
+              {
+                label: "Reputation",
+                title: "Every order builds your track record.",
+                body: "QC pass rate, response times, on-time delivery — all tracked automatically from real orders. The longer you're on platform, the stronger your profile gets.",
+              },
+              {
+                label: "Visibility",
+                title: "Brands looking for you can find you.",
+                body: "Your factory profile is searchable by category, MOQ, certifications, and location. Inbound interest from brands who match what you actually produce.",
+              },
+              {
+                label: "Community",
+                title: "Part of a network, not just a listing.",
+                body: "Sourcery is a two-sided community — brands and factories both participating, both building reputations. The platform grows more valuable the more people use it.",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="p-5 rounded-xl bg-card border border-border"
+              >
+                <span className="text-xs font-semibold text-primary uppercase tracking-wide mb-2 block">{item.label}</span>
+                <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="section-padding">
         <div className="container-tight text-center">

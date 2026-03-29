@@ -61,7 +61,7 @@ const sections = [
       },
       {
         name: "On-platform messaging",
-        sub: "No more scattered WhatsApp threads.",
+        sub: "No more fragmented message threads.",
         desc: "Every message logged, timestamped, attached to the order. Full history. Nothing important communicated outside the platform.",
         tier: "free",
       },

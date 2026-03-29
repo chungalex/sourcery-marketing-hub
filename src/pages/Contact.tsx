@@ -131,8 +131,9 @@ export default function Contact() {
               ) : (
                 <div className="p-8 rounded-2xl bg-card border border-border text-center">
                   <CheckCircle className="h-10 w-10 text-primary mx-auto mb-4" />
-                  <h2 className="font-heading text-xl font-bold text-foreground mb-2">Message sent.</h2>
-                  <p className="text-muted-foreground">We'll get back to you as soon as we can.</p>
+                  <h2 className="font-heading text-xl font-bold text-foreground mb-2">Got it.</h2>
+                  <p className="text-muted-foreground mb-1">We read and respond to everything personally.</p>
+                  <p className="text-sm text-muted-foreground">Usually within 24 hours. Check your spam folder if you don't hear back.</p>
                 </div>
               )}
             </motion.div>

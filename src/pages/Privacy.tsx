@@ -1,124 +1,118 @@
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
-
-const sections = [
-  {
-    title: "Information We Collect",
-    content: `We collect information you provide directly to us, such as when you create an account, submit a sourcing request, apply as a factory partner, or contact us for support. This may include:
-
-• Name and contact information (email, phone, address)
-• Company details and business information
-• Production requirements and specifications
-• Payment and billing information
-• Communications with our team`,
-  },
-  {
-    title: "How We Use Your Information",
-    content: `We use the information we collect to:
-
-• Provide, maintain, and improve our services
-• Match brands with appropriate factory partners
-• Process transactions and send related information
-• Send technical notices, updates, and support messages
-• Respond to your comments, questions, and requests
-• Monitor and analyze trends, usage, and activities
-• Detect, investigate, and prevent fraudulent transactions`,
-  },
-  {
-    title: "Information Sharing",
-    content: `We may share information about you as follows:
-
-• With factory partners to facilitate production requests
-• With service providers who perform services on our behalf
-• In response to a request for information if required by law
-• If we believe disclosure is necessary to protect our rights
-• In connection with a merger, acquisition, or sale of assets
-• With your consent or at your direction`,
-  },
-  {
-    title: "Data Security",
-    content: `We take reasonable measures to help protect information about you from loss, theft, misuse, and unauthorized access. We use industry-standard encryption and security protocols to safeguard your data. However, no method of transmission over the Internet is 100% secure.`,
-  },
-  {
-    title: "Your Rights",
-    content: `You have the right to:
-
-• Access the personal information we hold about you
-• Request correction of inaccurate information
-• Request deletion of your personal information
-• Object to processing of your personal information
-• Request restriction of processing
-• Request data portability
-• Withdraw consent at any time`,
-  },
-  {
-    title: "Cookies",
-    content: `We use cookies and similar tracking technologies to collect and track information and to improve and analyze our service. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.`,
-  },
-  {
-    title: "Data Retention",
-    content: `We retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required by law. Specifically:
-
-• Account data is retained while your account is active
-• Transaction records are kept for 7 years for tax and legal compliance
-• Communication logs are retained for 2 years
-• You may request deletion of your data at any time, subject to legal requirements`,
-  },
-  {
-    title: "International Data Transfers",
-    content: `Your information may be transferred to and processed in countries other than your country of residence, including the United States. These countries may have different data protection laws. We ensure appropriate safeguards are in place for such transfers, including standard contractual clauses approved by relevant authorities.`,
-  },
-  {
-    title: "Children's Privacy",
-    content: `Our platform and services are intended for business use and are not directed at individuals under 18 years of age. We do not knowingly collect personal information from children. If you believe we have inadvertently collected information from a minor, please contact us immediately so we can delete it.`,
-  },
-  {
-    title: "Contact Us",
-    content: `If you have any questions about this Privacy Policy, please contact us at:
-
-Email: privacy@sourcery.com
-Address: 123 Manufacturing Way, San Francisco, CA 94102`,
-  },
-];
+import { motion } from "framer-motion";
 
 export default function Privacy() {
   return (
     <Layout>
       <SEO
-        title="Privacy Policy | Sourcery"
-        description="Learn how Sourcery collects, uses, and protects your personal information. We are committed to safeguarding your privacy."
+        title="Privacy — Sourcery"
+        description="How Sourcery handles your data. Plain language — not legal boilerplate."
         canonical="/privacy"
       />
-      
+
       <section className="section-padding">
         <div className="container-tight">
-          <div className="mb-12">
-            <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Privacy Policy
-            </h1>
-            <p className="text-muted-foreground">
-              Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-            </p>
-          </div>
-          
-          <div className="prose prose-neutral max-w-none">
-            <p className="text-lg text-muted-foreground mb-8">
-              At Sourcery, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our services.
-            </p>
-            
-            <div className="space-y-10">
-              {sections.map((section, index) => (
-                <div key={index}>
-                  <h2 className="font-heading text-xl font-semibold text-foreground mb-4">
-                    {section.title}
-                  </h2>
-                  <div className="text-muted-foreground whitespace-pre-line leading-relaxed">
-                    {section.content}
-                  </div>
-                </div>
-              ))}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <div className="mb-10">
+              <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">
+                Privacy
+              </h1>
+              <p className="text-muted-foreground text-sm">Last updated: March 2026</p>
             </div>
-          </div>
+
+            <div className="prose max-w-none">
+              <p className="text-lg text-muted-foreground leading-relaxed mb-10">
+                Sourcery handles commercially sensitive information — factory names, order pricing, product specifications, delivery windows. This page explains what we do with that information in plain language.
+              </p>
+
+              <div className="space-y-10">
+
+                {/* Order data */}
+                <div>
+                  <h2 className="font-heading text-xl font-bold text-foreground mb-3">Who can see your order data</h2>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Every order on Sourcery is visible only to the brand and the factory on that specific order. This is enforced at the database level — row-level security means other users cannot access your orders, regardless of permissions. No other brand sees your orders, specs, pricing, or factory relationships.
+                  </p>
+                </div>
+
+                {/* Pricing */}
+                <div>
+                  <h2 className="font-heading text-xl font-bold text-foreground mb-3">Your pricing and factory relationships</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-3">
+                    Order pricing and factory relationships are visible only to the parties on that order. We do not aggregate pricing data across brands or cross-reference what one brand pays against another. This is how the platform is built today — and any future feature that involved order data in a new way would require explicit opt-in from the brands and factories involved.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Factories you invite through BYOF (Bring Your Own Factory) are connected privately to your account. They are not listed in the marketplace, not discoverable by other brands, and cannot appear in the marketplace without submitting their own independent application — which is evaluated separately from your account.
+                  </p>
+                </div>
+
+                {/* Data you provide */}
+                <div>
+                  <h2 className="font-heading text-xl font-bold text-foreground mb-3">What we collect and why</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-3">
+                    We collect what you give us: account information, brand or factory profile details, order data you create, messages you send, and files you upload. We use this to operate the platform — to display your orders, connect you with the right factory, power the production assistant, and build factory performance records.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We do not sell your data. We do not share it with third parties for marketing purposes.
+                  </p>
+                </div>
+
+                {/* Disputes */}
+                <div>
+                  <h2 className="font-heading text-xl font-bold text-foreground mb-3">Disputes</h2>
+                  <p className="text-muted-foreground leading-relaxed">
+                    If there is a dispute between a brand and a factory, Sourcery provides the documented record — every message, spec version, revision, and milestone — as a neutral reference. We do not take sides, rule on outcomes, or share the record with parties outside the dispute. We give both parties access to the same documented history.
+                  </p>
+                </div>
+
+                {/* Your data when you leave */}
+                <div>
+                  <h2 className="font-heading text-xl font-bold text-foreground mb-3">Your data if you cancel</h2>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Your order history is exportable as PDF at any time from any closed order. If you cancel your subscription, your account and data remain accessible until you choose to delete them. We do not automatically delete your records when a subscription ends. You can request deletion at any time by contacting us.
+                  </p>
+                </div>
+
+                {/* AI */}
+                <div>
+                  <h2 className="font-heading text-xl font-bold text-foreground mb-3">AI and your data</h2>
+                  <p className="text-muted-foreground leading-relaxed">
+                    The production assistant uses your order context — factory, specs, milestones, message thread — to answer questions about your active orders. This context is specific to your order and is not used to answer questions for other brands. Conversations with the assistant are saved to the order record and are visible to you and the factory on that order.
+                  </p>
+                </div>
+
+                {/* Cookies */}
+                <div>
+                  <h2 className="font-heading text-xl font-bold text-foreground mb-3">Cookies</h2>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We use cookies for authentication and to keep you logged in. We do not use third-party advertising cookies. You can clear cookies through your browser at any time, though this will log you out.
+                  </p>
+                </div>
+
+                {/* Your rights */}
+                <div>
+                  <h2 className="font-heading text-xl font-bold text-foreground mb-3">Your rights</h2>
+                  <p className="text-muted-foreground leading-relaxed">
+                    You can access, correct, or request deletion of your personal information at any time. To make a request, contact us directly. We will respond within 30 days.
+                  </p>
+                </div>
+
+                {/* Contact */}
+                <div className="p-6 rounded-xl bg-card border border-border">
+                  <h2 className="font-heading text-lg font-bold text-foreground mb-2">Questions</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-3">
+                    If you have questions about how your data is handled, reach out directly. We respond to everything.
+                  </p>
+                  <Link to="/contact" className="text-primary hover:underline text-sm font-medium">
+                    Contact us →
+                  </Link>
+                </div>
+
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
     </Layout>

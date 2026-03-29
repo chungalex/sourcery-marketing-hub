@@ -7,7 +7,8 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import {
   ArrowRight, CheckCircle, Shield, Package, MessageSquare,
-  FileText, BarChart3, Sparkles, Building2, Loader2, Search
+  FileText, BarChart3, Sparkles, Building2, Loader2, Search,
+  BookOpen, Users, Globe, Zap, TrendingUp
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -40,7 +41,7 @@ const features = [
   {
     icon: MessageSquare,
     title: "On-platform communication",
-    sub: "No more scattered WhatsApp threads.",
+    sub: "No more fragmented message threads.",
     description: "Every message logged, timestamped, and attached to the right order. Full history. Nothing important communicated outside the platform.",
   },
   {
@@ -100,7 +101,7 @@ export default function Home() {
     <Layout>
       <SEO
         title="Sourcery — The Manufacturing OS for Physical Product Brands"
-        description="Whether you're placing your first order or your fiftieth, production deserves better than WhatsApp and spreadsheets. Sourcery is the marketplace to find the right factory and the OS to manage every order properly."
+        description="Whether you're placing your first order or your fiftieth, production deserves better than disconnected tools and informal channels. Sourcery is the marketplace to find the right factory and the OS to manage every order properly."
         canonical="/"
       />
 
@@ -117,7 +118,7 @@ export default function Home() {
                   The manufacturing OS for brands who take production seriously.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
-                  Whether you're placing your first order or your fiftieth, production deserves better infrastructure than WhatsApp and spreadsheets. Sourcery is the marketplace to find the right factory and the OS to manage every order — documented, gated, and traceable from PO to delivery.
+                  Sourcery is the marketplace to find the right factory — and the OS to manage every order from PO to delivery. Documented, milestone-gated, and fully traceable. Whether it's your first order or your fiftieth.
                 </p>
 
                 <div className="space-y-3 mb-8">
@@ -438,7 +439,115 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Email capture */}
+      {/* For factories — language, ease */}
+      <section className="section-padding bg-card/50 border-y border-border">
+        <div className="container-wide">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">For factories</p>
+              <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+                Built for the factory too — not just the brand.
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Most production software is built entirely from the brand's perspective. Sourcery works for both sides. Factories get their own dashboard, their own order view, and tools designed around how they actually work — including communication in their own language.
+              </p>
+              <div className="space-y-3">
+                {[
+                  { icon: Globe, title: "Message translation built in", body: "Every message thread can be translated between English, Vietnamese, and Chinese. Factories write in their language, brands read in theirs." },
+                  { icon: Package, title: "Orders arrive structured, not chaotic", body: "No more decoding a brand's email to understand what they want. Every order comes with specs, timeline, payment milestones, and QC standard already set." },
+                  { icon: BarChart3, title: "A performance record that builds over time", body: "Every completed order contributes to a verified score — QC results, response time, on-time delivery. It compounds. It's yours." },
+                ].map((item, i) => (
+                  <motion.div key={i} initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <item.icon className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground mb-0.5">{item.title}</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{item.body}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="p-5 rounded-xl bg-background border border-border">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Factory dashboard</p>
+                <div className="space-y-2">
+                  {[
+                    { label: "New order from OKIO Denim", status: "Review", statusColor: "text-amber-700 bg-amber-500/10 border-amber-400/30" },
+                    { label: "Sample approved — bulk confirmed", status: "In production", statusColor: "text-blue-700 bg-blue-500/10 border-blue-400/30" },
+                    { label: "QC passed — payment released", status: "Closed", statusColor: "text-green-700 bg-green-500/10 border-green-500/20" },
+                  ].map((row, i) => (
+                    <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-secondary/50 border border-border">
+                      <span className="text-xs text-foreground">{row.label}</span>
+                      <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${row.statusColor}`}>{row.status}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3 pt-3 border-t border-border flex items-center gap-2">
+                  <Globe className="h-3 w-3 text-primary" />
+                  <span className="text-xs text-muted-foreground">Tap any message to translate — EN / VI / 中文</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Resources + Community + Intelligence */}
+      <section className="section-padding">
+        <div className="container-wide">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
+            <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Beyond the platform</p>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
+              Production knowledge, community, and intelligence.
+            </h2>
+            <p className="text-muted-foreground max-w-xl leading-relaxed">
+              The infrastructure extends beyond the order. Resources written by people who've managed production on both sides. A community where brands and factories talk to each other. Weekly supply chain intelligence from live public data.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0 }}>
+              <a href="/resources" className="group block p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all hover:-translate-y-0.5 h-full">
+                <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <BookOpen className="h-4.5 w-4.5 text-primary" style={{width:18,height:18}} />
+                </div>
+                <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Resource library</p>
+                <h3 className="font-heading font-bold text-foreground mb-2 group-hover:text-primary transition-colors">The knowledge experienced buyers carry.</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">AQL standards, incoterms, supply chain traceability, compliance certifications, import duties, factory evaluation, market guides. Written specifically for physical product brands.</p>
+                <div className="flex items-center gap-1 text-primary text-xs font-medium mt-4">Browse resources <ArrowRight className="h-3 w-3" /></div>
+              </a>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.07 }}>
+              <a href="/forum" className="group block p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all hover:-translate-y-0.5 h-full">
+                <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <Users className="h-4.5 w-4.5 text-primary" style={{width:18,height:18}} />
+                </div>
+                <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Community</p>
+                <h3 className="font-heading font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Brands and factories talking to each other.</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">Factory recommendations. Production questions answered by people who've been through it. Supply chain discussion on tariffs, freight, and market moves. A space that didn't exist until now.</p>
+                <div className="flex items-center gap-1 text-primary text-xs font-medium mt-4">Join the forum <ArrowRight className="h-3 w-3" /></div>
+              </a>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.14 }}>
+              <a href="/intelligence" className="group block p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all hover:-translate-y-0.5 h-full">
+                <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <TrendingUp className="h-4.5 w-4.5 text-primary" style={{width:18,height:18}} />
+                </div>
+                <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Supply chain intelligence</p>
+                <h3 className="font-heading font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Current signals, not generic news.</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">Weekly briefings on freight rates, tariff changes, and market moves — AI-synthesised from live public data. Freightos, USTR, Federal Register. Every figure linked to its source.</p>
+                <div className="flex items-center gap-1 text-primary text-xs font-medium mt-4">See the feed <ArrowRight className="h-3 w-3" /></div>
+              </a>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+            {/* Email capture */}
       <section className="section-padding bg-card/50">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center">

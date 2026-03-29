@@ -68,7 +68,7 @@ const categories = [
       {
         slug: "trim-coordination",
         title: "Coordinating trim suppliers with garment factories",
-        sub: "Buttons, zippers, labels, elastic — how to manage handoffs between suppliers without WhatsApp and hope.",
+        sub: "Buttons, zippers, labels, elastic — how to manage handoffs between suppliers without a shared system of record.",
         readTime: "5 min",
         tags: ["Supply chain", "Trims"],
       },
