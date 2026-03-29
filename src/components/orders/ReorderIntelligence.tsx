@@ -32,12 +32,12 @@ export function ReorderIntelligence({ orderId, factoryId, factoryName }: Reorder
         .order("created_at", { ascending: false })
         .limit(5);
 
-      const { data: defects } = await supabase
+      const { data: defects } = await (supabase as any)
         .from("defect_reports")
         .select("defect_type, severity, quantity_affected")
         .eq("order_id", orderId);
 
-      const { data: revisions } = await supabase
+      const { data: revisions } = await (supabase as any)
         .from("revision_rounds")
         .select("status, notes")
         .eq("order_id", orderId);

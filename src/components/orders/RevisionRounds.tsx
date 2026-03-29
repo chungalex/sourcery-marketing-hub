@@ -48,13 +48,13 @@ export function RevisionRounds({ orderId, isFactory = false, onActionComplete }:
 
   async function loadRounds() {
     setLoading(true);
-    const { data } = await supabase
+    const { data } = await (supabase as any)
       .from("revision_rounds")
       .select("*")
       .eq("order_id", orderId)
       .order("round_number", { ascending: false });
     setRounds((data as RevisionRound[]) || []);
-    if (data?.length) setExpanded(data[0].id);
+    if (data?.length) setExpanded((data as any[])[0].id);
     setLoading(false);
   }
 

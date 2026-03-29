@@ -45,7 +45,7 @@ export function TechPackVersions({ orderId, isFactory = false, onActionComplete 
 
   async function load() {
     setLoading(true);
-    const { data } = await supabase
+    const { data } = await (supabase as any)
       .from("tech_pack_versions")
       .select("*")
       .eq("order_id", orderId)

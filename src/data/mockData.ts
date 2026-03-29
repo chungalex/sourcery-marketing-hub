@@ -87,7 +87,7 @@ export interface FactoryDetail extends FactoryPreview {
 export interface Category {
   slug: string;
   name: string;
-  count: number;
+  count?: number;
 }
 
 export interface SubscriptionTier {

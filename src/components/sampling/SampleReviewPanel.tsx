@@ -66,12 +66,12 @@ export function SampleReviewPanel({
     setLoading(true);
     try {
       const [subRes, revRes] = await Promise.all([
-        supabase
+        (supabase as any)
           .from("sample_submissions")
           .select("*")
           .eq("order_id", orderId)
           .order("round", { ascending: false }),
-        supabase
+        (supabase as any)
           .from("sample_revisions")
           .select("*")
           .eq("order_id", orderId)

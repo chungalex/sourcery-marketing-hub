@@ -28,7 +28,7 @@ export async function fetchFactories(): Promise<Factory[]> {
     throw error;
   }
 
-  return data || [];
+  return (data as unknown as Factory[]) || [];
 }
 
 // Fetch single factory preview by slug (public)
@@ -60,7 +60,7 @@ export async function fetchFactoryBySlug(slug: string): Promise<Factory | null> 
     throw error;
   }
 
-  return data;
+  return data as unknown as Factory | null;
 }
 
 // Generate unique slug from name

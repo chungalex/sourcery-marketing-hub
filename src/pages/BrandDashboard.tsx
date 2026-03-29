@@ -119,9 +119,9 @@ export default function BrandDashboard() {
 
   useEffect(() => {
     if (!user) return;
-    supabase.from("factories").select("id, name, city, country")
+    (supabase as any).from("factories").select("id, name, city, country")
       .eq("is_byof", true).eq("invited_by", user.id)
-      .then(({ data }) => { setByofFactories(data || []); setLoadingByof(false); });
+      .then(({ data }: any) => { setByofFactories(data || []); setLoadingByof(false); });
   }, [user]);
 
   useEffect(() => {

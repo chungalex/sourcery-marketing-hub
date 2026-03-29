@@ -57,14 +57,14 @@ export function NotificationBell() {
   }, []);
 
   async function load() {
-    const { data } = await supabase
+    const { data } = await (supabase as any)
       .from("notifications").select("*")
       .order("created_at", { ascending: false }).limit(30);
     setNotifications((data as Notification[]) || []);
   }
 
   async function markRead(ids: string[]) {
-    await supabase.from("notifications")
+    await (supabase as any).from("notifications")
       .update({ read_at: new Date().toISOString() })
       .in("id", ids).is("read_at", null);
     setNotifications(prev => prev.map(n => ids.includes(n.id) ? { ...n, read_at: new Date().toISOString() } : n));

@@ -205,7 +205,7 @@ export default function FactoryProfile() {
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                   <div>
                     <div className="flex flex-wrap items-center gap-2 mb-3">
-                      <FactoryTypeBadge type={(preview.factory_type as FactoryType) || 'mass_production'} />
+                      <FactoryTypeBadge type={(preview.factory_type || 'artisan') as FactoryType} />
                       {preview.is_verified && <VerifiedBadge />}
                     </div>
 
@@ -370,7 +370,7 @@ export default function FactoryProfile() {
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <FactoryTypeBadge type={(factory.factory_type as FactoryType) || 'mass_production'} />
+                    <FactoryTypeBadge type={(factory.factory_type || 'artisan') as FactoryType} />
                     {factory.is_verified && <VerifiedBadge />}
                   </div>
 
