@@ -107,8 +107,8 @@ export function PlatformMessaging({ orderId, className }: PlatformMessagingProps
     setSending(true);
     setError(null);
 
-    const { error } = await supabase
-      .from("messages" as never)
+    const { error } = await (supabase as any)
+      .from("messages")
       .insert({
         order_id: orderId,
         sender_id: user.id,

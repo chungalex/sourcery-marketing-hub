@@ -83,7 +83,7 @@ Use this context for specific, relevant answers. Answer in context of this actua
 
 async function getOrderThread(orderId: string): Promise<string> {
   try {
-    const { data } = await supabase
+    const { data } = await (supabase as any)
       .from("messages").select("content, sender_role")
       .eq("order_id", orderId)
       .order("created_at", { ascending: true })

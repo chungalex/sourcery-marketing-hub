@@ -79,8 +79,8 @@ export function FactoryReview({ orderId, factoryId, factoryName, orderStatus, on
     }
     setSubmitting(true);
 
-    const { error } = await supabase
-      .from("factory_reviews" as never)
+    const { error } = await (supabase as any)
+      .from("factory_reviews")
       .insert({
         factory_id: factoryId,
         order_id: orderId,
