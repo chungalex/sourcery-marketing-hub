@@ -110,43 +110,44 @@ export default function OrderDetail() {
   }, [user, authLoading, navigate, id]);
 
   // Fetch order
+  const loadOrder = async () => {
+    if (!user || !id) return;
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("orders")
+      .select(`
+        id, order_number, status, quantity, unit_price,
+        total_amount, currency, created_at, specifications,
+        factories (id, name, slug),
+        order_milestones (id, label, percentage, amount, status, sequence_order, release_condition)
+      `)
+      .eq("id", id)
+      .single();
+
+    if (error || !data) {
+      toast.error("Order not found");
+      navigate("/dashboard?tab=orders");
+      return;
+    }
+
+    const orderData = data as unknown as OrderData;
+    setOrder(orderData);
+    setUnitPrice(orderData.unit_price > 0 ? String(orderData.unit_price) : "");
+    setQuantity(String(orderData.quantity));
+    setEditCurrency(orderData.currency || "USD");
+
+    // Restore QC mode from specifications if saved
+    const specs = orderData.specifications as Record<string, unknown> | null;
+    if (specs?.qc_mode) {
+      setQcMode(specs.qc_mode as QCMode);
+    }
+
+    setLoading(false);
+  };
+
   useEffect(() => {
     if (!user || !id) return;
-
-    const fetchOrder = async () => {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from("orders")
-        .select(`
-          id, order_number, status, quantity, unit_price,
-          total_amount, currency, created_at, specifications,
-          factories (id, name, slug),
-          order_milestones (id, label, percentage, amount, status, sequence_order, release_condition)
-        `)
-        .eq("id", id)
-        .single();
-
-      if (error || !data) {
-        toast.error("Order not found");
-        navigate("/dashboard?tab=orders");
-        return;
-      }
-
-      const orderData = data as unknown as OrderData;
-      setOrder(orderData);
-      setUnitPrice(orderData.unit_price > 0 ? String(orderData.unit_price) : "");
-      setQuantity(String(orderData.quantity));
-
-      // Restore QC mode from specifications if saved
-      const specs = orderData.specifications as Record<string, unknown> | null;
-      if (specs?.qc_mode) {
-        setQcMode(specs.qc_mode as QCMode);
-      }
-
-      setLoading(false);
-    };
-
-    fetchOrder();
+    loadOrder();
   }, [user, id, navigate]);
 
   const isDraft = order?.status === "draft";
@@ -382,8 +383,8 @@ export default function OrderDetail() {
                       {isDraft ? (
                         <Input
                           type="number"
-                          value={editQuantity}
-                          onChange={e => setEditQuantity(Number(e.target.value))}
+                          value={parsedQty}
+                          onChange={e => setQuantity(e.target.value)}
                           min={1}
                           className="text-sm"
                         />
@@ -397,8 +398,8 @@ export default function OrderDetail() {
                         <div className="flex gap-2">
                           <Input
                             type="number"
-                            value={editUnitPrice}
-                            onChange={e => setEditUnitPrice(Number(e.target.value))}
+                            value={parsedPrice}
+                            onChange={e => setUnitPrice(e.target.value)}
                             min={0}
                             step={0.01}
                             className="text-sm"
@@ -422,11 +423,11 @@ export default function OrderDetail() {
                     </div>
                   </div>
 
-                  {(editQuantity > 0 && editUnitPrice > 0) && (
+                  {(parsedQty > 0 && parsedPrice > 0) && (
                     <div className="pt-3 border-t border-border flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">Order total</span>
                       <span className="text-sm font-semibold text-foreground">
-                        {new Intl.NumberFormat("en-US", { style: "currency", currency: editCurrency }).format(editQuantity * editUnitPrice)}
+                        {new Intl.NumberFormat("en-US", { style: "currency", currency: editCurrency }).format(parsedQty * parsedPrice)}
                       </span>
                     </div>
                   )}
@@ -694,9 +695,9 @@ export default function OrderDetail() {
                     quantity: order.quantity,
                     unit_price: order.unit_price,
                     currency: order.currency,
-                    specifications: order.specifications,
+                    specifications: order.specifications ? JSON.stringify(order.specifications) : null,
                     created_at: order.created_at,
-                    factories: order.factories,
+                    factories: order.factories ? { name: order.factories.name, country: "", city: null } : null,
                   }}
                   isPro={false}
                 />

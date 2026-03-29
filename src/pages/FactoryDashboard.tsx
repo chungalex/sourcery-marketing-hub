@@ -137,7 +137,7 @@ export default function FactoryDashboard() {
     queryKey: ["factory-orders", factoryId],
     enabled: !!factoryId,
     queryFn: async (): Promise<FactoryOrder[]> => {
-      const activeStatuses = ["po_issued","po_accepted","sample_sent","sample_revision","sample_approved","in_production","qc_scheduled","qc_uploaded","qc_pass","qc_fail","ready_to_ship","shipped"] as const;
+      const activeStatuses = ["po_issued","po_accepted","in_production","qc_scheduled","qc_uploaded","qc_pass","qc_fail","ready_to_ship","shipped"] as const;
       const { data, error } = await supabase
         .from("orders")
         .select("id, order_number, status, quantity, unit_price, currency, created_at, buyer_id")

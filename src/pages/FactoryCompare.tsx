@@ -36,7 +36,7 @@ export default function FactoryCompare() {
         .from("factories")
         .select("*")
         .in("id", ids.slice(0, 3));
-      setFactories(data || []);
+      setFactories((data as unknown as Factory[]) || []);
       setLoading(false);
     }
     load();

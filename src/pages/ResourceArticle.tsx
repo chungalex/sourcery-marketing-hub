@@ -385,11 +385,11 @@ const relatedTitles: Record<string, string> = {
   "us-tariffs-apparel-2025": "US tariffs on apparel in 2025 — what brands actually need to know",
   "ocean-freight-rates-explained": "Ocean freight rates — how they work and why they spike",
   "supply-chain-disruption-playbook": "When supply chains break — the brand playbook",
-  "freight-documents": "Freight documents — what you need and when",
   "milestone-payments": "How milestone payments protect you — and when they don't",
   "china-plus-one": "China Plus One — the sourcing diversification strategy explained",
   "vietnam-tariff-status": "Vietnam's tariff status — current rates and what's changing",
   "vietnam-manufacturing-guide": "Vietnam — the production guide for apparel brands",
+  "vietnam-vs-china": "Vietnam vs China — which is right for your brand?",
   "reading-factory-quote": "How to read a factory quote — and what to push back on",
 };
 
