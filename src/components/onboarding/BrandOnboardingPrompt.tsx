@@ -21,7 +21,7 @@ const steps = [
   {
     number: "02",
     title: "Create your first order",
-    description: "Build a structured PO with guided incoterms, AQL standard, QC option, and delivery window. Every decision explained before you commit.",
+    description: "Create a purchase order with guided fields — quantity, payment structure, delivery window, QC standard. Everything explained as you go.",
     cta: "Create an order",
     ctaLink: "/orders/create",
     icon: Package,

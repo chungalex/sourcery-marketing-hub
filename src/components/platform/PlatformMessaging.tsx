@@ -233,10 +233,10 @@ export function PlatformMessaging({ orderId, className }: PlatformMessagingProps
                         <button
                           onClick={() => translateMessage(msg.id, msg.content)}
                           className={cn(
-                            "text-xs flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity",
+                            "text-xs flex items-center gap-0.5 transition-opacity",
                             isOwn ? "text-primary-foreground/60 hover:text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                           )}
-                          title={translations[msg.id] ? "Show original" : "Translate"}
+                          title={translations[msg.id] ? "Show original" : "Translate message"}
                         >
                           {translating === msg.id
                             ? <Loader2 className="h-3 w-3 animate-spin" />
@@ -266,7 +266,7 @@ export function PlatformMessaging({ orderId, className }: PlatformMessagingProps
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Write a message..."
+            placeholder="Write a message... (tap translate icon to translate any message)"
             className="resize-none min-h-[72px] text-base"
             rows={3}
           />
