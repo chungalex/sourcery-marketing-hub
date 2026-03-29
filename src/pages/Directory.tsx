@@ -142,12 +142,10 @@ export default function Directory() {
             }
           }
         } catch (err) {
-          console.warn("Directory: fetchFactories failed, falling back to previews", err);
           const previews = await fetchFactoryPreviews();
           if (!cancelled) setFactories(previews.map(transformPreview));
         }
       } catch (error) {
-        console.error("Failed to load factories:", error);
         if (!cancelled) {
           setFactories([]); // Show empty state instead of crashing
         }

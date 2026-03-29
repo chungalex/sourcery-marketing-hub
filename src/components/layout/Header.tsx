@@ -14,7 +14,6 @@ const navItems = [
   { label: "For Factories", href: "/factories" },
   { label: "Marketplace", href: "/marketplace" },
   { label: "Resources", href: "/resources" },
-    { label: "Assistant", href: "/assistant" },
     { label: "Why Sourcery", href: "/why-sourcery" },
   { label: "Pricing", href: "/pricing" },
 ];
@@ -174,9 +173,9 @@ export function Header() {
                 </Link>
               ))}
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
-                <Link to="/apply">
+                <Link to="/factories">
                   <Button variant="ghost" className="w-full">
-                    Apply as Factory
+                    For factories
                   </Button>
                 </Link>
                  {!authLoading && user ? (

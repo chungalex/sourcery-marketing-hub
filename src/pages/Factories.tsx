@@ -22,11 +22,11 @@ export default function Factories() {
                 For factories
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
-                Better orders. Less back-and-forth.<br className="hidden md:block" />
-                A reputation that builds itself.
+                Structured orders, serious brands,<br className="hidden md:block" />
+                and a reputation that builds with every run.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                Brands on Sourcery arrive with documented specs, structured orders, and milestone-gated payments. Every order you complete builds a verified performance record that compounds over time — and gets you in front of more brands.
+                Brands on Sourcery come with clear specs and structured payment milestones. Every completed order builds your verified performance record — the longer you work on the platform, the more your reputation works for you.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/apply">
@@ -66,9 +66,7 @@ export default function Factories() {
               <p className="text-muted-foreground leading-relaxed mb-5">
                 Apply to the Sourcery network, complete a credential review, and build a public profile. Brands searching for your category see your capabilities, certifications, and growing performance record.
               </p>
-              <Link to="/apply">
-                <Button size="sm" variant="outline" className="gap-1.5">Apply to the network <ArrowRight className="h-3.5 w-3.5" /></Button>
-              </Link>
+<Link to="/apply"><Button size="sm" variant="outline" className="gap-1.5 text-xs">Apply <ArrowRight className="h-3 w-3" /></Button></Link>
             </motion.div>
           </div>
         </div>

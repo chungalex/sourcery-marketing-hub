@@ -113,7 +113,7 @@ export default function Pricing() {
   return (
     <Layout>
       <SEO
-        title="Pricing — Sourcery"
+        title="Pricing — Sourcery | Free first order, then $399/yr"
         description="Your first order is free. Full infrastructure, no credit card, no time limit."
       />
 

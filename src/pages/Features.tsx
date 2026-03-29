@@ -108,7 +108,7 @@ const sections = [
   {
     id: "ai",
     category: "AI toolkit",
-    desc: "Intelligence built into the workflow — not bolted on.",
+    desc: "Production intelligence built into every order — not a separate tool. Includes the production assistant, order summaries, and smart reorder analysis.",
     icon: Sparkles,
     features: [
       {

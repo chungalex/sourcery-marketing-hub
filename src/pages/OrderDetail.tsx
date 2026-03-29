@@ -121,7 +121,6 @@ export default function OrderDetail() {
         .single();
 
       if (error || !data) {
-        console.error("Order fetch error:", error);
         toast.error("Order not found");
         navigate("/dashboard?tab=orders");
         return;
@@ -177,7 +176,6 @@ export default function OrderDetail() {
 
     if (error) {
       toast.error("Failed to save changes");
-      console.error("Save error:", error);
     } else {
       // Update milestones amounts
       if (order.order_milestones.length > 0) {
@@ -230,7 +228,6 @@ export default function OrderDetail() {
 
     if (error || data?.error) {
       toast.error(data?.error || "Failed to issue PO");
-      console.error("Issue PO error:", error || data);
       setIssuingPO(false);
       return;
     }
@@ -250,7 +247,6 @@ export default function OrderDetail() {
 
     if (error || data?.error) {
       toast.error(data?.error || "Failed to create payment session");
-      console.error("Stripe checkout error:", error || data);
       setPayingMilestone(null);
       return;
     }

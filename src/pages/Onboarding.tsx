@@ -108,7 +108,7 @@ export default function Onboarding() {
 
   return (
     <>
-      <SEO title="Welcome to Sourcery" description="Set up your account" />
+      <SEO title="Welcome to Sourcery" description="Set up your Sourcery account — invite your factory, create your first order, and manage production properly from day one." />
       <div className="min-h-screen bg-background flex flex-col">
 
         {/* Progress */}
