@@ -44,6 +44,65 @@ export type Database = {
         }
         Relationships: []
       }
+      defect_reports: {
+        Row: {
+          created_at: string
+          defect_type: string
+          description: string
+          factory_responded_at: string | null
+          factory_responded_by: string | null
+          factory_response: string | null
+          id: string
+          order_id: string
+          percentage_affected: number | null
+          photo_urls: string[] | null
+          quantity_affected: number
+          reported_by: string
+          severity: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          defect_type: string
+          description: string
+          factory_responded_at?: string | null
+          factory_responded_by?: string | null
+          factory_response?: string | null
+          id?: string
+          order_id: string
+          percentage_affected?: number | null
+          photo_urls?: string[] | null
+          quantity_affected?: number
+          reported_by: string
+          severity: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          defect_type?: string
+          description?: string
+          factory_responded_at?: string | null
+          factory_responded_by?: string | null
+          factory_response?: string | null
+          id?: string
+          order_id?: string
+          percentage_affected?: number | null
+          photo_urls?: string[] | null
+          quantity_affected?: number
+          reported_by?: string
+          severity?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "defect_reports_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       factories: {
         Row: {
           bank_account_id: string | null
@@ -64,7 +123,9 @@ export type Database = {
           moq_min: number | null
           name: string
           participation: Database["public"]["Enums"]["factory_participation"]
+          performance_score: number | null
           phone: string | null
+          score_tier: string | null
           slug: string
           total_employees: number | null
           updated_at: string | null
@@ -90,7 +151,9 @@ export type Database = {
           moq_min?: number | null
           name: string
           participation?: Database["public"]["Enums"]["factory_participation"]
+          performance_score?: number | null
           phone?: string | null
+          score_tier?: string | null
           slug: string
           total_employees?: number | null
           updated_at?: string | null
@@ -116,7 +179,9 @@ export type Database = {
           moq_min?: number | null
           name?: string
           participation?: Database["public"]["Enums"]["factory_participation"]
+          performance_score?: number | null
           phone?: string | null
+          score_tier?: string | null
           slug?: string
           total_employees?: number | null
           updated_at?: string | null
@@ -194,6 +259,77 @@ export type Database = {
             foreignKeyName: "factory_invites_factory_id_fkey"
             columns: ["factory_id"]
             isOneToOne: false
+            referencedRelation: "factories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      factory_performance_scores: {
+        Row: {
+          avg_response_hours: number | null
+          brand_retention_score: number | null
+          calculated_at: string
+          completed_orders: number | null
+          critical_defects: number | null
+          defect_rate_score: number | null
+          factory_id: string
+          id: string
+          on_time_rate: number | null
+          overall_score: number | null
+          qc_fails: number | null
+          qc_pass_rate: number | null
+          qc_passes: number | null
+          response_time_score: number | null
+          revision_frequency_score: number | null
+          tier: string
+          total_defect_reports: number | null
+          total_orders: number | null
+        }
+        Insert: {
+          avg_response_hours?: number | null
+          brand_retention_score?: number | null
+          calculated_at?: string
+          completed_orders?: number | null
+          critical_defects?: number | null
+          defect_rate_score?: number | null
+          factory_id: string
+          id?: string
+          on_time_rate?: number | null
+          overall_score?: number | null
+          qc_fails?: number | null
+          qc_pass_rate?: number | null
+          qc_passes?: number | null
+          response_time_score?: number | null
+          revision_frequency_score?: number | null
+          tier?: string
+          total_defect_reports?: number | null
+          total_orders?: number | null
+        }
+        Update: {
+          avg_response_hours?: number | null
+          brand_retention_score?: number | null
+          calculated_at?: string
+          completed_orders?: number | null
+          critical_defects?: number | null
+          defect_rate_score?: number | null
+          factory_id?: string
+          id?: string
+          on_time_rate?: number | null
+          overall_score?: number | null
+          qc_fails?: number | null
+          qc_pass_rate?: number | null
+          qc_passes?: number | null
+          response_time_score?: number | null
+          revision_frequency_score?: number | null
+          tier?: string
+          total_defect_reports?: number | null
+          total_orders?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "factory_performance_scores_factory_id_fkey"
+            columns: ["factory_id"]
+            isOneToOne: true
             referencedRelation: "factories"
             referencedColumns: ["id"]
           },
@@ -429,6 +565,47 @@ export type Database = {
             columns: ["rfq_id"]
             isOneToOne: false
             referencedRelation: "rfqs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          order_id: string | null
+          read_at: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          order_id?: string | null
+          read_at?: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          order_id?: string | null
+          read_at?: string | null
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
             referencedColumns: ["id"]
           },
         ]
@@ -895,6 +1072,68 @@ export type Database = {
         }
         Relationships: []
       }
+      revision_rounds: {
+        Row: {
+          created_at: string
+          description: string
+          dispute_reason: string | null
+          factory_acknowledged_at: string | null
+          factory_acknowledged_by: string | null
+          id: string
+          impact_cost: string | null
+          impact_timeline: string | null
+          initiated_by: string
+          order_id: string
+          resolution: string | null
+          resolved_at: string | null
+          resolved_by: string | null
+          round_number: number
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          dispute_reason?: string | null
+          factory_acknowledged_at?: string | null
+          factory_acknowledged_by?: string | null
+          id?: string
+          impact_cost?: string | null
+          impact_timeline?: string | null
+          initiated_by: string
+          order_id: string
+          resolution?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          round_number?: number
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          dispute_reason?: string | null
+          factory_acknowledged_at?: string | null
+          factory_acknowledged_by?: string | null
+          id?: string
+          impact_cost?: string | null
+          impact_timeline?: string | null
+          initiated_by?: string
+          order_id?: string
+          resolution?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          round_number?: number
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "revision_rounds_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       rfqs: {
         Row: {
           additional_requirements: string | null
@@ -945,6 +1184,157 @@ export type Database = {
           user_email?: string
         }
         Relationships: []
+      }
+      sample_revisions: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by: string | null
+          created_at: string
+          id: string
+          order_id: string
+          requested_by: string
+          revision_notes: string
+          round: number
+          sample_submission_id: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          created_at?: string
+          id?: string
+          order_id: string
+          requested_by: string
+          revision_notes: string
+          round: number
+          sample_submission_id: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          created_at?: string
+          id?: string
+          order_id?: string
+          requested_by?: string
+          revision_notes?: string
+          round?: number
+          sample_submission_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sample_revisions_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sample_revisions_sample_submission_id_fkey"
+            columns: ["sample_submission_id"]
+            isOneToOne: false
+            referencedRelation: "sample_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sample_submissions: {
+        Row: {
+          created_at: string
+          id: string
+          measurements: Json | null
+          notes: string | null
+          order_id: string
+          photo_urls: string[] | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          round: number
+          status: string
+          submitted_at: string
+          submitted_by: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          measurements?: Json | null
+          notes?: string | null
+          order_id: string
+          photo_urls?: string[] | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          round?: number
+          status?: string
+          submitted_at?: string
+          submitted_by: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          measurements?: Json | null
+          notes?: string | null
+          order_id?: string
+          photo_urls?: string[] | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          round?: number
+          status?: string
+          submitted_at?: string
+          submitted_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sample_submissions_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tech_pack_versions: {
+        Row: {
+          created_at: string
+          factory_acknowledged_at: string | null
+          factory_acknowledged_by: string | null
+          file_name: string
+          file_url: string
+          id: string
+          notes: string | null
+          order_id: string
+          uploaded_by: string
+          version_number: number
+        }
+        Insert: {
+          created_at?: string
+          factory_acknowledged_at?: string | null
+          factory_acknowledged_by?: string | null
+          file_name: string
+          file_url: string
+          id?: string
+          notes?: string | null
+          order_id: string
+          uploaded_by: string
+          version_number?: number
+        }
+        Update: {
+          created_at?: string
+          factory_acknowledged_at?: string | null
+          factory_acknowledged_by?: string | null
+          file_name?: string
+          file_url?: string
+          id?: string
+          notes?: string | null
+          order_id?: string
+          uploaded_by?: string
+          version_number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tech_pack_versions_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
