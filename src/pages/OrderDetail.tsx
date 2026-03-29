@@ -95,6 +95,12 @@ export default function OrderDetail() {
   const [unitPrice, setUnitPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [qcMode, setQcMode] = useState<QCMode>("sourcery");
+  const [editCurrency, setEditCurrency] = useState("USD");
+  const [milestones, setMilestones] = useState<{ label: string; percentage: number }[]>([
+    { label: "Deposit", percentage: 30 },
+    { label: "Pre-production approval", percentage: 20 },
+    { label: "Balance on shipment", percentage: 50 },
+  ]);
 
   // Auth guard
   useEffect(() => {
