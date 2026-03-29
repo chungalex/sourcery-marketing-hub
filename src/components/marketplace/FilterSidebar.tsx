@@ -172,7 +172,7 @@ export function FilterSidebar({ filters, onFiltersChange, onReset, className }: 
                 }}
               />
               <span className="text-sm flex-1">{country.name}</span>
-              <span className="text-xs text-muted-foreground">({country.count})</span>
+              <span className="text-xs text-muted-foreground">{country.code}</span>
             </label>
           ))}
         </div>

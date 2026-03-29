@@ -39,7 +39,7 @@ export function DisputeFiling({ orderId, orderNumber, factoryName, onFiled }: Di
     }
     setSubmitting(true);
     try {
-      await supabase.from("order_disputes" as never).insert({
+      await (supabase as any).from("order_disputes").insert({
         order_id: orderId,
         filed_by: user!.id,
         dispute_type: type,

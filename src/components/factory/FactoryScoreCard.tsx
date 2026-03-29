@@ -59,7 +59,7 @@ export function FactoryScoreCard({ factoryId, isOwner = false }: { factoryId: st
 
   async function load() {
     setLoading(true);
-    const { data } = await supabase.from("factory_performance_scores").select("*").eq("factory_id", factoryId).maybeSingle();
+    const { data } = await (supabase as any).from("factory_performance_scores").select("*").eq("factory_id", factoryId).maybeSingle();
     setScore(data as FactoryScore | null);
     setLoading(false);
   }

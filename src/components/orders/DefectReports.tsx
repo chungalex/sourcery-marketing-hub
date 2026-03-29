@@ -73,13 +73,13 @@ export function DefectReports({ orderId, totalQuantity, isFactory = false, onAct
 
   async function load() {
     setLoading(true);
-    const { data } = await supabase
+    const { data } = await (supabase as any)
       .from("defect_reports")
       .select("*")
       .eq("order_id", orderId)
       .order("created_at", { ascending: false });
     setReports((data as DefectReport[]) || []);
-    if (data?.length) setExpanded(data[0].id);
+    if (data?.length) setExpanded((data as any[])[0].id);
     setLoading(false);
   }
 
