@@ -16,28 +16,33 @@ Deno.serve(async (req) => {
       });
     }
 
-    const { messages, system, model = "claude-sonnet-4-20250514", max_tokens = 500 } = await req.json();
+    const { messages, system } = await req.json();
 
-    if (!messages || !system) {
-      return new Response(JSON.stringify({ error: "messages and system are required" }), {
+    if (!messages || !Array.isArray(messages)) {
+      return new Response(JSON.stringify({ error: "messages required" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
       });
     }
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "x-api-key": anthropicKey,
         "anthropic-version": "2023-06-01",
       },
-      body: JSON.stringify({ model, max_tokens, system, messages }),
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 500,
+        system: system || "You are a production assistant for Sourcery.",
+        messages,
+      }),
     });
 
-    const data = await response.json();
+    const data = await res.json();
 
     return new Response(JSON.stringify(data), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      headers: { ...corsHeaders, "Content-Type": "application/json" }
     });
 
   } catch (err: any) {
