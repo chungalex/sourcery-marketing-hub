@@ -72,6 +72,11 @@ export default function Marketplace() {
                 </div>
                 <div className="p-6 rounded-2xl bg-background border border-border">
                   <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Already have a factory</p>
+              <div className="mb-4 p-3 rounded-lg bg-secondary/50 border border-border">
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  <span className="font-medium text-foreground">Your factory stays private.</span> Manufacturers you invite through BYOF are connected only to your account — not listed in the marketplace, not discoverable by other brands. Bringing your factory onto Sourcery does not expose your supply chain.
+                </p>
+              </div>
                   <h3 className="font-semibold text-foreground text-lg mb-2">Bring your own</h3>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">Invite your manufacturer directly. Free account. Full OS immediately.</p>
                   <Link to="/auth?mode=signup">
