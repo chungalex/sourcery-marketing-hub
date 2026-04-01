@@ -291,9 +291,9 @@ const sections = [
         tier: "pro",
       },
       {
-        name: "QC agency coordination",
+        name: "QC framework & resources",
         sub: "Third-party inspection, managed within the order.",
-        desc: "Schedule a third-party QC inspection (SGS, QIMA, Bureau Veritas) directly from the order. Sourcery coordinates the booking, receives the inspection report, and gates the final payment milestone on the result — without leaving the platform or manually uploading a PDF.",
+        desc: "Sourcery provides the framework — the gate, the upload structure, and the record. Your factory uploads their QC report with photos, defect counts, and AQL results. When your goods arrive, we walk you through your own inspection checklist. Need a professional inspector? We point you to vetted agencies like SGS, QIMA, and Bureau Veritas — the booking is yours to make.",
         tier: "pro",
       },
       {

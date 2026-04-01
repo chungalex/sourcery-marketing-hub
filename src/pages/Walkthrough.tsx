@@ -96,7 +96,7 @@ const steps = [
     icon: Shield,
     label: "QC gate",
     headline: "Final payment blocked until quality passes.",
-    description: "QC is logged with photos and defect reports. The final payment milestone cannot release without a QC pass. Defects are filed as structured reports — type, severity, quantity, factory response — all against the order with timestamps. You release every milestone manually.",
+    description: "The factory uploads their QC report — photos, defect counts, AQL result — into the order. Sourcery walks you through a structured checklist when your goods arrive. Need a professional inspector? We point you to agencies like SGS and QIMA. The final payment is blocked until you confirm the result and release it manually.",
     note: "You never wire the final amount until this step is complete.",
     tag: "Enforced gate",
     tagColor: "text-primary bg-primary/10",

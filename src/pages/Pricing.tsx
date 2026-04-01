@@ -35,7 +35,7 @@ const featureTooltips: Record<string, string> = {
   "Bill of materials tracker": "Track every material, trim, and component for an order — supplier, unit, quantity, cost, lead time. Replaces the spreadsheet that's always out of date. Attached permanently to the order record.",
   "Freight document checklist": "Know exactly which documents you need for your shipment — commercial invoice, packing list, bill of lading, certificate of origin, any certificates required by destination country. Never hold up cargo because you missed a document.",
   "Shipment tracking": "Add your tracking number or bill of lading once goods ship. Sourcery monitors cargo status and surfaces alerts for delays, customs holds, or short deliveries — without leaving the platform.",
-  "QC agency coordination": "Schedule a third-party QC inspection directly from the order. Sourcery coordinates the booking, receives the report, and gates final payment on the result. Works with SGS, QIMA, Bureau Veritas, and others.",
+  "QC framework & resources": "Sourcery provides the QC gate structure — factory uploads the report, final payment is blocked until you approve. We also provide a brand-side inspection checklist and point you to trusted agencies (SGS, QIMA, Bureau Veritas) if you want a professional inspector. The booking is yours to make.",
   "FX rate alerts": "When a major currency moves more than a set threshold while an order is open, you get an updated landed cost estimate automatically. Know when your margin changes before the wire.",
   "Reorder intelligence": "When reordering, AI flags what changed or went wrong last time. Catches issues before they repeat.",
   "Production assistant": "An AI assistant with full context on every active order — factory, spec, milestones, message thread. Ask about risk, timing, defect leverage, draft factory messages, or get a plain-English order briefing. Every conversation logged against the order record.",
@@ -316,7 +316,7 @@ export default function Pricing() {
                   <Feature text="Landed cost calculator" />
                   <Feature text="Freight document checklist" />
                   <Feature text="Shipment tracking" />
-                  <Feature text="QC agency coordination" />
+                  <Feature text="QC framework & resources" />
                   <Feature text="FX rate alerts" />
                 </div>
               </motion.div>

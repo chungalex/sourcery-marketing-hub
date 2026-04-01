@@ -33,7 +33,7 @@ const steps = [
   {
     number: "05",
     title: "QC gates the final payment",
-    description: "QC logged with photos and defect reports. Final payment blocked until it passes. In a dispute, your full order record — every message, revision, defect — is your leverage. You built it automatically, just by using the platform.",
+    description: "The factory uploads their QC report — photos, defect counts, AQL result — directly into the order. When your goods arrive, Sourcery walks you through a structured inspection checklist. Need a professional inspector? We point you to trusted agencies. The final payment milestone is blocked until you confirm the QC result and approve the release.",
     gate: "Final milestone cannot release without QC pass. You control every payment release — nothing moves without your confirmation.", isGate: true,
   },
   {
@@ -49,7 +49,7 @@ const protectionFeatures = [
   { title: "Revision rounds", desc: "Every spec change formally acknowledged by factory" },
   { title: "Tech pack versioning", desc: "Factory always confirms current version" },
   { title: "Defect documentation", desc: "Structured reports with photos and factory response" },
-  { title: "QC gate", desc: "Final payment release requires QC pass" },
+  { title: "QC gate", desc: "Final payment blocked until brand confirms QC result" },
   { title: "Dispute documentation", desc: "Full paper trail — documented grounds to withhold payment" },
 ];
 
