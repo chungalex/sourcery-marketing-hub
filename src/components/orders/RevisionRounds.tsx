@@ -62,7 +62,10 @@ export function RevisionRounds({ orderId, isFactory = false, onActionComplete }:
     if (!description.trim()) { toast.error("Describe what needs to change."); return; }
     setIsActing(true);
     try {
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       const { error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: {
           action: "submit_revision_round",
           order_id: orderId,
@@ -82,7 +85,10 @@ export function RevisionRounds({ orderId, isFactory = false, onActionComplete }:
   const handleAcknowledge = async (roundId: string) => {
     setIsActing(true);
     try {
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       const { error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: { action: "acknowledge_revision_round", order_id: orderId, revision_round_id: roundId },
       });
       if (error) throw new Error(error.message);
@@ -96,7 +102,10 @@ export function RevisionRounds({ orderId, isFactory = false, onActionComplete }:
     if (!disputeReason.trim()) { toast.error("Explain why you're disputing."); return; }
     setIsActing(true);
     try {
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       const { error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: { action: "dispute_revision_round", order_id: orderId, revision_round_id: roundId, dispute_reason: disputeReason.trim() },
       });
       if (error) throw new Error(error.message);

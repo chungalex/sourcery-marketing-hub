@@ -172,7 +172,7 @@ export default function CreateOrder() {
       specifications: "",
       tech_pack_url: "",
       bom_url: "",
-      qc_option: "sourcery",
+      qc_option: "byoqc",
       aql_standard: "2.5",
     },
   });
@@ -251,6 +251,9 @@ export default function CreateOrder() {
       }
 
       const response = await supabase.functions.invoke("order-action", {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
         body: {
           action: "create_order",
           factory_id: values.factory_id,
@@ -512,7 +515,7 @@ export default function CreateOrder() {
                             <FormLabel>Product Specifications (Optional)</FormLabel>
                             <FormControl>
                               <Textarea 
-                                placeholder="Describe product details, materials, colors, sizes..."
+                                placeholder="Fabric composition, colorways, sizing range, construction details, any special finishes or requirements. The more specific, the fewer revision rounds."
                                 className="min-h-[100px]"
                                 {...field}
                               />
@@ -532,7 +535,7 @@ export default function CreateOrder() {
                               <FormControl>
                                 <Input 
                                   type="url" 
-                                  placeholder="https://..." 
+                                  placeholder="Link to your tech pack — Google Drive, Dropbox, or any shared URL" 
                                   {...field}
                                 />
                               </FormControl>
@@ -550,7 +553,7 @@ export default function CreateOrder() {
                               <FormControl>
                                 <Input 
                                   type="url" 
-                                  placeholder="https://..." 
+                                  placeholder="Link to your tech pack — Google Drive, Dropbox, or any shared URL" 
                                   {...field}
                                 />
                               </FormControl>
@@ -794,10 +797,10 @@ export default function CreateOrder() {
                     <div className="space-y-6">
                       <div>
                         <h2 className="text-xl font-semibold text-foreground mb-1">
-                          Quality Control Preference
+                          Quality Control
                         </h2>
                         <p className="text-muted-foreground">
-                          Choose how you want quality inspections handled for this order.
+                          Sourcery gates final payment on QC. Choose how the inspection happens — you arrange it, the factory self-reports, or Sourcery walks you through an arrival checklist.
                         </p>
                       </div>
 

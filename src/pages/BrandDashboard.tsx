@@ -137,7 +137,11 @@ export default function BrandDashboard() {
 
   const handleConvert = async (inquiryId: string) => {
     setConverting(inquiryId);
-    const { data, error } = await supabase.functions.invoke("convert-inquiry-to-order", { body: { inquiry_id: inquiryId } });
+    const { data: { session } } = await supabase.auth.getSession();
+    const { data, error } = await supabase.functions.invoke("convert-inquiry-to-order", {
+      headers: { Authorization: `Bearer ${session?.access_token}` },
+      body: { inquiry_id: inquiryId }
+    });
     if (error || !data?.success) { toast.error(data?.error || "Failed to convert"); setConverting(null); return; }
     toast.success(`Order ${data.order_number} created`);
     refetchInquiries(); refetchOrders();

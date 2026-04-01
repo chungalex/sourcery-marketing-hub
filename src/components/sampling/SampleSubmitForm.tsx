@@ -54,7 +54,10 @@ export function SampleSubmitForm({
         ? Object.fromEntries(validMeasurements.map(m => [m.key.trim(), m.value.trim()]))
         : undefined;
 
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       const { error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: {
           action: "submit_sample",
           order_id: orderId,

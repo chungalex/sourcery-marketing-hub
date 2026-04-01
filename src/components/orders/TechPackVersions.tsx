@@ -59,7 +59,10 @@ export function TechPackVersions({ orderId, isFactory = false, onActionComplete 
     if (!fileUrl.trim()) { toast.error("Paste a URL to your tech pack file."); return; }
     setIsActing(true);
     try {
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       const { error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: {
           action: "upload_tech_pack_version",
           order_id: orderId,
@@ -81,7 +84,10 @@ export function TechPackVersions({ orderId, isFactory = false, onActionComplete 
   const handleAcknowledge = async (versionId: string) => {
     setIsActing(true);
     try {
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       const { error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: { action: "acknowledge_tech_pack_version", order_id: orderId, tech_pack_version_id: versionId },
       });
       if (error) throw new Error(error.message);

@@ -65,7 +65,7 @@ const faqSections = [
       },
       {
         q: "What if there are quality issues?",
-        a: "Every defect is documented as a structured report — type, severity, quantity affected, photos, factory response — all timestamped against the order. The platform requires QC pass before releasing final payment. In a formal dispute, the brand withholds final payment and both parties submit documented evidence before resolution. The documentation built throughout the order is your protection.",
+        a: "The QC gate blocks final payment until you approve the inspection result. If goods arrive with defects, you have a documented record of what was agreed and what was delivered — every spec, revision, and message is attached to the order. You can file a formal defect report, withhold the final milestone, and negotiate from a position of documented evidence. Sourcery provides the structure and the record — not the ruling. How QC is conducted is your choice: a third-party inspector you book directly (SGS, QIMA, Bureau Veritas), factory self-reporting with structured photo evidence, or a Sourcery arrival checklist when goods reach you."
       },
       {
         q: "How long does the process take?",

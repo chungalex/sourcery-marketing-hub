@@ -46,7 +46,10 @@ export function ReorderButton({ order }: ReorderButtonProps) {
 
     setSubmitting(true);
     try {
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       const { data, error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: {
           action: "create_order",
           factory_id: order.factory_id,

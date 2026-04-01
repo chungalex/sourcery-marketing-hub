@@ -48,7 +48,10 @@ export function DisputeFiling({ orderId, orderNumber, factoryName, onFiled }: Di
       });
 
       // Fire notification via edge function
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: { action: "file_dispute", order_id: orderId, metadata: { type, description } },
       });
 

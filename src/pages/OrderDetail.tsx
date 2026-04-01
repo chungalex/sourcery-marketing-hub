@@ -225,7 +225,10 @@ export default function OrderDetail() {
 
     setIssuingPO(true);
 
-    const { data, error } = await supabase.functions.invoke("order-action", {
+    // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
+      const { data, error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
       body: {
         action: "issue_po",
         order_id: order.id,

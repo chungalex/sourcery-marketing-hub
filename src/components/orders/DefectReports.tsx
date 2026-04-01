@@ -92,7 +92,10 @@ export function DefectReports({ orderId, totalQuantity, isFactory = false, onAct
     setIsActing(true);
     try {
       const validPhotos = photoUrls.filter(u => u.trim());
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       const { error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: {
           action: "file_defect_report",
           order_id: orderId,
@@ -119,7 +122,10 @@ export function DefectReports({ orderId, totalQuantity, isFactory = false, onAct
     if (!responseText.trim()) { toast.error("Write your response."); return; }
     setIsActing(true);
     try {
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       const { error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: { action: "respond_to_defect", order_id: orderId, defect_report_id: reportId, factory_response: responseText.trim() },
       });
       if (error) throw new Error(error.message);

@@ -91,7 +91,10 @@ export function SampleReviewPanel({
     if (!latestSubmission) return;
     setIsActing(true);
     try {
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       const { error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: {
           action: "approve_sample",
           order_id: orderId,
@@ -115,7 +118,10 @@ export function SampleReviewPanel({
     }
     setIsActing(true);
     try {
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       const { error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: {
           action: "request_sample_revision",
           order_id: orderId,
@@ -138,7 +144,10 @@ export function SampleReviewPanel({
     if (!latestSubmission) return;
     setIsActing(true);
     try {
+      // Get session for auth
+      const { data: { session: _sess } } = await supabase.auth.getSession();
       const { error } = await supabase.functions.invoke("order-action", {
+        headers: { Authorization: `Bearer ${_sess?.access_token}` },
         body: {
           action: "acknowledge_revision",
           order_id: orderId,
