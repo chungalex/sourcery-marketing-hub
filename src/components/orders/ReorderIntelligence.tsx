@@ -48,12 +48,11 @@ Defects on last order: ${defects?.length || 0} reports. ${defects?.map(d => `${d
 Revision rounds: ${revisions?.length || 0}. ${revisions?.map(r => r.notes).join("; ") || "None"}
       `.trim();
 
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const response = await supabase.functions.invoke("production-assistant", {
+        body: {
           model: "claude-sonnet-4-20250514",
           max_tokens: 600,
+          system: "You are a production intelligence assistant. Return only valid JSON as instructed.",
           messages: [{
             role: "user",
             content: `Based on the production history below, provide reorder intelligence. Return ONLY valid JSON:
@@ -67,10 +66,10 @@ History: ${context}
 
 Return only JSON.`
           }]
-        }),
+        },
       });
 
-      const result = await response.json();
+      const result = response.data;
       const text = result?.content?.[0]?.text || "{}";
       const parsed = JSON.parse(text.replace(/```json|```/g, "").trim());
       setData(parsed);

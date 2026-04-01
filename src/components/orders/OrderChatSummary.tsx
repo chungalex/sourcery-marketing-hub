@@ -43,15 +43,14 @@ export function OrderChatSummary({ orderId, className }: OrderChatSummaryProps) 
         .map((m: any) => `[${m.sender_role.toUpperCase()}]: ${m.content}`)
         .join("\n");
 
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const response = await supabase.functions.invoke("production-assistant", {
+        body: {
           model: "claude-sonnet-4-20250514",
           max_tokens: 1000,
+          system: "You are summarising a production order message thread between a brand and a factory. Be concise and specific. Return only valid JSON.",
           messages: [{
             role: "user",
-            content: `You are summarising a production order message thread between a brand and a factory. Be concise and specific. Return ONLY valid JSON with this exact structure:
+            content: `Return ONLY valid JSON with this exact structure:
 {
   "decisions": ["list of key decisions that were made"],
   "action_items": ["list of open action items that still need to happen"],
@@ -63,10 +62,10 @@ ${thread}
 
 Return only the JSON object, no other text.`
           }]
-        }),
+        },
       });
 
-      const data = await response.json();
+      const data = response.data;
       const text = data?.content?.[0]?.text || "";
       const parsed = JSON.parse(text.replace(/```json|```/g, "").trim());
       setSummary({ ...parsed, generated_at: new Date().toISOString() });
