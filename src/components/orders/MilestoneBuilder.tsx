@@ -12,9 +12,9 @@ export interface Milestone {
 }
 
 const DEFAULT_MILESTONES: Milestone[] = [
-  { id: "1", label: "Deposit", percentage: 30, release_condition: "On PO acceptance" },
-  { id: "2", label: "Bulk production", percentage: 40, release_condition: "After sample approval" },
-  { id: "3", label: "Final release", percentage: 30, release_condition: "After QC pass" },
+  { id: "1", label: "Deposit", percentage: 30, release_condition: "On PO acceptance — factory confirms they can produce your order" },
+  { id: "2", label: "Bulk production", percentage: 40, release_condition: "After sample approved — you've confirmed the product is right before bulk begins" },
+  { id: "3", label: "Final release", percentage: 30, release_condition: "After QC pass — goods meet the agreed standard before final payment" },
 ];
 
 const PRESETS = [
@@ -92,21 +92,25 @@ export function MilestoneBuilder({ value, onChange, isPro = false, orderTotal = 
 
   return (
     <div className="space-y-4">
+      <div className="p-4 rounded-xl bg-secondary/50 border border-border">
+        <p className="text-xs font-semibold text-foreground mb-1.5">How milestone payments protect you</p>
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          Each milestone releases only when you manually approve it — nothing moves automatically. Your deposit secures the factory's commitment. The bulk payment releases only after you've approved the sample. The final payment releases only after QC passes. You hold leverage at every stage.
+        </p>
+      </div>
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-semibold text-foreground">Payment milestones</p>
           <p className="text-xs text-muted-foreground mt-0.5">Define how payments are structured and released</p>
         </div>
-        {isPro && (
-          <div className="flex gap-1 p-0.5 bg-secondary rounded-lg border border-border">
+        <div className="flex gap-1 p-0.5 bg-secondary rounded-lg border border-border">
             <button onClick={() => setMode("preset")} className={cn("text-xs px-3 py-1.5 rounded-md transition-colors", mode === "preset" ? "bg-background text-foreground font-medium" : "text-muted-foreground")}>
               Presets
             </button>
             <button onClick={() => setMode("custom")} className={cn("text-xs px-3 py-1.5 rounded-md transition-colors", mode === "custom" ? "bg-background text-foreground font-medium" : "text-muted-foreground")}>
               Custom
             </button>
-          </div>
-        )}
+        </div>
       </div>
 
       {/* Pro preset selector */}

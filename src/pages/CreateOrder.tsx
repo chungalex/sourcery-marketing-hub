@@ -107,11 +107,22 @@ const AQL_STANDARDS = [
 ];
 
 const CURRENCIES = [
-  { value: "USD", label: "USD ($)" },
-  { value: "EUR", label: "EUR (€)" },
-  { value: "GBP", label: "GBP (£)" },
-  { value: "CNY", label: "CNY (¥)" },
+  { value: "USD", label: "USD — US Dollar ($)", symbol: "$" },
+  { value: "EUR", label: "EUR — Euro (€)", symbol: "€" },
+  { value: "GBP", label: "GBP — British Pound (£)", symbol: "£" },
+  { value: "CNY", label: "CNY — Chinese Yuan (¥)", symbol: "¥" },
+  { value: "VND", label: "VND — Vietnamese Dong (₫)", symbol: "₫" },
+  { value: "JPY", label: "JPY — Japanese Yen (¥)", symbol: "¥" },
+  { value: "KRW", label: "KRW — Korean Won (₩)", symbol: "₩" },
+  { value: "AUD", label: "AUD — Australian Dollar (A$)", symbol: "A$" },
+  { value: "CAD", label: "CAD — Canadian Dollar (C$)", symbol: "C$" },
+  { value: "SGD", label: "SGD — Singapore Dollar (S$)", symbol: "S$" },
+  { value: "THB", label: "THB — Thai Baht (฿)", symbol: "฿" },
 ];
+
+const getCurrencySymbol = (currency: string) => {
+  return CURRENCIES.find(c => c.value === currency)?.symbol || "$";
+};
 
 const orderSchema = z.object({
   factory_id: z.string().min(1, "Please select a factory"),
@@ -570,10 +581,10 @@ export default function CreateOrder() {
                     <div className="space-y-6">
                       <div>
                         <h2 className="text-xl font-semibold text-foreground mb-1">
-                          Pricing & Delivery
+                          Pricing, shipping &amp; timeline
                         </h2>
                         <p className="text-muted-foreground">
-                          Set pricing terms and delivery expectations.
+                          Enter the terms from your factory quote. This becomes the formal, documented agreement both sides confirm.
                         </p>
                       </div>
 
@@ -583,20 +594,26 @@ export default function CreateOrder() {
                           name="unit_price"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Unit Price</FormLabel>
+                              <FormLabel>
+                                  Unit price
+                                  <span className="text-xs font-normal text-muted-foreground ml-1">— from your factory quote</span>
+                                </FormLabel>
                               <FormControl>
                                 <div className="relative">
                                   <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                   <Input 
                                     type="number" 
                                     step="0.01"
-                                    placeholder="0.00" 
+                                    placeholder="e.g. 28.00"
                                     className="pl-9"
                                     {...field}
+                                    value={field.value === 0 ? "" : field.value}
+                                    onFocus={(e) => { if (field.value === 0) field.onChange(""); }}
                                     onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
                                   />
                                 </div>
                               </FormControl>
+                              <p className="text-xs text-muted-foreground">Enter the price per unit your factory quoted you. This becomes the documented agreement.</p>
                               <FormMessage />
                             </FormItem>
                           )}
@@ -633,16 +650,12 @@ export default function CreateOrder() {
                         <div className="flex items-center justify-between">
                           <span className="text-muted-foreground">Order Value</span>
                           <span className="text-2xl font-bold text-foreground">
-                            {watchedValues.currency === "EUR" ? "€" : 
-                             watchedValues.currency === "GBP" ? "£" : 
-                             watchedValues.currency === "CNY" ? "¥" : "$"}
+                            {getCurrencySymbol(watchedValues.currency)}
                             {totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>
                         </div>
                         <p className="text-xs text-muted-foreground">
-                          {watchedValues.quantity.toLocaleString()} units × {watchedValues.currency === "EUR" ? "€" : 
-                             watchedValues.currency === "GBP" ? "£" : 
-                             watchedValues.currency === "CNY" ? "¥" : "$"}{watchedValues.unit_price.toFixed(2)} per unit
+                          {watchedValues.quantity.toLocaleString()} units × {getCurrencySymbol(watchedValues.currency)}{watchedValues.unit_price.toFixed(2)} per unit
                         </p>
                         
 
@@ -694,7 +707,39 @@ export default function CreateOrder() {
                         />
                       </TooltipProvider>
 
-                      <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="space-y-4">
+                        <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-400/30">
+                          <p className="text-xs font-semibold text-amber-700 mb-1">Lead time guidance</p>
+                          <p className="text-xs text-muted-foreground leading-relaxed">
+                            Realistic lead times from approved tech pack to delivered goods: <span className="font-medium text-foreground">16–22 weeks</span> for most Asia production. Denim and outerwear typically 14–18 weeks. Add 4 weeks buffer for delays. Work backwards from your launch date.
+                          </p>
+                          <div className="flex flex-wrap gap-2 mt-3">
+                            {[
+                              { label: "12 weeks", weeks: 12 },
+                              { label: "16 weeks", weeks: 16 },
+                              { label: "20 weeks", weeks: 20 },
+                              { label: "24 weeks", weeks: 24 },
+                            ].map(({ label, weeks }) => {
+                              const start = new Date(); start.setDate(start.getDate() + weeks * 7 - 14);
+                              const end = new Date(); end.setDate(end.getDate() + weeks * 7);
+                              return (
+                                <button
+                                  key={weeks}
+                                  type="button"
+                                  onClick={() => {
+                                    form.setValue("delivery_window_start", start);
+                                    form.setValue("delivery_window_end", end);
+                                  }}
+                                  className="text-xs px-3 py-1.5 rounded-full border border-border bg-background hover:border-primary/50 hover:text-primary transition-colors"
+                                >
+                                  {label} from now
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        <div className="grid sm:grid-cols-2 gap-4">
                         <FormField
                           control={form.control}
                           name="delivery_window_start"
@@ -777,6 +822,7 @@ export default function CreateOrder() {
                             </FormItem>
                           )}
                         />
+                        </div>
                       </div>
 
                       {/* Milestone structure */}
