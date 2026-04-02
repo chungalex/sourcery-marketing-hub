@@ -126,8 +126,8 @@ const getCurrencySymbol = (currency: string) => {
 
 const orderSchema = z.object({
   factory_id: z.string().min(1, "Please select a factory"),
-  quantity: z.coerce.number().min(1, "Quantity must be at least 1"),
-  unit_price: z.coerce.number().min(0.01, "Unit price must be greater than 0"),
+  quantity: z.coerce.number().min(1, "Quantity must be at least 1").max(1000000, "Quantity seems too high — check your entry"),
+  unit_price: z.coerce.number().min(0.01, "Unit price must be greater than 0").max(100000, "Unit price seems too high — check your entry"),
   currency: z.string().min(1, "Please select a currency"),
   incoterms: z.string().optional(),
   delivery_window_start: z.date().optional(),
@@ -1003,7 +1003,7 @@ export default function CreateOrder() {
                                 {watchedValues.currency === "EUR" ? "€" : 
                                  watchedValues.currency === "GBP" ? "£" : 
                                  watchedValues.currency === "CNY" ? "¥" : "$"}
-                                {(totalAmount * 1.03).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                {totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                               </span>
                             </div>
                           </div>
