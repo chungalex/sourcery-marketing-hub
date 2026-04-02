@@ -262,6 +262,13 @@ export type Database = {
             referencedRelation: "factories"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "factory_invites_factory_id_fkey"
+            columns: ["factory_id"]
+            isOneToOne: false
+            referencedRelation: "factory_previews"
+            referencedColumns: ["id"]
+          },
         ]
       }
       factory_performance_scores: {
@@ -333,60 +340,11 @@ export type Database = {
             referencedRelation: "factories"
             referencedColumns: ["id"]
           },
-        ]
-      }
-      factory_previews: {
-        Row: {
-          categories: string[] | null
-          certifications: string[] | null
-          city: string | null
-          country: string
-          created_at: string | null
-          factory_type: string | null
-          id: string
-          is_verified: boolean | null
-          lead_time_weeks: number | null
-          logo_url: string | null
-          moq_min: number | null
-          name: string
-          slug: string
-        }
-        Insert: {
-          categories?: string[] | null
-          certifications?: string[] | null
-          city?: string | null
-          country: string
-          created_at?: string | null
-          factory_type?: string | null
-          id: string
-          is_verified?: boolean | null
-          lead_time_weeks?: number | null
-          logo_url?: string | null
-          moq_min?: number | null
-          name: string
-          slug: string
-        }
-        Update: {
-          categories?: string[] | null
-          certifications?: string[] | null
-          city?: string | null
-          country?: string
-          created_at?: string | null
-          factory_type?: string | null
-          id?: string
-          is_verified?: boolean | null
-          lead_time_weeks?: number | null
-          logo_url?: string | null
-          moq_min?: number | null
-          name?: string
-          slug?: string
-        }
-        Relationships: [
           {
-            foreignKeyName: "factory_previews_id_fkey"
-            columns: ["id"]
+            foreignKeyName: "factory_performance_scores_factory_id_fkey"
+            columns: ["factory_id"]
             isOneToOne: true
-            referencedRelation: "factories"
+            referencedRelation: "factory_previews"
             referencedColumns: ["id"]
           },
         ]
@@ -439,6 +397,13 @@ export type Database = {
             referencedRelation: "factories"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "factory_pricing_bands_factory_id_fkey"
+            columns: ["factory_id"]
+            isOneToOne: false
+            referencedRelation: "factory_previews"
+            referencedColumns: ["id"]
+          },
         ]
       }
       factory_users: {
@@ -466,6 +431,13 @@ export type Database = {
             columns: ["factory_id"]
             isOneToOne: false
             referencedRelation: "factories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "factory_users_factory_id_fkey"
+            columns: ["factory_id"]
+            isOneToOne: false
+            referencedRelation: "factory_previews"
             referencedColumns: ["id"]
           },
         ]
@@ -519,6 +491,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "inquiries_factory_id_fkey"
+            columns: ["factory_id"]
+            isOneToOne: false
+            referencedRelation: "factory_previews"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "inquiries_order_id_fkey"
             columns: ["order_id"]
             isOneToOne: false
@@ -561,10 +540,52 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "matches_factory_id_fkey"
+            columns: ["factory_id"]
+            isOneToOne: false
+            referencedRelation: "factory_previews"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "matches_rfq_id_fkey"
             columns: ["rfq_id"]
             isOneToOne: false
             referencedRelation: "rfqs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          order_id: string | null
+          sender_id: string | null
+          sender_role: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          order_id?: string | null
+          sender_id?: string | null
+          sender_role: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          order_id?: string | null
+          sender_id?: string | null
+          sender_role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
             referencedColumns: ["id"]
           },
         ]
@@ -955,6 +976,13 @@ export type Database = {
             columns: ["factory_id"]
             isOneToOne: false
             referencedRelation: "factories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_factory_id_fkey"
+            columns: ["factory_id"]
+            isOneToOne: false
+            referencedRelation: "factory_previews"
             referencedColumns: ["id"]
           },
         ]
@@ -1359,7 +1387,87 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      factory_previews: {
+        Row: {
+          categories: string[] | null
+          certifications: string[] | null
+          city: string | null
+          country: string | null
+          created_at: string | null
+          description: string | null
+          factory_type: string | null
+          gallery_urls: string[] | null
+          id: string | null
+          is_verified: boolean | null
+          lead_time_weeks: number | null
+          logo_url: string | null
+          moq_max: number | null
+          moq_min: number | null
+          name: string | null
+          participation:
+            | Database["public"]["Enums"]["factory_participation"]
+            | null
+          performance_score: number | null
+          score_tier: string | null
+          slug: string | null
+          total_employees: number | null
+          updated_at: string | null
+          year_established: number | null
+        }
+        Insert: {
+          categories?: string[] | null
+          certifications?: string[] | null
+          city?: string | null
+          country?: string | null
+          created_at?: string | null
+          description?: string | null
+          factory_type?: string | null
+          gallery_urls?: string[] | null
+          id?: string | null
+          is_verified?: boolean | null
+          lead_time_weeks?: number | null
+          logo_url?: string | null
+          moq_max?: number | null
+          moq_min?: number | null
+          name?: string | null
+          participation?:
+            | Database["public"]["Enums"]["factory_participation"]
+            | null
+          performance_score?: number | null
+          score_tier?: string | null
+          slug?: string | null
+          total_employees?: number | null
+          updated_at?: string | null
+          year_established?: number | null
+        }
+        Update: {
+          categories?: string[] | null
+          certifications?: string[] | null
+          city?: string | null
+          country?: string | null
+          created_at?: string | null
+          description?: string | null
+          factory_type?: string | null
+          gallery_urls?: string[] | null
+          id?: string | null
+          is_verified?: boolean | null
+          lead_time_weeks?: number | null
+          logo_url?: string | null
+          moq_max?: number | null
+          moq_min?: number | null
+          name?: string | null
+          participation?:
+            | Database["public"]["Enums"]["factory_participation"]
+            | null
+          performance_score?: number | null
+          score_tier?: string | null
+          slug?: string | null
+          total_employees?: number | null
+          updated_at?: string | null
+          year_established?: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_order_actor_type: {
