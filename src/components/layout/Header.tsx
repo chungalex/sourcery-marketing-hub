@@ -1,21 +1,36 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Plus, Package, Search, BookOpen, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 import { NotificationBell } from "@/components/notifications/NotificationBell";
 import { GlobalSearch } from "@/components/GlobalSearch";
+import { cn } from "@/lib/utils";
 
-const navItems = [
+// Marketing nav — shown to logged-out users
+const marketingNav = [
   { label: "For Brands", href: "/brands" },
   { label: "For Factories", href: "/factories" },
   { label: "Marketplace", href: "/marketplace" },
   { label: "Resources", href: "/resources" },
-    { label: "Why Sourcery", href: "/why-sourcery" },
+  { label: "Why Sourcery", href: "/why-sourcery" },
   { label: "Pricing", href: "/pricing" },
+];
+
+// App nav — shown to logged-in brands
+const brandAppNav = [
+  { label: "Orders", href: "/dashboard", icon: Package },
+  { label: "Marketplace", href: "/directory", icon: Search },
+  { label: "Resources", href: "/resources", icon: BookOpen },
+];
+
+// App nav — shown to logged-in factories
+const factoryAppNav = [
+  { label: "Orders", href: "/dashboard/factory", icon: Package },
+  { label: "Resources", href: "/resources", icon: BookOpen },
 ];
 
 export function Header() {
@@ -27,6 +42,13 @@ export function Header() {
   const { user, signOut, isLoading: authLoading, isAdmin } = useAuth();
   const { hasFactoryAccess, isLoading: membershipLoading } = useFactoryMembership(user?.id);
 
+  const isLoggedIn = !!user && !authLoading;
+  const isFactory = isLoggedIn && hasFactoryAccess;
+  const isBrand = isLoggedIn && !hasFactoryAccess;
+
+  // Determine which nav to show
+  const appNav = isFactory ? factoryAppNav : brandAppNav;
+
   const dashboardHref = useMemo(() => {
     if (!user) return "/dashboard";
     if (hasFactoryAccess) return "/dashboard/factory";
@@ -35,184 +57,202 @@ export function Header() {
 
   const handleSignOut = async () => {
     const { error } = await signOut();
-    if (error) {
-      toast.error(error.message || "Failed to sign out");
-      return;
-    }
+    if (error) { toast.error(error.message || "Failed to sign out"); return; }
     toast.success("Signed out");
     navigate("/");
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location]);
+  useEffect(() => { setIsMobileMenuOpen(false); }, [location]);
+
+  const isActive = (href: string) =>
+    href === "/dashboard" ? location.pathname === "/dashboard" : location.pathname.startsWith(href);
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-background/80 backdrop-blur-lg border-b border-border shadow-sm"
-            : "bg-transparent"
-        }`}
-      >
+      <header className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        isScrolled ? "bg-background/90 backdrop-blur-lg border-b border-border shadow-sm" : "bg-transparent"
+      )}>
         <div className="container-wide">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-16">
+
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-heading font-bold text-lg">S</span>
+            <Link to={isLoggedIn ? dashboardHref : "/"} className="flex items-center gap-2 flex-shrink-0">
+              <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
+                <span className="text-primary-foreground font-heading font-bold text-base">S</span>
               </div>
-              <span className="font-heading font-semibold text-xl text-foreground">
-                Sourcery
-              </span>
+              <span className="font-heading font-semibold text-lg text-foreground">Sourcery</span>
+              {isBrand && (
+                <span className="hidden sm:block text-xs text-muted-foreground font-normal ml-1">/ Brand</span>
+              )}
+              {isFactory && (
+                <span className="hidden sm:block text-xs text-muted-foreground font-normal ml-1">/ Factory</span>
+              )}
             </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                    location.pathname === item.href
-                      ? "text-foreground bg-muted"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
+            {/* Desktop nav */}
+            <nav className="hidden lg:flex items-center gap-0.5">
+              {isLoggedIn ? (
+                // App navigation
+                appNav.map((item) => (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className={cn(
+                      "flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg transition-colors",
+                      isActive(item.href)
+                        ? "text-foreground bg-muted"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    )}
+                  >
+                    <item.icon className="h-3.5 w-3.5" />
+                    {item.label}
+                  </Link>
+                ))
+              ) : (
+                // Marketing navigation
+                marketingNav.map((item) => (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className={cn(
+                      "px-3 py-2 text-sm font-medium rounded-lg transition-colors",
+                      location.pathname === item.href
+                        ? "text-foreground bg-muted"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                ))
+              )}
             </nav>
 
-            {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-3">
-              <Link to="/apply">
-                <Button variant="ghost" size="sm">
-                  Apply as Factory
-                </Button>
-              </Link>
-              {!authLoading && user ? (
+            {/* Desktop right side */}
+            <div className="hidden lg:flex items-center gap-2">
+              {isLoggedIn ? (
                 <>
-                  {isAdmin && (
-                    <Link to="/admin">
-                      <Button variant="outline" size="sm">
-                        Admin
+                  {isBrand && (
+                    <Link to="/orders/create">
+                      <Button size="sm" className="gap-1.5">
+                        <Plus className="h-3.5 w-3.5" />
+                        New order
                       </Button>
                     </Link>
                   )}
-                  <Link to={dashboardHref} aria-disabled={membershipLoading}>
-                    <Button size="sm" disabled={membershipLoading}>
-                      Dashboard
-                    </Button>
-                  </Link>
                   <GlobalSearch />
                   <NotificationBell />
-                  <Button variant="outline" size="sm" onClick={handleSignOut}>
-                    Sign Out
+                  {isAdmin && (
+                    <Link to="/admin">
+                      <Button variant="outline" size="sm">Admin</Button>
+                    </Link>
+                  )}
+                  <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-muted-foreground">
+                    Sign out
                   </Button>
                 </>
               ) : (
                 <>
                   <Link to="/auth">
-                    <Button variant="outline" size="sm">
-                      Sign In
-                    </Button>
+                    <Button variant="ghost" size="sm">Sign in</Button>
                   </Link>
-                  <Link to="/dashboard">
-                    <Button size="sm">Dashboard</Button>
+                  <Link to="/auth?mode=signup">
+                    <Button size="sm">Get started free</Button>
                   </Link>
                 </>
               )}
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
             >
-              {isMobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed inset-x-0 top-16 z-40 bg-background border-b border-border lg:hidden"
+            className="fixed inset-x-0 top-16 z-40 bg-background border-b border-border lg:hidden shadow-lg"
           >
             <nav className="container-wide py-4 flex flex-col gap-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={`px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                    location.pathname === item.href
-                      ? "text-foreground bg-muted"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
-                <Link to="/factories">
-                  <Button variant="ghost" className="w-full">
-                    For factories
-                  </Button>
-                </Link>
-                 {!authLoading && user ? (
-                   <>
-                     {isAdmin && (
-                       <Link to="/admin">
-                         <Button variant="outline" className="w-full">
-                           Admin
-                         </Button>
-                       </Link>
-                     )}
-                     <Link to={dashboardHref} aria-disabled={membershipLoading}>
-                       <Button className="w-full" disabled={membershipLoading}>
-                         Dashboard
-                       </Button>
-                     </Link>
-                     <Button variant="outline" className="w-full" onClick={handleSignOut}>
-                       Sign Out
-                     </Button>
-                   </>
-                 ) : (
-                   <>
-                     <Link to="/auth">
-                       <Button variant="outline" className="w-full">
-                         Sign In
-                       </Button>
-                     </Link>
-                     <Link to="/dashboard">
-                       <Button className="w-full">Dashboard</Button>
-                     </Link>
-                   </>
-                 )}
-              </div>
+              {isLoggedIn ? (
+                <>
+                  {appNav.map((item) => (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      className={cn(
+                        "flex items-center gap-2 px-4 py-3 text-sm font-medium rounded-lg transition-colors",
+                        isActive(item.href) ? "text-foreground bg-muted" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      )}
+                    >
+                      <item.icon className="h-4 w-4" />
+                      {item.label}
+                    </Link>
+                  ))}
+                  <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-border">
+                    {isBrand && (
+                      <Link to="/orders/create">
+                        <Button className="w-full gap-2">
+                          <Plus className="h-4 w-4" />
+                          New order
+                        </Button>
+                      </Link>
+                    )}
+                    <Button variant="outline" className="w-full" onClick={handleSignOut}>
+                      Sign out
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {marketingNav.map((item) => (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      className={cn(
+                        "px-4 py-3 text-sm font-medium rounded-lg transition-colors",
+                        location.pathname === item.href ? "text-foreground bg-muted" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                  <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-border">
+                    <Link to="/factories">
+                      <Button variant="ghost" className="w-full">For factories</Button>
+                    </Link>
+                    <Link to="/auth">
+                      <Button variant="outline" className="w-full">Sign in</Button>
+                    </Link>
+                    <Link to="/auth?mode=signup">
+                      <Button className="w-full">Get started free</Button>
+                    </Link>
+                  </div>
+                </>
+              )}
             </nav>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Spacer */}
+      <div className="h-16" />
     </>
   );
 }

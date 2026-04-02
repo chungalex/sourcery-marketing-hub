@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
+import { OrderStatusGuide } from "@/components/orders/OrderStatusGuide";
 import { useAuth } from "@/hooks/useAuth";
 import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { OrderChatSummary } from "@/components/orders/OrderChatSummary";

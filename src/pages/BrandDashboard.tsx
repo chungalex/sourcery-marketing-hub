@@ -313,18 +313,49 @@ export default function BrandDashboard() {
                   );
                 })
               ) : (
-                <div className="text-center py-16 bg-card border border-dashed border-border rounded-xl">
-                  <Package className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
-                  <h3 className="text-base font-semibold text-foreground mb-1">No orders yet</h3>
-                  <p className="text-sm text-muted-foreground mb-2 max-w-xs mx-auto">
-                    Your first order is free — full platform, no credit card.
-                  </p>
-                  <p className="text-xs text-muted-foreground mb-6 max-w-sm mx-auto">
-                    Invite your factory first, then create a structured PO with guided incoterms, AQL standard, and QC setup. Every decision explained before you commit.
-                  </p>
-                  <div className="flex gap-2 justify-center">
-                    <Button asChild><Link to="/orders/create"><Package className="mr-2 h-4 w-4" />Create first order</Link></Button>
-                    <Button variant="outline" asChild><Link to="/directory"><Search className="mr-2 h-4 w-4" />Browse factory network</Link></Button>
+                <div className="py-8 space-y-4">
+                  <div className="p-5 rounded-xl bg-card border border-border">
+                    <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">How Sourcery works</p>
+                    <div className="space-y-4">
+                      {[
+                        {
+                          num: "01",
+                          title: "Connect your factory",
+                          body: "Invite your manufacturer from the Your Factories tab — they'll get an email with a free account link. Or browse the Sourcery network if you're still sourcing.",
+                          action: "Invite a factory →",
+                          href: "/dashboard?action=invite",
+                        },
+                        {
+                          num: "02",
+                          title: "Create a structured PO",
+                          body: "Every order captures the agreed price, incoterms, delivery window, QC standard, and payment milestones. Each field is explained so you know what you're agreeing to before you commit.",
+                          action: "Create your first order →",
+                          href: "/orders/create",
+                        },
+                        {
+                          num: "03",
+                          title: "Issue the PO to your factory",
+                          body: "Once the order looks right, issue the formal PO. The factory reviews it and accepts. From here, every step — sampling, revisions, QC, payments — is documented on the order.",
+                          action: null,
+                          href: null,
+                        },
+                      ].map((step, i) => (
+                        <div key={i} className="flex gap-4 items-start">
+                          <span className="font-mono text-sm font-bold text-primary/40 flex-shrink-0 mt-0.5 w-6">{step.num}</span>
+                          <div className="flex-1">
+                            <p className="text-sm font-semibold text-foreground mb-0.5">{step.title}</p>
+                            <p className="text-xs text-muted-foreground leading-relaxed mb-1">{step.body}</p>
+                            {step.action && step.href && (
+                              <Link to={step.href} className="text-xs text-primary hover:underline font-medium">{step.action}</Link>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button asChild className="flex-1"><Link to="/orders/create"><Package className="mr-2 h-4 w-4" />Create your first order</Link></Button>
+                    <Button variant="outline" asChild><Link to="/directory"><Search className="mr-2 h-4 w-4" />Find a factory</Link></Button>
                   </div>
                 </div>
               )}
