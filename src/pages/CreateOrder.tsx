@@ -54,6 +54,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { QCOptionSelector, QCOptionBadge, type QCOption } from "@/components/orders/QCOptionSelector";
+import { getCategoryLeadTime, getGuidanceMode } from "@/components/onboarding/ExperienceQuiz";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -125,6 +126,8 @@ const getCurrencySymbol = (currency: string) => {
 };
 
 const orderSchema = z.object({
+  product_name: z.string().min(1, "Give your order a name — e.g. 'SS26 Denim Jacket'"),
+  product_category: z.string().min(1, "Select a product category"),
   factory_id: z.string().min(1, "Please select a factory"),
   quantity: z.coerce.number().min(1, "Quantity must be at least 1").max(1000000, "Quantity seems too high — check your entry"),
   unit_price: z.coerce.number().min(0.01, "Unit price must be greater than 0").max(100000, "Unit price seems too high — check your entry"),
@@ -166,6 +169,8 @@ export default function CreateOrder() {
   const [loadingFactories, setLoadingFactories] = useState(true);
 
   const preselectedFactoryId = searchParams.get("factory");
+  const guidanceMode = getGuidanceMode(user?.user_metadata || {});
+  const userCategory = user?.user_metadata?.primary_category || "";
   const [milestones, setMilestones] = useState<Milestone[]>([
     { id: "1", label: "Deposit", percentage: 50, release_condition: "On PO acceptance — factory confirms they can produce your order" },
     { id: "2", label: "Final release", percentage: 50, release_condition: "After QC pass — goods meet the agreed standard before final payment" },
@@ -174,6 +179,8 @@ export default function CreateOrder() {
   const form = useForm<OrderFormValues>({
     resolver: zodResolver(orderSchema),
     defaultValues: {
+      product_name: "",
+      product_category: "",
       factory_id: preselectedFactoryId || "",
       quantity: 0,
       unit_price: 0,
@@ -224,7 +231,7 @@ export default function CreateOrder() {
   const canProceed = (step: number): boolean => {
     switch (step) {
       case 1:
-        return !!watchedValues.factory_id && watchedValues.quantity > 0;
+        return !!watchedValues.product_name?.trim() && !!watchedValues.product_category && !!watchedValues.factory_id && watchedValues.quantity > 0;
       case 2:
         return watchedValues.unit_price > 0;
       case 3:
@@ -273,7 +280,7 @@ export default function CreateOrder() {
           incoterms: values.incoterms,
           delivery_window_start: values.delivery_window_start?.toISOString(),
           delivery_window_end: values.delivery_window_end?.toISOString(),
-          specifications: values.specifications ? { notes: values.specifications } : {},
+          specifications: { product_name: values.product_name, product_category: values.product_category, notes: values.specifications || "" },
           tech_pack_url: values.tech_pack_url || null,
           bom_url: values.bom_url || null,
           qc_option: values.qc_option,
@@ -397,10 +404,67 @@ export default function CreateOrder() {
                         <h2 className="text-xl font-semibold text-foreground mb-1">
                           Factory & Product Details
                         </h2>
-                        <p className="text-muted-foreground">
-                          Select your factory partner and specify product quantity.
+                        <p className="text-muted-foreground text-sm">
+                          Name your order, select your factory, and specify the product.
                         </p>
                       </div>
+
+                      {/* Product name */}
+                      <FormField
+                        control={form.control}
+                        name="product_name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Order name</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="e.g. SS26 Denim Jacket, FW25 Hoodie — 300 units"
+                                {...field}
+                              />
+                            </FormControl>
+                            <p className="text-xs text-muted-foreground">How you'll identify this order. Visible on your dashboard and to your factory.</p>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      {/* Product category */}
+                      <FormField
+                        control={form.control}
+                        name="product_category"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Product category</FormLabel>
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                              {[
+                                { value: "apparel_casual", label: "Casual apparel" },
+                                { value: "denim", label: "Denim" },
+                                { value: "outerwear", label: "Outerwear" },
+                                { value: "knitwear", label: "Knitwear" },
+                                { value: "footwear", label: "Footwear" },
+                                { value: "accessories", label: "Accessories & bags" },
+                                { value: "home", label: "Home goods" },
+                                { value: "other", label: "Other" },
+                              ].map((cat) => (
+                                <button
+                                  key={cat.value}
+                                  type="button"
+                                  onClick={() => field.onChange(cat.value)}
+                                  className={cn(
+                                    "text-left px-3 py-2 rounded-lg border text-xs font-medium transition-all",
+                                    field.value === cat.value
+                                      ? "border-primary bg-primary/5 text-foreground"
+                                      : "border-border bg-card text-muted-foreground hover:border-primary/40"
+                                  )}
+                                >
+                                  {cat.label}
+                                </button>
+                              ))}
+                            </div>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
                       <FormField
                         control={form.control}
@@ -711,7 +775,10 @@ export default function CreateOrder() {
                         <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-400/30">
                           <p className="text-xs font-semibold text-amber-700 mb-1">Lead time guidance</p>
                           <p className="text-xs text-muted-foreground leading-relaxed">
-                            Realistic lead times from approved tech pack to delivered goods: <span className="font-medium text-foreground">16–22 weeks</span> for most Asia production. Denim and outerwear typically 14–18 weeks. Add 4 weeks buffer for delays. Work backwards from your launch date.
+                            {(() => {
+                              const lt = getCategoryLeadTime(watchedValues.product_category || userCategory);
+                              return <>Typical lead time for {watchedValues.product_category ? watchedValues.product_category.replace("_", " ") : "your product category"}: <span className="font-medium text-foreground">{lt.min}–{lt.max} weeks</span> from approved tech pack to delivered goods. {lt.note} Add 2–4 weeks buffer.</>;
+                            })()}
                           </p>
                           <div className="flex flex-wrap gap-2 mt-3">
                             {[
@@ -934,6 +1001,13 @@ export default function CreateOrder() {
                       </div>
 
                       <div className="space-y-4">
+                        {/* Order name */}
+                        <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                          <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Order</p>
+                          <p className="text-lg font-semibold text-foreground">{watchedValues.product_name}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5 capitalize">{watchedValues.product_category?.replace("_", " ")}</p>
+                        </div>
+
                         {/* Factory */}
                         <div className="p-4 bg-secondary/50 rounded-lg">
                           <div className="flex items-center gap-2 mb-2">

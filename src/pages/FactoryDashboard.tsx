@@ -180,10 +180,15 @@ export default function FactoryDashboard() {
   };
 
   const handleSendReply = async (inquiryId: string) => {
+    if (!replyMessage.trim()) { toast.error("Enter a reply message."); return; }
     setSendingReply(true);
-    const { error } = await supabase.from("inquiries").update({ status: "replied" }).eq("id", inquiryId);
-    if (error) { toast.error("Failed to update inquiry status"); }
-    else { toast.success("Marked as replied — contact the brand directly at their email."); setReplyingTo(null); setReplyMessage(""); refetchInquiries(); }
+    const { error } = await (supabase as any).from("inquiries").update({ 
+      status: "replied",
+      factory_reply: replyMessage.trim(),
+      replied_at: new Date().toISOString()
+    }).eq("id", inquiryId);
+    if (error) { toast.error("Failed to send reply"); }
+    else { toast.success("Reply sent to the brand."); setReplyingTo(null); setReplyMessage(""); refetchInquiries(); }
     setSendingReply(false);
   };
 

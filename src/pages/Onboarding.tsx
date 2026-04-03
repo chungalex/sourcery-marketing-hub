@@ -8,6 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { ArrowRight, ArrowLeft, Building2, Package, Users, CheckCircle, Loader2, UserPlus, Sparkles } from "lucide-react";
+import { ExperienceQuiz, type BrandProfile } from "@/components/onboarding/ExperienceQuiz";
 import { SEO } from "@/components/SEO";
 import { cn } from "@/lib/utils";
 
@@ -23,8 +24,8 @@ const VOLUMES = [
   { value: "over_5000", label: "5,000+ units", sub: "per style" },
 ];
 
-type Step = "welcome" | "brand_profile" | "factories" | "invite" | "done";
-const STEPS: Step[] = ["welcome", "brand_profile", "factories", "invite", "done"];
+type Step = "welcome" | "brand_profile" | "experience" | "factories" | "invite" | "done";
+const STEPS: Step[] = ["welcome", "brand_profile", "experience", "factories", "invite", "done"];
 
 export default function Onboarding() {
   const navigate = useNavigate();
@@ -60,6 +61,27 @@ export default function Onboarding() {
     try {
       await supabase.auth.updateUser({
         data: { brand_name: brandName.trim(), category, volume, onboarding_step: "brand_profile_done" }
+      });
+      next();
+    } catch {
+      toast.error("Failed to save — try again.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const saveExperience = async (profile: BrandProfile) => {
+    setSaving(true);
+    try {
+      await supabase.auth.updateUser({
+        data: { 
+          experience: profile.experience,
+          moq_range: profile.moq_range,
+          has_tech_pack: profile.has_tech_pack,
+          factory_situation: profile.factory_situation,
+          primary_category: profile.primary_category,
+          onboarding_step: "experience_done"
+        }
       });
       next();
     } catch {
@@ -232,6 +254,19 @@ export default function Onboarding() {
                 )}
 
                 {/* FACTORIES */}
+                                {step === "experience" && (
+                  <div className="space-y-6">
+                    <div>
+                      <h2 className="text-2xl font-bold text-foreground mb-1">Tell us about your operation</h2>
+                      <p className="text-muted-foreground text-sm">This helps us tailor guidance and defaults to your situation. Takes 60 seconds.</p>
+                    </div>
+                    <ExperienceQuiz
+                      onComplete={(profile) => saveExperience(profile)}
+                      onSkip={() => next()}
+                    />
+                  </div>
+                )}
+
                 {step === "factories" && (
                   <div className="space-y-6">
                     <div>

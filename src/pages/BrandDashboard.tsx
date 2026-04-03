@@ -17,7 +17,7 @@ import {
   Building2, MessageSquare, Settings, Search,
   Clock, CheckCircle, XCircle, ArrowRight, Package,
   RefreshCw, Loader2, UserPlus, AlertCircle, ChevronRight,
-  Calendar, FileText, BarChart3, Wrench, User
+  Calendar, FileText, BarChart3, Wrench, User, Sparkles
 } from "lucide-react";
 import { format } from "date-fns";
 import { BrandOnboardingPrompt } from "@/components/onboarding/BrandOnboardingPrompt";
@@ -82,6 +82,18 @@ function formatPrice(order: OrderWithDetails) {
   if (!order.unit_price) return null;
   const fmt = new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency || "USD" });
   return `${order.quantity.toLocaleString()} units · ${fmt.format(order.total_amount || order.quantity * order.unit_price)}`;
+}
+
+function getProductName(order: OrderWithDetails): string {
+  const specs = order.specifications as any;
+  if (specs?.product_name) return specs.product_name;
+  return order.factories?.name || "Order";
+}
+
+function getProductCategory(order: OrderWithDetails): string {
+  const specs = order.specifications as any;
+  if (specs?.product_category) return (specs.product_category as string).replace(/_/g, " ");
+  return "";
 }
 
 function getInquiryStatusIcon(status: string) {
@@ -289,21 +301,42 @@ export default function BrandDashboard() {
                             Action required
                           </div>
                         )}
-                        <div className="flex items-start justify-between mb-2">
-                          <div>
-                            <div className="font-mono text-xs text-muted-foreground mb-0.5">{order.order_number}</div>
-                            <div className="font-semibold text-foreground text-sm">
-                              {order.factories?.name || "Factory"}
+                        <div className="flex items-start justify-between gap-3 mb-3">
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-foreground text-sm leading-tight mb-0.5">
+                              {getProductName(order)}
+                            </div>
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <span className="text-xs text-muted-foreground">{order.factories?.name}</span>
+                              {getProductCategory(order) && (
+                                <>
+                                  <span className="text-muted-foreground/40 text-xs">·</span>
+                                  <span className="text-xs text-muted-foreground capitalize">{getProductCategory(order)}</span>
+                                </>
+                              )}
                             </div>
                           </div>
                           <StatusBadge status={order.status} />
                         </div>
-                        {priceStr && <div className="text-xs text-muted-foreground mb-1">{priceStr}</div>}
+                        <div className="flex items-center gap-4 mb-3">
+                          {order.total_amount ? (
+                            <div className="text-sm font-semibold text-foreground">
+                              {new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency || "USD", maximumFractionDigits: 0 }).format(order.total_amount)}
+                            </div>
+                          ) : null}
+                          {order.delivery_window_end && (
+                            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                              <Calendar className="h-3 w-3" />
+                              Delivery by {format(new Date(order.delivery_window_end), "MMM d, yyyy")}
+                            </div>
+                          )}
+                          {order.quantity > 0 && (
+                            <div className="text-xs text-muted-foreground">{order.quantity.toLocaleString()} units</div>
+                          )}
+                        </div>
                         <MilestoneTrack milestones={(order.order_milestones || []) as any} />
                         <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
-                          <span className="text-xs text-muted-foreground">
-                            {format(new Date(order.created_at || Date.now()), "MMM d, yyyy")}
-                          </span>
+                          <span className="text-xs text-muted-foreground font-mono">{order.order_number}</span>
                           <span className="text-xs text-primary font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                             Open order <ChevronRight className="h-3 w-3" />
                           </span>
@@ -439,7 +472,15 @@ export default function BrandDashboard() {
                       </div>
                     </div>
                     {inquiry.message && (
-                      <p className="text-xs text-muted-foreground bg-secondary/50 rounded-lg p-3 line-clamp-2 mb-3">{inquiry.message}</p>
+                      <div className="mb-3 space-y-1.5">
+                        <p className="text-xs text-muted-foreground bg-secondary/50 rounded-lg p-3">{inquiry.message}</p>
+                        {(inquiry as any).factory_reply && (
+                          <div className="p-3 rounded-lg bg-primary/5 border border-primary/20">
+                            <p className="text-xs font-semibold text-primary mb-1">Factory replied:</p>
+                            <p className="text-xs text-foreground leading-relaxed">{(inquiry as any).factory_reply}</p>
+                          </div>
+                        )}
+                      </div>
                     )}
                     <div className="flex gap-2">
                       {inquiry.factories && (
@@ -495,57 +536,78 @@ export default function BrandDashboard() {
             {/* Tools */}
             <TabsContent value="tools">
               <div className="grid sm:grid-cols-2 gap-4">
-                {[
-                  {
-                    icon: Calendar,
-                    title: "Production calendar",
-                    desc: "Visual timeline of all active orders by delivery window. See what's due when and what needs attention.",
-                    link: "/calendar",
-                    cta: "Open calendar",
-                  },
-                  {
-                    icon: FileText,
-                    title: "Spec library",
-                    desc: "Save product specs, measurements, and materials for reuse across orders. No more rebuilding from scratch.",
-                    link: "/specs",
-                    cta: "Open spec library",
-                  },
-                  {
-                    icon: BarChart3,
-                    title: "Analytics",
-                    desc: "Total spend, order frequency, QC rates, and factory breakdown across your full production history.",
-                    link: "/analytics",
-                    cta: "View analytics",
-                  },
-                  {
-                    icon: Search,
-                    title: "Factory network",
-                    desc: "Browse and compare vetted factories. AI-matched recommendations based on your product and requirements.",
-                    link: "/directory",
-                    cta: "Browse factories",
-                  },
-                  {
-                    icon: Wrench,
-                    title: "AI toolkit",
-                    desc: "Factory matcher, tech pack reviewer, RFQ generator, and quote analyzer — all running on real network data.",
-                    link: "/toolkit",
-                    cta: "Open toolkit",
-                  },
-                  {
-                    icon: User,
-                    title: "Supplier contacts",
-                    desc: "Store production managers, QC leads, and shipping contacts for each factory — all in one place.",
-                    link: "/contacts",
-                    cta: "Open contacts",
-                  },
-                  {
-                    icon: MessageSquare,
-                    title: "Notifications",
-                    desc: "Full notification history — every order event, timestamped and organised.",
-                    link: "/notifications",
-                    cta: "View all",
-                  },
-                ].map((tool) => (
+                <div className="mb-5 p-4 rounded-xl bg-card border border-border">
+                  <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Resources</p>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {[
+                      {
+                        icon: Search,
+                        title: "Factory network",
+                        desc: "Browse and compare verified factories. Filter by category, MOQ, country, and certifications.",
+                        link: "/directory",
+                        cta: "Browse factories",
+                        live: true,
+                      },
+                      {
+                        icon: MessageSquare,
+                        title: "Notifications",
+                        desc: "Full notification history — every order event, timestamped and organised.",
+                        link: "/notifications",
+                        cta: "View all",
+                        live: true,
+                      },
+                      {
+                        icon: BarChart3,
+                        title: "Resources",
+                        desc: "AQL standards, incoterms, supplier evaluation, import guides — written for physical product brands.",
+                        link: "/resources",
+                        cta: "Browse guides",
+                        live: true,
+                      },
+                      {
+                        icon: Sparkles,
+                        title: "Production assistant",
+                        desc: "AI with full order context — risk, timing, factory communication, defect leverage.",
+                        link: "/assistant",
+                        cta: "Open assistant",
+                        live: true,
+                      },
+                    ].map((tool) => (
+                      <a key={tool.title} href={tool.link} className="group flex items-start gap-3 p-4 bg-secondary/30 border border-border rounded-xl hover:border-primary/40 transition-colors">
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <tool.icon className="h-4 w-4 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{tool.title}</p>
+                          <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{tool.desc}</p>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-xl bg-secondary/30 border border-dashed border-border">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Coming soon</p>
+                  <div className="space-y-2">
+                    {[
+                      { icon: Calendar, title: "Production calendar", desc: "Visual timeline of all active orders by delivery window." },
+                      { icon: FileText, title: "Spec library", desc: "Save and reuse product specs across orders." },
+                      { icon: Wrench, title: "AI toolkit", desc: "Factory matcher, tech pack reviewer, RFQ generator." },
+                    ].map((tool) => (
+                      <div key={tool.title} className="flex items-center gap-3 p-3 rounded-lg opacity-50">
+                        <div className="w-7 h-7 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+                          <tool.icon className="h-3.5 w-3.5 text-muted-foreground" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-medium text-foreground">{tool.title}</p>
+                          <p className="text-xs text-muted-foreground">{tool.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {[].map((tool: any) => (
                   <Link key={tool.title} to={tool.link} className="block group">
                     <div className="p-5 bg-card border border-border rounded-xl hover:border-primary/40 transition-colors h-full">
                       <div className="flex items-start gap-3 mb-3">
