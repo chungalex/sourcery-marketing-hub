@@ -167,9 +167,8 @@ export default function CreateOrder() {
 
   const preselectedFactoryId = searchParams.get("factory");
   const [milestones, setMilestones] = useState<Milestone[]>([
-    { id: "1", label: "Deposit", percentage: 30, release_condition: "On PO acceptance" },
-    { id: "2", label: "Bulk production", percentage: 40, release_condition: "After sample approval" },
-    { id: "3", label: "Final release", percentage: 30, release_condition: "After QC pass" },
+    { id: "1", label: "Deposit", percentage: 50, release_condition: "On PO acceptance — factory confirms they can produce your order" },
+    { id: "2", label: "Final release", percentage: 50, release_condition: "After QC pass — goods meet the agreed standard before final payment" },
   ]);
 
   const form = useForm<OrderFormValues>({
@@ -828,6 +827,12 @@ export default function CreateOrder() {
 
                       {/* Milestone structure */}
                       <div className="border-t border-border pt-6">
+                        <div className="mb-4">
+                          <p className="text-sm font-semibold text-foreground mb-1">Payment milestones</p>
+                          <p className="text-xs text-muted-foreground leading-relaxed">
+                            Define when each payment is released. For first orders or low MOQ, a 50/50 split (deposit + final on QC) is standard. For established relationships at higher volumes, 30/40/30 is common. Each milestone releases only when you manually approve it — nothing moves automatically.
+                          </p>
+                        </div>
                         <MilestoneBuilder
                           value={milestones}
                           onChange={setMilestones}

@@ -19,8 +19,17 @@ const DEFAULT_MILESTONES: Milestone[] = [
 
 const PRESETS = [
   {
-    name: "Standard (3 stage)",
-    desc: "Deposit → Bulk production → Final release",
+    name: "First order / Low MOQ",
+    desc: "50% upfront, 50% before shipment — recommended for new relationships under 500 units",
+    recommended: true,
+    milestones: [
+      { id: "1", label: "Deposit", percentage: 50, release_condition: "On PO acceptance — factory confirms they can produce your order" },
+      { id: "2", label: "Final release", percentage: 50, release_condition: "After QC pass — goods meet the agreed standard before shipment" },
+    ],
+  },
+  {
+    name: "Established relationship (3 stage)",
+    desc: "Standard 30/40/30 for trusted factories at 500+ units",
     milestones: DEFAULT_MILESTONES,
   },
   {
@@ -114,7 +123,7 @@ export function MilestoneBuilder({ value, onChange, isPro = false, orderTotal = 
       </div>
 
       {/* Pro preset selector */}
-      {isPro && mode === "preset" && (
+      {mode === "preset" && (
         <div className="space-y-2">
           {PRESETS.map((preset, i) => (
             <button key={preset.name} onClick={() => applyPreset(i)} className={cn(
@@ -122,7 +131,12 @@ export function MilestoneBuilder({ value, onChange, isPro = false, orderTotal = 
               selectedPreset === i ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"
             )}>
               <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-foreground">{preset.name}</p>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <p className="text-sm font-medium text-foreground">{preset.name}</p>
+                  {(preset as any).recommended && (
+                    <span className="text-xs px-1.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium">Recommended</span>
+                  )}
+                </div>
                 {selectedPreset === i && <span className="text-xs text-primary font-medium">Selected</span>}
               </div>
               <p className="text-xs text-muted-foreground mt-0.5">{preset.desc}</p>
@@ -132,7 +146,7 @@ export function MilestoneBuilder({ value, onChange, isPro = false, orderTotal = 
       )}
 
       {/* Milestone list — always shown */}
-      <div className={cn("space-y-2", isPro && mode === "preset" && "opacity-75 pointer-events-none")}>
+      <div className="space-y-2">
         {value.map((m, i) => (
           <div key={m.id} className="flex items-start gap-2 p-3 rounded-lg border border-border bg-card">
             {isPro && mode === "custom" && (

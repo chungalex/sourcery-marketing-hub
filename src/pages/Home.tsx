@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,8 @@ import {
   BookOpen, Users, Globe, Zap, TrendingUp
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 import { toast } from "sonner";
 
 const features = [
@@ -73,6 +75,17 @@ const proofPoints = [
 ];
 
 export default function Home() {
+  const navigate = useNavigate();
+  const { user, isLoading: authLoading } = useAuth();
+  const { hasFactoryAccess } = useFactoryMembership(user?.id);
+
+  // Redirect logged-in users to their dashboard
+  useEffect(() => {
+    if (!authLoading && user) {
+      navigate(hasFactoryAccess ? "/dashboard/factory" : "/dashboard", { replace: true });
+    }
+  }, [user, authLoading, hasFactoryAccess, navigate]);
+
   const [email, setEmail] = useState("");
   const [capturing, setCapturing] = useState(false);
   const [captured, setCaptured] = useState(false);

@@ -34,7 +34,7 @@ export default function Auth() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const defaultTab = searchParams.get("mode") === "signup" ? "signup" : "login";
-  const redirectTo = searchParams.get("redirect") || "/";
+  const redirectTo = searchParams.get("redirect") || "/dashboard";
   
   const { user, isLoading: authLoading, signIn, signUp } = useAuth();
   

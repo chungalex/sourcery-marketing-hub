@@ -410,6 +410,14 @@ export default function FactoryProfile() {
                   >
                     Request Quote
                   </Button>
+                  {user && (
+                    <Link to={`/orders/create?factory=${factory?.id}`}>
+                      <Button variant="outline" size="lg" className="gap-2">
+                        <Package className="h-4 w-4" />
+                        Create order
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </motion.div>
