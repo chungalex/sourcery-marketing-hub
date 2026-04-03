@@ -291,8 +291,9 @@ export default function CreateOrder() {
         throw new Error(response.error.message || "Failed to create order");
       }
 
-      toast.success("Order created successfully!");
-      navigate("/dashboard");
+      const orderId = response.data?.order_id;
+      toast.success("Order created. Review and issue the PO when ready.");
+      navigate(orderId ? `/orders/${orderId}` : "/dashboard");
     } catch (error: any) {
       console.error("Order creation error:", error);
       toast.error(error.message || "Failed to create order. Please try again.");
@@ -1032,12 +1033,23 @@ export default function CreateOrder() {
                         {/* Info Box */}
                         <div className="flex items-start gap-2 p-3 rounded-lg bg-muted/50 border border-border">
                           <Info className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
-                          <p className="text-xs text-muted-foreground">
-                            This order will be created as a <strong>draft</strong>. You'll be able to upload documents and 
-                            issue a formal PO from your dashboard. The factory will need to accept the PO before production begins.
-                          </p>
+                          <div className="p-4 rounded-xl bg-primary/5 border border-primary/20">
+                          <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">What happens next</p>
+                          <div className="space-y-2.5">
+                            {[
+                              { num: "1", text: "Order saved as draft — you'll land on the order page to review everything" },
+                              { num: "2", text: "Issue the PO when you're ready — sends it to your factory for formal acceptance" },
+                              { num: "3", text: "Factory accepts and you release the deposit milestone to confirm" },
+                              { num: "4", text: "Sampling, revisions, QC, and final payment all follow this same order record" },
+                            ].map((step, i) => (
+                              <div key={i} className="flex items-start gap-2.5">
+                                <span className="w-5 h-5 rounded-full bg-primary/15 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{step.num}</span>
+                                <span className="text-xs text-muted-foreground leading-relaxed">{step.text}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
+                        </div>            </div>
                     </div>
                   )}
 

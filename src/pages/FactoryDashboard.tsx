@@ -22,6 +22,7 @@ import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
 import { TechPackVersions } from "@/components/orders/TechPackVersions";
 import { DefectReports } from "@/components/orders/DefectReports";
 import { FactoryScoreCard } from "@/components/factory/FactoryScoreCard";
+import { OrderStatusGuide } from "@/components/orders/OrderStatusGuide";
 import { useAuth } from "@/hooks/useAuth";
 import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 import { supabase } from "@/integrations/supabase/client";
@@ -255,7 +256,7 @@ export default function FactoryDashboard() {
             )}
           </div>
 
-          <Tabs defaultValue="inquiries" className="space-y-6">
+          <Tabs defaultValue="orders" className="space-y-6">
             <TabsList className="flex overflow-x-auto gap-1 w-full h-auto p-1 flex-nowrap">
               <TabsTrigger value="orders" className="flex items-center gap-1.5 flex-shrink-0">
                 <Package className="h-4 w-4" />
@@ -290,15 +291,32 @@ export default function FactoryDashboard() {
               {ordersLoading ? (
                 <div className="space-y-3">{[1,2,3].map(i => <Skeleton key={i} className="h-24 w-full rounded-xl" />)}</div>
               ) : factoryOrders.length === 0 ? (
-                <div className="text-center py-16 bg-card border border-border rounded-xl">
-                  <Package className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
-                  <p className="text-foreground font-medium">No active orders</p>
-                  <p className="text-sm text-muted-foreground mt-1">Orders will appear here once brands send a PO.</p>
+                <div className="py-8 space-y-4">
+                  <div className="p-5 rounded-xl bg-card border border-border">
+                    <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">How orders work on Sourcery</p>
+                    <div className="space-y-3">
+                      {[
+                        { num: "01", title: "A brand sends you a PO", body: "When a brand creates an order with you, it appears here. You review the spec, pricing, and delivery window before accepting. Nothing is committed until you accept." },
+                        { num: "02", title: "You accept and production begins", body: "Once you accept, the brand releases the deposit milestone. You submit a sample for approval before bulk production begins." },
+                        { num: "03", title: "Every step is documented", body: "Spec changes, revision rounds, QC — all on the platform. Both you and the brand have the same record. No disputes over what was agreed." },
+                      ].map((step, i) => (
+                        <div key={i} className="flex gap-3">
+                          <span className="font-mono text-xs font-bold text-primary/40 flex-shrink-0 mt-0.5 w-6">{step.num}</span>
+                          <div>
+                            <p className="text-sm font-semibold text-foreground mb-0.5">{step.title}</p>
+                            <p className="text-xs text-muted-foreground leading-relaxed">{step.body}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground text-center">Orders from brands will appear here automatically once they create a PO with your factory.</p>
                 </div>
               ) : (
                 factoryOrders.map(order => {
                   const isExpanded = expandedOrderId === order.id;
                   const needsAction = ["po_issued", "sample_revision"].includes(order.status);
+                  const showGuide = ["po_issued", "sample_revision", "po_accepted"].includes(order.status);
                   const canSubmitSample = ["po_accepted", "sample_revision"].includes(order.status);
                   const inSampleReview = ["sample_sent", "sample_approved", "sample_revision"].includes(order.status);
 
