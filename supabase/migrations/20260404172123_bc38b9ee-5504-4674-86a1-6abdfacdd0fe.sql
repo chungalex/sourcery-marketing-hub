@@ -1,0 +1,3 @@
+ALTER TABLE messages
+  ADD COLUMN IF NOT EXISTS inquiry_id UUID REFERENCES inquiries(id),
+  ADD COLUMN IF NOT EXISTS rfq_id UUID REFERENCES rfqs(id);
