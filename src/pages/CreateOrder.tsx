@@ -48,7 +48,8 @@ import {
   Check,
   Loader2,
   Info,
-  UserPlus
+  UserPlus,
+  AlertTriangle
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -145,6 +146,14 @@ const orderSchema = z.object({
   colourway_count: z.coerce.number().min(1).max(50).optional(),
   size_range: z.string().optional(),
   shipping_destination: z.string().optional(),
+  style_number: z.string().optional(),
+  fabric_composition: z.string().optional(),
+  fabric_weight: z.string().optional(),
+  sample_quantity: z.coerce.number().min(1).max(20).optional(),
+  certifications_required: z.string().optional(),
+  sample_date: z.string().optional(),
+  label_requirements: z.string().optional(),
+  packaging_notes: z.string().optional(),
 }).refine((data) => {
   if (data.delivery_window_start && data.delivery_window_end) {
     return data.delivery_window_end >= data.delivery_window_start;
@@ -159,9 +168,9 @@ type OrderFormValues = z.infer<typeof orderSchema>;
 
 const steps = [
   { id: 1, title: "Product & Factory", icon: Building2 },
-  { id: 2, title: "Pricing & Terms", icon: DollarSign },
-  { id: 3, title: "Quality Standard", icon: Shield },
-  { id: 4, title: "Review & Issue", icon: Check },
+  { id: 2, title: "Specifications", icon: FileText },
+  { id: 3, title: "Commercial Terms", icon: DollarSign },
+  { id: 4, title: "Quality & Review", icon: Shield },
 ];
 
 export default function CreateOrder() {
@@ -270,14 +279,11 @@ export default function CreateOrder() {
 
   const canProceed = (step: number): boolean => {
     switch (step) {
-      case 1:
-        return !!watchedValues.product_name?.trim() && !!watchedValues.product_category && !!watchedValues.factory_id;
-      case 2:
-        return watchedValues.quantity > 0 && watchedValues.unit_price > 0;
-      case 3:
-        return !!watchedValues.qc_option;
-      default:
-        return true;
+      case 1: return !!watchedValues.product_name?.trim() && !!watchedValues.factory_id;
+      case 2: return true; // specs all optional
+      case 3: return watchedValues.quantity > 0 && watchedValues.unit_price > 0;
+      case 4: return !!watchedValues.qc_option;
+      default: return true;
     }
   };
 
@@ -320,7 +326,20 @@ export default function CreateOrder() {
           incoterms: values.incoterms,
           delivery_window_start: values.delivery_window_start?.toISOString(),
           delivery_window_end: values.delivery_window_end?.toISOString(),
-          specifications: { product_name: values.product_name, product_category: values.product_category, notes: values.specifications || "", colourway_count: values.colourway_count, size_range: values.size_range, shipping_destination: values.shipping_destination },
+          specifications: {
+            product_name: values.product_name,
+            product_category: values.product_category || null,
+            style_number: values.style_number || null,
+            fabric_composition: values.fabric_composition || null,
+            fabric_weight: values.fabric_weight || null,
+            colourway_count: values.colourway_count || null,
+            size_range: values.size_range || null,
+            shipping_destination: values.shipping_destination || null,
+            sample_quantity: values.sample_quantity || null,
+            label_requirements: values.label_requirements || null,
+            packaging_notes: values.packaging_notes || null,
+            notes: values.specifications || "",
+          },
           tech_pack_url: values.tech_pack_url || null,
           bom_url: values.bom_url || null,
           po_message: values.po_message || null,
@@ -787,49 +806,279 @@ export default function CreateOrder() {
                     </div>
                   )}
 
-                  {/* Step 2: Pricing & Delivery */}
+                  {/* Step 2: Specifications */}
                   {currentStep === 2 && (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">
-                          Terms &amp; Timeline
-                        </h2>
+                        <h2 className="text-xl font-semibold text-foreground mb-1">Specifications</h2>
                         <p className="text-muted-foreground text-sm">
-                          Enter the agreed pricing, shipping terms, and delivery window. This becomes the documented agreement both sides confirm.
+                          Technical details the factory needs to produce without guessing. Every field you fill in reduces revision rounds.
                         </p>
                       </div>
 
+                      {/* Style number */}
+                      <FormField
+                        control={form.control}
+                        name="style_number"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Style / reference number <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <FormControl>
+                              <Input placeholder="e.g. OKS26-001 — used on all documents, labels, and packaging" {...field} />
+                            </FormControl>
+                            <p className="text-xs text-muted-foreground">The factory will reference this number on their production records. Use your own system.</p>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      {/* Fabric */}
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="fabric_composition"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Fabric composition <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormControl>
+                                <Input placeholder="e.g. 98% cotton, 2% elastane" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="fabric_weight"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Fabric weight <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormControl>
+                                <Input placeholder="e.g. 12oz, 280gsm, 180g/m²" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      {/* Colourways and size run */}
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="colourway_count"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Colourways <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  min={1}
+                                  placeholder="e.g. 3"
+                                  {...field}
+                                  value={field.value || ""}
+                                  onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
+                                />
+                              </FormControl>
+                              <p className="text-xs text-muted-foreground">Each colourway may require a separate dye lot minimum.</p>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="size_range"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Size range <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <Select onValueChange={field.onChange} value={field.value}>
+                                <FormControl>
+                                  <SelectTrigger><SelectValue placeholder="Select size range" /></SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {[
+                                    { value: "one_size", label: "One size" },
+                                    { value: "xs_xl", label: "XS – XL (5 sizes)" },
+                                    { value: "xs_xxl", label: "XS – XXL (6 sizes)" },
+                                    { value: "s_xl", label: "S – XL (4 sizes)" },
+                                    { value: "s_xxl", label: "S – XXL (5 sizes)" },
+                                    { value: "numeric_28_38", label: "Numeric 28–38 (trousers/denim)" },
+                                    { value: "custom", label: "Custom sizing" },
+                                  ].map(s => <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>)}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      {/* Construction notes */}
+                      <FormField
+                        control={form.control}
+                        name="specifications"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Construction notes <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder={"Construction: e.g. 5-pocket, chain stitch hem, bar tack at stress points\nTrims: e.g. YKK zipper, corozo buttons, branded label\nFinishes: e.g. garment washed, enzyme treated, embroidery placement\nAny deviations from tech pack or previous season notes."}
+                                className="min-h-[120px] text-sm"
+                                {...field}
+                              />
+                            </FormControl>
+                            <p className="text-xs text-muted-foreground">Add anything not covered in your tech pack, or flag differences from a previous order.</p>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      {/* Tech pack and BOM */}
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="tech_pack_url"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Tech pack <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormControl>
+                                <Input type="url" placeholder="Google Drive, Dropbox, or Notion link" {...field} />
+                              </FormControl>
+                              <p className="text-xs text-muted-foreground">Paste a shared link. To upload a PDF, do this from the order detail after creating.</p>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="bom_url"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Bill of materials <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormControl>
+                                <Input type="url" placeholder="Link to BOM — materials, trims, components" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      {/* Category — optional, last */}
+                      <FormField
+                        control={form.control}
+                        name="product_category"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Product category <span className="text-xs font-normal text-muted-foreground">(optional — used for lead time guidance)</span></FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger><SelectValue placeholder="Select a category" /></SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {[
+                                  { group: "Tops & outerwear", items: [
+                                    { value: "tops", label: "Tops — T-shirts, shirts, blouses" },
+                                    { value: "hoodies_sweats", label: "Hoodies & sweatshirts" },
+                                    { value: "outerwear", label: "Outerwear — jackets, coats" },
+                                    { value: "knitwear", label: "Knitwear & sweaters" },
+                                    { value: "tailoring", label: "Tailoring & suiting" },
+                                  ]},
+                                  { group: "Bottoms", items: [
+                                    { value: "denim", label: "Denim — jeans, jackets, shorts" },
+                                    { value: "trousers", label: "Trousers & shorts" },
+                                    { value: "skirts", label: "Skirts & dresses" },
+                                  ]},
+                                  { group: "Specialist", items: [
+                                    { value: "activewear", label: "Activewear & sportswear" },
+                                    { value: "swimwear", label: "Swimwear & beachwear" },
+                                    { value: "underwear", label: "Underwear & intimates" },
+                                    { value: "childrenswear", label: "Childrenswear" },
+                                    { value: "workwear", label: "Technical & workwear" },
+                                  ]},
+                                  { group: "Accessories", items: [
+                                    { value: "footwear", label: "Footwear" },
+                                    { value: "bags", label: "Bags & leather goods" },
+                                    { value: "accessories", label: "Accessories — hats, belts, scarves" },
+                                  ]},
+                                  { group: "Other", items: [
+                                    { value: "home", label: "Home & soft goods" },
+                                    { value: "other", label: "Other" },
+                                  ]},
+                                ].flatMap(group => [
+                                  <SelectItem key={group.group} value={`__group_${group.group}`} disabled className="text-xs font-semibold text-muted-foreground uppercase tracking-wide pt-3 pb-1">{group.group}</SelectItem>,
+                                  ...group.items.map(cat => (
+                                    <SelectItem key={cat.value} value={cat.value}>{cat.label}</SelectItem>
+                                  ))
+                                ])}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  )}
+
+                  {/* Step 3: Commercial Terms */}
+                  {currentStep === 3 && (
+                    <div className="space-y-6">
+                      <div>
+                        <h2 className="text-xl font-semibold text-foreground mb-1">Commercial terms</h2>
+                        <p className="text-muted-foreground text-sm">
+                          Enter the agreed pricing, quantity, and delivery terms. This becomes the formal documented agreement both sides sign off on.
+                        </p>
+                      </div>
+
+                      {/* Quantity */}
+                      <FormField
+                        control={form.control}
+                        name="quantity"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Total quantity</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="e.g. 300"
+                                {...field}
+                                value={field.value || ""}
+                                onChange={e => field.onChange(e.target.valueAsNumber || 0)}
+                              />
+                            </FormControl>
+                            <p className="text-xs text-muted-foreground">Total units across all sizes and colourways.</p>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      {/* Pricing */}
                       <div className="grid sm:grid-cols-2 gap-4">
                         <FormField
                           control={form.control}
                           name="unit_price"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>
-                                  Unit price
-                                  <span className="text-xs font-normal text-muted-foreground ml-1">— from your factory quote</span>
-                                </FormLabel>
+                              <FormLabel>Unit price <span className="text-xs font-normal text-muted-foreground">— from your factory quote</span></FormLabel>
                               <FormControl>
                                 <div className="relative">
                                   <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                  <Input 
-                                    type="number" 
+                                  <Input
+                                    type="number"
                                     step="0.01"
                                     placeholder="e.g. 28.00"
                                     className="pl-9"
                                     {...field}
-                                    value={field.value === 0 ? "" : field.value}
-                                    onFocus={(e) => { if (field.value === 0) field.onChange(""); }}
-                                    onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                                    value={field.value || ""}
+                                    onFocus={e => { if (!field.value) field.onChange(""); }}
+                                    onChange={e => field.onChange(parseFloat(e.target.value) || 0)}
                                   />
                                 </div>
                               </FormControl>
-                              <p className="text-xs text-muted-foreground">Enter the price per unit your factory quoted you. This becomes the documented agreement.</p>
                               <FormMessage />
                             </FormItem>
                           )}
                         />
-
                         <FormField
                           control={form.control}
                           name="currency"
@@ -838,15 +1087,11 @@ export default function CreateOrder() {
                               <FormLabel>Currency</FormLabel>
                               <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
-                                  <SelectTrigger>
-                                    <SelectValue placeholder="Select currency" />
-                                  </SelectTrigger>
+                                  <SelectTrigger><SelectValue placeholder="Select currency" /></SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                  {CURRENCIES.map((currency) => (
-                                    <SelectItem key={currency.value} value={currency.value}>
-                                      {currency.label}
-                                    </SelectItem>
+                                  {CURRENCIES.map(c => (
+                                    <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
                                   ))}
                                 </SelectContent>
                               </Select>
@@ -856,22 +1101,22 @@ export default function CreateOrder() {
                         />
                       </div>
 
-                      {/* Total Amount Display with Platform Fee */}
-                      <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg space-y-3">
-                        <div className="flex items-center justify-between">
-                          <span className="text-muted-foreground">Order Value</span>
-                          <span className="text-2xl font-bold text-foreground">
-                            {getCurrencySymbol(watchedValues.currency)}
-                            {totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                          </span>
+                      {/* Order value */}
+                      {totalAmount > 0 && (
+                        <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm text-muted-foreground">Order value</span>
+                            <span className="text-2xl font-bold text-foreground">
+                              {getCurrencySymbol(watchedValues.currency)}{totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                            </span>
+                          </div>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {(watchedValues.quantity || 0).toLocaleString()} units × {getCurrencySymbol(watchedValues.currency)}{(watchedValues.unit_price || 0).toFixed(2)} per unit
+                          </p>
                         </div>
-                        <p className="text-xs text-muted-foreground">
-                          {watchedValues.quantity.toLocaleString()} units × {getCurrencySymbol(watchedValues.currency)}{watchedValues.unit_price.toFixed(2)} per unit
-                        </p>
-                        
+                      )}
 
-                      </div>
-
+                      {/* Shipping destination */}
                       <FormField
                         control={form.control}
                         name="shipping_destination"
@@ -880,9 +1125,7 @@ export default function CreateOrder() {
                             <FormLabel>Shipping destination <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
                             <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Where are the goods shipping to?" />
-                                </SelectTrigger>
+                                <SelectTrigger><SelectValue placeholder="Where are the goods shipping to?" /></SelectTrigger>
                               </FormControl>
                               <SelectContent>
                                 {[
@@ -900,12 +1143,13 @@ export default function CreateOrder() {
                                 ].map(c => <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>)}
                               </SelectContent>
                             </Select>
-                            <p className="text-xs text-muted-foreground">Used for incoterm guidance and landed cost estimation.</p>
+                            <p className="text-xs text-muted-foreground">Affects incoterm guidance and landed cost estimation.</p>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
 
+                      {/* Incoterms */}
                       <TooltipProvider>
                         <FormField
                           control={form.control}
@@ -919,7 +1163,7 @@ export default function CreateOrder() {
                                     <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                                   </TooltipTrigger>
                                   <TooltipContent side="right" className="max-w-xs">
-                                    <p className="text-xs">Incoterms define who pays for shipping, insurance, and import costs — and who is responsible if goods are lost or damaged in transit. Getting this wrong can mean unexpected costs at customs. FOB is the most common starting point for brands sourcing from Asia.</p>
+                                    <p className="text-xs">Incoterms define who pays for shipping and who is responsible if goods are lost or damaged in transit. FOB is the most common starting point for brands sourcing from Asia.</p>
                                   </TooltipContent>
                                 </Tooltip>
                               </FormLabel>
@@ -937,16 +1181,13 @@ export default function CreateOrder() {
                                         <button type="button" onClick={() => setExpanded(true)} className="text-xs text-primary hover:underline flex-shrink-0 font-medium">Change</button>
                                       </div>
                                     )}
-                                    {(!selected || expanded) && INCOTERMS.map((term) => (
+                                    {(!selected || expanded) && INCOTERMS.map(term => (
                                       <button
                                         key={term.value}
                                         type="button"
                                         onClick={() => { field.onChange(term.value); setExpanded(false); }}
-                                        className={cn(
-                                          "w-full text-left p-3 rounded-lg border transition-all",
-                                          field.value === term.value
-                                            ? "border-primary bg-primary/5"
-                                            : "border-border bg-card hover:border-primary/40"
+                                        className={cn("w-full text-left p-3 rounded-lg border transition-all",
+                                          field.value === term.value ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/40"
                                         )}
                                       >
                                         <div className="flex items-center justify-between mb-1">
@@ -965,163 +1206,105 @@ export default function CreateOrder() {
                         />
                       </TooltipProvider>
 
-                      <div className="space-y-4">
-                        <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-400/30">
+                      {/* Delivery window */}
+                      <div className="space-y-3">
+                        <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-400/30">
                           <p className="text-xs font-semibold text-amber-700 mb-1">Lead time guidance</p>
                           <p className="text-xs text-muted-foreground leading-relaxed">
                             {(() => {
                               const lt = getCategoryLeadTime(watchedValues.product_category || userCategory);
-                              return <>Typical lead time for {watchedValues.product_category ? watchedValues.product_category.replace("_", " ") : "your product category"}: <span className="font-medium text-foreground">{lt.min}–{lt.max} weeks</span> from approved tech pack to delivered goods. {lt.note} Add 2–4 weeks buffer.</>;
+                              return `${watchedValues.product_category ? (watchedValues.product_category as string).replace(/_/g, " ") : "Standard"} lead time: ${lt.min}–${lt.max} weeks from approved tech pack. ${lt.note}`;
                             })()}
                           </p>
-                          <div className="flex flex-wrap gap-2 mt-3">
-                            {[
-                              { label: "12 weeks", weeks: 12 },
-                              { label: "16 weeks", weeks: 16 },
-                              { label: "20 weeks", weeks: 20 },
-                              { label: "24 weeks", weeks: 24 },
-                            ].map(({ label, weeks }) => {
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {[12, 16, 20, 24].map(weeks => {
                               const start = new Date(); start.setDate(start.getDate() + weeks * 7 - 14);
                               const end = new Date(); end.setDate(end.getDate() + weeks * 7);
                               return (
-                                <button
-                                  key={weeks}
-                                  type="button"
-                                  onClick={() => {
-                                    form.setValue("delivery_window_start", start);
-                                    form.setValue("delivery_window_end", end);
-                                  }}
-                                  className="text-xs px-3 py-1.5 rounded-full border border-border bg-background hover:border-primary/50 hover:text-primary transition-colors"
+                                <button key={weeks} type="button"
+                                  onClick={() => { form.setValue("delivery_window_start", start); form.setValue("delivery_window_end", end); }}
+                                  className="text-xs px-2.5 py-1 rounded-full border border-border bg-background hover:border-primary/50 hover:text-primary transition-colors"
                                 >
-                                  {label} from now
+                                  {weeks}w from now
                                 </button>
                               );
                             })}
                           </div>
                         </div>
-
                         <div className="grid sm:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="delivery_window_start"
-                          render={({ field }) => (
-                            <FormItem className="flex flex-col">
-                              <FormLabel>Delivery Window Start</FormLabel>
-                              <Popover>
-                                <PopoverTrigger asChild>
-                                  <FormControl>
-                                    <Button
-                                      variant="outline"
-                                      className={cn(
-                                        "w-full pl-3 text-left font-normal",
-                                        !field.value && "text-muted-foreground"
-                                      )}
-                                    >
-                                      {field.value ? (
-                                        format(field.value, "PPP")
-                                      ) : (
-                                        <span>Pick a date</span>
-                                      )}
-                                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                    </Button>
-                                  </FormControl>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0" align="start">
-                                  <Calendar
-                                    mode="single"
-                                    selected={field.value}
-                                    onSelect={field.onChange}
-                                    disabled={(date) => date < new Date()}
-                                    initialFocus
-                                  />
-                                </PopoverContent>
-                              </Popover>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="delivery_window_end"
-                          render={({ field }) => (
-                            <FormItem className="flex flex-col">
-                              <FormLabel>Delivery Window End</FormLabel>
-                              <Popover>
-                                <PopoverTrigger asChild>
-                                  <FormControl>
-                                    <Button
-                                      variant="outline"
-                                      className={cn(
-                                        "w-full pl-3 text-left font-normal",
-                                        !field.value && "text-muted-foreground"
-                                      )}
-                                    >
-                                      {field.value ? (
-                                        format(field.value, "PPP")
-                                      ) : (
-                                        <span>Pick a date</span>
-                                      )}
-                                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                    </Button>
-                                  </FormControl>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0" align="start">
-                                  <Calendar
-                                    mode="single"
-                                    selected={field.value}
-                                    onSelect={field.onChange}
-                                    disabled={(date) => 
-                                      date < new Date() || 
-                                      (watchedValues.delivery_window_start && date < watchedValues.delivery_window_start)
-                                    }
-                                    initialFocus
-                                  />
-                                </PopoverContent>
-                              </Popover>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                          <FormField
+                            control={form.control}
+                            name="delivery_window_start"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-col">
+                                <FormLabel>Delivery from</FormLabel>
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <FormControl>
+                                      <Button variant="outline" className={cn("w-full pl-3 text-left font-normal", !field.value && "text-muted-foreground")}>
+                                        {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                      </Button>
+                                    </FormControl>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-auto p-0" align="start">
+                                    <Calendar mode="single" selected={field.value} onSelect={field.onChange} disabled={date => date < new Date()} initialFocus />
+                                  </PopoverContent>
+                                </Popover>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="delivery_window_end"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-col">
+                                <FormLabel>Delivery by</FormLabel>
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <FormControl>
+                                      <Button variant="outline" className={cn("w-full pl-3 text-left font-normal", !field.value && "text-muted-foreground")}>
+                                        {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                      </Button>
+                                    </FormControl>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-auto p-0" align="start">
+                                    <Calendar mode="single" selected={field.value} onSelect={field.onChange}
+                                      disabled={date => date < new Date() || (watchedValues.delivery_window_start && date < watchedValues.delivery_window_start)}
+                                      initialFocus />
+                                  </PopoverContent>
+                                </Popover>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
                         </div>
-                      </div>
 
-                      {/* Delivery conflict warning */}
-                      {watchedValues.delivery_window_end && selectedFactory?.lead_time_weeks && (() => {
-                        const weeksUntilDelivery = Math.floor((new Date(watchedValues.delivery_window_end).getTime() - Date.now()) / (1000 * 60 * 60 * 24 * 7));
-                        const factoryLeadTime = selectedFactory.lead_time_weeks;
-                        if (weeksUntilDelivery < factoryLeadTime) {
-                          return (
-                            <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-400/30">
-                              <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                        {/* Delivery conflict warning */}
+                        {watchedValues.delivery_window_end && selectedFactory?.lead_time_weeks && (() => {
+                          const weeksUntil = Math.floor((new Date(watchedValues.delivery_window_end).getTime() - Date.now()) / (1000 * 60 * 60 * 24 * 7));
+                          const lt = selectedFactory.lead_time_weeks;
+                          if (weeksUntil < lt) return (
+                            <div className="flex items-start gap-3 p-3 rounded-xl bg-amber-500/5 border border-amber-400/30">
+                              <AlertTriangle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
                               <div>
                                 <p className="text-sm font-semibold text-amber-700">Timeline may not be achievable</p>
-                                <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                                  {selectedFactory.name} has a typical lead time of {factoryLeadTime} weeks, but your delivery window is {weeksUntilDelivery} weeks away. Confirm availability with your factory before issuing the PO.
-                                </p>
+                                <p className="text-xs text-muted-foreground mt-0.5">{selectedFactory.name} typically needs {lt} weeks. Your window is {weeksUntil} weeks away. Confirm availability before issuing the PO.</p>
                               </div>
                             </div>
                           );
-                        }
-                        if (weeksUntilDelivery <= factoryLeadTime + 2) {
-                          return (
-                            <div className="flex items-start gap-3 p-4 rounded-xl bg-secondary/50 border border-border">
-                              <Info className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
-                              <p className="text-xs text-muted-foreground leading-relaxed">
-                                Your delivery window is tight relative to {selectedFactory.name}&apos;s {factoryLeadTime}-week lead time. Factor in 1–2 weeks buffer for sample revisions.
-                              </p>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })()}
+                          return null;
+                        })()}
+                      </div>
 
-                      {/* Milestone structure */}
+                      {/* Payment milestones */}
                       <div className="border-t border-border pt-6">
                         <div className="mb-4">
                           <p className="text-sm font-semibold text-foreground mb-1">Payment milestones</p>
                           <p className="text-xs text-muted-foreground leading-relaxed">
-                            Define when each payment is released. For first orders or low MOQ, a 50/50 split (deposit + final on QC) is standard. For established relationships at higher volumes, 30/40/30 is common. Each milestone releases only when you manually approve it — nothing moves automatically.
+                            Define when each payment releases. For first orders or low MOQ, 50/50 is standard. For established relationships at higher volumes, 30/40/30 is common. Nothing releases automatically — each milestone requires your manual approval.
                           </p>
                         </div>
                         <MilestoneBuilder
@@ -1135,172 +1318,23 @@ export default function CreateOrder() {
                     </div>
                   )}
 
-                  {/* Step 2: Quantity & Breakdown */}
-                  {currentStep === 2 && (
-                    <div className="space-y-6">
-                      <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">
-                          Quantity &amp; Breakdown
-                        </h2>
-                        <p className="text-muted-foreground text-sm">
-                          Total units, size run, colourways, and how fabric is sourced. The factory needs this to plan materials and cutting.
-                        </p>
-                      </div>
-
-                      {/* Total quantity */}
-                      <FormField
-                        control={form.control}
-                        name="quantity"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Total quantity</FormLabel>
-                            <FormControl>
-                              <Input
-                                type="number"
-                                placeholder="e.g. 300"
-                                {...field}
-                                onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
-                              />
-                            </FormControl>
-                            <p className="text-xs text-muted-foreground">Total units across all sizes and colourways.</p>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        {/* Colourways */}
-                        <FormField
-                          control={form.control}
-                          name="colourway_count"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Number of colourways <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="number"
-                                  min={1}
-                                  max={20}
-                                  placeholder="e.g. 3"
-                                  {...field}
-                                  value={field.value ?? ""}
-                                  onChange={(e) => field.onChange(e.target.valueAsNumber || undefined)}
-                                />
-                              </FormControl>
-                              <p className="text-xs text-muted-foreground">e.g. indigo, stone wash, black</p>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        {/* Size range */}
-                        <FormField
-                          control={form.control}
-                          name="size_range"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Size range <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
-                              <Select onValueChange={field.onChange} value={field.value}>
-                                <FormControl>
-                                  <SelectTrigger>
-                                    <SelectValue placeholder="Select size range" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {[
-                                    { value: "one_size", label: "One size" },
-                                    { value: "xs_xl", label: "XS – XL" },
-                                    { value: "xs_xxl", label: "XS – XXL" },
-                                    { value: "xxs_xxl", label: "XXS – XXL" },
-                                    { value: "s_xxl", label: "S – XXL" },
-                                    { value: "us_24_36", label: "US 24–36 (denim)" },
-                                    { value: "eu_34_46", label: "EU 34–46" },
-                                    { value: "uk_6_20", label: "UK 6–20" },
-                                    { value: "custom", label: "Custom (specify in notes)" },
-                                  ].map((s) => (
-                                    <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-
-                      {/* Fabric sourcing */}
-                      <FormField
-                        control={form.control}
-                        name="fabric_sourcing"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Fabric sourcing</FormLabel>
-                            <p className="text-xs text-muted-foreground mb-2">This affects the factory's material lead time and your production risk.</p>
-                            <div className="grid sm:grid-cols-2 gap-3">
-                              {[
-                                {
-                                  value: "factory",
-                                  label: "Factory sources",
-                                  desc: "Factory purchases and sources all materials. Standard for most orders — included in your unit price.",
-                                },
-                                {
-                                  value: "brand",
-                                  label: "Brand supplies",
-                                  desc: "You purchase and ship fabric to the factory. Lower unit cost but you carry fabric risk and must coordinate delivery.",
-                                },
-                              ].map((opt) => (
-                                <button
-                                  key={opt.value}
-                                  type="button"
-                                  onClick={() => field.onChange(opt.value)}
-                                  className={cn(
-                                    "text-left p-4 rounded-xl border-2 transition-all",
-                                    field.value === opt.value
-                                      ? "border-primary bg-primary/5"
-                                      : "border-border bg-card hover:border-primary/40"
-                                  )}
-                                >
-                                  <p className="text-sm font-semibold text-foreground mb-1">{opt.label}</p>
-                                  <p className="text-xs text-muted-foreground leading-relaxed">{opt.desc}</p>
-                                </button>
-                              ))}
-                            </div>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  )}
-
-                                    {/* Step 4: Quality Control */}
+                  {/* Step 4: Quality, Compliance & Review */}
                   {currentStep === 4 && (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">
-                          Quality Control
-                        </h2>
-                        <p className="text-muted-foreground">
-                          Sourcery gates final payment on QC. Choose how the inspection happens — you arrange it, the factory self-reports, or Sourcery walks you through an arrival checklist.
+                        <h2 className="text-xl font-semibold text-foreground mb-1">Quality, compliance &amp; review</h2>
+                        <p className="text-muted-foreground text-sm">
+                          Set the quality standard, compliance requirements, and add a message to your factory before issuing.
                         </p>
                       </div>
 
-                      <FormField
-                        control={form.control}
-                        name="qc_option"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormControl>
-                              <QCOptionSelector
-                                value={field.value}
-                                onChange={field.onChange}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
+                      {/* QC method */}
+                      <QCOptionSelector
+                        value={watchedValues.qc_option}
+                        onChange={val => form.setValue("qc_option", val)}
                       />
 
-                      {/* AQL Standard */}
+                      {/* AQL */}
                       <TooltipProvider>
                         <FormField
                           control={form.control}
@@ -1308,34 +1342,26 @@ export default function CreateOrder() {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel className="flex items-center gap-2">
-                                AQL Quality Standard
+                                AQL quality standard
                                 <Tooltip>
                                   <TooltipTrigger asChild>
                                     <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                                   </TooltipTrigger>
                                   <TooltipContent side="right" className="max-w-xs">
-                                    <p className="text-xs">AQL (Acceptable Quality Level) is the international standard that defines how many defective units are acceptable in a statistical sample. The inspector uses this to determine pass or fail. AQL 2.5 is the industry standard for most apparel orders.</p>
+                                    <p className="text-xs">AQL (Acceptable Quality Level) defines how many defective units are acceptable in a statistical sample. AQL 2.5 is the industry standard for most apparel.</p>
                                   </TooltipContent>
                                 </Tooltip>
                               </FormLabel>
                               <div className="grid grid-cols-3 gap-3 mt-2">
-                                {AQL_STANDARDS.map((std) => (
-                                  <button
-                                    key={std.value}
-                                    type="button"
-                                    onClick={() => field.onChange(std.value)}
-                                    className={cn(
-                                      "text-left p-3 rounded-lg border transition-all",
-                                      field.value === std.value
-                                        ? "border-primary bg-primary/5"
-                                        : "border-border bg-card hover:border-primary/40"
+                                {AQL_STANDARDS.map(std => (
+                                  <button key={std.value} type="button" onClick={() => field.onChange(std.value)}
+                                    className={cn("text-left p-3 rounded-lg border transition-all",
+                                      field.value === std.value ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/40"
                                     )}
                                   >
                                     <div className="text-sm font-semibold text-foreground mb-1">
                                       AQL {std.value}
-                                      {std.value === "2.5" && (
-                                        <span className="ml-2 text-xs text-primary font-normal">Recommended</span>
-                                      )}
+                                      {std.value === "2.5" && <span className="ml-2 text-xs text-primary font-normal">Recommended</span>}
                                     </div>
                                     <p className="text-xs text-muted-foreground leading-relaxed">{std.guidance}</p>
                                   </button>
@@ -1347,53 +1373,54 @@ export default function CreateOrder() {
                         />
                       </TooltipProvider>
 
-                      {/* Sample deadline */}
-                      <FormField
-                        control={form.control}
-                        name="sample_date"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col">
-                            <FormLabel>Target sample date <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
-                            <Popover>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button variant="outline" className={cn("w-full pl-3 text-left font-normal", !field.value && "text-muted-foreground")}>
-                                    {field.value ? format(field.value, "PPP") : <span>When do you need the first sample approved?</span>}
-                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-auto p-0" align="start">
-                                <Calendar mode="single" selected={field.value} onSelect={field.onChange} disabled={(date) => date < new Date()} initialFocus />
-                              </PopoverContent>
-                            </Popover>
-                            <p className="text-xs text-muted-foreground">The date by which a sample must be approved to hit your delivery window. Helps the factory plan their internal schedule.</p>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                      {/* Sample requirements */}
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="sample_date"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col">
+                              <FormLabel>Target sample date <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <Popover>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button variant="outline" className={cn("w-full pl-3 text-left font-normal", !field.value && "text-muted-foreground")}>
+                                      {field.value ? format(new Date(field.value), "PPP") : <span>Pick a date</span>}
+                                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0" align="start">
+                                  <Calendar mode="single" selected={field.value ? new Date(field.value) : undefined}
+                                    onSelect={d => field.onChange(d?.toISOString())}
+                                    disabled={date => date < new Date()} initialFocus />
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="sample_quantity"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Samples required <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormControl>
+                                <Input type="number" min={1} max={20} placeholder="e.g. 3"
+                                  {...field}
+                                  value={field.value || ""}
+                                  onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
+                                />
+                              </FormControl>
+                              <p className="text-xs text-muted-foreground">How many samples before you'll approve bulk.</p>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
 
-                      {/* Packaging requirements */}
-                      <FormField
-                        control={form.control}
-                        name="packaging_notes"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Packaging requirements <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
-                            <FormControl>
-                              <Textarea
-                                placeholder={"Individual polybag, folded — 12 units per inner carton, 60 per master carton\nOr: Hanger, individual garment bags — confirm carton quantities with factory"}
-                                className="min-h-[80px] text-sm"
-                                {...field}
-                              />
-                            </FormControl>
-                            <p className="text-xs text-muted-foreground">How goods should be packed for shipping. Missing packaging specs are a common cause of production holds.</p>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      {/* Label requirements */}
+                      {/* Label & compliance */}
                       <FormField
                         control={form.control}
                         name="label_requirements"
@@ -1402,30 +1429,66 @@ export default function CreateOrder() {
                             <FormLabel>Label &amp; compliance requirements <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
                             <FormControl>
                               <Textarea
-                                placeholder={"Woven main label + woven size label — brand will supply\nCare label: machine wash cold, hang dry — factory to produce\nHang tag: brand will supply\nCountry of origin label required for US customs"}
-                                className="min-h-[80px] text-sm"
+                                placeholder={"Care labels: e.g. required in English + French for Canada\nCountry of origin: e.g. Made in Vietnam\nCompliance: e.g. CPSC for US, REACH for EU\nCertifications: e.g. GOTS, OEKO-TEX, BSCI"}
+                                className="min-h-[100px] text-sm"
                                 {...field}
                               />
                             </FormControl>
-                            <p className="text-xs text-muted-foreground">Label specs, country of origin, certifications, compliance standards. Missing label specs frequently delay customs clearance.</p>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
 
-                    </div>
-                  )}
+                      {/* Packaging */}
+                      <FormField
+                        control={form.control}
+                        name="packaging_notes"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Packaging requirements <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder={"Folding: e.g. flat fold, rolled\nPolybag: e.g. individual polybag, size sticker\nHangtag: e.g. attach hangtag with loop pin\nCarton: e.g. 12 units per carton, double-wall"}
+                                className="min-h-[100px] text-sm"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                  {/* Step 4: Review */}
-                  {currentStep === 5 && (
-                    <div className="space-y-6">
-                      <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">
-                          Review &amp; Submit
-                        </h2>
-                        <p className="text-muted-foreground text-sm">
-                          Review your order details, then add a message to your factory if needed.
-                        </p>
+                      {/* Divider */}
+                      <div className="border-t border-border pt-4">
+                        <p className="text-sm font-semibold text-foreground mb-4">Order summary</p>
+                        <div className="space-y-3">
+                          <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                            <p className="text-lg font-bold text-foreground">{watchedValues.product_name || "Unnamed order"}</p>
+                            <p className="text-xs text-muted-foreground capitalize mt-0.5">
+                              {selectedFactory?.name}{watchedValues.product_category ? ` · ${watchedValues.product_category.replace(/_/g, " ")}` : ""}
+                            </p>
+                          </div>
+                          <div className="grid grid-cols-2 gap-3 text-sm">
+                            <div className="p-3 bg-secondary/50 rounded-lg">
+                              <p className="text-xs text-muted-foreground mb-0.5">Quantity</p>
+                              <p className="font-semibold text-foreground">{(watchedValues.quantity || 0).toLocaleString()} units</p>
+                            </div>
+                            <div className="p-3 bg-secondary/50 rounded-lg">
+                              <p className="text-xs text-muted-foreground mb-0.5">Order value</p>
+                              <p className="font-semibold text-foreground">
+                                {getCurrencySymbol(watchedValues.currency)}{totalAmount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                              </p>
+                            </div>
+                            <div className="p-3 bg-secondary/50 rounded-lg">
+                              <p className="text-xs text-muted-foreground mb-0.5">Incoterms</p>
+                              <p className="font-semibold text-foreground">{watchedValues.incoterms || "—"}</p>
+                            </div>
+                            <div className="p-3 bg-secondary/50 rounded-lg">
+                              <p className="text-xs text-muted-foreground mb-0.5">Deliver by</p>
+                              <p className="font-semibold text-foreground">{watchedValues.delivery_window_end ? format(watchedValues.delivery_window_end, "MMM d, yyyy") : "—"}</p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Message to factory */}
@@ -1437,146 +1500,34 @@ export default function CreateOrder() {
                             <FormLabel>Message to factory <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
                             <FormControl>
                               <Textarea
-                                placeholder="Any context or instructions to accompany this PO — construction notes, colour confirmations, scheduling requests, or questions before they accept."
+                                placeholder="Any context or instructions to accompany this PO — construction confirmations, scheduling requests, or questions before they accept."
                                 className="min-h-[80px] text-sm"
                                 {...field}
                               />
                             </FormControl>
-                            <p className="text-xs text-muted-foreground">This message is included with the PO and visible to your factory when they review it.</p>
+                            <p className="text-xs text-muted-foreground">Included with the PO. Visible to your factory when they review it.</p>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
 
-                      <div className="space-y-4">
-                        {/* Order name */}
-                        <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
-                          <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Order</p>
-                          <p className="text-lg font-semibold text-foreground">{watchedValues.product_name}</p>
-                          <p className="text-xs text-muted-foreground mt-0.5 capitalize">{watchedValues.product_category?.replace("_", " ")}</p>
-                        </div>
-
-                        {/* Factory */}
-                        <div className="p-4 bg-secondary/50 rounded-lg">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Building2 className="h-4 w-4 text-primary" />
-                            <h4 className="font-medium text-foreground">Factory</h4>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <p className="text-foreground">
-                              {selectedFactory?.name || "Not selected"}
-                            </p>
-                            {selectedFactory?.is_byof && (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
-                                Your Factory
-                              </span>
-                            )}
-                          </div>
-                          {selectedFactory && (
-                            <p className="text-sm text-muted-foreground">
-                              {selectedFactory.city}, {selectedFactory.country}
-                            </p>
-                          )}
-                        </div>
-
-                        {/* Product */}
-                        <div className="p-4 bg-secondary/50 rounded-lg">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Package className="h-4 w-4 text-primary" />
-                            <h4 className="font-medium text-foreground">Product Details</h4>
-                          </div>
-                          <div className="grid grid-cols-2 gap-4 text-sm">
-                            <div>
-                              <span className="text-muted-foreground">Quantity:</span>
-                              <span className="ml-2 text-foreground">{watchedValues.quantity.toLocaleString()} units</span>
+                      {/* What happens next */}
+                      <div className="p-4 rounded-xl bg-primary/5 border border-primary/20">
+                        <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">What happens next</p>
+                        <div className="space-y-2">
+                          {[
+                            { n: "1", t: "Order saved as draft — you land on the order page to review everything" },
+                            { n: "2", t: "Issue the PO when ready — sends it to your factory for formal acceptance" },
+                            { n: "3", t: "Factory accepts and you release the deposit milestone" },
+                            { n: "4", t: "Sampling, revisions, QC, and final payment all follow this same record" },
+                          ].map(s => (
+                            <div key={s.n} className="flex items-start gap-2.5">
+                              <span className="w-5 h-5 rounded-full bg-primary/15 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{s.n}</span>
+                              <span className="text-xs text-muted-foreground leading-relaxed">{s.t}</span>
                             </div>
-                            <div>
-                              <span className="text-muted-foreground">Unit Price:</span>
-                              <span className="ml-2 text-foreground">
-                                {watchedValues.currency === "EUR" ? "€" : 
-                                 watchedValues.currency === "GBP" ? "£" : 
-                                 watchedValues.currency === "CNY" ? "¥" : "$"}
-                                {watchedValues.unit_price.toFixed(2)}
-                              </span>
-                            </div>
-                          </div>
-                          {watchedValues.specifications && (
-                            <p className="text-sm text-muted-foreground mt-2">
-                              {watchedValues.specifications}
-                            </p>
-                          )}
+                          ))}
                         </div>
-
-                        {/* Pricing with Platform Fee */}
-                        <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
-                          <div className="flex items-center gap-2 mb-2">
-                            <DollarSign className="h-4 w-4 text-primary" />
-                            <h4 className="font-medium text-foreground">Order Summary</h4>
-                          </div>
-                          
-                          <div className="space-y-2 mb-3">
-                            <div className="flex items-center justify-between">
-                              <span className="text-sm text-muted-foreground">Order Value</span>
-                              <span className="font-medium text-foreground">
-                                {watchedValues.currency === "EUR" ? "€" : 
-                                 watchedValues.currency === "GBP" ? "£" : 
-                                 watchedValues.currency === "CNY" ? "¥" : "$"}
-                                {totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                              </span>
-                            </div>
-                            
-                            <div className="pt-2 border-t border-primary/20 flex items-center justify-between">
-                              <span className="text-sm font-medium text-foreground">Total</span>
-                              <span className="text-xl font-bold text-foreground">
-                                {watchedValues.currency === "EUR" ? "€" : 
-                                 watchedValues.currency === "GBP" ? "£" : 
-                                 watchedValues.currency === "CNY" ? "¥" : "$"}
-                                {totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                              </span>
-                            </div>
-                          </div>
-                          
-                          <div className="text-sm text-muted-foreground mt-3 pt-3 border-t border-primary/20 space-y-1">
-                            {watchedValues.incoterms && (
-                              <p>Incoterms: {watchedValues.incoterms}</p>
-                            )}
-                            {watchedValues.delivery_window_start && watchedValues.delivery_window_end && (
-                              <p>
-                                Delivery: {format(watchedValues.delivery_window_start, "MMM d, yyyy")} - {format(watchedValues.delivery_window_end, "MMM d, yyyy")}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* QC Option */}
-                        <div className="p-4 bg-secondary/50 rounded-lg">
-                          <div className="flex items-center gap-2 mb-3">
-                            <Shield className="h-4 w-4 text-primary" />
-                            <h4 className="font-medium text-foreground">Quality Control</h4>
-                          </div>
-                          <QCOptionBadge option={watchedValues.qc_option} />
-                        </div>
-
-                        {/* Info Box */}
-                        <div className="flex items-start gap-2 p-3 rounded-lg bg-muted/50 border border-border">
-                          <Info className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
-                          <div className="p-4 rounded-xl bg-primary/5 border border-primary/20">
-                          <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">What happens next</p>
-                          <div className="space-y-2.5">
-                            {[
-                              { num: "1", text: "Order saved as draft — you'll land on the order page to review everything" },
-                              { num: "2", text: "Issue the PO when you're ready — sends it to your factory for formal acceptance" },
-                              { num: "3", text: "Factory accepts and you release the deposit milestone to confirm" },
-                              { num: "4", text: "Sampling, revisions, QC, and final payment all follow this same order record" },
-                            ].map((step, i) => (
-                              <div key={i} className="flex items-start gap-2.5">
-                                <span className="w-5 h-5 rounded-full bg-primary/15 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{step.num}</span>
-                                <span className="text-xs text-muted-foreground leading-relaxed">{step.text}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                        </div>            </div>
+                      </div>
                     </div>
                   )}
 
