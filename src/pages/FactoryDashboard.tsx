@@ -45,6 +45,7 @@ interface FactoryOrder {
   currency: string;
   created_at: string;
   buyer_id: string;
+  delivery_window_end: string | null;
 }
 
 interface RealInquiry {

@@ -19,6 +19,8 @@ export interface OrderWithDetails {
   total_amount: number | null;
   currency: string;
   created_at: string;
+  specifications: Record<string, unknown> | null;
+  delivery_window_end: string | null;
   factories: {
     id: string;
     name: string;
@@ -39,7 +41,7 @@ export function useOrders() {
         .from('orders')
         .select(`
           id, order_number, status, quantity, unit_price,
-          total_amount, currency, created_at,
+          total_amount, currency, created_at, specifications, delivery_window_end,
           factories (id, name, slug),
           order_milestones (id, label, status, percentage, sequence_order)
         `)

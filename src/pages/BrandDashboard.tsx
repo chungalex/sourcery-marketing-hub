@@ -15,7 +15,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import {
   Building2, MessageSquare, Settings, Search,
-  Clock, CheckCircle, XCircle, ArrowRight, Package,
+  Clock, CheckCircle, XCircle, ArrowRight, Package, Send,
   RefreshCw, Loader2, UserPlus, AlertCircle, ChevronRight,
   Calendar, FileText, BarChart3, Wrench, User, Sparkles
 } from "lucide-react";
