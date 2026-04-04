@@ -59,6 +59,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { fetchFactories } from "@/lib/factories";
+import { useOrders } from "@/hooks/useOrders";
 import type { Factory } from "@/types/database";
 
 const INCOTERMS = [
@@ -140,6 +141,7 @@ const orderSchema = z.object({
   bom_url: z.string().url().optional().or(z.literal("")),
   qc_option: z.enum(["sourcery", "byoqc", "factory"]),
   aql_standard: z.enum(["1.0", "2.5", "4.0"]).default("2.5"),
+  po_message: z.string().optional(),
 }).refine((data) => {
   if (data.delivery_window_start && data.delivery_window_end) {
     return data.delivery_window_end >= data.delivery_window_start;
@@ -163,12 +165,14 @@ export default function CreateOrder() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { user, isLoading: authLoading } = useAuth();
+  const { orders } = useOrders();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [factories, setFactories] = useState<Factory[]>([]);
   const [loadingFactories, setLoadingFactories] = useState(true);
 
   const preselectedFactoryId = searchParams.get("factory");
+  const [prefillDismissed, setPrefillDismissed] = useState(false);
   const guidanceMode = getGuidanceMode(user?.user_metadata || {});
   const userCategory = user?.user_metadata?.primary_category || "";
   const [milestones, setMilestones] = useState<Milestone[]>([
@@ -191,6 +195,7 @@ export default function CreateOrder() {
       bom_url: "",
       qc_option: "byoqc",
       aql_standard: "2.5",
+      po_message: "",
     },
   });
 
@@ -210,6 +215,8 @@ export default function CreateOrder() {
     }
   }, [user, authLoading, navigate]);
 
+  const duplicateOrderId = searchParams.get("duplicate");
+
   // Load factories
   useEffect(() => {
     async function loadFactories() {
@@ -227,6 +234,29 @@ export default function CreateOrder() {
       loadFactories();
     }
   }, [user]);
+
+  // Prefill from duplicate order
+  useEffect(() => {
+    if (!duplicateOrderId || !user) return;
+    supabase
+      .from("orders")
+      .select("*, factories(id, name)")
+      .eq("id", duplicateOrderId)
+      .single()
+      .then(({ data }: any) => {
+        if (!data) return;
+        const specs = data.specifications as any;
+        if (specs?.product_name) form.setValue("product_name", specs.product_name + " (copy)");
+        if (specs?.product_category) form.setValue("product_category", specs.product_category);
+        if (data.factory_id) form.setValue("factory_id", data.factory_id);
+        if (data.unit_price) form.setValue("unit_price", data.unit_price);
+        if (data.currency) form.setValue("currency", data.currency);
+        if (data.incoterms) form.setValue("incoterms", data.incoterms);
+        if (data.quantity) form.setValue("quantity", data.quantity);
+        if (specs?.notes) form.setValue("specifications", specs.notes);
+        toast.success("Order details prefilled from previous order — update as needed.");
+      });
+  }, [duplicateOrderId, user]);
 
   const canProceed = (step: number): boolean => {
     switch (step) {
@@ -283,6 +313,7 @@ export default function CreateOrder() {
           specifications: { product_name: values.product_name, product_category: values.product_category, notes: values.specifications || "" },
           tech_pack_url: values.tech_pack_url || null,
           bom_url: values.bom_url || null,
+          po_message: values.po_message || null,
           qc_option: values.qc_option,
           qc_standard: {
             aql: values.aql_standard,
@@ -471,6 +502,37 @@ export default function CreateOrder() {
                           <FormItem>
                             <FormLabel>Factory</FormLabel>
                             {/* BYOF invite prompt — shown when brand has no own factories yet */}
+                            {/* Smart prefill from previous orders */}
+                            {!prefillDismissed && watchedValues.factory_id && (() => {
+                              const lastOrder = orders
+                                .filter(o => o.factories?.id === watchedValues.factory_id && ["closed", "shipped"].includes(o.status))
+                                .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0];
+                              if (!lastOrder) return null;
+                              const specs = lastOrder as any;
+                              return (
+                                <div className="mb-3 p-3 rounded-lg bg-primary/5 border border-primary/20 flex items-start justify-between gap-3">
+                                  <div className="flex-1 min-w-0">
+                                    <p className="text-xs font-semibold text-primary mb-0.5">Prefill from last order</p>
+                                    <p className="text-xs text-muted-foreground leading-relaxed">
+                                      Your last completed order with {lastOrder.factories?.name} was {lastOrder.currency} {lastOrder.unit_price}/unit, {lastOrder.quantity.toLocaleString()} units.
+                                    </p>
+                                    <button
+                                      type="button"
+                                      className="text-xs text-primary hover:underline font-medium mt-1"
+                                      onClick={() => {
+                                        form.setValue("unit_price", lastOrder.unit_price);
+                                        form.setValue("currency", lastOrder.currency);
+                                        setPrefillDismissed(true);
+                                      }}
+                                    >
+                                      Apply pricing from last order →
+                                    </button>
+                                  </div>
+                                  <button type="button" onClick={() => setPrefillDismissed(true)} className="text-muted-foreground hover:text-foreground text-xs flex-shrink-0">✕</button>
+                                </div>
+                              );
+                            })()}
+
                             {!loadingFactories && byofFactories.length === 0 && (
                               <div className="flex items-start gap-3 p-3 rounded-lg border border-dashed border-border bg-muted/30 mb-3">
                                 <UserPlus className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
@@ -921,6 +983,36 @@ export default function CreateOrder() {
                         </div>
                       </div>
 
+                      {/* Delivery conflict warning */}
+                      {watchedValues.delivery_window_end && selectedFactory?.lead_time_weeks && (() => {
+                        const weeksUntilDelivery = Math.floor((new Date(watchedValues.delivery_window_end).getTime() - Date.now()) / (1000 * 60 * 60 * 24 * 7));
+                        const factoryLeadTime = selectedFactory.lead_time_weeks;
+                        if (weeksUntilDelivery < factoryLeadTime) {
+                          return (
+                            <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-400/30">
+                              <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                              <div>
+                                <p className="text-sm font-semibold text-amber-700">Timeline may not be achievable</p>
+                                <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                                  {selectedFactory.name} has a typical lead time of {factoryLeadTime} weeks, but your delivery window is {weeksUntilDelivery} weeks away. Confirm availability with your factory before issuing the PO.
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        }
+                        if (weeksUntilDelivery <= factoryLeadTime + 2) {
+                          return (
+                            <div className="flex items-start gap-3 p-4 rounded-xl bg-secondary/50 border border-border">
+                              <Info className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                              <p className="text-xs text-muted-foreground leading-relaxed">
+                                Your delivery window is tight relative to {selectedFactory.name}&apos;s {factoryLeadTime}-week lead time. Factor in 1–2 weeks buffer for sample revisions.
+                              </p>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })()}
+
                       {/* Milestone structure */}
                       <div className="border-t border-border pt-6">
                         <div className="mb-4">
@@ -1022,12 +1114,32 @@ export default function CreateOrder() {
                     <div className="space-y-6">
                       <div>
                         <h2 className="text-xl font-semibold text-foreground mb-1">
-                          Review Your Order
+                          Review &amp; Submit
                         </h2>
-                        <p className="text-muted-foreground">
-                          Please review all details before submitting.
+                        <p className="text-muted-foreground text-sm">
+                          Review your order details, then add a message to your factory if needed.
                         </p>
                       </div>
+
+                      {/* Message to factory */}
+                      <FormField
+                        control={form.control}
+                        name="po_message"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Message to factory <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder="Any context or instructions to accompany this PO — construction notes, colour confirmations, scheduling requests, or questions before they accept."
+                                className="min-h-[80px] text-sm"
+                                {...field}
+                              />
+                            </FormControl>
+                            <p className="text-xs text-muted-foreground">This message is included with the PO and visible to your factory when they review it.</p>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
                       <div className="space-y-4">
                         {/* Order name */}

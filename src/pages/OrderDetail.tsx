@@ -32,7 +32,7 @@ import { ReorderButton } from "@/components/orders/ReorderButton";
 import { ProductionAssistant } from "@/components/va/ProductionAssistant";
 import { toast } from "sonner";
 import {
-  ArrowLeft,
+  ArrowLeft, Shield,
   Loader2,
   Package,
   Building2,
@@ -302,15 +302,34 @@ export default function OrderDetail() {
       <section className="section-padding">
         <div className="container-wide">
           {/* Back */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigate("/dashboard?tab=orders")}
-            className="mb-6"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Orders
-          </Button>
+          <div className="flex items-center justify-between mb-6">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate("/dashboard?tab=orders")}
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Orders
+            </Button>
+            {["closed", "shipped"].includes(order.status) && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  const specs = order.specifications as any;
+                  const params = new URLSearchParams({
+                    factory: order.factories?.id || "",
+                    duplicate: order.id,
+                  });
+                  navigate(`/orders/create?${params.toString()}`);
+                }}
+                className="gap-2"
+              >
+                <Package className="h-3.5 w-3.5" />
+                Duplicate order
+              </Button>
+            )}
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -549,16 +568,32 @@ export default function OrderDetail() {
                             </div>
                             {m.status === "released" ? (
                               <span className="text-xs text-green-600 font-medium">Paid</span>
-                            ) : m.status === "eligible" ? (
-                              <Button
-                                size="sm"
-                                className="bg-green-600 hover:bg-green-700 text-white font-semibold"
-                                onClick={() => handlePayMilestone(m.id)}
-                                disabled={payingMilestone === m.id}
-                              >
-                                {payingMilestone === m.id ? <Loader2 className="h-3 w-3 animate-spin" /> : "Release"}
-                              </Button>
-                            ) : (
+                            ) : m.status === "eligible" ? (() => {
+                              const isBulkMilestone = m.label.toLowerCase().includes("bulk") || m.sequence_order === 2;
+                              const isFinalMilestone = m.label.toLowerCase().includes("final") || m.sequence_order === (order.order_milestones?.length || 0);
+                              const sampleNotApproved = isBulkMilestone && !["sample_approved", "in_production", "qc_scheduled", "qc_uploaded", "qc_pass", "qc_fail", "ready_to_ship", "shipped", "closed"].includes(order.status);
+                              const qcNotPassed = isFinalMilestone && !["qc_pass", "ready_to_ship", "shipped"].includes(order.status);
+                              if (sampleNotApproved || qcNotPassed) {
+                                return (
+                                  <div className="text-right">
+                                    <div className="text-xs text-muted-foreground flex items-center gap-1 justify-end">
+                                      <Shield className="h-3 w-3" />
+                                      {sampleNotApproved ? "Awaiting sample approval" : "Awaiting QC pass"}
+                                    </div>
+                                  </div>
+                                );
+                              }
+                              return (
+                                <Button
+                                  size="sm"
+                                  className="bg-green-600 hover:bg-green-700 text-white font-semibold"
+                                  onClick={() => handlePayMilestone(m.id)}
+                                  disabled={payingMilestone === m.id}
+                                >
+                                  {payingMilestone === m.id ? <Loader2 className="h-3 w-3 animate-spin" /> : "Release"}
+                                </Button>
+                              );
+                            })() : (
                               <span className="text-xs text-muted-foreground">Pending</span>
                             )}
                           </div>
