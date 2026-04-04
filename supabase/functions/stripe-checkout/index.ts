@@ -92,8 +92,8 @@ Deno.serve(async (req) => {
             currency: (order?.currency || "usd").toLowerCase(),
             product_data: {
               name: `${milestone.label} — Order ${order?.order_number || order_id.slice(0, 8)}`,
-              description: order?.factories?.name
-                ? `Payment to ${order.factories.name}`
+              description: (order?.factories as any)?.name
+                ? `Payment to ${(order.factories as any).name}`
                 : "Sourcery platform payment",
             },
             unit_amount: Math.round(milestone.amount * 100), // Stripe uses cents
