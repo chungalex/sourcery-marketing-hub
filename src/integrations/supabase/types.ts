@@ -517,7 +517,9 @@ export type Database = {
           content: string
           created_at: string | null
           id: string
+          inquiry_id: string | null
           order_id: string | null
+          rfq_id: string | null
           sender_id: string | null
           sender_role: string
         }
@@ -525,7 +527,9 @@ export type Database = {
           content: string
           created_at?: string | null
           id?: string
+          inquiry_id?: string | null
           order_id?: string | null
+          rfq_id?: string | null
           sender_id?: string | null
           sender_role: string
         }
@@ -533,16 +537,32 @@ export type Database = {
           content?: string
           created_at?: string | null
           id?: string
+          inquiry_id?: string | null
           order_id?: string | null
+          rfq_id?: string | null
           sender_id?: string | null
           sender_role?: string
         }
         Relationships: [
           {
+            foreignKeyName: "messages_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "inquiries"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "messages_order_id_fkey"
             columns: ["order_id"]
             isOneToOne: false
             referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_rfq_id_fkey"
+            columns: ["rfq_id"]
+            isOneToOne: false
+            referencedRelation: "rfqs"
             referencedColumns: ["id"]
           },
         ]
