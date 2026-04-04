@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
@@ -182,8 +182,8 @@ export default function CreateOrder() {
       product_name: "",
       product_category: "",
       factory_id: preselectedFactoryId || "",
-      quantity: 0,
-      unit_price: 0,
+      quantity: '' as unknown as number,
+      unit_price: '' as unknown as number,
       currency: "USD",
       incoterms: "FOB",
       specifications: "",
@@ -437,26 +437,27 @@ export default function CreateOrder() {
                             <FormLabel>Product category</FormLabel>
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                               {[
-                                { value: "apparel_casual", label: "Casual apparel" },
-                                { value: "denim", label: "Denim" },
-                                { value: "outerwear", label: "Outerwear" },
-                                { value: "knitwear", label: "Knitwear" },
-                                { value: "footwear", label: "Footwear" },
-                                { value: "accessories", label: "Accessories & bags" },
-                                { value: "home", label: "Home goods" },
-                                { value: "other", label: "Other" },
+                                { value: "apparel_casual", label: "Casual apparel", emoji: "👕" },
+                                { value: "denim", label: "Denim", emoji: "👖" },
+                                { value: "outerwear", label: "Outerwear", emoji: "🧥" },
+                                { value: "knitwear", label: "Knitwear", emoji: "🧶" },
+                                { value: "footwear", label: "Footwear", emoji: "👟" },
+                                { value: "accessories", label: "Accessories & bags", emoji: "👜" },
+                                { value: "home", label: "Home goods", emoji: "🏠" },
+                                { value: "other", label: "Other", emoji: "📦" },
                               ].map((cat) => (
                                 <button
                                   key={cat.value}
                                   type="button"
                                   onClick={() => field.onChange(cat.value)}
                                   className={cn(
-                                    "text-left px-3 py-2 rounded-lg border text-xs font-medium transition-all",
+                                    "text-left px-3 py-2.5 rounded-lg border text-xs font-medium transition-all flex items-center gap-2",
                                     field.value === cat.value
                                       ? "border-primary bg-primary/5 text-foreground"
                                       : "border-border bg-card text-muted-foreground hover:border-primary/40"
                                   )}
                                 >
+                                  <span>{cat.emoji}</span>
                                   {cat.label}
                                 </button>
                               ))}
@@ -555,6 +556,24 @@ export default function CreateOrder() {
                                 )}
                               </SelectContent>
                             </Select>
+                            {selectedFactory && (
+                              <div className="mt-2 p-3 rounded-lg bg-primary/5 border border-primary/20 flex items-start gap-3">
+                                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                  <Building2 className="h-4 w-4 text-primary" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-sm font-semibold text-foreground">{selectedFactory.name}</p>
+                                  <p className="text-xs text-muted-foreground mt-0.5">
+                                    {selectedFactory.city ? `${selectedFactory.city}, ` : ""}{selectedFactory.country}
+                                    {selectedFactory.moq_min ? ` · MOQ ${selectedFactory.moq_min.toLocaleString()} units` : ""}
+                                    {selectedFactory.lead_time_weeks ? ` · ${selectedFactory.lead_time_weeks} week lead time` : ""}
+                                  </p>
+                                  {selectedFactory.is_byof && (
+                                    <span className="inline-block text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 mt-1 font-medium">Your factory</span>
+                                  )}
+                                </div>
+                              </div>
+                            )}
                             <FormMessage />
                           </FormItem>
                         )}
@@ -590,8 +609,8 @@ export default function CreateOrder() {
                             <FormLabel>Product Specifications (Optional)</FormLabel>
                             <FormControl>
                               <Textarea 
-                                placeholder="Fabric composition, colorways, sizing range, construction details, any special finishes or requirements. The more specific, the fewer revision rounds."
-                                className="min-h-[100px]"
+                                placeholder={"Fabric: e.g. 12oz selvedge denim, 98% cotton 2% elastane\nColorways: e.g. indigo wash, stone wash\nSizing: e.g. XS–XL, women's fit\nConstruction: e.g. 5-pocket, chain stitch hem\nFinishes: e.g. garment washed, enzyme treated\n\nThe more specific, the fewer revision rounds."}
+                                className="min-h-[140px] text-sm font-mono"
                                 {...field}
                               />
                             </FormControl>
@@ -624,11 +643,11 @@ export default function CreateOrder() {
                           name="bom_url"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>BOM URL (Optional)</FormLabel>
+                              <FormLabel>Bill of Materials <span className="text-xs font-normal text-muted-foreground">(Optional)</span></FormLabel>
                               <FormControl>
                                 <Input 
                                   type="url" 
-                                  placeholder="Link to your tech pack — Google Drive, Dropbox, or any shared URL" 
+                                  placeholder="Link to your BOM — lists every material, trim, and component" 
                                   {...field}
                                 />
                               </FormControl>
@@ -742,29 +761,42 @@ export default function CreateOrder() {
                                   </TooltipContent>
                                 </Tooltip>
                               </FormLabel>
-                              <div className="space-y-2">
-                                {INCOTERMS.map((term) => (
-                                  <button
-                                    key={term.value}
-                                    type="button"
-                                    onClick={() => field.onChange(term.value)}
-                                    className={cn(
-                                      "w-full text-left p-3 rounded-lg border transition-all",
-                                      field.value === term.value
-                                        ? "border-primary bg-primary/5"
-                                        : "border-border bg-card hover:border-primary/40"
+                              {(() => {
+                                const selected = INCOTERMS.find(t => t.value === field.value);
+                                const [expanded, setExpanded] = React.useState(false);
+                                return (
+                                  <div className="space-y-2">
+                                    {selected && !expanded && (
+                                      <div className="p-3 rounded-lg border border-primary bg-primary/5 flex items-start justify-between gap-3">
+                                        <div className="flex-1">
+                                          <p className="text-sm font-semibold text-foreground">{selected.label}</p>
+                                          <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{selected.guidance}</p>
+                                        </div>
+                                        <button type="button" onClick={() => setExpanded(true)} className="text-xs text-primary hover:underline flex-shrink-0 font-medium">Change</button>
+                                      </div>
                                     )}
-                                  >
-                                    <div className="flex items-center justify-between mb-1">
-                                      <span className="text-sm font-medium text-foreground">{term.label}</span>
-                                      {field.value === term.value && (
-                                        <span className="text-xs text-primary font-medium">Selected</span>
-                                      )}
-                                    </div>
-                                    <p className="text-xs text-muted-foreground leading-relaxed">{term.guidance}</p>
-                                  </button>
-                                ))}
-                              </div>
+                                    {(!selected || expanded) && INCOTERMS.map((term) => (
+                                      <button
+                                        key={term.value}
+                                        type="button"
+                                        onClick={() => { field.onChange(term.value); setExpanded(false); }}
+                                        className={cn(
+                                          "w-full text-left p-3 rounded-lg border transition-all",
+                                          field.value === term.value
+                                            ? "border-primary bg-primary/5"
+                                            : "border-border bg-card hover:border-primary/40"
+                                        )}
+                                      >
+                                        <div className="flex items-center justify-between mb-1">
+                                          <span className="text-sm font-medium text-foreground">{term.label}</span>
+                                          {field.value === term.value && <span className="text-xs text-primary font-medium">Selected</span>}
+                                        </div>
+                                        <p className="text-xs text-muted-foreground leading-relaxed">{term.guidance}</p>
+                                      </button>
+                                    ))}
+                                  </div>
+                                );
+                              })()}
                               <FormMessage />
                             </FormItem>
                           )}
@@ -1145,14 +1177,27 @@ export default function CreateOrder() {
                     </Button>
 
                     {currentStep < 4 ? (
-                      <Button
-                        type="button"
-                        onClick={nextStep}
-                        disabled={!canProceed(currentStep)}
-                      >
-                        Continue
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
+                      <div className="flex flex-col items-end gap-1">
+                        {!canProceed(currentStep) && currentStep === 1 && (
+                          <p className="text-xs text-muted-foreground">
+                            {!watchedValues.product_name?.trim() ? "Enter an order name to continue" :
+                             !watchedValues.product_category ? "Select a product category" :
+                             !watchedValues.factory_id ? "Select a factory" :
+                             !(watchedValues.quantity > 0) ? "Enter a quantity" : ""}
+                          </p>
+                        )}
+                        {!canProceed(currentStep) && currentStep === 2 && (
+                          <p className="text-xs text-muted-foreground">Enter a unit price to continue</p>
+                        )}
+                        <Button
+                          type="button"
+                          onClick={nextStep}
+                          disabled={!canProceed(currentStep)}
+                        >
+                          Continue
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </div>
                     ) : (
                       <Button 
                         type="submit" 
