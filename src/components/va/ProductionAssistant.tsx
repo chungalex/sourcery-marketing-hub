@@ -26,6 +26,7 @@ interface OrderContext {
 interface ProductionAssistantProps {
   mode: "order" | "dashboard" | "demo";
   orderContext?: OrderContext;
+  initialQuery?: string;
   className?: string;
 }
 
@@ -92,7 +93,7 @@ async function getOrderThread(orderId: string): Promise<string> {
   } catch { return ""; }
 }
 
-export function ProductionAssistant({ mode, orderContext, className }: ProductionAssistantProps) {
+export function ProductionAssistant({ mode, orderContext, initialQuery, className }: ProductionAssistantProps) {
   const [open, setOpen] = useState(false);
   const [minimized, setMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -143,6 +144,15 @@ export function ProductionAssistant({ mode, orderContext, className }: Productio
     }
     setLoading(false);
   };
+
+
+  // Auto-send initial query from URL param (after sendMessage is defined)
+  useEffect(() => {
+    if (initialQuery && !autoSent && sendMessage) {
+      setAutoSent(true);
+      setTimeout(() => sendMessage(initialQuery), 600);
+    }
+  }, [initialQuery, sendMessage]);
 
   const greeting = mode === "order"
     ? `Ask me anything about ${orderContext?.orderNumber || "this order"} — risk, timing, next steps, or draft a message to ${orderContext?.factoryName || "the factory"}.`

@@ -143,7 +143,7 @@ export default function FactoryDashboard() {
       const activeStatuses = ["po_issued","po_accepted","in_production","qc_scheduled","qc_uploaded","qc_pass","qc_fail","ready_to_ship","shipped"] as const;
       const { data, error } = await supabase
         .from("orders")
-        .select("id, order_number, status, quantity, unit_price, currency, created_at, buyer_id")
+        .select("id, order_number, status, quantity, unit_price, currency, created_at, buyer_id, specifications, delivery_window_end, incoterms")
         .eq("factory_id", factoryId)
         .in("status", [...activeStatuses])
         .order("created_at", { ascending: false });

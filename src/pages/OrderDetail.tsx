@@ -122,7 +122,9 @@ export default function OrderDetail() {
       .from("orders")
       .select(`
         id, order_number, status, quantity, unit_price,
-        total_amount, currency, created_at, specifications,
+        total_amount, currency, created_at, updated_at,
+        delivery_window_start, delivery_window_end, incoterms,
+        tech_pack_url, bom_url, specifications,
         factories (id, name, slug),
         order_milestones (id, label, percentage, amount, status, sequence_order, release_condition)
       `)

@@ -657,98 +657,134 @@ export default function BrandDashboard() {
             
 
             {/* Tools */}
-            <TabsContent value="tools">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="mb-5 p-4 rounded-xl bg-card border border-border">
-                  <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Resources</p>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    {[
-                      {
-                        icon: Search,
-                        title: "Factory network",
-                        desc: "Browse and compare verified factories. Filter by category, MOQ, country, and certifications.",
-                        link: "/directory",
-                        cta: "Browse factories",
-                        live: true,
-                      },
-                      {
-                        icon: MessageSquare,
-                        title: "Notifications",
-                        desc: "Full notification history — every order event, timestamped and organised.",
-                        link: "/notifications",
-                        cta: "View all",
-                        live: true,
-                      },
-                      {
-                        icon: BarChart3,
-                        title: "Resources",
-                        desc: "AQL standards, incoterms, supplier evaluation, import guides — written for physical product brands.",
-                        link: "/resources",
-                        cta: "Browse guides",
-                        live: true,
-                      },
-                      {
-                        icon: Sparkles,
-                        title: "Production assistant",
-                        desc: "AI with full order context — risk, timing, factory communication, defect leverage.",
-                        link: "/assistant",
-                        cta: "Open assistant",
-                        live: true,
-                      },
-                    ].map((tool) => (
-                      <a key={tool.title} href={tool.link} className="group flex items-start gap-3 p-4 bg-secondary/30 border border-border rounded-xl hover:border-primary/40 transition-colors">
-                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <tool.icon className="h-4 w-4 text-primary" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{tool.title}</p>
-                          <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{tool.desc}</p>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                </div>
+            <TabsContent value="tools" className="space-y-6">
 
-                <div className="p-4 rounded-xl bg-secondary/30 border border-dashed border-border">
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Coming soon</p>
-                  <div className="space-y-2">
-                    {[
-                      { icon: Calendar, title: "Production calendar", desc: "Visual timeline of all active orders by delivery window." },
-                      { icon: FileText, title: "Spec library", desc: "Save and reuse product specs across orders." },
-                      { icon: Wrench, title: "AI toolkit", desc: "Factory matcher, tech pack reviewer, RFQ generator." },
-                    ].map((tool) => (
-                      <div key={tool.title} className="flex items-center gap-3 p-3 rounded-lg opacity-50">
-                        <div className="w-7 h-7 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
-                          <tool.icon className="h-3.5 w-3.5 text-muted-foreground" />
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-foreground">{tool.title}</p>
-                          <p className="text-xs text-muted-foreground">{tool.desc}</p>
-                        </div>
-                      </div>
-                    ))}
+              {/* AI Production Hub */}
+              <div className="rounded-xl border border-border bg-card overflow-hidden">
+                <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">Production assistant</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Ask anything about your orders, factories, incoterms, QC, or freight</p>
                   </div>
+                  <Sparkles className="h-4 w-4 text-primary" />
                 </div>
-
-                {[].map((tool: any) => (
-                  <Link key={tool.title} to={tool.link} className="block group">
-                    <div className="p-5 bg-card border border-border rounded-xl hover:border-primary/40 transition-colors h-full">
-                      <div className="flex items-start gap-3 mb-3">
-                        <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <tool.icon className="h-4 w-4 text-primary" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{tool.title}</p>
-                          <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{tool.desc}</p>
-                        </div>
-                      </div>
-                      <p className="text-xs text-primary font-medium flex items-center gap-1">
-                        {tool.cta} <ArrowRight className="h-3 w-3" />
-                      </p>
-                    </div>
+                <div className="p-4 space-y-2">
+                  {[
+                    { label: "Help me write a tech pack", prompt: "I need help creating a tech pack for my garment. What should I include and how should I structure it?" },
+                    { label: "Analyse my tech pack", prompt: "I have a tech pack — can you help me check if it has everything a factory needs? What am I likely missing?" },
+                    { label: "What's my biggest production risk right now?", prompt: "Based on my active orders, what are the biggest risks I should be managing?" },
+                    { label: "Explain incoterms for Vietnam sourcing", prompt: "Which incoterms should I use when sourcing from Vietnam? What are the pros and cons of FOB vs DDP for a small brand?" },
+                    { label: "How do I structure payment milestones?", prompt: "How should I structure payment milestones for a first order with a new factory?" },
+                    { label: "Draft a message to my factory", prompt: "Help me draft a professional message to my factory about a production delay." },
+                  ].map(({ label, prompt }) => (
+                    <a key={label} href={`/assistant?q=${encodeURIComponent(prompt)}`}
+                      className="flex items-center gap-3 p-3 rounded-lg border border-border bg-secondary/30 hover:border-primary/40 hover:bg-primary/5 transition-all group text-left w-full">
+                      <ArrowRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+                      <span className="text-sm text-foreground">{label}</span>
+                    </a>
+                  ))}
+                  <Link to="/assistant" className="flex items-center justify-center gap-2 mt-2 p-2.5 rounded-lg border border-dashed border-border text-xs text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors">
+                    <Sparkles className="h-3.5 w-3.5" />Open full assistant
                   </Link>
+                </div>
+              </div>
+
+              {/* Tech pack tools */}
+              <div className="rounded-xl border border-border bg-card overflow-hidden">
+                <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">Tech pack tools</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Create, check, and upload your tech packs</p>
+                  </div>
+                  <FileText className="h-4 w-4 text-primary" />
+                </div>
+                <div className="divide-y divide-border">
+                  {[
+                    {
+                      title: "What goes in a tech pack",
+                      desc: "The complete checklist — technical drawings, measurement chart, fabric spec, trims, labels. What factories actually need.",
+                      href: "/resources/tech-pack-guide",
+                      tag: "Guide",
+                    },
+                    {
+                      title: "Tech pack template",
+                      desc: "A structured template you can fill in and send directly to your factory. Works for any garment category.",
+                      href: "/resources/tech-pack-guide",
+                      tag: "Template",
+                    },
+                    {
+                      title: "Analyse my tech pack with AI",
+                      desc: "Paste your tech pack link and the assistant will flag what's missing and what might cause revision rounds.",
+                      href: `/assistant?q=${encodeURIComponent("Can you help me review my tech pack? Here's the link: ")}`,
+                      tag: "AI",
+                    },
+                  ].map(item => (
+                    <a key={item.title} href={item.href}
+                      className="flex items-start gap-4 p-4 hover:bg-secondary/30 transition-colors group">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{item.title}</p>
+                          <span className="text-xs px-1.5 py-0.5 rounded-full bg-secondary border border-border text-muted-foreground">{item.tag}</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 mt-0.5" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Key resources */}
+              <div className="rounded-xl border border-border bg-card overflow-hidden">
+                <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">Production guides</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Essential reading for physical product brands</p>
+                  </div>
+                  <BookOpen className="h-4 w-4 text-primary" />
+                </div>
+                <div className="divide-y divide-border">
+                  {[
+                    { title: "Incoterms explained", desc: "EXW, FOB, CIF, DDP — which to use and what each means for your risk and cost.", href: "/resources" },
+                    { title: "AQL quality standards", desc: "What AQL 1.0, 2.5, and 4.0 mean, when to use each, and how inspections work.", href: "/resources" },
+                    { title: "Lead time stacking", desc: "Why brands underestimate production by 6 weeks — and how to plan backwards from delivery.", href: "/resources" },
+                    { title: "How milestone payments work", desc: "Structuring deposits and final payments to protect yourself without damaging factory trust.", href: "/resources" },
+                    { title: "Building a bill of materials", desc: "A BOM that actually works — every material, trim, and component your factory needs.", href: "/resources" },
+                  ].map(item => (
+                    <a key={item.title} href={item.href}
+                      className="flex items-start gap-4 p-4 hover:bg-secondary/30 transition-colors group">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors mb-0.5">{item.title}</p>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 mt-0.5" />
+                    </a>
+                  ))}
+                  <a href="/resources" className="flex items-center justify-center gap-2 p-3 text-xs text-muted-foreground hover:text-primary transition-colors">
+                    View all 33 guides <ArrowRight className="h-3 w-3" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Quick links */}
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { icon: Search, title: "Factory directory", desc: "Browse verified factories", href: "/directory" },
+                  { icon: Bell, title: "Notifications", desc: "All order events", href: "/notifications" },
+                ].map(item => (
+                  <a key={item.title} href={item.href}
+                    className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card hover:border-primary/40 transition-colors group">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{item.title}</p>
+                      <p className="text-xs text-muted-foreground">{item.desc}</p>
+                    </div>
+                  </a>
                 ))}
               </div>
+
             </TabsContent>
           </Tabs>
         </div>

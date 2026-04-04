@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
@@ -52,6 +52,8 @@ const capabilities = [
 ];
 
 export default function Assistant() {
+  const [searchParams] = useSearchParams();
+  const initialQuery = searchParams.get("q") || undefined;
   return (
     <Layout>
       <SEO
@@ -116,7 +118,7 @@ export default function Assistant() {
                   </div>
                 ))}
               </div>
-              <ProductionAssistant mode="demo" className="w-full" />
+              <ProductionAssistant mode="demo" initialQuery={initialQuery} className="w-full" />
             </motion.div>
           </div>
         </div>
