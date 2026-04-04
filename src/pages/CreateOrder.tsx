@@ -435,33 +435,30 @@ export default function CreateOrder() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Product category</FormLabel>
-                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                              {[
-                                { value: "apparel_casual", label: "Casual apparel", emoji: "👕" },
-                                { value: "denim", label: "Denim", emoji: "👖" },
-                                { value: "outerwear", label: "Outerwear", emoji: "🧥" },
-                                { value: "knitwear", label: "Knitwear", emoji: "🧶" },
-                                { value: "footwear", label: "Footwear", emoji: "👟" },
-                                { value: "accessories", label: "Accessories & bags", emoji: "👜" },
-                                { value: "home", label: "Home goods", emoji: "🏠" },
-                                { value: "other", label: "Other", emoji: "📦" },
-                              ].map((cat) => (
-                                <button
-                                  key={cat.value}
-                                  type="button"
-                                  onClick={() => field.onChange(cat.value)}
-                                  className={cn(
-                                    "text-left px-3 py-2.5 rounded-lg border text-xs font-medium transition-all flex items-center gap-2",
-                                    field.value === cat.value
-                                      ? "border-primary bg-primary/5 text-foreground"
-                                      : "border-border bg-card text-muted-foreground hover:border-primary/40"
-                                  )}
-                                >
-                                  <span>{cat.emoji}</span>
-                                  {cat.label}
-                                </button>
-                              ))}
-                            </div>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select a category" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {[
+                                  { value: "apparel_casual", label: "Casual apparel" },
+                                  { value: "denim", label: "Denim" },
+                                  { value: "outerwear", label: "Outerwear & tailoring" },
+                                  { value: "knitwear", label: "Knitwear" },
+                                  { value: "activewear", label: "Activewear & sportswear" },
+                                  { value: "footwear", label: "Footwear" },
+                                  { value: "accessories", label: "Accessories & bags" },
+                                  { value: "home", label: "Home & soft goods" },
+                                  { value: "other", label: "Other" },
+                                ].map((cat) => (
+                                  <SelectItem key={cat.value} value={cat.value}>
+                                    {cat.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
                             <FormMessage />
                           </FormItem>
                         )}
