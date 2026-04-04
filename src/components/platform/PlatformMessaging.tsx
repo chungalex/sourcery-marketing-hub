@@ -21,11 +21,14 @@ interface Message {
 }
 
 interface PlatformMessagingProps {
-  orderId: string;
+  orderId?: string;
+  inquiryId?: string;
+  rfqId?: string;
+  title?: string;
   className?: string;
 }
 
-export function PlatformMessaging({ orderId, className }: PlatformMessagingProps) {
+export function PlatformMessaging({ orderId, inquiryId, rfqId, title, className }: PlatformMessagingProps) {
   const { user } = useAuth();
   const { hasFactoryAccess } = useFactoryMembership(user?.id);
   const [translations, setTranslations] = useState<Record<string, string>>({});
@@ -57,6 +60,8 @@ export function PlatformMessaging({ orderId, className }: PlatformMessagingProps
   const [error, setError] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  const contextId = orderId || inquiryId || rfqId;
+  const contextType = orderId ? "order" : inquiryId ? "inquiry" : "rfq";
   const senderRole: "brand" | "factory" | "admin" = hasFactoryAccess ? "factory" : "brand";
 
   // Fetch messages
@@ -65,10 +70,12 @@ export function PlatformMessaging({ orderId, className }: PlatformMessagingProps
 
     const fetchMessages = async () => {
       setLoading(true);
+      if (!contextId) { setLoading(false); return; }
+      const field = contextType === "order" ? "order_id" : contextType === "inquiry" ? "inquiry_id" : "rfq_id";
       const { data, error } = await supabase
         .from("messages" as never)
         .select("*")
-        .eq("order_id", orderId)
+        .eq(field as any, contextId)
         .order("created_at", { ascending: true });
 
       if (error) {
@@ -87,7 +94,7 @@ export function PlatformMessaging({ orderId, className }: PlatformMessagingProps
       .channel(`messages:${orderId}`)
       .on(
         "postgres_changes" as never,
-        { event: "INSERT", schema: "public", table: "messages", filter: `order_id=eq.${orderId}` },
+        { event: "INSERT", schema: "public", table: "messages", filter: `${contextType === "order" ? "order_id" : contextType === "inquiry" ? "inquiry_id" : "rfq_id"}=eq.${contextId}` },
         (payload: { new: Message }) => {
           setMessages((prev) => [...prev, payload.new]);
         }
@@ -110,7 +117,9 @@ export function PlatformMessaging({ orderId, className }: PlatformMessagingProps
     const { error } = await (supabase as any)
       .from("messages")
       .insert({
-        order_id: orderId,
+        ...(contextType === "order" ? { order_id: contextId } : 
+           contextType === "inquiry" ? { inquiry_id: contextId } :
+           { rfq_id: contextId }),
         sender_id: user.id,
         sender_role: senderRole,
         content: draft.trim(),

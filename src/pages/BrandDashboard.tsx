@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { BrandOnboardingPrompt } from "@/components/onboarding/BrandOnboardingPrompt";
+import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { lazy, Suspense } from "react";
 const RFQDashboard = lazy(() => import("./RFQDashboard"));
 
@@ -96,6 +97,11 @@ function getProductCategory(order: OrderWithDetails): string {
   const specs = order.specifications as any;
   if (specs?.product_category) return (specs.product_category as string).replace(/_/g, " ");
   return "";
+}
+
+function getCollection(order: OrderWithDetails): string {
+  const specs = order.specifications as any;
+  return specs?.collection || "";
 }
 
 function getInquiryStatusIcon(status: string) {
@@ -210,6 +216,7 @@ export default function BrandDashboard() {
   const [byofFactories, setByofFactories] = useState<Array<{ id: string; name: string; city: string | null; country: string }>>([]);
   const [loadingByof, setLoadingByof] = useState(true);
   const [converting, setConverting] = useState<string | null>(null);
+  const [expandedInquiry, setExpandedInquiry] = useState<string | null>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -576,18 +583,30 @@ export default function BrandDashboard() {
                         )}
                       </div>
                     )}
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                       {inquiry.factories && (
                         <Button size="sm" variant="outline" asChild>
                           <Link to={`/directory/${inquiry.factories.slug}`}>View factory <ArrowRight className="ml-1 h-3 w-3" /></Link>
                         </Button>
                       )}
+                      <Button size="sm" variant="outline" onClick={() => setExpandedInquiry(expandedInquiry === inquiry.id ? null : inquiry.id)}>
+                        <MessageSquare className="mr-1.5 h-3 w-3" />
+                        {expandedInquiry === inquiry.id ? "Hide thread" : "Message"}
+                      </Button>
                       {!inquiry.order_id && inquiry.factory_id && inquiry.conversion_status !== "declined" && (
-                        <Button size="sm" onClick={() => handleConvert(inquiry.id)} disabled={converting === inquiry.id}>
-                          {converting === inquiry.id ? <><RefreshCw className="mr-1.5 h-3 w-3 animate-spin" />Converting...</> : <><Package className="mr-1.5 h-3 w-3" />Convert to order</>}
+                        <Button size="sm" onClick={() => {
+                          const params = new URLSearchParams({ factory: inquiry.factory_id || "" });
+                          navigate(`/orders/create?${params.toString()}`);
+                        }} disabled={converting === inquiry.id}>
+                          <Package className="mr-1.5 h-3 w-3" />Create order
                         </Button>
                       )}
                     </div>
+                    {expandedInquiry === inquiry.id && (
+                      <div className="mt-3 pt-3 border-t border-border">
+                        <PlatformMessaging inquiryId={inquiry.id} title="Inquiry thread" />
+                      </div>
+                    )}
                   </div>
                 ))
               ) : (

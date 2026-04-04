@@ -401,6 +401,32 @@ export default function OrderDetail() {
               className="mb-6"
             />
 
+            {/* Prominent Issue PO — shown at top for draft orders */}
+            {order.status === "draft" && canIssuePO && (
+              <div className="mb-6 p-5 rounded-xl bg-primary/5 border-2 border-primary/20 flex items-center justify-between gap-4">
+                <div>
+                  <p className="font-semibold text-foreground mb-0.5">Ready to send this PO?</p>
+                  <p className="text-xs text-muted-foreground">Issues the order to {order.factories?.name} for formal acceptance. Both sides are committed once accepted.</p>
+                </div>
+                <Button
+                  onClick={handleIssuePO}
+                  disabled={issuingPO}
+                  className="flex-shrink-0 gap-2"
+                >
+                  {issuingPO ? <><Loader2 className="h-4 w-4 animate-spin" />Issuing...</> : <>Issue PO</>}
+                </Button>
+              </div>
+            )}
+            {order.status === "draft" && !canIssuePO && (
+              <div className="mb-6 p-4 rounded-xl bg-amber-500/5 border border-amber-400/30 flex items-start gap-3">
+                <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-semibold text-amber-700">Set quantity and unit price to issue the PO</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Edit the fields below then come back to issue.</p>
+                </div>
+              </div>
+            )}
+
             {/* Two-column layout */}
             <div className="grid lg:grid-cols-[1fr_360px] gap-6 items-start">
 

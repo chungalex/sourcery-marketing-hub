@@ -127,18 +127,15 @@ export function ProductionAssistant({ mode, orderContext, className }: Productio
     setLoading(true);
     try {
       const system = buildSystem(mode, orderContext) + (thread ? `\n\n[Order thread:\n${thread.slice(0, 1500)}]` : "");
-
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 500,
+      const { data: { session } } = await supabase.auth.getSession();
+      const { data, error: fnError } = await supabase.functions.invoke("production-assistant", {
+        headers: session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : undefined,
+        body: {
           system,
           messages: next.map(m => ({ role: m.role, content: m.content })),
-        }),
+        },
       });
-      const data = await res.json();
+      if (fnError) throw new Error(fnError.message);
       const reply = data?.content?.[0]?.text || "Something went wrong. Try again.";
       setMessages(prev => [...prev, { role: "assistant", content: reply }]);
     } catch {

@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
-import { Plus, ChevronRight, Clock, CheckCircle, XCircle, Send, Package, Loader2 } from "lucide-react";
+import { Plus, ChevronRight, Clock, CheckCircle, XCircle, Send, Package, Loader2, MessageSquare } from "lucide-react";
+import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 
@@ -36,6 +37,7 @@ export default function RFQDashboard() {
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [converting, setConverting] = useState<string | null>(null);
+  const [rfqThread, setRfqThread] = useState<string | null>(null);
 
   useEffect(() => {
     if (!user) return;

@@ -8,6 +8,7 @@ import {
   FileText, ExternalLink, CheckCircle, Clock,
   Loader2, ChevronDown, ChevronUp, Upload, AlertCircle
 } from "lucide-react";
+import { TechPackGuidance } from "@/components/orders/TechPackGuidance";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
 

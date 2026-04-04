@@ -55,6 +55,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { QCOptionSelector, QCOptionBadge, type QCOption } from "@/components/orders/QCOptionSelector";
+import { TechPackGuidance } from "@/components/orders/TechPackGuidance";
 import { getCategoryLeadTime, getGuidanceMode } from "@/components/onboarding/ExperienceQuiz";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
@@ -143,6 +144,7 @@ const orderSchema = z.object({
   qc_option: z.enum(["sourcery", "byoqc", "factory"]),
   aql_standard: z.enum(["1.0", "2.5", "4.0"]).default("2.5"),
   po_message: z.string().optional(),
+  collection: z.string().optional(),
   colourway_count: z.coerce.number().min(1).max(50).optional(),
   size_range: z.string().optional(),
   shipping_destination: z.string().optional(),
@@ -208,6 +210,7 @@ export default function CreateOrder() {
       qc_option: "byoqc",
       aql_standard: "2.5",
       po_message: "",
+      collection: "",
       colourway_count: undefined,
       sample_date: undefined,
       packaging_notes: "",
@@ -343,6 +346,7 @@ export default function CreateOrder() {
           delivery_window_end: values.delivery_window_end?.toISOString(),
           specifications: {
             product_name: values.product_name,
+            collection: values.collection || null,
             product_category: values.product_category || null,
             style_number: values.style_number || null,
             fabric_composition: values.fabric_composition || null,
@@ -977,6 +981,9 @@ export default function CreateOrder() {
                           )}
                         />
                       </div>
+
+                      {/* Tech pack guidance */}
+                      <TechPackGuidance />
 
                       {/* Category — optional, last */}
                       <FormField

@@ -22,6 +22,7 @@ import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
 import { TechPackVersions } from "@/components/orders/TechPackVersions";
 import { DefectReports } from "@/components/orders/DefectReports";
 import { FactoryScoreCard } from "@/components/factory/FactoryScoreCard";
+import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { OrderStatusGuide } from "@/components/orders/OrderStatusGuide";
 import { useAuth } from "@/hooks/useAuth";
 import { useFactoryMembership } from "@/hooks/useFactoryMembership";
@@ -155,6 +156,7 @@ export default function FactoryDashboard() {
   const [savingProfile, setSavingProfile] = useState(false);
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyMessage, setReplyMessage] = useState("");
+  const [expandedInqThread, setExpandedInqThread] = useState<string | null>(null);
   const [sendingReply, setSendingReply] = useState(false);
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
 
