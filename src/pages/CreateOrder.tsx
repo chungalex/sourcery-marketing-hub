@@ -209,7 +209,6 @@ export default function CreateOrder() {
       aql_standard: "2.5",
       po_message: "",
       colourway_count: undefined,
-      fabric_sourcing: undefined,
       sample_date: undefined,
       packaging_notes: "",
       label_requirements: "",
