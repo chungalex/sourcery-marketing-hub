@@ -21,6 +21,8 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { BrandOnboardingPrompt } from "@/components/onboarding/BrandOnboardingPrompt";
+import { lazy, Suspense } from "react";
+const RFQDashboard = lazy(() => import("./RFQDashboard"));
 
 // ── Status config ─────────────────────────────────────────────
 const STATUS_CONFIG: Record<string, { label: string; color: string; needsAction: boolean; isFactory: boolean }> = {
@@ -273,6 +275,10 @@ export default function BrandDashboard() {
               <TabsTrigger value="settings" className="flex items-center gap-1.5 text-xs">
                 <Settings className="h-3.5 w-3.5" />
                 Settings
+              </TabsTrigger>
+              <TabsTrigger value="rfq" className="flex items-center gap-1.5 text-xs">
+                <Send className="h-3.5 w-3.5" />
+                RFQs
               </TabsTrigger>
               <TabsTrigger value="tools" className="flex items-center gap-1.5 text-xs">
                 <Wrench className="h-3.5 w-3.5" />
@@ -531,6 +537,13 @@ export default function BrandDashboard() {
                   </div>
                 </div>
               </div>
+            </TabsContent>
+
+            {/* RFQs */}
+            <TabsContent value="rfq">
+              <Suspense fallback={<div className="py-8 text-center text-sm text-muted-foreground">Loading...</div>}>
+                <RFQDashboard />
+              </Suspense>
             </TabsContent>
 
             {/* Tools */}

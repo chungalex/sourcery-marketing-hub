@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -37,6 +37,8 @@ export function TechPackVersions({ orderId, isFactory = false, onActionComplete 
   const [fileUrl, setFileUrl] = useState("");
   const [fileName, setFileName] = useState("");
   const [notes, setNotes] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const latest = versions[0] ?? null;
   const latestUnacked = latest && !latest.factory_acknowledged_at ? latest : null;
@@ -54,6 +56,27 @@ export function TechPackVersions({ orderId, isFactory = false, onActionComplete 
     if (data?.length) setExpanded(data[0].id);
     setLoading(false);
   }
+
+  const handleFileUpload = async (file: File) => {
+    if (!file) return;
+    if (file.size > 20 * 1024 * 1024) { toast.error("File must be under 20MB."); return; }
+    setUploading(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const { data, error } = await supabase.functions.invoke("get-signed-upload-url", {
+        headers: { Authorization: `Bearer ${session?.access_token}` },
+        body: { order_id: orderId, file_type: "tech_pack", file_name: file.name },
+      });
+      if (error || !data?.upload_url) throw new Error(error?.message || "Could not get upload URL");
+      await fetch(data.upload_url, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+      setFileUrl(data.storage_path || data.public_url || data.upload_url.split("?")[0]);
+      setFileName(file.name);
+      toast.success("File ready — click Upload to attach it to the order.");
+    } catch (e: any) {
+      toast.error(e.message || "Upload failed.");
+    }
+    setUploading(false);
+  };
 
   const handleUpload = async () => {
     if (!fileUrl.trim()) { toast.error("Paste a URL to your tech pack file."); return; }
@@ -141,10 +164,34 @@ export function TechPackVersions({ orderId, isFactory = false, onActionComplete 
             </p>
           )}
           <div className="space-y-1">
-            <Label className="text-xs">File URL <span className="text-rose-500">*</span></Label>
+            <Label className="text-xs">Upload PDF</Label>
+            <div
+              onClick={() => fileInputRef.current?.click()}
+              className="border-2 border-dashed border-border rounded-lg p-4 text-center cursor-pointer hover:border-primary/40 transition-colors"
+            >
+              {uploading ? (
+                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                  <Loader2 className="h-4 w-4 animate-spin" />Uploading...
+                </div>
+              ) : fileName ? (
+                <p className="text-sm text-primary font-medium">{fileName} — ready to attach</p>
+              ) : (
+                <p className="text-sm text-muted-foreground">Click to upload PDF, AI, or DXF (max 20MB)</p>
+              )}
+            </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".pdf,.ai,.dxf,.png,.jpg,.jpeg"
+              className="hidden"
+              onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFileUpload(f); }}
+            />
+          </div>
+          <div className="space-y-1">
+            <Label className="text-xs">Or paste a link</Label>
             <Input
               type="url"
-              placeholder="https://drive.google.com/... or Dropbox, WeTransfer, etc."
+              placeholder="Google Drive, Dropbox, Notion, or WeTransfer"
               value={fileUrl}
               onChange={e => setFileUrl(e.target.value)}
               className="text-sm"

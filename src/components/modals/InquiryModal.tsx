@@ -102,6 +102,7 @@ export function InquiryModal({
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [message, setMessage] = useState("");
+  const [techPackUrl, setTechPackUrl] = useState("");
 
   const draftKey = factoryId ? `sourcery_inquiry_draft_${factoryId}` : null;
 
@@ -196,6 +197,7 @@ Description: ${productDescription || "Not specified"}
 Quantity: ${quantity}
 Timeline: ${timeline}
 Budget: ${budget || "Not specified"}
+Tech pack: ${techPackUrl || "Not provided"}
 Additional Notes: ${message || "None"}`;
 
     const { error } = await supabase
@@ -313,6 +315,16 @@ Additional Notes: ${message || "None"}`;
                       onChange={(e) => setProductDescription(e.target.value)}
                       rows={3}
                     />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Tech pack or reference link</Label>
+                    <Input
+                      placeholder="Google Drive, Dropbox, or any shared link"
+                      value={techPackUrl}
+                      onChange={(e) => setTechPackUrl(e.target.value)}
+                    />
+                    <p className="text-xs text-muted-foreground">Sharing your tech pack upfront gets you a more accurate quote.</p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">

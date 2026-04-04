@@ -717,7 +717,7 @@ export default function CreateOrder() {
                           name="colourway_count"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Number of colourways <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormLabel>Number of colourways</FormLabel>
                               <FormControl>
                                 <Input
                                   type="number"
@@ -739,7 +739,7 @@ export default function CreateOrder() {
                           name="size_range"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Size range <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormLabel>Size range</FormLabel>
                               <Select onValueChange={field.onChange} value={field.value}>
                                 <FormControl>
                                   <SelectTrigger>
@@ -771,7 +771,7 @@ export default function CreateOrder() {
                           name="tech_pack_url"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Tech pack <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormLabel>Tech pack</FormLabel>
                               <FormControl>
                                 <Input 
                                   type="url" 
@@ -822,7 +822,7 @@ export default function CreateOrder() {
                         name="style_number"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Style / reference number <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <FormLabel>Style / reference number</FormLabel>
                             <FormControl>
                               <Input placeholder="e.g. OKS26-001 — used on all documents, labels, and packaging" {...field} />
                             </FormControl>
@@ -839,7 +839,7 @@ export default function CreateOrder() {
                           name="fabric_composition"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Fabric composition <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormLabel>Fabric composition</FormLabel>
                               <FormControl>
                                 <Input placeholder="e.g. 98% cotton, 2% elastane" {...field} />
                               </FormControl>
@@ -852,7 +852,7 @@ export default function CreateOrder() {
                           name="fabric_weight"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Fabric weight <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormLabel>Fabric weight</FormLabel>
                               <FormControl>
                                 <Input placeholder="e.g. 12oz, 280gsm, 180g/m²" {...field} />
                               </FormControl>
@@ -869,7 +869,7 @@ export default function CreateOrder() {
                           name="colourway_count"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Colourways <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormLabel>Colourways</FormLabel>
                               <FormControl>
                                 <Input
                                   type="number"
@@ -890,7 +890,7 @@ export default function CreateOrder() {
                           name="size_range"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Size range <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormLabel>Size range</FormLabel>
                               <Select onValueChange={field.onChange} value={field.value}>
                                 <FormControl>
                                   <SelectTrigger><SelectValue placeholder="Select size range" /></SelectTrigger>
@@ -919,7 +919,7 @@ export default function CreateOrder() {
                         name="specifications"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Construction notes <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <FormLabel>Construction notes</FormLabel>
                             <FormControl>
                               <Textarea
                                 placeholder={"Construction: e.g. 5-pocket, chain stitch hem, bar tack at stress points\nTrims: e.g. YKK zipper, corozo buttons, branded label\nFinishes: e.g. garment washed, enzyme treated, embroidery placement\nAny deviations from tech pack or previous season notes."}
@@ -940,7 +940,7 @@ export default function CreateOrder() {
                           name="tech_pack_url"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Tech pack <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormLabel>Tech pack</FormLabel>
                               <FormControl>
                                 <Input type="url" placeholder="Google Drive, Dropbox, or Notion link" {...field} />
                               </FormControl>
@@ -954,7 +954,7 @@ export default function CreateOrder() {
                           name="bom_url"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Bill of materials <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormLabel>Bill of materials</FormLabel>
                               <FormControl>
                                 <Input type="url" placeholder="Link to BOM — materials, trims, components" {...field} />
                               </FormControl>
@@ -1122,7 +1122,7 @@ export default function CreateOrder() {
                         name="shipping_destination"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Shipping destination <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <FormLabel>Shipping destination</FormLabel>
                             <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
                                 <SelectTrigger><SelectValue placeholder="Where are the goods shipping to?" /></SelectTrigger>
@@ -1380,7 +1380,7 @@ export default function CreateOrder() {
                           name="sample_date"
                           render={({ field }) => (
                             <FormItem className="flex flex-col">
-                              <FormLabel>Target sample date <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormLabel>Target sample date</FormLabel>
                               <Popover>
                                 <PopoverTrigger asChild>
                                   <FormControl>
@@ -1405,7 +1405,7 @@ export default function CreateOrder() {
                           name="sample_quantity"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Samples required <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormLabel>Samples required</FormLabel>
                               <FormControl>
                                 <Input type="number" min={1} max={20} placeholder="e.g. 3"
                                   {...field}
@@ -1426,7 +1426,7 @@ export default function CreateOrder() {
                         name="label_requirements"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Label &amp; compliance requirements <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <FormLabel>Label &amp; compliance requirements</FormLabel>
                             <FormControl>
                               <Textarea
                                 placeholder={"Care labels: e.g. required in English + French for Canada\nCountry of origin: e.g. Made in Vietnam\nCompliance: e.g. CPSC for US, REACH for EU\nCertifications: e.g. GOTS, OEKO-TEX, BSCI"}
@@ -1445,7 +1445,7 @@ export default function CreateOrder() {
                         name="packaging_notes"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Packaging requirements <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <FormLabel>Packaging requirements</FormLabel>
                             <FormControl>
                               <Textarea
                                 placeholder={"Folding: e.g. flat fold, rolled\nPolybag: e.g. individual polybag, size sticker\nHangtag: e.g. attach hangtag with loop pin\nCarton: e.g. 12 units per carton, double-wall"}
@@ -1497,7 +1497,7 @@ export default function CreateOrder() {
                         name="po_message"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Message to factory <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <FormLabel>Message to factory</FormLabel>
                             <FormControl>
                               <Textarea
                                 placeholder="Any context or instructions to accompany this PO — construction confirmations, scheduling requests, or questions before they accept."
