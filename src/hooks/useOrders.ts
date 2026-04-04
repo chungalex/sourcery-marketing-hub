@@ -19,6 +19,8 @@ export interface OrderWithDetails {
   total_amount: number | null;
   currency: string;
   created_at: string;
+  specifications: Record<string, unknown> | null;
+  delivery_window_end: string | null;
   factories: {
     id: string;
     name: string;
