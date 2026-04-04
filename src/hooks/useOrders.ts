@@ -41,7 +41,7 @@ export function useOrders() {
         .from('orders')
         .select(`
           id, order_number, status, quantity, unit_price,
-          total_amount, currency, created_at,
+          total_amount, currency, created_at, specifications, delivery_window_end,
           factories (id, name, slug),
           order_milestones (id, label, status, percentage, sequence_order)
         `)
