@@ -139,12 +139,20 @@ export function Header() {
               {isLoggedIn ? (
                 <>
                   {isBrand && (
+                    <>
+                    <Link to="/rfq/create">
+                      <Button variant="outline" size="sm" className="gap-1.5">
+                        <Send className="h-3.5 w-3.5" />
+                        New RFQ
+                      </Button>
+                    </Link>
                     <Link to="/orders/create">
                       <Button size="sm" className="gap-1.5">
                         <Plus className="h-3.5 w-3.5" />
                         New order
                       </Button>
                     </Link>
+                    </>
                   )}
                   <GlobalSearch />
                   <NotificationBell />

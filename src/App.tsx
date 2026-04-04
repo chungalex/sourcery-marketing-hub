@@ -46,6 +46,8 @@ import CreateOrder from "./pages/CreateOrder";
 import OrderDetail from "./pages/OrderDetail";
 import FactoryAccept from "./pages/FactoryAccept";
 import Onboarding from "./pages/Onboarding";
+import CreateRFQ from "./pages/CreateRFQ";
+import RFQRespond from "./pages/RFQRespond";
 import FactoryOnboarding from "./pages/FactoryOnboarding";
 
 const queryClient = new QueryClient();

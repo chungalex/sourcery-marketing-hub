@@ -277,6 +277,22 @@ export default function CreateOrder() {
       });
   }, [duplicateOrderId, user]);
 
+  // Prefill from RFQ quote conversion
+  useEffect(() => {
+    const rfqTitle = searchParams.get("rfq_title");
+    const rfqCategory = searchParams.get("rfq_category");
+    const prefillPrice = searchParams.get("prefill_price");
+    const prefillCurrency = searchParams.get("prefill_currency");
+
+    if (rfqTitle) {
+      form.setValue("product_name", rfqTitle);
+      toast.success("Order prefilled from RFQ quote — review and update as needed.");
+    }
+    if (rfqCategory) form.setValue("product_category", rfqCategory);
+    if (prefillPrice) form.setValue("unit_price", parseFloat(prefillPrice));
+    if (prefillCurrency) form.setValue("currency", prefillCurrency);
+  }, []);
+
   const canProceed = (step: number): boolean => {
     switch (step) {
       case 1: return !!watchedValues.product_name?.trim() && !!watchedValues.factory_id;
@@ -479,7 +495,7 @@ export default function CreateOrder() {
                         name="product_name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Order name</FormLabel>
+                            <FormLabel>Order name <span className="text-rose-500">*</span></FormLabel>
                             <FormControl>
                               <Input
                                 placeholder="e.g. SS26 Denim Jacket, FW25 Hoodie — 300 units"
@@ -497,7 +513,7 @@ export default function CreateOrder() {
                         name="factory_id"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Factory</FormLabel>
+                            <FormLabel>Factory <span className="text-rose-500">*</span></FormLabel>
                             {/* BYOF invite prompt — shown when brand has no own factories yet */}
                             {/* Smart prefill from previous orders */}
                             {!prefillDismissed && watchedValues.factory_id && (() => {
@@ -970,7 +986,7 @@ export default function CreateOrder() {
                         name="product_category"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Product category <span className="text-xs font-normal text-muted-foreground">(optional — used for lead time guidance)</span></FormLabel>
+                            <FormLabel>Product category</FormLabel>
                             <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
                                 <SelectTrigger><SelectValue placeholder="Select a category" /></SelectTrigger>
@@ -1036,7 +1052,7 @@ export default function CreateOrder() {
                         name="quantity"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Total quantity</FormLabel>
+                            <FormLabel>Total quantity <span className="text-rose-500">*</span></FormLabel>
                             <FormControl>
                               <Input
                                 type="number"
@@ -1059,7 +1075,7 @@ export default function CreateOrder() {
                           name="unit_price"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Unit price <span className="text-xs font-normal text-muted-foreground">— from your factory quote</span></FormLabel>
+                              <FormLabel>Unit price <span className="text-rose-500">*</span></FormLabel>
                               <FormControl>
                                 <div className="relative">
                                   <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -1543,16 +1559,15 @@ export default function CreateOrder() {
                       Back
                     </Button>
 
-                    {currentStep < 5 ? (
+                    {currentStep < 4 ? (
                       <div className="flex flex-col items-end gap-1">
                         {!canProceed(currentStep) && currentStep === 1 && (
                           <p className="text-xs text-muted-foreground">
                             {!watchedValues.product_name?.trim() ? "Enter an order name to continue" :
-                             !watchedValues.factory_id ? "Select a factory" :
-                             !watchedValues.product_category ? "Select a product category" : ""}
+                             !watchedValues.factory_id ? "Select a factory" : ""}
                           </p>
                         )}
-                        {!canProceed(currentStep) && currentStep === 2 && (
+                        {!canProceed(currentStep) && currentStep === 3 && (
                           <p className="text-xs text-muted-foreground">
                             {!(watchedValues.quantity > 0) ? "Enter a quantity to continue" : "Enter a unit price to continue"}
                           </p>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
@@ -121,6 +121,86 @@ function OrdersSkeleton() {
   );
 }
 
+
+function RFQList({ userId }: { userId?: string }) {
+  const [rfqs, setRfqs] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    if (!userId) return;
+    (async () => {
+      const { data } = await (supabase as any)
+        .from("rfqs")
+        .select("*, rfq_recipients(*)")
+        .eq("created_by", userId)
+        .order("created_at", { ascending: false });
+      setRfqs(data || []);
+      setLoading(false);
+    })();
+  }, [userId]);
+
+  if (loading) return <div className="space-y-2">{[1,2].map(i => <Skeleton key={i} className="h-16 w-full rounded-xl" />)}</div>;
+
+  if (rfqs.length === 0) return (
+    <div className="text-center py-12 bg-card border border-dashed border-border rounded-xl">
+      <FileText className="h-8 w-8 mx-auto text-muted-foreground mb-3" />
+      <p className="text-sm font-semibold text-foreground mb-1">No RFQs yet</p>
+      <p className="text-xs text-muted-foreground mb-4">Send a product brief to multiple factories and compare quotes.</p>
+      <a href="/rfq/create"><Button size="sm">Create your first RFQ</Button></a>
+    </div>
+  );
+
+  return (
+    <div className="space-y-3">
+      {rfqs.map((rfq: any) => {
+        const recipients = rfq.rfq_recipients || [];
+        const quoted = recipients.filter((r: any) => r.status === "quoted").length;
+        const total = recipients.length;
+        return (
+          <div key={rfq.id} className="p-4 bg-card border border-border rounded-xl">
+            <div className="flex items-start justify-between gap-3 mb-2">
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-foreground text-sm">{rfq.title}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Sent to {total} {total === 1 ? "factory" : "factories"} · {quoted} {quoted === 1 ? "quote" : "quotes"} received
+                </p>
+              </div>
+              <span className={cn(
+                "text-xs px-2 py-0.5 rounded-full border font-medium flex-shrink-0",
+                rfq.status === "sent" && quoted > 0 ? "bg-green-500/10 text-green-700 border-green-500/20" :
+                rfq.status === "sent" ? "bg-blue-500/10 text-blue-700 border-blue-400/30" :
+                "bg-secondary text-muted-foreground border-border"
+              )}>
+                {rfq.status === "sent" && quoted > 0 ? `${quoted} quote${quoted > 1 ? "s" : ""}` : rfq.status}
+              </span>
+            </div>
+            {quoted > 0 && (
+              <div className="mt-3 space-y-1.5">
+                {recipients.filter((r: any) => r.status === "quoted").map((r: any) => (
+                  <div key={r.id} className="flex items-center justify-between p-2 rounded-lg bg-secondary/50 border border-border">
+                    <span className="text-xs font-medium text-foreground">{r.factory_name}</span>
+                    <span className="text-xs text-foreground font-semibold">
+                      {r.currency} {r.quoted_unit_price}/unit · {r.quoted_lead_time_weeks}wk lead · MOQ {r.quoted_moq?.toLocaleString()}
+                    </span>
+                  </div>
+                ))}
+                {quoted > 1 && (
+                  <p className="text-xs text-primary font-medium mt-1">
+                    Best price: {(() => {
+                      const best = recipients.filter((r: any) => r.status === "quoted").sort((a: any, b: any) => a.quoted_unit_price - b.quoted_unit_price)[0];
+                      return `${best.currency} ${best.quoted_unit_price}/unit from ${best.factory_name}`;
+                    })()}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function BrandDashboard() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -186,12 +266,20 @@ export default function BrandDashboard() {
                     : "All orders are up to date"}
                 </p>
               </div>
-              <Link to="/orders/create">
-                <Button>
-                  <Package className="mr-2 h-4 w-4" />
-                  Create Order
-                </Button>
-              </Link>
+              <div className="flex gap-2">
+                <Link to="/rfq/create">
+                  <Button variant="outline" size="sm" className="gap-1.5">
+                    <FileText className="h-4 w-4" />
+                    New RFQ
+                  </Button>
+                </Link>
+                <Link to="/orders/create">
+                  <Button size="sm" className="gap-1.5">
+                    <Package className="h-4 w-4" />
+                    New order
+                  </Button>
+                </Link>
+              </div>
             </div>
           </motion.div>
 
@@ -545,6 +633,9 @@ export default function BrandDashboard() {
                 <RFQDashboard />
               </Suspense>
             </TabsContent>
+
+            {/* RFQs */}
+            
 
             {/* Tools */}
             <TabsContent value="tools">

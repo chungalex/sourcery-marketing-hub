@@ -76,6 +76,7 @@ interface InquiryDraft {
   email: string;
   company: string;
   message: string;
+  techPackUrl: string;
 }
 
 export function InquiryModal({ 
@@ -122,6 +123,7 @@ export function InquiryModal({
           setEmail(draft.email || "");
           setCompany(draft.company || "");
           setMessage(draft.message || "");
+          setTechPackUrl(draft.techPackUrl || "");
           localStorage.removeItem(draftKey); // Clear after restore
         } catch (e) {
           console.error("Failed to restore draft:", e);
@@ -149,6 +151,7 @@ export function InquiryModal({
     setEmail("");
     setCompany("");
     setMessage("");
+    setTechPackUrl("");
   };
 
   const handleClose = () => {
@@ -167,7 +170,8 @@ export function InquiryModal({
         name,
         email,
         company,
-        message
+        message,
+        techPackUrl
       };
       localStorage.setItem(draftKey, JSON.stringify(draft));
     }
@@ -378,6 +382,8 @@ Additional Notes: ${message || "None"}`;
                       onChange={(e) => setBudget(e.target.value)}
                     />
                   </div>
+
+                  
 
                   <div className="flex justify-end pt-4">
                     <Button 
