@@ -200,6 +200,10 @@ export default function CreateOrder() {
       aql_standard: "2.5",
       po_message: "",
       colourway_count: undefined,
+      fabric_sourcing: undefined,
+      sample_date: undefined,
+      packaging_notes: "",
+      label_requirements: "",
       size_range: "",
       shipping_destination: "",
     },
@@ -320,6 +324,10 @@ export default function CreateOrder() {
           tech_pack_url: values.tech_pack_url || null,
           bom_url: values.bom_url || null,
           po_message: values.po_message || null,
+          fabric_sourcing: values.fabric_sourcing || null,
+          sample_date: values.sample_date?.toISOString() || null,
+          packaging_notes: values.packaging_notes || null,
+          label_requirements: values.label_requirements || null,
           qc_option: values.qc_option,
           qc_standard: {
             aql: values.aql_standard,
@@ -784,34 +792,12 @@ export default function CreateOrder() {
                     <div className="space-y-6">
                       <div>
                         <h2 className="text-xl font-semibold text-foreground mb-1">
-                          Pricing, shipping &amp; timeline
+                          Terms &amp; Timeline
                         </h2>
-                        <p className="text-muted-foreground">
-                          Enter the terms from your factory quote. This becomes the formal, documented agreement both sides confirm.
+                        <p className="text-muted-foreground text-sm">
+                          Enter the agreed pricing, shipping terms, and delivery window. This becomes the documented agreement both sides confirm.
                         </p>
                       </div>
-
-                      <FormField
-                        control={form.control}
-                        name="quantity"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Quantity (units)</FormLabel>
-                            <FormControl>
-                              <Input 
-                                type="number" 
-                                placeholder="e.g. 1000" 
-                                {...field}
-                                onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
-                              />
-                            </FormControl>
-                            <FormDescription>
-                              Total number of units for this production order.
-                            </FormDescription>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
 
                       <div className="grid sm:grid-cols-2 gap-4">
                         <FormField
@@ -1149,8 +1135,145 @@ export default function CreateOrder() {
                     </div>
                   )}
 
-                  {/* Step 3: Quality Control */}
-                  {currentStep === 3 && (
+                  {/* Step 2: Quantity & Breakdown */}
+                  {currentStep === 2 && (
+                    <div className="space-y-6">
+                      <div>
+                        <h2 className="text-xl font-semibold text-foreground mb-1">
+                          Quantity &amp; Breakdown
+                        </h2>
+                        <p className="text-muted-foreground text-sm">
+                          Total units, size run, colourways, and how fabric is sourced. The factory needs this to plan materials and cutting.
+                        </p>
+                      </div>
+
+                      {/* Total quantity */}
+                      <FormField
+                        control={form.control}
+                        name="quantity"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Total quantity</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="number"
+                                placeholder="e.g. 300"
+                                {...field}
+                                onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
+                              />
+                            </FormControl>
+                            <p className="text-xs text-muted-foreground">Total units across all sizes and colourways.</p>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        {/* Colourways */}
+                        <FormField
+                          control={form.control}
+                          name="colourway_count"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Number of colourways <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  min={1}
+                                  max={20}
+                                  placeholder="e.g. 3"
+                                  {...field}
+                                  value={field.value ?? ""}
+                                  onChange={(e) => field.onChange(e.target.valueAsNumber || undefined)}
+                                />
+                              </FormControl>
+                              <p className="text-xs text-muted-foreground">e.g. indigo, stone wash, black</p>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        {/* Size range */}
+                        <FormField
+                          control={form.control}
+                          name="size_range"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Size range <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <Select onValueChange={field.onChange} value={field.value}>
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Select size range" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {[
+                                    { value: "one_size", label: "One size" },
+                                    { value: "xs_xl", label: "XS – XL" },
+                                    { value: "xs_xxl", label: "XS – XXL" },
+                                    { value: "xxs_xxl", label: "XXS – XXL" },
+                                    { value: "s_xxl", label: "S – XXL" },
+                                    { value: "us_24_36", label: "US 24–36 (denim)" },
+                                    { value: "eu_34_46", label: "EU 34–46" },
+                                    { value: "uk_6_20", label: "UK 6–20" },
+                                    { value: "custom", label: "Custom (specify in notes)" },
+                                  ].map((s) => (
+                                    <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      {/* Fabric sourcing */}
+                      <FormField
+                        control={form.control}
+                        name="fabric_sourcing"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Fabric sourcing</FormLabel>
+                            <p className="text-xs text-muted-foreground mb-2">This affects the factory's material lead time and your production risk.</p>
+                            <div className="grid sm:grid-cols-2 gap-3">
+                              {[
+                                {
+                                  value: "factory",
+                                  label: "Factory sources",
+                                  desc: "Factory purchases and sources all materials. Standard for most orders — included in your unit price.",
+                                },
+                                {
+                                  value: "brand",
+                                  label: "Brand supplies",
+                                  desc: "You purchase and ship fabric to the factory. Lower unit cost but you carry fabric risk and must coordinate delivery.",
+                                },
+                              ].map((opt) => (
+                                <button
+                                  key={opt.value}
+                                  type="button"
+                                  onClick={() => field.onChange(opt.value)}
+                                  className={cn(
+                                    "text-left p-4 rounded-xl border-2 transition-all",
+                                    field.value === opt.value
+                                      ? "border-primary bg-primary/5"
+                                      : "border-border bg-card hover:border-primary/40"
+                                  )}
+                                >
+                                  <p className="text-sm font-semibold text-foreground mb-1">{opt.label}</p>
+                                  <p className="text-xs text-muted-foreground leading-relaxed">{opt.desc}</p>
+                                </button>
+                              ))}
+                            </div>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  )}
+
+                                    {/* Step 4: Quality Control */}
+                  {currentStep === 4 && (
                     <div className="space-y-6">
                       <div>
                         <h2 className="text-xl font-semibold text-foreground mb-1">
@@ -1223,11 +1346,78 @@ export default function CreateOrder() {
                           )}
                         />
                       </TooltipProvider>
+
+                      {/* Sample deadline */}
+                      <FormField
+                        control={form.control}
+                        name="sample_date"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col">
+                            <FormLabel>Target sample date <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button variant="outline" className={cn("w-full pl-3 text-left font-normal", !field.value && "text-muted-foreground")}>
+                                    {field.value ? format(field.value, "PPP") : <span>When do you need the first sample approved?</span>}
+                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto p-0" align="start">
+                                <Calendar mode="single" selected={field.value} onSelect={field.onChange} disabled={(date) => date < new Date()} initialFocus />
+                              </PopoverContent>
+                            </Popover>
+                            <p className="text-xs text-muted-foreground">The date by which a sample must be approved to hit your delivery window. Helps the factory plan their internal schedule.</p>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      {/* Packaging requirements */}
+                      <FormField
+                        control={form.control}
+                        name="packaging_notes"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Packaging requirements <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder={"Individual polybag, folded — 12 units per inner carton, 60 per master carton\nOr: Hanger, individual garment bags — confirm carton quantities with factory"}
+                                className="min-h-[80px] text-sm"
+                                {...field}
+                              />
+                            </FormControl>
+                            <p className="text-xs text-muted-foreground">How goods should be packed for shipping. Missing packaging specs are a common cause of production holds.</p>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      {/* Label requirements */}
+                      <FormField
+                        control={form.control}
+                        name="label_requirements"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Label &amp; compliance requirements <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder={"Woven main label + woven size label — brand will supply\nCare label: machine wash cold, hang dry — factory to produce\nHang tag: brand will supply\nCountry of origin label required for US customs"}
+                                className="min-h-[80px] text-sm"
+                                {...field}
+                              />
+                            </FormControl>
+                            <p className="text-xs text-muted-foreground">Label specs, country of origin, certifications, compliance standards. Missing label specs frequently delay customs clearance.</p>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
                     </div>
                   )}
 
                   {/* Step 4: Review */}
-                  {currentStep === 4 && (
+                  {currentStep === 5 && (
                     <div className="space-y-6">
                       <div>
                         <h2 className="text-xl font-semibold text-foreground mb-1">
@@ -1402,7 +1592,7 @@ export default function CreateOrder() {
                       Back
                     </Button>
 
-                    {currentStep < 4 ? (
+                    {currentStep < 5 ? (
                       <div className="flex flex-col items-end gap-1">
                         {!canProceed(currentStep) && currentStep === 1 && (
                           <p className="text-xs text-muted-foreground">
