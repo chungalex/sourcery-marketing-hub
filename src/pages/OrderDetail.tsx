@@ -55,6 +55,10 @@ interface OrderData {
   total_amount: number | null;
   currency: string;
   created_at: string;
+  updated_at: string;
+  delivery_window_start: string | null;
+  delivery_window_end: string | null;
+  incoterms: string | null;
   specifications: Record<string, unknown> | null;
   factories: { id: string; name: string; slug: string } | null;
   order_milestones: {
@@ -291,7 +295,7 @@ export default function OrderDetail() {
   return (
     <Layout>
       <SEO
-        title={`Order ${order.order_number} | Sourcery`}
+        title={`${(specs?.product_name as string) || order.order_number} | Sourcery`}
         description="Manage your production order."
       />
 
@@ -315,25 +319,37 @@ export default function OrderDetail() {
             {/* Header */}
             <div className="flex items-start justify-between mb-6 flex-wrap gap-4">
               <div>
-                <div className="font-mono text-sm text-muted-foreground mb-0.5">{order.order_number}</div>
-                <h1 className="text-2xl font-semibold text-foreground mb-1">
-                  {order.factories?.name || "Order"}
+                <div className="font-mono text-xs text-muted-foreground mb-1">{order.order_number}</div>
+                <h1 className="text-2xl font-bold text-foreground mb-2 leading-tight">
+                  {(specs?.product_name as string) || order.factories?.name || "Order"}
                 </h1>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Building2 className="h-4 w-4" />
-                  {order.factories ? (
-                    <Link
-                      to={`/directory/${order.factories.slug}`}
-                      className="hover:text-primary transition-colors"
-                    >
-                      {order.factories.name}
-                    </Link>
-                  ) : "Factory unavailable"}
-                  <span>•</span>
-                  <span>{format(new Date(order.created_at), "MMM d, yyyy")}</span>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                    <Building2 className="h-3.5 w-3.5" />
+                    {order.factories ? (
+                      <Link to={`/directory/${order.factories.slug}`} className="hover:text-primary transition-colors">
+                        {order.factories.name}
+                      </Link>
+                    ) : "Factory"}
+                  </div>
+                  {(specs?.product_category as string) && (
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-secondary border border-border text-muted-foreground capitalize">
+                      {(specs.product_category as string).replace(/_/g, " ")}
+                    </span>
+                  )}
+                  <span className="text-muted-foreground/40 text-sm">·</span>
+                  <span className="text-sm text-muted-foreground">{format(new Date(order.created_at), "MMM d, yyyy")}</span>
                 </div>
               </div>
-              <StatusBadge status={order.status} />
+              <div className="text-right">
+                <StatusBadge status={order.status} />
+                <div className="text-xl font-bold text-foreground mt-2">
+                  {new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency, maximumFractionDigits: 0 }).format(order.total_amount || order.quantity * order.unit_price)}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {order.quantity.toLocaleString()} units · {new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency }).format(order.unit_price)}/unit
+                </div>
+              </div>
             </div>
 
             {/* Needs attention banner */}
@@ -356,6 +372,15 @@ export default function OrderDetail() {
                 </div>
               );
             })()}
+
+            {/* Status guide */}
+            <OrderStatusGuide
+              status={order.status}
+              role="brand"
+              orderNumber={order.order_number}
+              factoryName={order.factories?.name}
+              className="mb-6"
+            />
 
             {/* Two-column layout */}
             <div className="grid lg:grid-cols-[1fr_360px] gap-6 items-start">
@@ -502,19 +527,24 @@ export default function OrderDetail() {
                       {order.order_milestones
                         .sort((a, b) => a.sequence_order - b.sequence_order)
                         .map(m => (
-                          <div key={m.id} className={`flex items-center justify-between p-3 rounded-lg border ${
+                          <div key={m.id} className={`flex items-center justify-between p-4 rounded-xl border transition-all ${
                             m.status === "released" ? "bg-green-500/5 border-green-500/20" :
-                            m.status === "eligible" ? "bg-amber-500/10 border-amber-500/25" :
+                            m.status === "eligible" ? "bg-amber-500/5 border-amber-400/40 ring-1 ring-amber-400/20" :
                             "bg-background border-border"
                           }`}>
                             <div className="flex items-center gap-3">
-                              <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
+                              <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${
                                 m.status === "released" ? "bg-green-500" :
-                                m.status === "eligible" ? "bg-amber-500" : "bg-muted-foreground/30"
+                                m.status === "eligible" ? "bg-amber-500 animate-pulse" : "bg-muted-foreground/30"
                               }`} />
                               <div>
-                                <p className="text-sm font-medium text-foreground">{m.label}</p>
-                                <p className="text-xs text-muted-foreground">{m.percentage}% — {new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency }).format(m.amount)}</p>
+                                <p className="text-sm font-semibold text-foreground">{m.label}</p>
+                                <p className="text-xs text-muted-foreground mt-0.5">
+                                  {m.percentage}% · <span className="font-medium text-foreground">{new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency }).format(m.amount)}</span>
+                                </p>
+                                {m.release_condition && (
+                                  <p className="text-xs text-muted-foreground mt-0.5 italic">{m.release_condition}</p>
+                                )}
                               </div>
                             </div>
                             {m.status === "released" ? (
@@ -522,6 +552,7 @@ export default function OrderDetail() {
                             ) : m.status === "eligible" ? (
                               <Button
                                 size="sm"
+                                className="bg-green-600 hover:bg-green-700 text-white font-semibold"
                                 onClick={() => handlePayMilestone(m.id)}
                                 disabled={payingMilestone === m.id}
                               >
@@ -729,6 +760,12 @@ export default function OrderDetail() {
                       {new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency }).format(order.total_amount || order.quantity * order.unit_price)}
                     </span>
                   </div>
+                  {order.delivery_window_end && (
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Delivery by</span>
+                      <span className="font-medium text-foreground">{format(new Date(order.delivery_window_end), "MMM d, yyyy")}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Created</span>
                     <span className="text-foreground">{format(new Date(order.created_at), "MMM d, yyyy")}</span>

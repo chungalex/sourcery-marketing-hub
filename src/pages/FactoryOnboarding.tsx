@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -50,6 +50,9 @@ export default function FactoryOnboarding() {
   const [photoUrls, setPhotoUrls] = useState(["", "", ""]);
 
   const stepIndex = STEPS.indexOf(step);
+  const [searchParams] = useSearchParams();
+  const invitingBrandName = searchParams.get("name") || "a brand";
+  const hasInvite = searchParams.get("invite") !== null;
 
   const next = () => {
     const n = STEPS[stepIndex + 1];
@@ -142,6 +145,13 @@ export default function FactoryOnboarding() {
                 {/* WELCOME */}
                 {step === "welcome" && (
                   <div className="text-center space-y-6">
+                    {hasInvite && (
+                      <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 text-left mb-2">
+                        <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">You've been invited</p>
+                        <p className="text-sm text-foreground font-medium">{invitingBrandName} uses Sourcery to manage their production orders.</p>
+                        <p className="text-xs text-muted-foreground mt-1">Once you're set up, their orders will appear in your dashboard. Takes about 5 minutes.</p>
+                      </div>
+                    )}
                     <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 mb-2">
                       <Building2 className="h-7 w-7 text-primary" />
                     </div>

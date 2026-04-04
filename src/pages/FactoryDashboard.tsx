@@ -353,6 +353,11 @@ export default function FactoryDashboard() {
                             <p className="text-xs text-muted-foreground mt-0.5">
                               {order.quantity.toLocaleString()} units · {order.currency} {order.unit_price.toFixed(2)}/unit
                             </p>
+                            {order.delivery_window_end && (
+                              <p className="text-xs text-amber-700 mt-0.5 font-medium">
+                                Deliver by {new Date(order.delivery_window_end).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                              </p>
+                            )}
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
@@ -370,7 +375,12 @@ export default function FactoryDashboard() {
                       </div>
 
                       {/* Expanded actions */}
-                      {isExpanded && (
+                      {isExpanded && showGuide && (
+                        <div className="px-5 pb-3 pt-0">
+                          <OrderStatusGuide status={order.status} role="factory" className="mb-0" />
+                        </div>
+                      )}
+                    {isExpanded && (
                         <div className="border-t border-border p-4 space-y-4">
                           {/* PO review CTA */}
                           {order.status === "po_issued" && (
