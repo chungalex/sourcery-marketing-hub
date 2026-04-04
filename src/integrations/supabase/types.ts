@@ -512,55 +512,6 @@ export type Database = {
           },
         ]
       }
-      matches: {
-        Row: {
-          created_at: string | null
-          factory_id: string | null
-          id: string
-          rfq_id: string | null
-          score: number | null
-          status: string
-        }
-        Insert: {
-          created_at?: string | null
-          factory_id?: string | null
-          id?: string
-          rfq_id?: string | null
-          score?: number | null
-          status?: string
-        }
-        Update: {
-          created_at?: string | null
-          factory_id?: string | null
-          id?: string
-          rfq_id?: string | null
-          score?: number | null
-          status?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "matches_factory_id_fkey"
-            columns: ["factory_id"]
-            isOneToOne: false
-            referencedRelation: "factories"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "matches_factory_id_fkey"
-            columns: ["factory_id"]
-            isOneToOne: false
-            referencedRelation: "factory_previews"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "matches_rfq_id_fkey"
-            columns: ["rfq_id"]
-            isOneToOne: false
-            referencedRelation: "rfqs"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       messages: {
         Row: {
           content: string
@@ -1168,54 +1119,136 @@ export type Database = {
           },
         ]
       }
-      rfqs: {
+      rfq_recipients: {
         Row: {
-          additional_requirements: string | null
-          certifications: string[] | null
           created_at: string | null
-          description: string | null
-          generated_content: string | null
+          factory_email: string
+          factory_id: string | null
+          factory_name: string
           id: string
-          materials: string | null
-          product_type: string | null
-          quantity: string | null
-          status: string
-          target_price: string | null
-          timeline: string | null
-          updated_at: string | null
-          user_email: string
+          quote_notes: string | null
+          quoted_currency: string | null
+          quoted_lead_time_weeks: number | null
+          quoted_moq: number | null
+          quoted_unit_price: number | null
+          responded_at: string | null
+          rfq_id: string | null
+          status: string | null
+          token: string
+          viewed_at: string | null
         }
         Insert: {
-          additional_requirements?: string | null
-          certifications?: string[] | null
           created_at?: string | null
-          description?: string | null
-          generated_content?: string | null
+          factory_email: string
+          factory_id?: string | null
+          factory_name: string
           id?: string
-          materials?: string | null
-          product_type?: string | null
-          quantity?: string | null
-          status?: string
-          target_price?: string | null
-          timeline?: string | null
-          updated_at?: string | null
-          user_email: string
+          quote_notes?: string | null
+          quoted_currency?: string | null
+          quoted_lead_time_weeks?: number | null
+          quoted_moq?: number | null
+          quoted_unit_price?: number | null
+          responded_at?: string | null
+          rfq_id?: string | null
+          status?: string | null
+          token?: string
+          viewed_at?: string | null
         }
         Update: {
-          additional_requirements?: string | null
-          certifications?: string[] | null
           created_at?: string | null
-          description?: string | null
-          generated_content?: string | null
+          factory_email?: string
+          factory_id?: string | null
+          factory_name?: string
           id?: string
-          materials?: string | null
-          product_type?: string | null
-          quantity?: string | null
-          status?: string
-          target_price?: string | null
-          timeline?: string | null
+          quote_notes?: string | null
+          quoted_currency?: string | null
+          quoted_lead_time_weeks?: number | null
+          quoted_moq?: number | null
+          quoted_unit_price?: number | null
+          responded_at?: string | null
+          rfq_id?: string | null
+          status?: string | null
+          token?: string
+          viewed_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rfq_recipients_factory_id_fkey"
+            columns: ["factory_id"]
+            isOneToOne: false
+            referencedRelation: "factories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rfq_recipients_factory_id_fkey"
+            columns: ["factory_id"]
+            isOneToOne: false
+            referencedRelation: "factory_previews"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rfq_recipients_rfq_id_fkey"
+            columns: ["rfq_id"]
+            isOneToOne: false
+            referencedRelation: "rfqs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rfqs: {
+        Row: {
+          brand_id: string | null
+          created_at: string | null
+          currency: string | null
+          id: string
+          product_category: string | null
+          product_description: string | null
+          quantity_max: number | null
+          quantity_min: number | null
+          specifications: Json | null
+          status: string | null
+          target_delivery_weeks: number | null
+          target_price_max: number | null
+          target_price_min: number | null
+          tech_pack_url: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          brand_id?: string | null
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          product_category?: string | null
+          product_description?: string | null
+          quantity_max?: number | null
+          quantity_min?: number | null
+          specifications?: Json | null
+          status?: string | null
+          target_delivery_weeks?: number | null
+          target_price_max?: number | null
+          target_price_min?: number | null
+          tech_pack_url?: string | null
+          title: string
           updated_at?: string | null
-          user_email?: string
+        }
+        Update: {
+          brand_id?: string | null
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          product_category?: string | null
+          product_description?: string | null
+          quantity_max?: number | null
+          quantity_min?: number | null
+          specifications?: Json | null
+          status?: string | null
+          target_delivery_weeks?: number | null
+          target_price_max?: number | null
+          target_price_min?: number | null
+          tech_pack_url?: string | null
+          title?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
