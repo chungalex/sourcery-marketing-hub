@@ -91,7 +91,7 @@ interface ActionRequest {
   revision_description?: string;
   impact_timeline?: string;
   impact_cost?: string;
-  revision_dispute_reason?: string;
+  // dispute_reason already declared above
   resolution?: string;
   // tech pack fields
   tech_pack?: {
