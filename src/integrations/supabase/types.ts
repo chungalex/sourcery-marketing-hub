@@ -449,9 +449,11 @@ export type Database = {
           converted_at: string | null
           created_at: string | null
           factory_id: string | null
+          factory_reply: string | null
           id: string
           message: string | null
           order_id: string | null
+          replied_at: string | null
           requester_email: string
           requester_name: string
           status: string
@@ -462,9 +464,11 @@ export type Database = {
           converted_at?: string | null
           created_at?: string | null
           factory_id?: string | null
+          factory_reply?: string | null
           id?: string
           message?: string | null
           order_id?: string | null
+          replied_at?: string | null
           requester_email: string
           requester_name: string
           status?: string
@@ -475,9 +479,11 @@ export type Database = {
           converted_at?: string | null
           created_at?: string | null
           factory_id?: string | null
+          factory_reply?: string | null
           id?: string
           message?: string | null
           order_id?: string | null
+          replied_at?: string | null
           requester_email?: string
           requester_name?: string
           status?: string
