@@ -142,6 +142,9 @@ const orderSchema = z.object({
   qc_option: z.enum(["sourcery", "byoqc", "factory"]),
   aql_standard: z.enum(["1.0", "2.5", "4.0"]).default("2.5"),
   po_message: z.string().optional(),
+  colourway_count: z.coerce.number().min(1).max(50).optional(),
+  size_range: z.string().optional(),
+  shipping_destination: z.string().optional(),
 }).refine((data) => {
   if (data.delivery_window_start && data.delivery_window_end) {
     return data.delivery_window_end >= data.delivery_window_start;
@@ -155,10 +158,10 @@ const orderSchema = z.object({
 type OrderFormValues = z.infer<typeof orderSchema>;
 
 const steps = [
-  { id: 1, title: "Factory & Product", icon: Building2 },
-  { id: 2, title: "Pricing & Delivery", icon: DollarSign },
-  { id: 3, title: "Quality Control", icon: Shield },
-  { id: 4, title: "Review & Submit", icon: Check },
+  { id: 1, title: "Product & Factory", icon: Building2 },
+  { id: 2, title: "Pricing & Terms", icon: DollarSign },
+  { id: 3, title: "Quality Standard", icon: Shield },
+  { id: 4, title: "Review & Issue", icon: Check },
 ];
 
 export default function CreateOrder() {
@@ -196,6 +199,9 @@ export default function CreateOrder() {
       qc_option: "byoqc",
       aql_standard: "2.5",
       po_message: "",
+      colourway_count: undefined,
+      size_range: "",
+      shipping_destination: "",
     },
   });
 
@@ -261,9 +267,9 @@ export default function CreateOrder() {
   const canProceed = (step: number): boolean => {
     switch (step) {
       case 1:
-        return !!watchedValues.product_name?.trim() && !!watchedValues.product_category && !!watchedValues.factory_id && watchedValues.quantity > 0;
+        return !!watchedValues.product_name?.trim() && !!watchedValues.product_category && !!watchedValues.factory_id;
       case 2:
-        return watchedValues.unit_price > 0;
+        return watchedValues.quantity > 0 && watchedValues.unit_price > 0;
       case 3:
         return !!watchedValues.qc_option;
       default:
@@ -310,7 +316,7 @@ export default function CreateOrder() {
           incoterms: values.incoterms,
           delivery_window_start: values.delivery_window_start?.toISOString(),
           delivery_window_end: values.delivery_window_end?.toISOString(),
-          specifications: { product_name: values.product_name, product_category: values.product_category, notes: values.specifications || "" },
+          specifications: { product_name: values.product_name, product_category: values.product_category, notes: values.specifications || "", colourway_count: values.colourway_count, size_range: values.size_range, shipping_destination: values.shipping_destination },
           tech_pack_url: values.tech_pack_url || null,
           bom_url: values.bom_url || null,
           po_message: values.po_message || null,
@@ -459,42 +465,6 @@ export default function CreateOrder() {
                         )}
                       />
 
-                      {/* Product category */}
-                      <FormField
-                        control={form.control}
-                        name="product_category"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Product category</FormLabel>
-                            <Select onValueChange={field.onChange} value={field.value}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Select a category" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {[
-                                  { value: "apparel_casual", label: "Casual apparel" },
-                                  { value: "denim", label: "Denim" },
-                                  { value: "outerwear", label: "Outerwear & tailoring" },
-                                  { value: "knitwear", label: "Knitwear" },
-                                  { value: "activewear", label: "Activewear & sportswear" },
-                                  { value: "footwear", label: "Footwear" },
-                                  { value: "accessories", label: "Accessories & bags" },
-                                  { value: "home", label: "Home & soft goods" },
-                                  { value: "other", label: "Other" },
-                                ].map((cat) => (
-                                  <SelectItem key={cat.value} value={cat.value}>
-                                    {cat.label}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
                       <FormField
                         control={form.control}
                         name="factory_id"
@@ -638,27 +608,63 @@ export default function CreateOrder() {
                         )}
                       />
 
+                      {/* Product category */}
                       <FormField
                         control={form.control}
-                        name="quantity"
+                        name="product_category"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Quantity (units)</FormLabel>
-                            <FormControl>
-                              <Input 
-                                type="number" 
-                                placeholder="e.g. 1000" 
-                                {...field}
-                                onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
-                              />
-                            </FormControl>
-                            <FormDescription>
-                              Total number of units for this production order.
-                            </FormDescription>
+                            <FormLabel>Product category</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select a category" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {[
+                                  { group: "Tops & outerwear", items: [
+                                    { value: "tops", label: "Tops — T-shirts, shirts, blouses" },
+                                    { value: "hoodies_sweats", label: "Hoodies & sweatshirts" },
+                                    { value: "outerwear", label: "Outerwear — jackets, coats" },
+                                    { value: "knitwear", label: "Knitwear & sweaters" },
+                                    { value: "tailoring", label: "Tailoring & suiting" },
+                                  ]},
+                                  { group: "Bottoms", items: [
+                                    { value: "denim", label: "Denim — jeans, jackets, shorts" },
+                                    { value: "trousers", label: "Trousers & shorts" },
+                                    { value: "skirts", label: "Skirts & dresses" },
+                                  ]},
+                                  { group: "Specialist", items: [
+                                    { value: "activewear", label: "Activewear & sportswear" },
+                                    { value: "swimwear", label: "Swimwear & beachwear" },
+                                    { value: "underwear", label: "Underwear & intimates" },
+                                    { value: "childrenswear", label: "Childrenswear" },
+                                    { value: "workwear", label: "Technical & workwear" },
+                                  ]},
+                                  { group: "Accessories", items: [
+                                    { value: "footwear", label: "Footwear" },
+                                    { value: "bags", label: "Bags & leather goods" },
+                                    { value: "accessories", label: "Accessories — hats, belts, scarves" },
+                                  ]},
+                                  { group: "Other", items: [
+                                    { value: "home", label: "Home & soft goods" },
+                                    { value: "other", label: "Other" },
+                                  ]},
+                                ].flatMap(group => [
+                                  <SelectItem key={group.group} value={`__group_${group.group}`} disabled className="text-xs font-semibold text-muted-foreground uppercase tracking-wide pt-3 pb-1">{group.group}</SelectItem>,
+                                  ...group.items.map(cat => (
+                                    <SelectItem key={cat.value} value={cat.value}>{cat.label}</SelectItem>
+                                  ))
+                                ])}
+                              </SelectContent>
+                            </Select>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
+
+
 
                       <FormField
                         control={form.control}
@@ -681,17 +687,72 @@ export default function CreateOrder() {
                       <div className="grid sm:grid-cols-2 gap-4">
                         <FormField
                           control={form.control}
+                          name="colourway_count"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Number of colourways <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  min={1}
+                                  max={50}
+                                  placeholder="e.g. 3"
+                                  {...field}
+                                  value={field.value || ""}
+                                  onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
+                                />
+                              </FormControl>
+                              <p className="text-xs text-muted-foreground">Each colourway may require a separate dye lot minimum.</p>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="size_range"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Size range <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                              <Select onValueChange={field.onChange} value={field.value}>
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Select size range" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {[
+                                    { value: "one_size", label: "One size" },
+                                    { value: "xs_xl", label: "XS – XL (5 sizes)" },
+                                    { value: "xs_xxl", label: "XS – XXL (6 sizes)" },
+                                    { value: "s_xl", label: "S – XL (4 sizes)" },
+                                    { value: "s_xxl", label: "S – XXL (5 sizes)" },
+                                    { value: "0_14", label: "US 0–14" },
+                                    { value: "numeric_28_38", label: "Numeric 28–38 (trousers)" },
+                                    { value: "custom", label: "Custom sizing" },
+                                  ].map(s => <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>)}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
                           name="tech_pack_url"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Tech Pack URL (Optional)</FormLabel>
+                              <FormLabel>Tech pack <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
                               <FormControl>
                                 <Input 
                                   type="url" 
-                                  placeholder="Link to your tech pack — Google Drive, Dropbox, or any shared URL" 
+                                  placeholder="Google Drive, Dropbox, or Notion link" 
                                   {...field}
                                 />
                               </FormControl>
+                              <p className="text-xs text-muted-foreground">Paste a shared link. To upload a PDF directly, you can do this from the order detail page after creating the order.</p>
                               <FormMessage />
                             </FormItem>
                           )}
@@ -729,6 +790,28 @@ export default function CreateOrder() {
                           Enter the terms from your factory quote. This becomes the formal, documented agreement both sides confirm.
                         </p>
                       </div>
+
+                      <FormField
+                        control={form.control}
+                        name="quantity"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Quantity (units)</FormLabel>
+                            <FormControl>
+                              <Input 
+                                type="number" 
+                                placeholder="e.g. 1000" 
+                                {...field}
+                                onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
+                              />
+                            </FormControl>
+                            <FormDescription>
+                              Total number of units for this production order.
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
                       <div className="grid sm:grid-cols-2 gap-4">
                         <FormField
@@ -802,6 +885,40 @@ export default function CreateOrder() {
                         
 
                       </div>
+
+                      <FormField
+                        control={form.control}
+                        name="shipping_destination"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Shipping destination <span className="text-xs font-normal text-muted-foreground">(optional)</span></FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Where are the goods shipping to?" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {[
+                                  { value: "us", label: "United States" },
+                                  { value: "uk", label: "United Kingdom" },
+                                  { value: "eu", label: "European Union" },
+                                  { value: "au", label: "Australia" },
+                                  { value: "ca", label: "Canada" },
+                                  { value: "jp", label: "Japan" },
+                                  { value: "sg", label: "Singapore" },
+                                  { value: "hk", label: "Hong Kong" },
+                                  { value: "cn", label: "China" },
+                                  { value: "vn", label: "Vietnam" },
+                                  { value: "other", label: "Other" },
+                                ].map(c => <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>)}
+                              </SelectContent>
+                            </Select>
+                            <p className="text-xs text-muted-foreground">Used for incoterm guidance and landed cost estimation.</p>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
                       <TooltipProvider>
                         <FormField
@@ -1290,13 +1407,14 @@ export default function CreateOrder() {
                         {!canProceed(currentStep) && currentStep === 1 && (
                           <p className="text-xs text-muted-foreground">
                             {!watchedValues.product_name?.trim() ? "Enter an order name to continue" :
-                             !watchedValues.product_category ? "Select a product category" :
                              !watchedValues.factory_id ? "Select a factory" :
-                             !(watchedValues.quantity > 0) ? "Enter a quantity" : ""}
+                             !watchedValues.product_category ? "Select a product category" : ""}
                           </p>
                         )}
                         {!canProceed(currentStep) && currentStep === 2 && (
-                          <p className="text-xs text-muted-foreground">Enter a unit price to continue</p>
+                          <p className="text-xs text-muted-foreground">
+                            {!(watchedValues.quantity > 0) ? "Enter a quantity to continue" : "Enter a unit price to continue"}
+                          </p>
                         )}
                         <Button
                           type="button"
