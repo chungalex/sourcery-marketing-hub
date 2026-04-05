@@ -114,7 +114,7 @@ export default function Auth() {
 
       // Some environments may require email confirmation; still clear loading.
       if (data?.session) {
-        toast.success("Account created successfully!");
+        toast.success("Account created. Let's get you set up.");
         navigate(selectedRole === "factory" ? "/onboarding/factory" : "/onboarding", { replace: true });
       } else {
         toast.success("Account created! Please check your email to confirm.");

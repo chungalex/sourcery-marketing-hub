@@ -256,7 +256,7 @@ export default function BrandDashboard() {
 
   return (
     <Layout>
-      <SEO title="Dashboard — Sourcery" description="Manage your production orders and factory relationships." />
+      <SEO title="Your orders — Sourcery" description="Every active order, factory relationship, and production milestone in one place." />
       <section className="section-padding">
         <div className="container-wide">
 
@@ -265,7 +265,7 @@ export default function BrandDashboard() {
             <div className="flex items-start justify-between flex-wrap gap-4">
               <div>
                 <h1 className="text-2xl font-semibold text-foreground mb-1">
-                  {user.email?.split("@")[0] ? `Hi, ${user.email.split("@")[0]}` : "Dashboard"}
+                  {profile?.brand_name || user.email?.split("@")[0] || "Dashboard"}
                 </h1>
                 <p className="text-muted-foreground text-sm">
                   {needsActionOrders.length > 0

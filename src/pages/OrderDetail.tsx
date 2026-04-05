@@ -298,7 +298,7 @@ export default function OrderDetail() {
     <Layout>
       <SEO
         title={`${(specs?.product_name as string) || order.order_number} | Sourcery`}
-        description="Manage your production order."
+        description="Track specs, revisions, milestones, and QC for this order."
       />
 
       <section className="section-padding">

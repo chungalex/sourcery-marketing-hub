@@ -169,10 +169,10 @@ const orderSchema = z.object({
 type OrderFormValues = z.infer<typeof orderSchema>;
 
 const steps = [
-  { id: 1, title: "Product & Factory", icon: Building2 },
-  { id: 2, title: "Specifications", icon: FileText },
-  { id: 3, title: "Commercial Terms", icon: DollarSign },
-  { id: 4, title: "Quality & Compliance", icon: Shield },
+  { id: 1, title: "The basics", icon: Building2 },
+  { id: 2, title: "The spec", icon: FileText },
+  { id: 3, title: "The deal", icon: DollarSign },
+  { id: 4, title: "Quality & sign-off", icon: Shield },
 ];
 
 export default function CreateOrder() {
@@ -366,6 +366,12 @@ export default function CreateOrder() {
           packaging_notes: values.packaging_notes || null,
           label_requirements: values.label_requirements || null,
           qc_option: values.qc_option,
+          milestones: milestones.map(m => ({
+            label: m.label,
+            percentage: m.percentage,
+            amount: m.amount || (totalAmount * m.percentage / 100),
+            release_condition: m.release_condition || null,
+          })),
           qc_standard: {
             aql: values.aql_standard,
             defect_threshold_percent: parseFloat(values.aql_standard),
@@ -403,8 +409,8 @@ export default function CreateOrder() {
   return (
     <Layout>
       <SEO 
-        title="Create Production Order | Sourcery"
-        description="Create a new production order with your factory partner."
+        title="New order — Sourcery"
+        description="Start a new order. Spec, factory, milestones, QC — all in one place."
       />
 
       <section className="section-padding min-h-[80vh]">
@@ -483,9 +489,9 @@ export default function CreateOrder() {
                   {currentStep === 1 && (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">Product & Factory</h2>
+                        <h2 className="text-xl font-semibold text-foreground mb-1">What are you making, and who's making it?</h2>
                         <p className="text-muted-foreground text-sm">
-                          Name this order and select the factory. You'll add specs, pricing, and quality requirements in the next three steps.
+                          This becomes the record both you and your factory work from.
                         </p>
                         <div className="flex gap-2 mt-3 flex-wrap">
                           {[
@@ -506,14 +512,14 @@ export default function CreateOrder() {
                         name="product_name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Order name <span className="text-rose-500">*</span></FormLabel>
+                            <FormLabel>What's this order called?</FormLabel>
                             <FormControl>
                               <Input
                                 placeholder="e.g. SS26 Denim Jacket, FW25 Hoodie — 300 units"
                                 {...field}
                               />
                             </FormControl>
-                            <p className="text-xs text-muted-foreground">How you'll identify this order. Visible on your dashboard and to your factory.</p>
+                            <p className="text-xs text-muted-foreground">You'll recognise it in 6 months. Your factory sees this too.</p>
                             <FormMessage />
                           </FormItem>
                         )}
@@ -577,9 +583,9 @@ export default function CreateOrder() {
                               <div className="flex items-start gap-3 p-3 rounded-lg border border-dashed border-border bg-muted/30 mb-3">
                                 <UserPlus className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-sm text-foreground">You haven't brought any factories onto Sourcery yet.</p>
+                                  <p className="text-sm text-foreground">No factories on your account yet.</p>
                                   <p className="text-xs text-muted-foreground mt-0.5">
-                                    Invite your existing factory from your dashboard, or pick from the Sourcery network below.
+                                    Invite yours in 30 seconds, or pick one from our network below.
                                   </p>
                                   <Link
                                     to="/dashboard"
@@ -685,9 +691,9 @@ export default function CreateOrder() {
                   {currentStep === 2 && (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">Specifications</h2>
+                        <h2 className="text-xl font-semibold text-foreground mb-1">The spec</h2>
                         <p className="text-muted-foreground text-sm">
-                          Technical details the factory needs to produce without guessing. Every field you fill in reduces revision rounds.
+                          Everything your factory needs to make it right. The more precise this is, the less back-and-forth later.
                         </p>
                       </div>
 
@@ -902,9 +908,9 @@ export default function CreateOrder() {
                   {currentStep === 3 && (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">Commercial Terms</h2>
+                        <h2 className="text-xl font-semibold text-foreground mb-1">The deal</h2>
                         <p className="text-muted-foreground text-sm">
-                          Enter the agreed pricing, quantity, and delivery terms. This becomes the formal documented agreement both sides sign off on.
+                          Agreed pricing, quantity, and delivery. This becomes the formal record both sides confirm.
                         </p>
                       </div>
 
@@ -1199,9 +1205,9 @@ export default function CreateOrder() {
                   {currentStep === 4 && (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">Quality & Compliance</h2>
+                        <h2 className="text-xl font-semibold text-foreground mb-1">Quality & sign-off</h2>
                         <p className="text-muted-foreground text-sm">
-                          Set the quality standard, compliance requirements, and add a message to your factory before issuing.
+                          Set the inspection standard and compliance requirements. Then review and send.
                         </p>
                       </div>
 
