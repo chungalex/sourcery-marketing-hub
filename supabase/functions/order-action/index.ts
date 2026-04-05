@@ -175,15 +175,15 @@ Deno.serve(async (req) => {
     // Helper: fire-and-forget notification (never blocks the action)
     const notify = async (type: string, userIds: string | string[], ctx: Record<string, string> = {}, notifyOrderId?: string) => {
       try {
-        await serviceClient.from("notifications").insert(
-          (Array.isArray(userIds) ? userIds : [userIds]).map(uid => ({
-            user_id: uid,
-            order_id: notifyOrderId || orderId || null,
+        // Call send-notification which handles both DB write and email delivery
+        await serviceClient.functions.invoke("send-notification", {
+          body: {
             type,
-            title: type.replace(/_/g, " "),
-            body: JSON.stringify(ctx), // raw ctx stored; UI renders with template
-          }))
-        );
+            user_id: Array.isArray(userIds) ? userIds : [userIds],
+            order_id: notifyOrderId || orderId || null,
+            context: ctx,
+          },
+        });
       } catch (e) {
         console.error("[order-action] notify failed silently:", e);
       }
@@ -283,6 +283,33 @@ Deno.serve(async (req) => {
             JSON.stringify({ error: transitionResult?.error || transitionError?.message || "Failed to issue PO" }),
             { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
           );
+        }
+
+        // Notify factory of new PO to review
+        try {
+          const { data: issuedOrder } = await serviceClient
+            .from("orders")
+            .select("order_number, factories(id, name), profiles:buyer_id(full_name)")
+            .eq("id", orderId)
+            .single();
+          
+          if (issuedOrder?.factories) {
+            // Get factory members to notify
+            const { data: factoryMembers } = await serviceClient
+              .from("factory_members")
+              .select("user_id")
+              .eq("factory_id", (issuedOrder.factories as any).id);
+            
+            const factoryUserIds = (factoryMembers || []).map((m: any) => m.user_id);
+            if (factoryUserIds.length > 0) {
+              await notify("po_issued", factoryUserIds, {
+                order_number: issuedOrder.order_number,
+                brand_name: (issuedOrder.profiles as any)?.full_name || "The brand",
+              });
+            }
+          }
+        } catch (e) {
+          console.error("[order-action] po_issued notify failed:", e);
         }
 
         result = transitionResult;

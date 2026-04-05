@@ -78,7 +78,8 @@ export default function FactoryAccept() {
         .select(`
           id, order_number, status, quantity, unit_price,
           total_amount, currency, created_at, specifications,
-          incoterms, delivery_window_start, delivery_window_end,
+          tech_pack_url, bom_url, incoterms,
+          delivery_window_start, delivery_window_end,
           profiles:buyer_id (full_name, email),
           order_milestones (id, label, percentage, amount, status, sequence_order, release_condition)
         `)
@@ -267,13 +268,27 @@ export default function FactoryAccept() {
                       <div className="text-xs text-muted-foreground mb-2 font-medium uppercase tracking-wide">
                         Specifications
                       </div>
-                      <div className="space-y-1">
+                      {/* Tech pack quick link */}
+                  {order.tech_pack_url && (
+                    <div className="p-3 rounded-lg bg-primary/5 border border-primary/20 flex items-center justify-between">
+                      <div>
+                        <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-0.5">Tech pack</p>
+                        <p className="text-xs text-muted-foreground">Review before accepting</p>
+                      </div>
+                      <a href={order.tech_pack_url} target="_blank" rel="noopener noreferrer"
+                        className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
+                        Open <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                    </div>
+                  )}
+
+                  <div className="space-y-1">
                         {Object.entries(order.specifications)
-                          .filter(([k]) => k !== "qc_mode")
+                          .filter(([k]) => !["qc_mode", "source", "source_inquiry_id", "requester_name", "requester_email"].includes(k))
                           .map(([key, val]) => (
                             <div key={key} className="flex gap-2 text-sm">
                               <span className="text-muted-foreground capitalize">
-                                {key.replace(/_/g, " ")}:
+                                {key.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase())}:
                               </span>
                               <span className="text-foreground">{String(val)}</span>
                             </div>
