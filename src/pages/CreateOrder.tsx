@@ -172,7 +172,7 @@ const steps = [
   { id: 1, title: "Product & Factory", icon: Building2 },
   { id: 2, title: "Specifications", icon: FileText },
   { id: 3, title: "Commercial Terms", icon: DollarSign },
-  { id: 4, title: "Quality & Review", icon: Shield },
+  { id: 4, title: "Quality & Compliance", icon: Shield },
 ];
 
 export default function CreateOrder() {
@@ -479,16 +479,25 @@ export default function CreateOrder() {
                 transition={{ duration: 0.3 }}
               >
                 <div className="bg-card border border-border rounded-xl p-6 md:p-8">
-                  {/* Step 1: Factory & Product */}
+                  {/* Step 1: Product & Factory */}
                   {currentStep === 1 && (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">
-                          Factory & Product Details
-                        </h2>
+                        <h2 className="text-xl font-semibold text-foreground mb-1">Product & Factory</h2>
                         <p className="text-muted-foreground text-sm">
-                          Name your order, select your factory, and specify the product.
+                          Name this order and select the factory. You'll add specs, pricing, and quality requirements in the next three steps.
                         </p>
+                        <div className="flex gap-2 mt-3 flex-wrap">
+                          {[
+                            { n: "2", label: "Specs & tech pack" },
+                            { n: "3", label: "Pricing & delivery" },
+                            { n: "4", label: "QC & compliance" },
+                          ].map(s => (
+                            <span key={s.n} className="text-xs px-2.5 py-1 rounded-full border border-border bg-secondary/50 text-muted-foreground">
+                              <span className="font-semibold text-foreground mr-1">{s.n}</span>{s.label}
+                            </span>
+                          ))}
+                        </div>
                       </div>
 
                       {/* Product name */}
@@ -510,7 +519,23 @@ export default function CreateOrder() {
                         )}
                       />
 
+                      {/* Collection / season */}
                       <FormField
+                        control={form.control}
+                        name="collection"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Collection / season</FormLabel>
+                            <FormControl>
+                              <Input placeholder="e.g. SS26, FW25, Holiday 2026" {...field} />
+                            </FormControl>
+                            <p className="text-xs text-muted-foreground">Groups this order on your dashboard. Visible to the factory.</p>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                                            <FormField
                         control={form.control}
                         name="factory_id"
                         render={({ field }) => (
@@ -653,175 +678,7 @@ export default function CreateOrder() {
                         )}
                       />
 
-                      {/* Product category */}
-                      <FormField
-                        control={form.control}
-                        name="product_category"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Product category</FormLabel>
-                            <Select onValueChange={field.onChange} value={field.value}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Select a category" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {[
-                                  { group: "Tops & outerwear", items: [
-                                    { value: "tops", label: "Tops — T-shirts, shirts, blouses" },
-                                    { value: "hoodies_sweats", label: "Hoodies & sweatshirts" },
-                                    { value: "outerwear", label: "Outerwear — jackets, coats" },
-                                    { value: "knitwear", label: "Knitwear & sweaters" },
-                                    { value: "tailoring", label: "Tailoring & suiting" },
-                                  ]},
-                                  { group: "Bottoms", items: [
-                                    { value: "denim", label: "Denim — jeans, jackets, shorts" },
-                                    { value: "trousers", label: "Trousers & shorts" },
-                                    { value: "skirts", label: "Skirts & dresses" },
-                                  ]},
-                                  { group: "Specialist", items: [
-                                    { value: "activewear", label: "Activewear & sportswear" },
-                                    { value: "swimwear", label: "Swimwear & beachwear" },
-                                    { value: "underwear", label: "Underwear & intimates" },
-                                    { value: "childrenswear", label: "Childrenswear" },
-                                    { value: "workwear", label: "Technical & workwear" },
-                                  ]},
-                                  { group: "Accessories", items: [
-                                    { value: "footwear", label: "Footwear" },
-                                    { value: "bags", label: "Bags & leather goods" },
-                                    { value: "accessories", label: "Accessories — hats, belts, scarves" },
-                                  ]},
-                                  { group: "Other", items: [
-                                    { value: "home", label: "Home & soft goods" },
-                                    { value: "other", label: "Other" },
-                                  ]},
-                                ].flatMap(group => [
-                                  <SelectItem key={group.group} value={`__group_${group.group}`} disabled className="text-xs font-semibold text-muted-foreground uppercase tracking-wide pt-3 pb-1">{group.group}</SelectItem>,
-                                  ...group.items.map(cat => (
-                                    <SelectItem key={cat.value} value={cat.value}>{cat.label}</SelectItem>
-                                  ))
-                                ])}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-
-
-                      <FormField
-                        control={form.control}
-                        name="specifications"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Product Specifications (Optional)</FormLabel>
-                            <FormControl>
-                              <Textarea 
-                                placeholder={"Fabric: e.g. 12oz selvedge denim, 98% cotton 2% elastane\nColorways: e.g. indigo wash, stone wash\nSizing: e.g. XS–XL, women's fit\nConstruction: e.g. 5-pocket, chain stitch hem\nFinishes: e.g. garment washed, enzyme treated\n\nThe more specific, the fewer revision rounds."}
-                                className="min-h-[140px] text-sm font-mono"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="colourway_count"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Number of colourways</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="number"
-                                  min={1}
-                                  max={50}
-                                  placeholder="e.g. 3"
-                                  {...field}
-                                  value={field.value || ""}
-                                  onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
-                                />
-                              </FormControl>
-                              <p className="text-xs text-muted-foreground">Each colourway may require a separate dye lot minimum.</p>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="size_range"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Size range</FormLabel>
-                              <Select onValueChange={field.onChange} value={field.value}>
-                                <FormControl>
-                                  <SelectTrigger>
-                                    <SelectValue placeholder="Select size range" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {[
-                                    { value: "one_size", label: "One size" },
-                                    { value: "xs_xl", label: "XS – XL (5 sizes)" },
-                                    { value: "xs_xxl", label: "XS – XXL (6 sizes)" },
-                                    { value: "s_xl", label: "S – XL (4 sizes)" },
-                                    { value: "s_xxl", label: "S – XXL (5 sizes)" },
-                                    { value: "0_14", label: "US 0–14" },
-                                    { value: "numeric_28_38", label: "Numeric 28–38 (trousers)" },
-                                    { value: "custom", label: "Custom sizing" },
-                                  ].map(s => <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>)}
-                                </SelectContent>
-                              </Select>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="tech_pack_url"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Tech pack</FormLabel>
-                              <FormControl>
-                                <Input 
-                                  type="url" 
-                                  placeholder="Google Drive, Dropbox, or Notion link" 
-                                  {...field}
-                                />
-                              </FormControl>
-                              <p className="text-xs text-muted-foreground">Paste a shared link. To upload a PDF directly, you can do this from the order detail page after creating the order.</p>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="bom_url"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Bill of Materials <span className="text-xs font-normal text-muted-foreground">(Optional)</span></FormLabel>
-                              <FormControl>
-                                <Input 
-                                  type="url" 
-                                  placeholder="Link to your BOM — lists every material, trim, and component" 
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    </div>
+                                          </div>
                   )}
 
                   {/* Step 2: Specifications */}
@@ -1045,7 +902,7 @@ export default function CreateOrder() {
                   {currentStep === 3 && (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">Commercial terms</h2>
+                        <h2 className="text-xl font-semibold text-foreground mb-1">Commercial Terms</h2>
                         <p className="text-muted-foreground text-sm">
                           Enter the agreed pricing, quantity, and delivery terms. This becomes the formal documented agreement both sides sign off on.
                         </p>
@@ -1057,7 +914,7 @@ export default function CreateOrder() {
                         name="quantity"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Total quantity <span className="text-rose-500">*</span></FormLabel>
+                            <FormLabel>Quantity</FormLabel>
                             <FormControl>
                               <Input
                                 type="number"
@@ -1080,7 +937,7 @@ export default function CreateOrder() {
                           name="unit_price"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Unit price <span className="text-rose-500">*</span></FormLabel>
+                              <FormLabel>Unit price <span className="text-xs font-normal text-muted-foreground">— from your factory quote</span></FormLabel>
                               <FormControl>
                                 <div className="relative">
                                   <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -1124,7 +981,7 @@ export default function CreateOrder() {
 
                       {/* Order value */}
                       {totalAmount > 0 && (
-                        <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                        <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl">
                           <div className="flex items-center justify-between">
                             <span className="text-sm text-muted-foreground">Order value</span>
                             <span className="text-2xl font-bold text-foreground">
@@ -1178,8 +1035,7 @@ export default function CreateOrder() {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel className="flex items-center gap-2">
-                                Incoterms
-                                <Tooltip>
+                                Incoterms  <Tooltip>
                                   <TooltipTrigger asChild>
                                     <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                                   </TooltipTrigger>
@@ -1343,7 +1199,7 @@ export default function CreateOrder() {
                   {currentStep === 4 && (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">Quality, compliance &amp; review</h2>
+                        <h2 className="text-xl font-semibold text-foreground mb-1">Quality & Compliance</h2>
                         <p className="text-muted-foreground text-sm">
                           Set the quality standard, compliance requirements, and add a message to your factory before issuing.
                         </p>
@@ -1363,8 +1219,7 @@ export default function CreateOrder() {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel className="flex items-center gap-2">
-                                AQL quality standard
-                                <Tooltip>
+                                AQL quality standard             <Tooltip>
                                   <TooltipTrigger asChild>
                                     <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                                   </TooltipTrigger>
@@ -1434,7 +1289,7 @@ export default function CreateOrder() {
                                   onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
                                 />
                               </FormControl>
-                              <p className="text-xs text-muted-foreground">How many samples before you'll approve bulk.</p>
+                              <p className="text-xs text-muted-foreground">Typically 1–3. Each revision round uses one sample. Budget for 2 if this is a new style.</p>
                               <FormMessage />
                             </FormItem>
                           )}
@@ -1447,7 +1302,7 @@ export default function CreateOrder() {
                         name="label_requirements"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Label &amp; compliance requirements</FormLabel>
+                            <FormLabel>Label & compliance requirements</FormLabel>
                             <FormControl>
                               <Textarea
                                 placeholder={"Care labels: e.g. required in English + French for Canada\nCountry of origin: e.g. Made in Vietnam\nCompliance: e.g. CPSC for US, REACH for EU\nCertifications: e.g. GOTS, OEKO-TEX, BSCI"}
