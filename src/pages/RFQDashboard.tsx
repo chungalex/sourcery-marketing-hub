@@ -71,13 +71,13 @@ export default function RFQDashboard() {
   if (!rfqs.length) return (
     <div className="py-8 space-y-4">
       <div className="p-5 rounded-xl bg-card border border-border">
-        <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">How RFQs work</p>
+        <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Get competing quotes before you commit.</p>
         <div className="space-y-3">
           {[
-            { n: "01", t: "Create a product brief", b: "Describe what you're making — specs, quantity range, target price, delivery. Takes 3 minutes." },
-            { n: "02", t: "Send to multiple factories", b: "Pick from the Sourcery network or type any factory's email. They don't need an account to respond." },
-            { n: "03", t: "Compare quotes side by side", b: "Each factory responds with their price, MOQ, and lead time. You see everything in one place." },
-            { n: "04", t: "Convert the best quote to a PO", b: "Select a factory, hit Convert — their pricing pre-fills your order form." },
+            { n: "01", t: "Write one brief", b: "Describe what you're making — specs, quantity range, target price, delivery window. Takes 3 minutes." },
+            { n: "02", t: "Send to every factory at once", b: "Pick from the Sourcery network or type any factory's email address. No account needed to respond." },
+            { n: "03", t: "See who quotes what", b: "Each factory submits their price, MOQ, and lead time. Everything in one place, no inbox archaeology." },
+            { n: "04", t: "Convert the best one to a PO", b: "Select the quote you want. Their pricing pre-fills your order form. Done." },
           ].map(s => (
             <div key={s.n} className="flex gap-3">
               <span className="font-mono text-xs font-bold text-primary/40 flex-shrink-0 mt-0.5 w-6">{s.n}</span>
@@ -90,7 +90,7 @@ export default function RFQDashboard() {
         </div>
       </div>
       <Button asChild className="w-full gap-2">
-        <Link to="/rfq/create"><Plus className="h-4 w-4" />Create your first RFQ</Link>
+        <Link to="/rfq/create"><Plus className="h-4 w-4" />Send your first RFQ</Link>
       </Button>
     </div>
   );

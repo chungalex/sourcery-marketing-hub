@@ -154,10 +154,10 @@ export default function Auth() {
           >
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-foreground mb-2">
-                Welcome to Sourcery
+                Your production, documented.
               </h1>
               <p className="text-muted-foreground">
-                Find and manage your manufacturing relationships
+                Every spec, revision, milestone, and factory relationship — documented from brief to delivery.
               </p>
             </div>
 
@@ -230,7 +230,7 @@ export default function Auth() {
                         <Users className="h-5 w-5 mb-2 text-primary" />
                         <div className="font-medium text-foreground">Brand</div>
                         <div className="text-xs text-muted-foreground">
-                          Looking for manufacturers
+                          Sourcing & production management
                         </div>
                       </button>
                       <button
@@ -245,7 +245,7 @@ export default function Auth() {
                         <Building2 className="h-5 w-5 mb-2 text-primary" />
                         <div className="font-medium text-foreground">Factory</div>
                         <div className="text-xs text-muted-foreground">
-                          Showcase my capabilities
+                          List your factory, receive orders
                         </div>
                       </button>
                     </div>

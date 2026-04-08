@@ -171,8 +171,8 @@ type OrderFormValues = z.infer<typeof orderSchema>;
 const steps = [
   { id: 1, title: "The basics", icon: Building2 },
   { id: 2, title: "The spec", icon: FileText },
-  { id: 3, title: "Terms", icon: DollarSign },
-  { id: 4, title: "Quality & Compliance", icon: Shield },
+  { id: 3, title: "The deal", icon: DollarSign },
+  { id: 4, title: "Quality & sign-off", icon: Shield },
 ];
 
 export default function CreateOrder() {
@@ -489,7 +489,7 @@ export default function CreateOrder() {
                   {currentStep === 1 && (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">Start with the product and who's producing it.</h2>
+                        <h2 className="text-xl font-semibold text-foreground mb-1">What are you making, and who's producing it?</h2>
                         <p className="text-muted-foreground text-sm">
                           This becomes the record both you and your factory work from.
                         </p>
@@ -1205,7 +1205,7 @@ export default function CreateOrder() {
                   {currentStep === 4 && (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">Quality & Compliance</h2>
+                        <h2 className="text-xl font-semibold text-foreground mb-1">Quality & sign-off</h2>
                         <p className="text-muted-foreground text-sm">
                           Set the inspection standard and compliance requirements. Then review and send.
                         </p>

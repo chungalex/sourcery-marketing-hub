@@ -155,7 +155,7 @@ export default function Onboarding() {
                       <div>
                         <h1 className="text-2xl font-bold text-foreground mb-2">You're in.</h1>
                         <p className="text-muted-foreground leading-relaxed">
-                          Sourcery is built for brands managing physical production — structured orders, milestone payments, QC gates, and a permanent record on every run. Let's get you set up in two minutes.
+                          A few quick questions to set up your account. Takes 60 seconds. milestone payments, QC gates, and a permanent record on every run. Let's get you set up in two minutes.
                         </p>
                       </div>
                     </div>
@@ -186,8 +186,8 @@ export default function Onboarding() {
                 {step === "brand_profile" && (
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-xl font-bold text-foreground mb-1">Tell us about your brand</h2>
-                      <p className="text-sm text-muted-foreground">Helps us show you the right factories and set up your account correctly.</p>
+                      <h2 className="text-xl font-bold text-foreground mb-1">What are you making?</h2>
+                      <p className="text-sm text-muted-foreground">This helps us show the right factories and tailor guidance to your situation.</p>
                     </div>
 
                     <div className="space-y-5">
@@ -257,8 +257,8 @@ export default function Onboarding() {
                                 {step === "experience" && (
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-2xl font-bold text-foreground mb-1">Tell us about your operation</h2>
-                      <p className="text-muted-foreground text-sm">This helps us tailor guidance and defaults to your situation. Takes 60 seconds.</p>
+                      <h2 className="text-2xl font-bold text-foreground mb-1">Where are you in your production journey?</h2>
+                      <p className="text-muted-foreground text-sm">Helps us show the most relevant guidance and defaults.</p>
                     </div>
                     <ExperienceQuiz
                       onComplete={(profile) => saveExperience(profile)}
@@ -270,7 +270,7 @@ export default function Onboarding() {
                 {step === "factories" && (
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-xl font-bold text-foreground mb-1">Do you already work with a factory?</h2>
+                      <h2 className="text-xl font-bold text-foreground mb-1">Do you already have a factory?</h2>
                       <p className="text-sm text-muted-foreground">
                         If you have an existing manufacturer, invite them to Sourcery — it's free for them and you can start managing orders immediately.
                       </p>
@@ -288,7 +288,7 @@ export default function Onboarding() {
                           </div>
                           <div>
                             <p className="text-sm font-semibold text-foreground">Yes — invite my factory</p>
-                            <p className="text-xs text-muted-foreground mt-0.5">Send them a link. They join free, you start managing orders together.</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">They join free. You're connected in 30 seconds.</p>
                           </div>
                         </div>
                       </button>
@@ -303,7 +303,7 @@ export default function Onboarding() {
                             <Users className="h-4.5 w-4.5 text-muted-foreground" style={{ width: 18, height: 18 }} />
                           </div>
                           <div>
-                            <p className="text-sm font-semibold text-foreground">Not yet — I'll set this up later</p>
+                            <p className="text-sm font-semibold text-foreground">Not yet — I'll add one from the dashboard</p>
                             <p className="text-xs text-muted-foreground mt-0.5">Go to your dashboard and invite a factory when you're ready.</p>
                           </div>
                         </div>
@@ -386,8 +386,7 @@ export default function Onboarding() {
                       <div>
                         <h2 className="text-2xl font-bold text-foreground mb-2">You're all set.</h2>
                         <p className="text-muted-foreground leading-relaxed">
-                          Your account is ready. Create your first order, invite a factory, or explore the platform from your dashboard.
-                        </p>
+                          You're set up. Create your first order — it's free, no time limit.</p>
                       </div>
                     </div>
 
@@ -413,7 +412,7 @@ export default function Onboarding() {
                     </div>
 
                     <p className="text-xs text-muted-foreground">
-                      Your first order is completely free — no credit card, no time limit.
+                      No credit card needed. Full platform from day one.
                     </p>
                   </div>
                 )}

@@ -455,21 +455,21 @@ export default function BrandDashboard() {
                         {
                           num: "01",
                           title: "Connect your factory",
-                          body: "Invite your manufacturer from the Your Factories tab — they'll get an email with a free account link. Or browse the Sourcery network if you're still sourcing.",
+                          body: "Invite your factory — they get a free account and can start reviewing orders immediately. Or pick one from our network if you're still sourcing.",
                           action: "Invite a factory →",
                           href: "/dashboard?action=invite",
                         },
                         {
                           num: "02",
                           title: "Create a structured PO",
-                          body: "Every order captures the agreed price, incoterms, delivery window, QC standard, and payment milestones. Each field is explained so you know what you're agreeing to before you commit.",
+                          body: "Every order documents the agreed price, delivery window, QC standard, and payment milestones. Both sides confirm before anything moves.",
                           action: "Create your first order →",
                           href: "/orders/create",
                         },
                         {
                           num: "03",
                           title: "Issue the PO to your factory",
-                          body: "Once the order looks right, issue the formal PO. The factory reviews it and accepts. From here, every step — sampling, revisions, QC, payments — is documented on the order.",
+                          body: "Issue the PO when terms are final. The factory confirms. From there — sampling, revisions, QC, payments — all tracked on the same record.",
                           action: null,
                           href: null,
                         },
@@ -525,12 +525,9 @@ export default function BrandDashboard() {
               ) : (
                 <div className="text-center py-16 bg-card border border-dashed border-border rounded-xl">
                   <Building2 className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
-                  <h3 className="text-base font-semibold text-foreground mb-1">No factories connected yet</h3>
-                  <p className="text-sm text-muted-foreground mb-2 max-w-sm mx-auto">
-                    Already working with a manufacturer? Invite them directly — they get a free account and you can start managing orders together immediately.
-                  </p>
-                  <p className="text-xs text-muted-foreground mb-6 max-w-sm mx-auto">
-                    Or browse the Sourcery network to discover vetted factories with real performance scores.
+                  <h3 className="text-base font-semibold text-foreground mb-1">Who's making your product?</h3>
+                  <p className="text-sm text-muted-foreground mb-6 max-w-sm mx-auto">
+                    If you already have a factory, invite them — they get a free account. If you're still sourcing, browse our network of verified manufacturers.
                   </p>
                   <div className="flex gap-2 justify-center">
                     <Button asChild><Link to="/dashboard?tab=invite"><UserPlus className="mr-2 h-4 w-4" />Invite your factory</Link></Button>
@@ -612,9 +609,9 @@ export default function BrandDashboard() {
               ) : (
                 <div className="text-center py-16 bg-card border border-dashed border-border rounded-xl">
                   <MessageSquare className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
-                  <h3 className="text-base font-semibold text-foreground mb-1">No inquiries yet</h3>
-                  <p className="text-sm text-muted-foreground mb-6">Contact a factory from the directory to start a conversation.</p>
-                  <Button asChild><Link to="/directory"><Search className="mr-2 h-4 w-4" />Browse Factories</Link></Button>
+                  <h3 className="text-base font-semibold text-foreground mb-1">Haven't reached out to anyone yet.</h3>
+                  <p className="text-sm text-muted-foreground mb-6 max-w-sm mx-auto">Find a factory, send a brief, and the whole conversation — quotes, questions, follow-ups — stays here instead of your inbox.</p>
+                  <Button asChild><Link to="/directory"><Search className="mr-2 h-4 w-4" />Find a factory</Link></Button>
                 </div>
               )}
             </TabsContent>
