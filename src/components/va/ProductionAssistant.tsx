@@ -151,7 +151,7 @@ export function ProductionAssistant({ mode, orderContext, initialQuery, classNam
   useEffect(() => {
     if (initialQuery && !autoSentRef.current) {
       autoSentRef.current = true;
-      setTimeout(() => handleSend(initialQuery), 600);
+      setTimeout(() => send(initialQuery), 600);
     }
   }, [initialQuery]);
 
