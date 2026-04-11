@@ -146,13 +146,14 @@ export function ProductionAssistant({ mode, orderContext, initialQuery, classNam
   };
 
 
-  // Auto-send initial query from URL param (after sendMessage is defined)
+  // Auto-send initial query from URL param
+  const autoSentRef = useRef(false);
   useEffect(() => {
-    if (initialQuery && !autoSent && sendMessage) {
-      setAutoSent(true);
-      setTimeout(() => sendMessage(initialQuery), 600);
+    if (initialQuery && !autoSentRef.current) {
+      autoSentRef.current = true;
+      setTimeout(() => handleSend(initialQuery), 600);
     }
-  }, [initialQuery, sendMessage]);
+  }, [initialQuery]);
 
   const greeting = mode === "order"
     ? `Ask me anything about ${orderContext?.orderNumber || "this order"} — risk, timing, next steps, or draft a message to ${orderContext?.factoryName || "the factory"}.`
