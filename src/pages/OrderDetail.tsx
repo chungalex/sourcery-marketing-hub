@@ -18,6 +18,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { OrderStatusGuide } from "@/components/orders/OrderStatusGuide";
 import { useAuth } from "@/hooks/useAuth";
+import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { OrderChatSummary } from "@/components/orders/OrderChatSummary";
 import { DisputeFiling } from "@/components/orders/DisputeFiling";
@@ -29,6 +30,10 @@ import { RevisionRounds } from "@/components/orders/RevisionRounds";
 import { TechPackVersions } from "@/components/orders/TechPackVersions";
 import { DefectReports } from "@/components/orders/DefectReports";
 import { ReorderButton } from "@/components/orders/ReorderButton";
+import { OrderSKUs } from "@/components/orders/OrderSKUs";
+import { ProductionPhotoLog } from "@/components/orders/ProductionPhotoLog";
+import { TimezoneApproval } from "@/components/orders/TimezoneApproval";
+import { OrderTimeline } from "@/components/orders/OrderTimeline";
 import { ProductionAssistant } from "@/components/va/ProductionAssistant";
 import { toast } from "sonner";
 import {
@@ -77,6 +82,7 @@ export default function OrderDetail() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { user, isLoading: authLoading } = useAuth();
+  const { hasFactoryAccess } = useFactoryMembership(user?.id);
 
   // Handle Stripe return
   useEffect(() => {

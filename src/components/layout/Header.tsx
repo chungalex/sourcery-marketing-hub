@@ -18,6 +18,7 @@ const marketingNav = [
   { label: "Resources", href: "/resources" },
   { label: "Why Sourcery", href: "/why-sourcery" },
   { label: "Pricing", href: "/pricing" },
+    { label: "Studio", href: "/studio" },
 ];
 
 // App nav — shown to logged-in brands

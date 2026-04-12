@@ -86,6 +86,7 @@ const App = () => (
             <Route path="/orders/create" element={<CreateOrder />} />
         <Route path="/rfq/create" element={<CreateRFQ />} />
         <Route path="/rfq/respond" element={<RFQRespond />} />
+        <Route path="/studio" element={<Studio />} />
             <Route path="/orders/:id" element={<OrderDetail />} />
             <Route path="/factory-accept/:orderId" element={<FactoryAccept />} />
             <Route path="/onboarding" element={<Onboarding />} />
