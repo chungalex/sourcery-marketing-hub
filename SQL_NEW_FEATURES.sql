@@ -50,3 +50,17 @@ ALTER TABLE approval_requests ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "order_parties_manage_approvals" ON approval_requests FOR ALL
   USING (order_id IN (SELECT id FROM orders WHERE buyer_id = auth.uid())
     OR order_id IN (SELECT o.id FROM orders o JOIN factory_members fm ON fm.factory_id = o.factory_id WHERE fm.user_id = auth.uid()));
+
+-- Shipment documents
+CREATE TABLE IF NOT EXISTS shipment_docs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  order_id UUID REFERENCES orders(id) ON DELETE CASCADE,
+  doc_type TEXT NOT NULL,
+  file_url TEXT NOT NULL,
+  file_name TEXT NOT NULL,
+  uploaded_at TIMESTAMPTZ DEFAULT now()
+);
+ALTER TABLE shipment_docs ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "order_parties_manage_shipment_docs" ON shipment_docs FOR ALL
+  USING (order_id IN (SELECT id FROM orders WHERE buyer_id = auth.uid())
+    OR order_id IN (SELECT o.id FROM orders o JOIN factory_members fm ON fm.factory_id = o.factory_id WHERE fm.user_id = auth.uid()));

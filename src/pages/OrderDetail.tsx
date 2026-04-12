@@ -34,6 +34,7 @@ import { OrderSKUs } from "@/components/orders/OrderSKUs";
 import { ProductionPhotoLog } from "@/components/orders/ProductionPhotoLog";
 import { TimezoneApproval } from "@/components/orders/TimezoneApproval";
 import { OrderTimeline } from "@/components/orders/OrderTimeline";
+import { ShipmentDocs } from "@/components/orders/ShipmentDocs";
 import { ProductionAssistant } from "@/components/va/ProductionAssistant";
 import { toast } from "sonner";
 import {

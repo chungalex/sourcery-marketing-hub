@@ -22,6 +22,7 @@ import {
 import { format } from "date-fns";
 import { BrandOnboardingPrompt } from "@/components/onboarding/BrandOnboardingPrompt";
 import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
+import { ReorderIntelligence } from "@/components/orders/ReorderIntelligence";
 import { lazy, Suspense } from "react";
 const RFQDashboard = lazy(() => import("./RFQDashboard"));
 
@@ -383,6 +384,10 @@ export default function BrandDashboard() {
 
             {/* Orders */}
             <TabsContent value="orders" className="space-y-3">
+              {/* Reorder intelligence — show for recently closed orders */}
+              {orders.filter(o => o.status === "closed" || o.status === "shipped").slice(0, 1).map(o => (
+                <ReorderIntelligence key={o.id} orderId={o.id} />
+              ))}
               {ordersLoading ? <OrdersSkeleton /> : orders.length > 0 ? (
                 orders.map(order => {
                   const cfg = STATUS_CONFIG[order.status];

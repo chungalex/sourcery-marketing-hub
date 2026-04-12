@@ -144,6 +144,7 @@ const orderSchema = z.object({
   qc_option: z.enum(["sourcery", "byoqc", "factory"]),
   aql_standard: z.enum(["1.0", "2.5", "4.0"]).default("2.5"),
   po_message: z.string().optional(),
+  fx_rate_locked: z.string().optional(),
   collection: z.string().optional(),
   colourway_count: z.coerce.number().min(1).max(50).optional(),
   size_range: z.string().optional(),
@@ -210,6 +211,7 @@ export default function CreateOrder() {
       qc_option: "byoqc",
       aql_standard: "2.5",
       po_message: "",
+      fx_rate_locked: "",
       collection: "",
       colourway_count: undefined,
       sample_date: undefined,
@@ -362,6 +364,12 @@ export default function CreateOrder() {
           tech_pack_url: values.tech_pack_url || null,
           bom_url: values.bom_url || null,
           po_message: values.po_message || null,
+          fx_rate_locked: values.currency !== "USD" ? `1 ${values.currency} = ${
+            values.currency === "VND" ? "0.000040" :
+            values.currency === "CNY" ? "0.138" :
+            values.currency === "EUR" ? "1.08" :
+            values.currency === "GBP" ? "1.27" : "1.00"
+          } USD (locked at order creation)` : null,
           sample_date: values.sample_date || null,
           packaging_notes: values.packaging_notes || null,
           label_requirements: values.label_requirements || null,
