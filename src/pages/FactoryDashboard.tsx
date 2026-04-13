@@ -47,6 +47,7 @@ interface FactoryOrder {
   created_at: string;
   buyer_id: string;
   delivery_window_end: string | null;
+  specifications: Record<string, unknown> | null;
 }
 
 interface RealInquiry {

@@ -35,7 +35,6 @@ import { ProductionPhotoLog } from "@/components/orders/ProductionPhotoLog";
 import { TimezoneApproval } from "@/components/orders/TimezoneApproval";
 import { DeadlineBacktrack } from "@/components/orders/DeadlineBacktrack";
 import { OrderTimeline } from "@/components/orders/OrderTimeline";
-import { DeadlineBacktrack } from "@/components/orders/DeadlineBacktrack";
 import { ShipmentDocs } from "@/components/orders/ShipmentDocs";
 import { ProductionAssistant } from "@/components/va/ProductionAssistant";
 import { toast } from "sonner";

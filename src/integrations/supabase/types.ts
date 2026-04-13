@@ -14,6 +14,80 @@ export type Database = {
   }
   public: {
     Tables: {
+      approval_requests: {
+        Row: {
+          brand_timezone: string | null
+          created_at: string | null
+          factory_timezone: string | null
+          id: string
+          order_id: string | null
+          requested_by_role: string
+          responded_at: string | null
+          status: string | null
+          subject: string
+        }
+        Insert: {
+          brand_timezone?: string | null
+          created_at?: string | null
+          factory_timezone?: string | null
+          id?: string
+          order_id?: string | null
+          requested_by_role: string
+          responded_at?: string | null
+          status?: string | null
+          subject: string
+        }
+        Update: {
+          brand_timezone?: string | null
+          created_at?: string | null
+          factory_timezone?: string | null
+          id?: string
+          order_id?: string | null
+          requested_by_role?: string
+          responded_at?: string | null
+          status?: string | null
+          subject?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "approval_requests_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      brand_profiles: {
+        Row: {
+          brand_name: string | null
+          created_at: string | null
+          id: string
+          product_category: string | null
+          stage: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          brand_name?: string | null
+          created_at?: string | null
+          id?: string
+          product_category?: string | null
+          stage?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          brand_name?: string | null
+          created_at?: string | null
+          id?: string
+          product_category?: string | null
+          stage?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           company: string | null
@@ -833,6 +907,53 @@ export type Database = {
           },
         ]
       }
+      order_skus: {
+        Row: {
+          colourway: string | null
+          created_at: string | null
+          id: string
+          notes: string | null
+          order_id: string | null
+          quantity: number
+          size: string | null
+          sku_code: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          colourway?: string | null
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          order_id?: string | null
+          quantity?: number
+          size?: string | null
+          sku_code: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          colourway?: string | null
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          order_id?: string | null
+          quantity?: number
+          size?: string | null
+          sku_code?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_skus_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_state_history: {
         Row: {
           changed_by: string | null
@@ -1014,6 +1135,44 @@ export type Database = {
           },
           {
             foreignKeyName: "payments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      production_photos: {
+        Row: {
+          caption: string | null
+          created_at: string | null
+          id: string
+          order_id: string | null
+          photo_url: string
+          stage: string
+          uploaded_by_role: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string | null
+          id?: string
+          order_id?: string | null
+          photo_url: string
+          stage: string
+          uploaded_by_role: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string | null
+          id?: string
+          order_id?: string | null
+          photo_url?: string
+          stage?: string
+          uploaded_by_role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "production_photos_order_id_fkey"
             columns: ["order_id"]
             isOneToOne: false
             referencedRelation: "orders"
@@ -1369,6 +1528,41 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "sample_submissions_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      shipment_docs: {
+        Row: {
+          doc_type: string
+          file_name: string
+          file_url: string
+          id: string
+          order_id: string | null
+          uploaded_at: string | null
+        }
+        Insert: {
+          doc_type: string
+          file_name: string
+          file_url: string
+          id?: string
+          order_id?: string | null
+          uploaded_at?: string | null
+        }
+        Update: {
+          doc_type?: string
+          file_name?: string
+          file_url?: string
+          id?: string
+          order_id?: string | null
+          uploaded_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shipment_docs_order_id_fkey"
             columns: ["order_id"]
             isOneToOne: false
             referencedRelation: "orders"
