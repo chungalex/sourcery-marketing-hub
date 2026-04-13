@@ -1,0 +1,77 @@
+
+-- SKU tracking
+CREATE TABLE IF NOT EXISTS order_skus (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  order_id UUID REFERENCES orders(id) ON DELETE CASCADE,
+  sku_code TEXT NOT NULL,
+  colourway TEXT,
+  size TEXT,
+  quantity INTEGER NOT NULL DEFAULT 0,
+  status TEXT DEFAULT 'pending',
+  notes TEXT,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+ALTER TABLE order_skus ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "users_manage_skus" ON order_skus FOR ALL
+  USING (order_id IN (SELECT id FROM orders WHERE buyer_id = auth.uid())
+    OR order_id IN (SELECT o.id FROM orders o JOIN factory_users fu ON fu.factory_id = o.factory_id WHERE fu.user_id = auth.uid()));
+
+-- Production photos
+CREATE TABLE IF NOT EXISTS production_photos (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  order_id UUID REFERENCES orders(id) ON DELETE CASCADE,
+  stage TEXT NOT NULL,
+  photo_url TEXT NOT NULL,
+  caption TEXT,
+  uploaded_by_role TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+ALTER TABLE production_photos ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "order_parties_see_photos" ON production_photos FOR ALL
+  USING (order_id IN (SELECT id FROM orders WHERE buyer_id = auth.uid())
+    OR order_id IN (SELECT o.id FROM orders o JOIN factory_users fu ON fu.factory_id = o.factory_id WHERE fu.user_id = auth.uid()));
+
+-- Approval requests (timezone feature)
+CREATE TABLE IF NOT EXISTS approval_requests (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  order_id UUID REFERENCES orders(id) ON DELETE CASCADE,
+  subject TEXT NOT NULL,
+  requested_by_role TEXT NOT NULL,
+  status TEXT DEFAULT 'pending',
+  brand_timezone TEXT DEFAULT 'America/New_York',
+  factory_timezone TEXT DEFAULT 'Asia/Ho_Chi_Minh',
+  responded_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+ALTER TABLE approval_requests ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "order_parties_manage_approvals" ON approval_requests FOR ALL
+  USING (order_id IN (SELECT id FROM orders WHERE buyer_id = auth.uid())
+    OR order_id IN (SELECT o.id FROM orders o JOIN factory_users fu ON fu.factory_id = o.factory_id WHERE fu.user_id = auth.uid()));
+
+-- Shipment documents
+CREATE TABLE IF NOT EXISTS shipment_docs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  order_id UUID REFERENCES orders(id) ON DELETE CASCADE,
+  doc_type TEXT NOT NULL,
+  file_url TEXT NOT NULL,
+  file_name TEXT NOT NULL,
+  uploaded_at TIMESTAMPTZ DEFAULT now()
+);
+ALTER TABLE shipment_docs ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "order_parties_manage_shipment_docs" ON shipment_docs FOR ALL
+  USING (order_id IN (SELECT id FROM orders WHERE buyer_id = auth.uid())
+    OR order_id IN (SELECT o.id FROM orders o JOIN factory_users fu ON fu.factory_id = o.factory_id WHERE fu.user_id = auth.uid()));
+
+-- Brand profiles
+CREATE TABLE IF NOT EXISTS brand_profiles (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL UNIQUE,
+  brand_name TEXT,
+  product_category TEXT,
+  stage TEXT,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+ALTER TABLE brand_profiles ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "users_own_profile" ON brand_profiles FOR ALL USING (user_id = auth.uid());
