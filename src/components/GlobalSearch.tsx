@@ -44,23 +44,46 @@ export function GlobalSearch() {
   const search = useCallback(async (q: string) => {
     if (!user || q.trim().length < 2) { setResults([]); return; }
     setLoading(true);
-    const [ordersRes, factoriesRes] = await Promise.all([
-      supabase.from("orders").select("id, order_number, status, factories(name)").eq("buyer_id", user.id).ilike("order_number", `%${q}%`).limit(5),
+    const [ordersRes, factoriesRes, rfqsRes] = await Promise.all([
+      supabase.from("orders").select("id, order_number, status, specifications, factories(name)").eq("buyer_id", user.id).limit(20),
       supabase.from("factories").select("id, name, slug, country").or(`name.ilike.%${q}%,country.ilike.%${q}%`).limit(5),
+      (supabase as any).from("rfqs").select("id, title, status").eq("brand_id", user.id).ilike("title", `%${q}%`).limit(3),
     ]);
-    const orderResults: SearchResult[] = (ordersRes.data || []).map(o => ({
-      id: o.id, type: "order" as const,
-      title: o.order_number,
-      subtitle: `${(o.factories as any)?.name || "Factory"} · ${o.status.replace(/_/g, " ")}`,
-      href: `/orders/${o.id}`,
-    }));
+
+    // Filter orders by order number OR product name in specs
+    const filteredOrders = (ordersRes.data || []).filter(o => {
+      const specs = o.specifications as any;
+      const productName = specs?.product_name?.toLowerCase() || "";
+      const collection = specs?.collection?.toLowerCase() || "";
+      const q2 = q.toLowerCase();
+      return o.order_number.toLowerCase().includes(q2) || productName.includes(q2) || collection.includes(q2);
+    });
+
+    const orderResults: SearchResult[] = filteredOrders.slice(0, 5).map(o => {
+      const specs = o.specifications as any;
+      return {
+        id: o.id, type: "order" as const,
+        title: specs?.product_name || o.order_number,
+        subtitle: `${o.order_number} · ${(o.factories as any)?.name || "Factory"} · ${o.status.replace(/_/g, " ")}`,
+        href: `/orders/${o.id}`,
+      };
+    });
+
     const factoryResults: SearchResult[] = (factoriesRes.data || []).map(f => ({
       id: f.id, type: "factory" as const,
       title: f.name,
       subtitle: f.country,
       href: `/directory/${f.slug}`,
     }));
-    setResults([...orderResults, ...factoryResults]);
+
+    const rfqResults: SearchResult[] = (rfqsRes.data || []).map((r: any) => ({
+      id: r.id, type: "order" as const,
+      title: r.title,
+      subtitle: `RFQ · ${r.status}`,
+      href: `/dashboard?tab=rfq`,
+    }));
+
+    setResults([...orderResults, ...factoryResults, ...rfqResults]);
     setActiveIndex(0);
     setLoading(false);
   }, [user]);

@@ -441,6 +441,60 @@ export default function OrderDetail() {
               </div>
             )}
 
+
+                {/* Deadline backtrack — shown when delivery date is set */}
+                {order.delivery_window_end && !["closed","shipped","cancelled"].includes(order.status) && (() => {
+                  const delivery = new Date(order.delivery_window_end);
+                  const today = new Date();
+                  const daysUntilDelivery = Math.floor((delivery.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+                  
+                  // Work backwards from delivery date
+                  const shipDate = new Date(delivery); shipDate.setDate(shipDate.getDate() - 7);
+                  const qcDate = new Date(shipDate); qcDate.setDate(qcDate.getDate() - 7);
+                  const bulkStartDate = new Date(qcDate); bulkStartDate.setDate(bulkStartDate.getDate() - 28);
+                  const sampleApprovalDate = new Date(bulkStartDate); sampleApprovalDate.setDate(sampleApprovalDate.getDate() - 7);
+                  const poIssuedDate = new Date(sampleApprovalDate); poIssuedDate.setDate(poIssuedDate.getDate() - 21);
+
+                  const isLate = daysUntilDelivery < 0;
+                  const isTight = daysUntilDelivery < 60;
+
+                  return (
+                    <div className={`mb-6 p-4 rounded-xl border ${isLate ? "bg-rose-500/5 border-rose-400/30" : isTight ? "bg-amber-500/5 border-amber-400/30" : "bg-secondary/30 border-border"}`}>
+                      <div className="flex items-center justify-between mb-3">
+                        <p className="text-xs font-semibold text-foreground uppercase tracking-wide">Production timeline</p>
+                        <span className={`text-xs font-medium ${isLate ? "text-rose-600" : isTight ? "text-amber-600" : "text-muted-foreground"}`}>
+                          {isLate ? `${Math.abs(daysUntilDelivery)} days overdue` : `${daysUntilDelivery} days to delivery`}
+                        </span>
+                      </div>
+                      <div className="space-y-1.5">
+                        {[
+                          { label: "Issue PO", date: poIssuedDate, status: ["po_issued","po_accepted","sample_sent","sample_approved","in_production","qc_scheduled","qc_uploaded","qc_pass","ready_to_ship","shipped"].includes(order.status) },
+                          { label: "Sample approval", date: sampleApprovalDate, status: ["sample_approved","in_production","qc_scheduled","qc_uploaded","qc_pass","ready_to_ship","shipped"].includes(order.status) },
+                          { label: "Bulk production start", date: bulkStartDate, status: ["in_production","qc_scheduled","qc_uploaded","qc_pass","ready_to_ship","shipped"].includes(order.status) },
+                          { label: "QC inspection", date: qcDate, status: ["qc_pass","ready_to_ship","shipped"].includes(order.status) },
+                          { label: "Ship goods", date: shipDate, status: ["shipped"].includes(order.status) },
+                          { label: "Delivery", date: delivery, status: false },
+                        ].map(({ label, date, status: done }) => {
+                          const isPast = date < today;
+                          const isNext = !done && date >= today;
+                          return (
+                            <div key={label} className="flex items-center justify-between text-xs">
+                              <div className="flex items-center gap-2">
+                                <div className={`w-2 h-2 rounded-full flex-shrink-0 ${done ? "bg-green-500" : isNext ? "bg-amber-500 animate-pulse" : isPast ? "bg-rose-400" : "bg-muted-foreground/30"}`} />
+                                <span className={`${done ? "text-muted-foreground line-through" : "text-foreground"}`}>{label}</span>
+                              </div>
+                              <span className={`font-medium ${isPast && !done ? "text-rose-600" : "text-muted-foreground"}`}>
+                                {date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                                {isPast && !done && " — overdue"}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })()}
+
             {/* Two-column layout */}
             <div className="grid lg:grid-cols-[1fr_360px] gap-6 items-start">
 

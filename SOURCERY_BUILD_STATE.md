@@ -290,3 +290,51 @@ Built this session:
 - CreateOrder.tsx grouped factory selector (BYOF + Network)
 - Sampling Stage — full build: migration, edge function actions, SampleSubmitForm, SampleReviewPanel, OrderDetail injection, FactoryDashboard Orders tab
 Next session starts with: Revision Rounds — `revision_rounds` table, brand submits revision request, factory acknowledges or disputes
+
+
+---
+
+## SESSION UPDATE — April 13 2026
+
+### WHAT'S BUILT THIS SESSION:
+
+**New components:**
+- OrderSKUs — SKU-level tracking within orders (status per colourway/size)
+- ProductionPhotoLog — factory uploads photos at production stages
+- TimezoneApproval — timezone-aware approval requests with live clocks
+- OrderTimeline — chronological event log on every order
+- ShipmentDocs — commercial invoice, packing list, bill of lading storage
+
+**New pages:**
+- Studio (/studio) — managed production service page with pricing
+
+**Features added:**
+- FX rate lock at order creation (USD equivalent shown and stored)
+- Reorder intelligence wired to dashboard orders tab
+- Multi-factory RFQ system complete (was partially built)
+- Copy pass across Auth, Onboarding, Create Order, Dashboard
+- Milestone values now passed correctly to order-action submit
+- Production photo log for factory → brand visibility
+- Zalo notification infrastructure in send-notification (needs ZALO_OA_TOKEN)
+- Onboarding rebuilt as 3-step wizard
+- Deadline backtrack calculator on OrderDetail
+- GlobalSearch now searches product names + RFQs
+- Factory dashboard shows product name from specs
+- FactoryAccept shows brand name and product name
+- Collection tag shown on OrderDetail header
+
+**SQL to run (SQL_NEW_FEATURES.sql in repo root):**
+- order_skus
+- production_photos  
+- approval_requests
+- shipment_docs
+- brand_profiles
+
+**Edge functions to deploy in Lovable:**
+- production-assistant (VA)
+- send-rfq (RFQ emails)
+- send-notification (email + Zalo)
+
+**PITCH READINESS: 6/10**
+Core loop needs one real test. SQL needs running. Edge functions need deploying.
+Once those are done and core loop tested: 8/10.

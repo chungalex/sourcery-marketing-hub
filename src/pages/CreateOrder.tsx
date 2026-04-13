@@ -422,7 +422,7 @@ export default function CreateOrder() {
       />
 
       <section className="section-padding min-h-[80vh]">
-        <div className="container max-w-4xl">
+        <div className="container max-w-4xl px-4 sm:px-6">
           <Link 
             to="/dashboard" 
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
@@ -492,7 +492,7 @@ export default function CreateOrder() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="bg-card border border-border rounded-xl p-6 md:p-8">
+                <div className="bg-card border border-border rounded-xl p-4 sm:p-6 md:p-8">
                   {/* Step 1: Product & Factory */}
                   {currentStep === 1 && (
                     <div className="space-y-6">
@@ -670,7 +670,7 @@ export default function CreateOrder() {
                               </SelectContent>
                             </Select>
                             {selectedFactory && (
-                              <div className="mt-2 p-3 rounded-lg bg-primary/5 border border-primary/20 flex items-start gap-3">
+                              <div className="mt-2 p-3 rounded-lg bg-primary/5 border border-primary/20 flex items-start gap-2 sm:gap-3">
                                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                                   <Building2 className="h-4 w-4 text-primary" />
                                 </div>
@@ -1422,7 +1422,7 @@ export default function CreateOrder() {
                   )}
 
                   {/* Navigation */}
-                  <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
+                  <div className="flex items-center justify-between mt-8 pt-6 border-t border-border gap-2">
                     <Button
                       type="button"
                       variant="outline"
