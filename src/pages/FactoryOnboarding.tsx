@@ -37,6 +37,8 @@ export default function FactoryOnboarding() {
   const [description, setDescription] = useState("");
   const [website, setWebsite] = useState("");
   const [phone, setPhone] = useState("");
+  const [zaloPhone, setZaloPhone] = useState("");
+  const [zaloId, setZaloId] = useState("");
   const [yearEstablished, setYearEstablished] = useState("");
   const [totalEmployees, setTotalEmployees] = useState("");
 
@@ -76,6 +78,7 @@ export default function FactoryOnboarding() {
           description: description.trim() || null,
           website: website.trim() || null,
           phone: phone.trim() || null,
+          zalo_phone: zaloPhone.trim() || null,
           year_established: yearEstablished ? parseInt(yearEstablished) : null,
           total_employees: totalEmployees ? parseInt(totalEmployees) : null,
           categories: selectedCategories,
@@ -224,6 +227,11 @@ export default function FactoryOnboarding() {
                       <div className="space-y-1.5">
                         <Label className="text-sm">WhatsApp / phone</Label>
                         <Input placeholder="+84 ..." value={phone} onChange={e => setPhone(e.target.value)} className="text-sm" />
+                      </div>
+                      <div className="space-y-1">
+                        <Label className="text-sm">Zalo number <span className="text-xs text-muted-foreground">(for order notifications)</span></Label>
+                        <Input placeholder="+84 ..." value={zaloPhone} onChange={e => setZaloPhone(e.target.value)} className="text-sm" />
+                        <p className="text-xs text-muted-foreground">If provided, we'll send order updates via Zalo so you never miss a PO or approval request.</p>
                       </div>
                     </div>
 
