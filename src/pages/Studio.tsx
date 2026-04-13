@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { CheckCircle, ArrowRight, Package, Factory, Shield, Clock } from "lucide-react";
 
 const WHAT_WE_HANDLE = [
-  "Factory selection from our verified Vietnam network",
+  "Factory selection — we know these factories personally and match you based on your category, MOQ, and timeline.",
   "Purchase order creation and formal documentation",
   "Sample coordination and revision management",
   "QC inspection — AQL standard, defect reporting",
@@ -16,16 +16,16 @@ const WHAT_WE_HANDLE = [
 ];
 
 const WHO_ITS_FOR = [
-  "Your first or second production run — you want it done right",
-  "You're sourcing from Vietnam and don't have boots on the ground",
-  "You've been burned before by vague specs and no accountability",
-  "You want to focus on the product, not manage the factory relationship",
+  "First or second production run — you want to get it right without spending 3 months learning the hard way.",
+  "You're sourcing from Vietnam and don't have factory contacts or local presence.",
+  "You've placed an order before with no documentation and got burned.",
+  "You'd rather build the brand than manage the production — and you're willing to pay for that.",
 ];
 
 const PROCESS = [
   { n: "01", title: "Tell us what you're making", body: "Product type, quantity, target price, delivery timeline. 15-minute intake call. We tell you honestly if we can help." },
-  { n: "02", title: "We match you with the right factory", body: "From our verified Vietnam network. We know these factories personally — their capabilities, lead times, and where they fall short." },
-  { n: "03", title: "We manage the full production cycle", body: "PO, sampling, revisions, QC, delivery. Everything documented on Sourcery. You approve milestones. Nothing moves without your sign-off." },
+  { n: "02", title: "We match you with a factory", body: "From our Vietnam network. We've worked with these factories ourselves. We know their strengths, their lead times, and where they fall short — and we'll tell you honestly." },
+  { n: "03", title: "We run the order", body: "PO, sampling, revisions, QC, delivery. Every step documented on Sourcery. You get notified at each milestone and give final approval. Nothing moves without your sign-off." },
   { n: "04", title: "You receive the goods with a complete record", body: "Every spec, revision, QC result, and payment milestone permanently documented. Use it for reorders, disputes, or due diligence." },
 ];
 

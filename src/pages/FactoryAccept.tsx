@@ -121,13 +121,13 @@ export default function FactoryAccept() {
       return;
     }
 
-    toast.success("PO accepted — order is now in progress.");
+    toast.success("PO accepted. The brand has been notified — they'll release the deposit milestone to confirm.");
     navigate("/dashboard/factory");
   };
 
   const handleDecline = async () => {
     if (!order || !declineReason.trim()) {
-      toast.error("Please provide a reason for declining.");
+      toast.error("Let the brand know why — they can revise and reissue the PO.");
       return;
     }
     setDeclining(true);
@@ -146,7 +146,7 @@ export default function FactoryAccept() {
       return;
     }
 
-    toast.success("PO declined. The brand has been notified.");
+    toast.success("PO declined. The brand has been notified and can revise the order if needed.");
     navigate("/dashboard/factory");
   };
 

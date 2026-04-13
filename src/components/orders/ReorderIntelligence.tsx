@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 
 interface ReorderIntelligenceProps {
   orderId: string;
-  factoryId: string;
-  factoryName: string;
+  factoryId?: string;
+  factoryName?: string;
 }
 
 interface Intelligence {

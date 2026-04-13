@@ -168,10 +168,10 @@ export function ProductionAssistant({ mode, orderContext, initialQuery, classNam
   }, [initialQuery]);
 
   const greeting = mode === "order"
-    ? `Ask me anything about ${orderContext?.orderNumber || "this order"} — risk, timing, next steps, or draft a message to ${orderContext?.factoryName || "the factory"}.`
+    ? `What do you need on ${orderContext?.orderNumber || "this order"}? I can assess risk, check timing against your delivery date, or draft a message to ${orderContext?.factoryName || "the factory"}.`
     : mode === "dashboard"
     ? "Ask me about your production operation — which orders need attention, factory performance, or when to reorder."
-    : "Ask me anything about production — finding factories, incoterms, QC, freight, or how Sourcery works.";
+    : "Ask me anything about production — sourcing, pricing, incoterms, QC standards, or how to structure your first order.";
 
   if (!open) {
     return (

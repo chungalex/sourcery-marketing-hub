@@ -329,8 +329,8 @@ export default function Pricing() {
               className="max-w-4xl mx-auto mt-5 p-5 rounded-xl border border-border bg-card/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
             >
               <div>
-                <p className="text-sm font-semibold text-foreground mb-0.5">One-off — $79 per order</p>
-                <p className="text-sm text-muted-foreground">No subscription. Full OS, all AI tools, message translation, permanent record. For brands who produce once or twice a year.</p>
+                <p className="text-sm font-semibold text-foreground mb-0.5">Just one order for now?</p>
+                <p className="text-sm text-muted-foreground">Use the free tier — your first order is fully supported with no time limit. When you're ready to run a second order simultaneously, upgrade to Builder. No pressure. For brands who produce once or twice a year.</p>
               </div>
               <Link to="/auth?mode=signup&plan=oneoff" className="flex-shrink-0">
                 <Button variant="outline" size="sm">Pay per order</Button>
