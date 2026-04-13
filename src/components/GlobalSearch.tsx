@@ -44,7 +44,7 @@ export function GlobalSearch() {
   const search = useCallback(async (q: string) => {
     if (!user || q.trim().length < 2) { setResults([]); return; }
     setLoading(true);
-    const [ordersRes, factoriesRes, rfqsRes] = await Promise.all([
+    const [ordersRes, factoriesRes, rfqsRes, inquiriesRes] = await Promise.all([
       supabase.from("orders").select("id, order_number, status, specifications, factories(name)").eq("buyer_id", user.id).limit(20),
       supabase.from("factories").select("id, name, slug, country").or(`name.ilike.%${q}%,country.ilike.%${q}%`).limit(5),
       (supabase as any).from("rfqs").select("id, title, status").eq("brand_id", user.id).ilike("title", `%${q}%`).limit(3),
@@ -83,7 +83,7 @@ export function GlobalSearch() {
       href: `/dashboard?tab=rfq`,
     }));
 
-    setResults([...orderResults, ...factoryResults, ...rfqResults]);
+    setResults([...orderResults, ...factoryResults, ...rfqResults, ...inquiryResults]);
     setActiveIndex(0);
     setLoading(false);
   }, [user]);

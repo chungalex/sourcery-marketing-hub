@@ -497,7 +497,7 @@ export default function CreateOrder() {
                   {currentStep === 1 && (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground mb-1">What are you making, and who's producing it?</h2>
+                        <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">What are you making, and who's producing it?</h2>
                         <p className="text-muted-foreground text-sm">
                           This becomes the record both you and your factory work from.
                         </p>
@@ -933,6 +933,7 @@ export default function CreateOrder() {
                               <Input
                                 type="number"
                                 placeholder="e.g. 300"
+                                inputMode="numeric"
                                 {...field}
                                 value={field.value || ""}
                                 onChange={e => field.onChange(e.target.valueAsNumber || 0)}
@@ -960,6 +961,7 @@ export default function CreateOrder() {
                                     step="0.01"
                                     placeholder="e.g. 28.00"
                                     className="pl-9"
+                                    inputMode="decimal"
                                     {...field}
                                     value={field.value || ""}
                                     onFocus={e => { if (!field.value) field.onChange(""); }}

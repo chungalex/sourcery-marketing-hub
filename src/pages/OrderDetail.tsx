@@ -33,6 +33,7 @@ import { ReorderButton } from "@/components/orders/ReorderButton";
 import { OrderSKUs } from "@/components/orders/OrderSKUs";
 import { ProductionPhotoLog } from "@/components/orders/ProductionPhotoLog";
 import { TimezoneApproval } from "@/components/orders/TimezoneApproval";
+import { DeadlineBacktrack } from "@/components/orders/DeadlineBacktrack";
 import { OrderTimeline } from "@/components/orders/OrderTimeline";
 import { DeadlineBacktrack } from "@/components/orders/DeadlineBacktrack";
 import { ShipmentDocs } from "@/components/orders/ShipmentDocs";
@@ -495,6 +496,18 @@ export default function OrderDetail() {
                     </div>
                   );
                 })()}
+
+            {/* Deadline backtrack — show for active orders with delivery date */}
+            {order.delivery_window_end && !["draft", "closed", "cancelled", "shipped"].includes(order.status) && (
+              <div className="mb-6">
+                <DeadlineBacktrack
+                  deliveryDate={order.delivery_window_end}
+                  orderStatus={order.status}
+                  orderCreatedAt={order.created_at}
+                  factoryLeadTimeWeeks={16}
+                />
+              </div>
+            )}
 
             {/* Two-column layout */}
             <div className="grid lg:grid-cols-[1fr_360px] gap-6 items-start">
