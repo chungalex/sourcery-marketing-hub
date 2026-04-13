@@ -377,7 +377,7 @@ export default function CreateOrder() {
           milestones: milestones.map(m => ({
             label: m.label,
             percentage: m.percentage,
-            amount: m.amount || (totalAmount * m.percentage / 100),
+            amount: (totalAmount * m.percentage / 100),
             release_condition: m.release_condition || null,
           })),
           qc_standard: {

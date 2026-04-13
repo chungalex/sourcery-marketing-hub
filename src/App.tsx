@@ -28,6 +28,7 @@ import Intelligence from "./pages/Intelligence";
 import CaseStudies from "./pages/CaseStudies";
 import Consulting from "./pages/Consulting";
 import About from "./pages/About";
+import Studio from "./pages/Studio";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";

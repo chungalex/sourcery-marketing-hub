@@ -33,6 +33,7 @@ interface OrderData {
   currency: string;
   created_at: string;
   specifications: Record<string, unknown> | null;
+  tech_pack_url: string | null;
   incoterms: string | null;
   delivery_window_start: string | null;
   delivery_window_end: string | null;
@@ -277,7 +278,7 @@ export default function FactoryAccept() {
                       </div>
                       <a href={order.tech_pack_url} target="_blank" rel="noopener noreferrer"
                         className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
-                        Open <ExternalLink className="h-3.5 w-3.5" />
+                        Open <FileText className="h-3.5 w-3.5" />
                       </a>
                     </div>
                   )}

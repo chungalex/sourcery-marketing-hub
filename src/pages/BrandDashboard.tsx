@@ -387,7 +387,7 @@ export default function BrandDashboard() {
             <TabsContent value="orders" className="space-y-3">
               {/* Reorder intelligence — show for recently closed orders */}
               {orders.filter(o => o.status === "closed" || o.status === "shipped").slice(0, 1).map(o => (
-                <ReorderIntelligence key={o.id} orderId={o.id} />
+                <ReorderIntelligence key={o.id} orderId={o.id} factoryId={o.factories?.id || ""} factoryName={o.factories?.name || "Factory"} />
               ))}
               {ordersLoading ? <OrdersSkeleton /> : orders.length > 0 ? (
                 orders.map(order => {
