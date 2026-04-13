@@ -60,13 +60,18 @@ export default function Onboarding() {
       await supabase.auth.updateUser({
         data: { brand_name: brandName.trim(), product_category: category, stage }
       });
-      const { error } = await (supabase as any).from("brand_profiles").upsert({
-        user_id: user!.id,
-        brand_name: brandName.trim(),
-        product_category: category || null,
-        stage: stage || null,
-      });
-      if (error) console.error("Profile save:", error);
+      // Save to brand_profiles if table exists
+      try {
+        await (supabase as any).from("brand_profiles").upsert({
+          user_id: user!.id,
+          brand_name: brandName.trim(),
+          product_category: category || null,
+          stage: stage || null,
+        });
+      } catch (e) {
+        // brand_profiles table may not exist yet — auth metadata is the fallback
+        console.log("brand_profiles not available, using auth metadata only");
+      }
     } catch (e) { console.error(e); }
     setSaving(false);
   };

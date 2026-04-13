@@ -365,6 +365,11 @@ export default function OrderDetail() {
                       {(specs.product_category as string).replace(/_/g, " ")}
                     </span>
                   )}
+                  {(specs?.collection as string) && (
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-medium">
+                      {specs.collection as string}
+                    </span>
+                  )}
                   <span className="text-muted-foreground/40 text-sm">·</span>
                   <span className="text-sm text-muted-foreground">{format(new Date(order.created_at), "MMM d, yyyy")}</span>
                 </div>

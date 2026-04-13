@@ -212,6 +212,7 @@ export default function BrandDashboard() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { user, isLoading: authLoading } = useAuth();
+  const profile = user?.user_metadata || null;
   const { inquiries, isLoading: inquiriesLoading, refetch: refetchInquiries } = useInquiries();
   const { orders, isLoading: ordersLoading, refetch: refetchOrders } = useOrders();
   const [byofFactories, setByofFactories] = useState<Array<{ id: string; name: string; city: string | null; country: string }>>([]);

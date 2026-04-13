@@ -172,7 +172,7 @@ export default function FactoryAccept() {
             {/* Header */}
             <div>
               <h1 className="text-2xl font-bold text-foreground">
-                New order from your brand
+                {order.profiles?.full_name || "A brand"} sent you a PO
               </h1>
               <p className="text-sm text-muted-foreground mt-1">
                 Review the order details below. Accept to confirm you can produce this order, or decline if you cannot.

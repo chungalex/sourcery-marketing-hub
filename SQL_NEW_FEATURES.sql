@@ -64,3 +64,16 @@ ALTER TABLE shipment_docs ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "order_parties_manage_shipment_docs" ON shipment_docs FOR ALL
   USING (order_id IN (SELECT id FROM orders WHERE buyer_id = auth.uid())
     OR order_id IN (SELECT o.id FROM orders o JOIN factory_members fm ON fm.factory_id = o.factory_id WHERE fm.user_id = auth.uid()));
+
+-- Brand profiles (for onboarding data)
+CREATE TABLE IF NOT EXISTS brand_profiles (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE UNIQUE,
+  brand_name TEXT,
+  product_category TEXT,
+  stage TEXT,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+ALTER TABLE brand_profiles ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "users_own_profile" ON brand_profiles FOR ALL USING (user_id = auth.uid());

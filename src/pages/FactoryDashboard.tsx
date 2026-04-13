@@ -352,7 +352,13 @@ export default function FactoryDashboard() {
                             <div className="h-2 w-2 rounded-full bg-amber-500 shrink-0" />
                           )}
                           <div>
-                            <p className="text-sm font-semibold text-foreground">Order {order.order_number}</p>
+                            {(() => {
+                              const specs = order.specifications as any;
+                              return specs?.product_name ? (
+                                <p className="text-sm font-semibold text-foreground">{specs.product_name}</p>
+                              ) : null;
+                            })()}
+                            <p className="font-mono text-xs text-muted-foreground">{order.order_number}</p>
                             <p className="text-xs text-muted-foreground mt-0.5">
                               {order.quantity.toLocaleString()} units · {order.currency} {order.unit_price.toFixed(2)}/unit
                             </p>
