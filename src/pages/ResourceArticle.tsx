@@ -401,7 +401,7 @@ export default function ResourceArticle() {
       <Layout>
         <section className="section-padding">
           <div className="container-tight text-center">
-            <h1 className="font-heading text-2xl font-bold text-foreground mb-4">Article coming soon</h1>
+            <h1 className="font-heading text-2xl font-bold text-foreground mb-4">Article Article not found</h1>
             <p className="text-muted-foreground mb-6">This guide is being written. Check back shortly or browse the full resource library.</p>
             <Link to="/resources"><Button>Back to resources</Button></Link>
           </div>

@@ -21,6 +21,8 @@ const footerLinks = {
   ],
   company: [
     { label: "About", href: "/about" },
+    { label: "Studio", href: "/studio" },
+    { label: "Case studies", href: "/case-studies" },
     { label: "Contact", href: "/contact" },
   ],
   legal: [

@@ -1,40 +1,71 @@
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
-import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Package, CheckCircle } from "lucide-react";
+
+const CASE_STUDIES = [
+  {
+    brand: "OKIO Denim",
+    location: "Los Angeles / Ho Chi Minh City",
+    product: "Selvedge denim jacket — SS26",
+    factory: "HU LA Studios, HCMC",
+    units: 300,
+    outcome: "First production run completed in 14 weeks. Full tech pack version history, 1 sample revision round, AQL 2.5 QC pass. Milestone payments released on delivery. Complete order record archived on Sourcery.",
+    tags: ["Denim", "Vietnam", "First run"],
+  },
+];
 
 export default function CaseStudies() {
   return (
     <Layout>
       <SEO
-        title="Production Stories — Sourcery"
-        description="How brands use Sourcery to manage production with confidence. Real orders, real outcomes."
+        title="Case Studies — Sourcery"
+        description="Real brands using Sourcery to manage production in Vietnam and Southeast Asia."
       />
-      <section className="section-padding min-h-[70vh] flex items-center">
-        <div className="container-tight">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-xl">
-            <h1 className="font-heading text-4xl font-bold text-foreground mb-6">
-              Production stories — coming soon.
-            </h1>
-            <div className="space-y-4 text-muted-foreground leading-relaxed mb-10">
-              <p>
-                The most compelling proof of what Sourcery does is a real brand using it on a real order — and being able to show the difference it made. That's what this page will be.
-              </p>
-              <p>
-                The platform is live and orders are being placed. Production stories will be published here as they complete.
-              </p>
+      <section className="section-padding border-b border-border">
+        <div className="container max-w-3xl">
+          <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">Case studies</p>
+          <h1 className="text-4xl font-bold text-foreground mb-4">Built with Sourcery.</h1>
+          <p className="text-lg text-muted-foreground">Real production runs. Real outcomes.</p>
+        </div>
+      </section>
+
+      <section className="section-padding">
+        <div className="container max-w-3xl space-y-6">
+          {CASE_STUDIES.map((cs, i) => (
+            <div key={i} className="p-6 rounded-2xl border border-border bg-card">
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div>
+                  <p className="font-bold text-foreground text-lg">{cs.brand}</p>
+                  <p className="text-sm text-muted-foreground">{cs.location}</p>
+                </div>
+                <div className="flex gap-1.5 flex-wrap justify-end">
+                  {cs.tags.map(t => (
+                    <span key={t} className="text-xs px-2 py-0.5 rounded-full bg-secondary border border-border text-muted-foreground">{t}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-2 mb-4">
+                <div className="flex items-center gap-2 text-sm">
+                  <Package className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                  <span className="text-foreground">{cs.product}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <CheckCircle className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                  <span className="text-muted-foreground">{cs.factory} · {cs.units} units</span>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">{cs.outcome}</p>
             </div>
-            <div className="flex gap-3 flex-wrap">
-              <Link to="/why-sourcery">
-                <Button className="gap-1.5">See why it matters <ArrowRight className="h-4 w-4" /></Button>
-              </Link>
-              <Link to="/auth?mode=signup">
-                <Button variant="outline" className="gap-1.5">Start your first order</Button>
-              </Link>
-            </div>
-          </motion.div>
+          ))}
+
+          <div className="p-6 rounded-2xl border border-dashed border-border text-center">
+            <p className="text-sm font-medium text-foreground mb-1">Your brand could be next.</p>
+            <p className="text-sm text-muted-foreground mb-4">3–5 managed production slots available this season.</p>
+            <Link to="/studio" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+              Apply for a managed slot <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
         </div>
       </section>
     </Layout>

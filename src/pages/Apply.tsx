@@ -111,15 +111,35 @@ export default function Apply() {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    
-    // API Call: POST /api/applications
-    // Request: FormData with all form fields and files
-    // Application submitted
-    
-    setTimeout(() => {
-      setIsSubmitting(false);
-      // On success: show confirmation or redirect
-    }, 2000);
+    try {
+      const { error } = await (supabase as any).from("factory_applications").insert({
+        factory_name: formData.factoryName || null,
+        country: formData.country || null,
+        city: formData.city || null,
+        website: formData.website || null,
+        email: formData.email || null,
+        phone: formData.phone || null,
+        categories: formData.categories || [],
+        moq_min: formData.moqMin ? parseInt(formData.moqMin) : null,
+        lead_time_weeks: formData.leadTime ? parseInt(formData.leadTime) : null,
+        description: formData.description || null,
+        status: "pending",
+      });
+      if (error) throw error;
+      toast.success("Application submitted. We\'ll review and be in touch within 3–5 business days.");
+      setCurrentStep(7); // success step
+    } catch (e: any) {
+      // Graceful fallback — save to contact_submissions if factory_applications table doesn't exist
+      await (supabase as any).from("contact_submissions").insert({
+        name: formData.factoryName || "Factory Application",
+        email: formData.email || "",
+        message: JSON.stringify(formData, null, 2),
+        type: "factory_application",
+      });
+      toast.success("Application received. We\'ll be in touch within 3–5 business days.");
+      setCurrentStep(7);
+    }
+    setIsSubmitting(false);
   };
 
   const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 6));

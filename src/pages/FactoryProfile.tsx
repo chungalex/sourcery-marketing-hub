@@ -37,39 +37,8 @@ import { fetchFactoryBySlug, fetchFactoryPreviewBySlug } from "@/lib/factories";
 import type { Factory, FactoryPreview } from "@/types/database";
 import type { FactoryType } from "@/data/mockData";
 
-// Mock reviews data
-const mockReviews = [
-  {
-    id: "1",
-    author: "Sarah M.",
-    company: "Nordic Apparel",
-    rating: 5,
-    date: "2024-01-15",
-    title: "Excellent quality and communication",
-    content: "We've been working with this factory for 2 years now. Quality is consistently excellent and their team is very responsive.",
-    helpful: 12,
-  },
-  {
-    id: "2",
-    author: "David L.",
-    company: "Urban Style Co.",
-    rating: 4,
-    date: "2024-01-10",
-    title: "Great partner for small batch production",
-    content: "Very flexible with MOQs and willing to work with newer brands. Lead times are accurate.",
-    helpful: 8,
-  },
-  {
-    id: "3",
-    author: "Emma K.",
-    company: "EcoWear Collective",
-    rating: 5,
-    date: "2024-01-05",
-    title: "Sustainable production done right",
-    content: "Their sustainability practices are genuine. GOTS certification was verified and they go above compliance requirements.",
-    helpful: 15,
-  },
-];
+// Reviews come from real order data
+const mockReviews: never[] = [];
 
 export default function FactoryProfile() {
   const { slug } = useParams();
@@ -654,7 +623,11 @@ export default function FactoryProfile() {
               </div>
 
               <div className="space-y-4">
-                {mockReviews.map((review) => (
+                {mockReviews.length === 0 ? (
+                <div className="py-8 text-center">
+                  <p className="text-sm text-muted-foreground">No reviews yet. Reviews appear here after completed orders on Sourcery.</p>
+                </div>
+              ) : mockReviews.map((review) => (
                   <motion.div
                     key={review.id}
                     initial={{ opacity: 0, y: 10 }}

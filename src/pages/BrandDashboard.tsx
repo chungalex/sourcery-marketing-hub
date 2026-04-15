@@ -387,11 +387,7 @@ export default function BrandDashboard() {
             <TabsContent value="orders" className="space-y-3">
               {/* Reorder intelligence — show for recently closed orders */}
               {orders.filter(o => o.status === "closed" || o.status === "shipped").slice(0, 1).map(o => (
-<<<<<<< HEAD
-                <ReorderIntelligence key={o.id} orderId={o.id} factoryId={o.factories?.id || ""} factoryName={o.factories?.name || "Factory"} />
-=======
-                <ReorderIntelligence key={o.id} orderId={o.id} factoryId={o.factory_id || ""} factoryName={o.factories?.name || ""} />
->>>>>>> c386f0c (feat: factory copy pass, VA improvements, deadline backtrack, pricing fix)
+<ReorderIntelligence key={o.id} orderId={o.id} factoryId={o.factories?.id || ""} factoryName={o.factories?.name || "Factory"} />
               ))}
               {ordersLoading ? <OrdersSkeleton /> : orders.length > 0 ? (
                 orders.map(order => {
@@ -473,7 +469,7 @@ export default function BrandDashboard() {
                           num: "02",
                           title: "Create a structured PO",
                           body: "Every order documents the agreed price, delivery window, QC standard, and payment milestones. Both sides confirm before anything moves.",
-                          action: "Create your first order →",
+                          action: "Start your first order — free →",
                           href: "/orders/create",
                         },
                         {
@@ -629,16 +625,24 @@ export default function BrandDashboard() {
             {/* Settings */}
             <TabsContent value="settings">
               <div className="bg-card border border-border rounded-xl p-6">
-                <h3 className="text-base font-semibold text-foreground mb-6">Account settings</h3>
+                <h3 className="text-base font-semibold text-foreground mb-4">Account settings</h3>
                 <div className="space-y-6">
-                  <div className="max-w-sm space-y-1.5">
-                    <label className="text-sm font-medium text-foreground">Email</label>
-                    <input type="email" value={user?.email || ""} disabled className="w-full px-3 py-2 rounded-lg border border-border bg-muted text-muted-foreground text-sm" />
+                  <div className="max-w-sm space-y-3">
+                    <div className="space-y-1.5">
+                      <label className="text-sm font-medium text-foreground">Brand name</label>
+                      <input type="text" defaultValue={profile?.brand_name || ""} className="w-full px-3 py-2 rounded-lg border border-border bg-card text-foreground text-sm" placeholder="Your brand name" />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-sm font-medium text-foreground">Email</label>
+                      <input type="email" value={user?.email || ""} disabled className="w-full px-3 py-2 rounded-lg border border-border bg-muted text-muted-foreground text-sm" />
+                      <p className="text-xs text-muted-foreground">Email cannot be changed here. Contact support if needed.</p>
+                    </div>
                   </div>
                   <div className="border-t border-border pt-6">
-                    <h4 className="text-sm font-medium text-foreground mb-4">Notification preferences</h4>
+                    <h4 className="text-sm font-medium text-foreground mb-1">Email notifications</h4>
+                    <p className="text-xs text-muted-foreground mb-4">You'll receive an email for each of these events.</p>
                     <div className="space-y-3">
-                      {["Email me when a factory responds to my inquiry", "Email me when a sample is submitted for review", "Email me when a QC report is uploaded"].map(pref => (
+                      {["Factory responds to an inquiry", "Sample submitted for review", "QC report uploaded"].map(pref => (
                         <label key={pref} className="flex items-center gap-3 cursor-pointer">
                           <input type="checkbox" defaultChecked className="rounded" />
                           <span className="text-sm text-foreground">{pref}</span>

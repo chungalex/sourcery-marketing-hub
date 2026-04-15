@@ -352,6 +352,19 @@ export default function Pricing() {
           </div>
         </div>
 
+        {/* Studio callout */}
+        <section className="pb-8">
+          <div className="container-wide">
+            <div className="max-w-4xl mx-auto p-5 rounded-xl border border-border bg-card/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold text-foreground mb-0.5">Need it managed end to end?</p>
+                <p className="text-sm text-muted-foreground">Sourcery Studio handles factory selection, PO, sampling, QC, and delivery. From $2,000 per run.</p>
+              </div>
+              <Link to="/studio" className="text-sm font-medium text-primary hover:underline whitespace-nowrap flex-shrink-0">Learn about Studio →</Link>
+            </div>
+          </div>
+        </section>
+
         {/* FAQ */}
         <section className="section-padding">
           <div className="container-tight">

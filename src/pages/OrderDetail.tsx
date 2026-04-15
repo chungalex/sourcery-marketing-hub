@@ -257,7 +257,7 @@ export default function OrderDetail() {
       return;
     }
 
-    toast.success("Purchase Order issued! The factory will be notified.");
+    toast.success("PO sent. The factory will be notified and can accept or message you with questions.");
     navigate("/dashboard?tab=orders&highlight=" + order.id);
   };
 
@@ -389,7 +389,7 @@ export default function OrderDetail() {
             {/* Needs attention banner */}
             {(() => {
               const attentionStatuses: Record<string, string> = {
-                draft: "This order is a draft. Set pricing and issue the PO to send it to the factory.",
+                draft: "Draft order — set pricing and quantity, then issue the PO when you're ready.",
                 po_accepted: "The factory has accepted the PO. Review and approve the sample before bulk production can begin.",
                 sample_sent: "Sample submitted by the factory. Review and approve or request a revision.",
                 sample_revision: "Revision requested. Awaiting updated sample from the factory.",

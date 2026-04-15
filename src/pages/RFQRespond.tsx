@@ -65,7 +65,7 @@ export default function RFQRespond() {
         responded_at: new Date().toISOString(),
       }).eq("token", token);
       setSubmitted(true);
-      toast.success("Quote submitted successfully.");
+      toast.success("Quote submitted. The brand has been notified.");
     } catch {
       toast.error("Failed to submit. Please try again.");
     }
@@ -98,7 +98,7 @@ export default function RFQRespond() {
 
   return (
     <>
-      <SEO title={`RFQ: ${rfq.title} — Sourcery`} description="Submit your quote for this request for quotation." noIndex />
+      <SEO title={`RFQ: ${rfq.title} — Sourcery`} description="Review the brief below and submit your quote. The brand will be notified immediately." noIndex />
       <div className="min-h-screen bg-background">
         {/* Header */}
         <div className="border-b border-border bg-card/50">
@@ -118,7 +118,7 @@ export default function RFQRespond() {
                 <CheckCircle className="h-8 w-8 text-green-600" />
               </div>
               <h2 className="text-xl font-bold text-foreground mb-2">
-                {declined ? "Response recorded" : "Quote submitted"}
+                {declined ? "Quote submitted" : "Quote submitted"}
               </h2>
               <p className="text-muted-foreground text-sm mb-6">
                 {declined
