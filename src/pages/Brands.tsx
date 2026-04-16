@@ -34,6 +34,7 @@ export default function Brands() {
                 <Link to="/auth?mode=signup">
                   <Button variant="hero" size="xl">Get started free <ArrowRight className="w-5 h-5" /></Button>
                 </Link>
+                <Link to="/studio" className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Need it fully managed? <span className="text-primary">Studio →</span></Link>
                 <Link to="/marketplace">
                   <Button variant="hero-outline" size="xl">Browse factories</Button>
                 </Link>
@@ -78,7 +79,8 @@ export default function Brands() {
                   </div>
                 ))}
               </div>
-              <Link to="/marketplace">
+              <Link to="/studio" className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Need it fully managed? <span className="text-primary">Studio →</span></Link>
+                <Link to="/marketplace">
                 <Button className="gap-1.5 w-full sm:w-auto">Explore the marketplace <ArrowRight className="h-4 w-4" /></Button>
               </Link>
             </motion.div>
@@ -253,7 +255,8 @@ Bring your existing manufacturer or find one in the marketplace. Either way, you
               <Link to="/auth?mode=signup">
                 <Button variant="hero" size="xl">Get started free <ArrowRight className="w-5 h-5" /></Button>
               </Link>
-              <Link to="/marketplace">
+              <Link to="/studio" className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Need it fully managed? <span className="text-primary">Studio →</span></Link>
+                <Link to="/marketplace">
                 <Button variant="hero-outline" size="xl">Browse factories</Button>
               </Link>
             </div>

@@ -21,7 +21,7 @@ export default function About() {
               Built by people who managed production on both sides.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              As brands placing orders and as manufacturers receiving them. Every feature on this platform exists because we encountered the problem it solves — and couldn't find anything that solved it properly.
+              We run HU LA Studios — a garment factory in Ho Chi Minh City — and OKIO Denim, a brand that sources from Vietnam. We've been on both sides of the same order. Every feature exists because we encountered the problem it solves.
             </p>
           </motion.div>
         </div>

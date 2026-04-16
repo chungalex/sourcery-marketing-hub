@@ -18,7 +18,10 @@ import {
 } from "lucide-react";
 import { ProfileViewsChart, InquirySourcesChart, InquiryStatusChart } from "@/components/dashboard/AnalyticsCharts";
 import { SampleSubmitForm } from "@/components/sampling/SampleSubmitForm";
-import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
+import { SampleReviewPanel } from "@/components/orders/SampleReviewPanel";
+import { OrderSKUs } from "@/components/orders/OrderSKUs";
+import { ProductionPhotoLog } from "@/components/orders/ProductionPhotoLog";
+import { TimezoneApproval } from "@/components/orders/TimezoneApproval";
 import { TechPackVersions } from "@/components/orders/TechPackVersions";
 import { DefectReports } from "@/components/orders/DefectReports";
 import { FactoryScoreCard } from "@/components/factory/FactoryScoreCard";
@@ -435,6 +438,27 @@ export default function FactoryDashboard() {
                                 isFactory={true}
                                 onActionComplete={() => refetchOrders()}
                               />
+                            </div>
+                          )}
+
+                          {/* SKU tracking — factory updates status per SKU */}
+                          <div className="border-t border-border pt-4">
+                            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">SKU Status</p>
+                            <OrderSKUs orderId={order.id} isFactory={true} orderStatus={order.status} />
+                          </div>
+
+                          {/* Production photos — factory uploads progress photos */}
+                          {["po_accepted","sample_sent","sample_approved","in_production","qc_scheduled","ready_to_ship"].includes(order.status) && (
+                            <div className="border-t border-border pt-4">
+                              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">Production Photos</p>
+                              <ProductionPhotoLog orderId={order.id} isFactory={true} />
+                            </div>
+                          )}
+
+                          {/* Timezone approvals — factory requests brand sign-offs */}
+                          {!["po_issued","closed","cancelled"].includes(order.status) && (
+                            <div className="border-t border-border pt-4">
+                              <TimezoneApproval orderId={order.id} isFactory={true} />
                             </div>
                           )}
 

@@ -113,20 +113,19 @@ Manufacturing OS for physical product brands. Brands manage factory relationship
 
 ---
 
-### SQL PENDING — RUN IN LOVABLE CLOUD → SQL EDITOR
+### SQL STATUS
 
-See SQL_NEW_FEATURES.sql in repo root. Tables needed:
-- order_skus
-- production_photos  
-- approval_requests
-- shipment_docs
-- brand_profiles
-- messages columns: inquiry_id, rfq_id
-- inquiries columns: factory_reply, replied_at
-
-Also needed (may already be run):
-- rfqs table
-- rfq_recipients table
+SQL_NEW_FEATURES.sql has been run in Lovable Cloud.
+Tables confirmed created:
+- order_skus ✓
+- production_photos ✓
+- approval_requests ✓
+- shipment_docs ✓
+- brand_profiles ✓
+- rfqs ✓
+- rfq_recipients ✓
+- messages: inquiry_id, rfq_id columns added ✓
+- inquiries: factory_reply, replied_at columns added ✓
 
 ---
 
@@ -148,6 +147,24 @@ In Lovable Cloud → Settings → Secrets:
 - SITE_URL — https://sourcery.so (or your Lovable preview URL)
 
 ---
+
+### WHAT'S BEEN COMPLETED (latest sessions)
+
+- OrderDetail: all 5 new components now actually rendered (were imported but not in JSX)
+  OrderSKUs, ProductionPhotoLog, TimezoneApproval, OrderTimeline, ShipmentDocs
+- FactoryDashboard: SKU status updates, production photo uploads, timezone approvals wired
+- Error state added to OrderDetail
+- SampleReviewPanel moved to /components/orders/ for consistency
+- CaseStudies: real OKIO case study
+- FactoryProfile: mock reviews replaced with empty state
+- Apply: submit handler wired to Supabase
+- Admin: real Supabase counts
+- Pricing: Studio callout + FAQ
+- Consulting: redirects to Studio
+- FAQ: Studio + Vietnam questions added
+- About: HU LA + OKIO credibility added
+- Footer: Studio + Case studies added
+- Homepage: bullets sharpened
 
 ### WHAT'S NOT DONE / KNOWN ISSUES
 

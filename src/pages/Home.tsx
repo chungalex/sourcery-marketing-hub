@@ -136,9 +136,9 @@ export default function Home() {
 
                 <div className="space-y-3 mb-8">
                   {[
-                    { gate: "Verified factory network", desc: "Find manufacturers with credentials confirmed before you reach out" },
-                    { gate: "Guided from first PO to delivery", desc: "Every decision explained — incoterms, AQL, QC — before you make it" },
-                    { gate: "Your money moves when you confirm it", desc: "Milestone-gated payments. Sample gate. QC gate. Nothing moves without you" },
+                    { gate: "Know who you're working with before you commit", desc: "Factory capabilities, certifications, and performance scores — visible before you reach out." },
+                    { gate: "Every decision explained as you make it", desc: "Incoterms, AQL, milestone structures — plain language guidance at every step." },
+                    { gate: "Your money doesn't move until you say so", desc: "Milestone-gated payments. Sample gate before bulk. QC gate before final payment." },
                   ].map(item => (
                     <div key={item.gate} className="flex items-start gap-3">
                       <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0 mt-0.5">

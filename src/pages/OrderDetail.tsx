@@ -25,7 +25,7 @@ import { DisputeFiling } from "@/components/orders/DisputeFiling";
 import { ReorderIntelligence } from "@/components/orders/ReorderIntelligence";
 import { OrderExport } from "@/components/orders/OrderExport";
 import { FactoryReview } from "@/components/trust/FactoryReview";
-import { SampleReviewPanel } from "@/components/sampling/SampleReviewPanel";
+import { SampleReviewPanel } from "@/components/orders/SampleReviewPanel";
 import { RevisionRounds } from "@/components/orders/RevisionRounds";
 import { TechPackVersions } from "@/components/orders/TechPackVersions";
 import { DefectReports } from "@/components/orders/DefectReports";
@@ -100,6 +100,7 @@ export default function OrderDetail() {
 
   const [order, setOrder] = useState<OrderData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [issuingPO, setIssuingPO] = useState(false);
   const [payingMilestone, setPayingMilestone] = useState<string | null>(null);
@@ -159,6 +160,7 @@ export default function OrderDetail() {
 
     setLoading(false);
   };
+
 
   useEffect(() => {
     if (!user || !id) return;
@@ -283,6 +285,19 @@ export default function OrderDetail() {
       setPayingMilestone(null);
     }
   };
+
+  if (loadError) {
+    return (
+      <Layout>
+        <section className="section-padding min-h-[60vh] flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-muted-foreground mb-4">{loadError}</p>
+            <Link to="/dashboard" className="text-sm text-primary hover:underline">Back to dashboard →</Link>
+          </div>
+        </section>
+      </Layout>
+    );
+  }
 
   if (authLoading || loading) {
     return (
@@ -802,6 +817,41 @@ export default function OrderDetail() {
                     onFiled={loadOrder}
                   />
                 )}
+
+                {/* SKU tracking */}
+                <OrderSKUs
+                  orderId={order.id}
+                  isFactory={false}
+                  orderStatus={order.status}
+                />
+
+                {/* Production photo log — active orders */}
+                {!["draft", "closed", "cancelled"].includes(order.status) && (
+                  <ProductionPhotoLog
+                    orderId={order.id}
+                    isFactory={false}
+                  />
+                )}
+
+                {/* Timezone-aware approvals — active orders */}
+                {!["draft", "closed", "cancelled"].includes(order.status) && (
+                  <TimezoneApproval
+                    orderId={order.id}
+                    isFactory={false}
+                    deliveryDate={order.delivery_window_end || undefined}
+                  />
+                )}
+
+                {/* Shipment documents — near/past shipping */}
+                {["ready_to_ship", "shipped", "closed"].includes(order.status) && (
+                  <ShipmentDocs orderId={order.id} />
+                )}
+
+                {/* Order timeline */}
+                <OrderTimeline
+                  orderId={order.id}
+                  orderCreatedAt={order.created_at}
+                />
 
                 {/* Reorder */}
                 {order.status === "closed" && order.factories && (

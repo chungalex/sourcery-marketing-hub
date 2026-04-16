@@ -34,6 +34,7 @@ import { SampleRequestModal } from "@/components/modals/SampleRequestModal";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { fetchFactoryBySlug, fetchFactoryPreviewBySlug } from "@/lib/factories";
+import { supabase } from "@/integrations/supabase/client";
 import type { Factory, FactoryPreview } from "@/types/database";
 import type { FactoryType } from "@/data/mockData";
 
@@ -46,6 +47,7 @@ export default function FactoryProfile() {
   const isAuthenticated = !!user;
   
   const [factory, setFactory] = useState<Factory | null>(null);
+  const [orderCount, setOrderCount] = useState(0);
   const [preview, setPreview] = useState<FactoryPreview | null>(null);
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -68,6 +70,13 @@ export default function FactoryProfile() {
           const data = await fetchFactoryBySlug(slug);
           if (data) {
             setFactory(data);
+            // Fetch completed order count for social proof
+            const { count } = await (supabase as any)
+              .from("orders")
+              .select("id", { count: "exact", head: true })
+              .eq("factory_id", data.id)
+              .eq("status", "closed");
+            setOrderCount(count || 0);
           } else {
             setNotFound(true);
           }
@@ -484,6 +493,13 @@ export default function FactoryProfile() {
                       label="Lead Time"
                       value={factory.lead_time_weeks ? `${factory.lead_time_weeks} weeks` : 'Contact for details'}
                     />
+                    {orderCount > 0 && (
+                      <StatRow
+                        icon={CheckCircle}
+                        label="Orders on Sourcery"
+                        value={`${orderCount} completed`}
+                      />
+                    )}
                   </div>
                 </div>
 
