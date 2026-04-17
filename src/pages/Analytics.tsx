@@ -83,7 +83,12 @@ export default function Analytics() {
         closedOrders: closed.length,
         totalSpend,
         avgOrderValue: avgValue,
-        qcPassRate: closed.length > 0 ? 100 : 0,
+        qcPassRate: (() => {
+          const qcOrders = all.filter(o => ["qc_pass", "qc_fail", "closed"].includes(o.status));
+          if (!qcOrders.length) return 0;
+          const passed = qcOrders.filter(o => o.status !== "qc_fail").length;
+          return Math.round((passed / qcOrders.length) * 100);
+        })(),
         avgLeadWeeks: Math.round(avgLeadWeeks * 10) / 10,
         disputedOrders: disputed.length,
         currency: all[0]?.currency || "USD",

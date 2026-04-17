@@ -40,8 +40,9 @@ export default function Marketplace() {
   return (
     <Layout>
       <SEO
-        title="Factory Marketplace — Sourcery"
-        description="Find vetted manufacturers with verified credentials. Or bring your own factory. Both paths run on the same platform."
+        title="Find Manufacturers in Vietnam & Southeast Asia | Sourcery"
+        description="Browse verified apparel, denim, and soft goods manufacturers in Vietnam, Indonesia, Bangladesh, and beyond. Free to contact. Bring your own factory or find one through us."
+        ogImage="https://sourcery.so/og-image.png"
       />
 
       {/* Hero */}

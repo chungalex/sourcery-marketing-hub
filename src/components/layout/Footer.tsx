@@ -3,7 +3,7 @@ import { Newsletter } from "@/components/Newsletter";
 
 const footerLinks = {
   platform: [
-    { label: "Marketplace", href: "/marketplace" },
+    { label: "Factory network", href: "/marketplace" },
     { label: "For Brands", href: "/brands" },
     { label: "For Factories", href: "/factories" },
     { label: "Features", href: "/features" },

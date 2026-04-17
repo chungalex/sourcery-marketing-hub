@@ -54,7 +54,7 @@ const features = [
   },
   {
     icon: Search,
-    title: "Factory marketplace",
+    title: "Production network",
     sub: "Find the right factory. Or bring your own.",
     description: "Browse vetted manufacturers with real performance data. AI-matched recommendations in plain language. Or invite your existing factory — same platform either way.",
   },
@@ -116,6 +116,7 @@ export default function Home() {
         title="Sourcery — The Manufacturing OS for Physical Product Brands"
         description="Whether you're placing your first order or your fiftieth, production deserves better than disconnected tools and informal channels. Sourcery is the marketplace to find the right factory and the OS to manage every order properly."
         canonical="/"
+        ogImage="https://sourcery.so/og-image.png"
       />
 
       {/* Hero */}
@@ -131,7 +132,7 @@ export default function Home() {
                   The manufacturing OS for brands who take production seriously.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
-                  Sourcery is the marketplace to find the right factory — and the OS to manage every order from PO to delivery. Documented, milestone-gated, and fully traceable. Whether it's your first order or your fiftieth.
+                  Sourcery is the production network to find the right factory — and the OS to manage every order from PO to delivery. Documented, milestone-gated, and fully traceable. Whether it's your first order or your fiftieth.
                 </p>
 
                 <div className="space-y-3 mb-8">

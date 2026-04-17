@@ -853,6 +853,31 @@ export default function OrderDetail() {
                   orderCreatedAt={order.created_at}
                 />
 
+                {/* Share production record — closed orders */}
+                {order.status === "closed" && (
+                  <div className="bg-card border border-border rounded-xl p-5">
+                    <div className="flex items-center gap-2 mb-2">
+                      <ExternalLink className="h-4 w-4 text-primary" />
+                      <h3 className="text-sm font-semibold text-foreground">Share this production record</h3>
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-3">
+                      Share a public summary of this completed order — useful for showing investors, partners, or future factories.
+                    </p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="gap-1.5 w-full"
+                      onClick={() => {
+                        const url = `${window.location.origin}/record/${order.id}`;
+                        navigator.clipboard.writeText(url);
+                        toast.success("Link copied to clipboard");
+                      }}
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" /> Copy shareable link
+                    </Button>
+                  </div>
+                )}
+
                 {/* Reorder */}
                 {order.status === "closed" && order.factories && (
                   <>

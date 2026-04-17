@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 const marketingNav = [
   { label: "For Brands", href: "/brands" },
   { label: "For Factories", href: "/factories" },
-  { label: "Marketplace", href: "/marketplace" },
+  { label: "Network", href: "/marketplace" },
   { label: "Resources", href: "/resources" },
   { label: "Why Sourcery", href: "/why-sourcery" },
   { label: "Pricing", href: "/pricing" },
@@ -24,7 +24,7 @@ const marketingNav = [
 // App nav — shown to logged-in brands
 const brandAppNav = [
   { label: "Orders", href: "/dashboard", icon: Package },
-  { label: "Marketplace", href: "/directory", icon: Search },
+  { label: "Network", href: "/directory", icon: Search },
   { label: "Resources", href: "/resources", icon: BookOpen },
 ];
 

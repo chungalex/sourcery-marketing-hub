@@ -151,8 +151,8 @@ export default function FactoryProfile() {
     return (
       <Layout>
         <SEO
-          title={`${preview.name} | Factory Preview`}
-          description={`View ${preview.name} factory profile. Sign in to see full details.`}
+          title={`${preview.name} — ${preview.location?.city || preview.location?.country || "Factory"} | Sourcery`}
+          description={`${preview.name} is a manufacturer in ${[preview.location?.city, preview.location?.country].filter(Boolean).join(", ")}. Categories: ${(preview.categories || []).slice(0,3).join(", ")}. View on Sourcery.`}
         />
 
         <section className="relative">
@@ -315,9 +315,30 @@ export default function FactoryProfile() {
   return (
     <Layout>
       <SEO
-        title={`${factory.name} | Factory Profile`}
-        description={factory.description || `View ${factory.name} factory profile`}
+        title={`${factory.name} — ${factory.city || factory.country || "Factory"} | Sourcery`}
+        description={factory.description
+          ? factory.description.slice(0, 155)
+          : `${factory.name} is a verified manufacturer in ${[factory.city, factory.country].filter(Boolean).join(", ")}. MOQ from ${factory.moq_min || "varies"} units. View profile on Sourcery.`}
       />
+      {/* JSON-LD structured data for SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": factory.name,
+        "description": factory.description || `Manufacturer in ${factory.country}`,
+        "url": `https://sourcery.so/directory/${factory.slug}`,
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": factory.city || "",
+          "addressCountry": factory.country || "",
+        },
+        "foundingDate": factory.year_established?.toString(),
+        "numberOfEmployees": factory.total_employees ? {
+          "@type": "QuantitativeValue",
+          "value": factory.total_employees,
+        } : undefined,
+        "sameAs": factory.website ? [factory.website] : [],
+      })}} />
 
       {/* Hero */}
       <section className="relative">
