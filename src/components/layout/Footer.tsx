@@ -18,6 +18,9 @@ const footerLinks = {
     { label: "Forum", href: "/forum" },
     { label: "Walkthrough", href: "/walkthrough" },
     { label: "FAQ", href: "/faq" },
+    { label: "How to find a factory", href: "/how-to-find-a-factory" },
+    { label: "Compare alternatives", href: "/alternatives" },
+    { label: "Vietnam manufacturing", href: "/vietnam-manufacturing" },
   ],
   company: [
     { label: "About", href: "/about" },

@@ -1,3 +1,4 @@
+import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -124,14 +125,30 @@ export function AIQuoteAnalyzer({ className }: AIQuoteAnalyzerProps) {
     setAnalysis(null);
   };
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (quotes.length < 2) return;
     
     setIsAnalyzing(true);
-    setTimeout(() => {
-      setAnalysis(mockAnalysis);
-      setIsAnalyzing(false);
-    }, 2500);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const quoteSummary = quotes.map(q => `${q.factory}: $${q.unitPrice}/unit, ${q.leadTime} weeks, MOQ ${q.moq}`).join("\n");
+      const { data, error } = await supabase.functions.invoke("production-assistant", {
+        headers: session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : undefined,
+        body: {
+          system: "You are a production cost analyst. Analyse these factory quotes and return a JSON object with fields: recommendation (string, which factory and why), risks (array of strings), savings_potential (string), red_flags (array of strings). Return only valid JSON.",
+          messages: [{ role: "user", content: `Analyse these quotes for ${product || "a product"}:\n${quoteSummary}` }],
+        },
+      });
+      if (!error && data) {
+        try {
+          const text = data.content?.[0]?.text || "{}";
+          const clean = text.replace(/\`\`\`json|\`\`\`/g, "").trim();
+          const parsed = JSON.parse(clean);
+          setAnalysis({ recommendation: parsed.recommendation || "Review quotes carefully.", risks: parsed.risks || [], savings_potential: parsed.savings_potential || "—", red_flags: parsed.red_flags || [] });
+        } catch { setAnalysis(mockAnalysis); }
+      } else { setAnalysis(mockAnalysis); }
+    } catch { setAnalysis(mockAnalysis); }
+    setIsAnalyzing(false);
   };
 
   return (

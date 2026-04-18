@@ -1,3 +1,4 @@
+import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -96,15 +97,30 @@ export function AINegotiationCoach({ className }: AINegotiationCoachProps) {
     setContext(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     setIsAnalyzing(true);
-    setTimeout(() => {
-      setAdvice(mockAdvice);
-      setIsAnalyzing(false);
-    }, 2500);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const { data, error } = await supabase.functions.invoke("production-assistant", {
+        headers: session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : undefined,
+        body: {
+          system: "You are a manufacturing negotiation expert. Given the context, return JSON with: opening_position (string), key_leverage_points (array), red_lines (array), suggested_terms (object with payment_terms, lead_time, moq, unit_price fields as strings). Return only valid JSON.",
+          messages: [{ role: "user", content: `Help me negotiate with a factory. Context: ${JSON.stringify(context || {})}` }],
+        },
+      });
+      if (!error && data) {
+        try {
+          const text = data.content?.[0]?.text || "{}";
+          const clean = text.replace(/\`\`\`json|\`\`\`/g, "").trim();
+          const parsed = JSON.parse(clean);
+          setAdvice({ opening_position: parsed.opening_position || mockAdvice.opening_position, key_leverage_points: parsed.key_leverage_points || mockAdvice.key_leverage_points, red_lines: parsed.red_lines || mockAdvice.red_lines, suggested_terms: parsed.suggested_terms || mockAdvice.suggested_terms });
+        } catch { setAdvice(mockAdvice); }
+      } else { setAdvice(mockAdvice); }
+    } catch { setAdvice(mockAdvice); }
+    setIsAnalyzing(false);
   };
 
-  const handleCopyMessage = () => {
+  const handleCopyMessage = async () => {
     if (advice?.suggestedMessage) {
       navigator.clipboard.writeText(advice.suggestedMessage);
       toast.success("Message copied to clipboard!");

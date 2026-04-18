@@ -22,6 +22,7 @@ import {
 import { format } from "date-fns";
 import { BrandOnboardingPrompt } from "@/components/onboarding/BrandOnboardingPrompt";
 import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
+import { UpgradePrompt } from "@/components/platform/UpgradePrompt";
 import { ReorderIntelligence } from "@/components/orders/ReorderIntelligence";
 import { lazy, Suspense } from "react";
 const RFQDashboard = lazy(() => import("./RFQDashboard"));
@@ -213,6 +214,7 @@ export default function BrandDashboard() {
   const [searchParams] = useSearchParams();
   const { user, isLoading: authLoading } = useAuth();
   const profile = user?.user_metadata || null;
+  const [showUpgrade, setShowUpgrade] = useState(false);
   const { inquiries, isLoading: inquiriesLoading, refetch: refetchInquiries } = useInquiries();
   const { orders, isLoading: ordersLoading, refetch: refetchOrders } = useOrders();
   const [byofFactories, setByofFactories] = useState<Array<{ id: string; name: string; city: string | null; country: string }>>([]);
@@ -256,7 +258,13 @@ export default function BrandDashboard() {
   );
   if (!user) return null;
 
+  // Check if user has active orders when they try to create another
+  const activeOrderCount = orders.filter(o => !["closed", "cancelled", "draft"].includes(o.status)).length;
+  const isOnFreeLimit = activeOrderCount >= 1 && !user?.user_metadata?.plan;
+
   return (
+    <>
+    <UpgradePrompt open={showUpgrade} onClose={() => setShowUpgrade(false)} reason="second_order" />
     <Layout>
       <SEO title="Your orders — Sourcery" description="Every active order, factory relationship, and production milestone in one place." />
       <section className="section-padding">
@@ -494,7 +502,7 @@ export default function BrandDashboard() {
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <Button asChild className="flex-1"><Link to="/orders/create"><Package className="mr-2 h-4 w-4" />Create your first order</Link></Button>
+                    <Button asChild className="flex-1"><Link to="/orders/create"><Package className="mr-2 h-4 w-4" />Start your first order</Link></Button>
                     <Button variant="outline" asChild><Link to="/directory"><Search className="mr-2 h-4 w-4" />Find a factory</Link></Button>
                   </div>
                 </div>
@@ -650,6 +658,30 @@ export default function BrandDashboard() {
                       ))}
                     </div>
                   </div>
+
+                  <div className="border-t border-border pt-6">
+                    <h4 className="text-sm font-medium text-foreground mb-1">Refer a brand founder</h4>
+                    <p className="text-xs text-muted-foreground mb-3">Share Sourcery with another founder. They get their first order free — same as you did.</p>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        readOnly
+                        value={`https://sourcery.so/auth?mode=signup&ref=${user?.id?.slice(0,8) || "sourcery"}`}
+                        className="flex-1 text-xs px-3 py-2 rounded-lg border border-border bg-muted text-muted-foreground"
+                      />
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          navigator.clipboard.writeText(`https://sourcery.so/auth?mode=signup&ref=${user?.id?.slice(0,8) || "sourcery"}`);
+                          toast.success("Link copied");
+                        }}
+                      >
+                        Copy
+                      </Button>
+                    </div>
+                  </div>
+
                   <div className="flex justify-end">
                     <Button>Save changes</Button>
                   </div>
@@ -805,5 +837,6 @@ export default function BrandDashboard() {
         <ProductionAssistant mode="dashboard" className="w-80 shadow-xl" />
       </div>
     </Layout>
+    </>
   );
 }
