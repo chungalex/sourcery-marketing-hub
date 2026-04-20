@@ -21,6 +21,7 @@ const footerLinks = {
     { label: "How to find a factory", href: "/how-to-find-a-factory" },
     { label: "Compare alternatives", href: "/alternatives" },
     { label: "Supply chain compliance", href: "/compliance" },
+    { label: "Trade tools & duty rates", href: "/trade-tools" },
     { label: "Vietnam manufacturing", href: "/vietnam-manufacturing" },
   ],
   company: [

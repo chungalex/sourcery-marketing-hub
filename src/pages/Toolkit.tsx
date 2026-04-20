@@ -7,6 +7,8 @@ import { AIQuoteAnalyzer } from "@/components/ai/AIQuoteAnalyzer";
 import { AIRFQGenerator } from "@/components/ai/AIRFQGenerator";
 import { AINegotiationCoach } from "@/components/ai/AINegotiationCoach";
 import { CostCalculator } from "@/components/toolkit/CostCalculator";
+import { TariffCalculator } from "@/components/platform/TariffCalculator";
+import { MarginCalculator } from "@/components/platform/MarginCalculator";
 import { SupplierScorecard } from "@/components/toolkit/SupplierScorecard";
 import { OrderTracker } from "@/components/toolkit/OrderTracker";
 import { ContractGenerator } from "@/components/toolkit/ContractGenerator";

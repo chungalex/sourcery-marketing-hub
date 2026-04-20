@@ -25,6 +25,7 @@ import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { UpgradePrompt } from "@/components/platform/UpgradePrompt";
 import { PaymentCalendar } from "@/components/platform/PaymentCalendar";
 import { OrderHealthDashboard } from "@/components/platform/OrderHealthDashboard";
+import { HolidayAlert } from "@/components/platform/HolidayAlert";
 import { ProductionIntelHub } from "@/components/platform/ProductionIntelHub";
 import { ProductionIntelligence } from "@/components/platform/ProductionIntelligence";
 import { CashFlowCalendar } from "@/components/platform/CashFlowCalendar";

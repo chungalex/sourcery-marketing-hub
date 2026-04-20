@@ -123,7 +123,7 @@ export default function WhySourcery() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
             <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Efficiency</p>
             <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
-              Less time managing production. More time building the brand.
+              Enterprise supply chain tools. Small brand price.
             </h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
               The average production run is managed across 4–6 different tools. That fragmentation creates constant overhead — chasing confirmations, reconstructing specs, coordinating the same information in multiple places. Sourcery collapses all of it into one system.
