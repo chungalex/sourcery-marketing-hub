@@ -105,7 +105,7 @@ export default function WhySourcery() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-              Production should be something you're in control of — not something you're constantly managing around.
+              Document every order. Control every payment. Let it get smarter over time.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-3 max-w-xl">
               Most production runs on tools that weren't built for it. Spec changes over messaging apps. Sample approvals over email. A bank portal for payments. When things work, it's fine. When they don't, there's no record, no structure, and no clear path forward.
@@ -165,6 +165,22 @@ export default function WhySourcery() {
               <div className="text-right flex-shrink-0">
                 <p className="text-2xl font-bold text-primary">40–80 hrs</p>
                 <p className="text-xs text-muted-foreground">saved per year at 10 orders</p>
+              </div>
+            </div>
+
+            {/* Bullwhip cost argument */}
+            <div className="flex items-start justify-between gap-6 p-5 rounded-xl bg-card border border-border">
+              <div>
+                <p className="text-sm font-semibold text-foreground mb-1">The cost of one missed season</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Late delivery = missed retail window = emergency air freight ($3–8K) or deep discounts to clear old stock (20–40% margin hit).
+                  One missed season on a $50K production run costs more than 5 years of Sourcery.
+                  The reorder intelligence feature exists specifically to prevent this.
+                </p>
+              </div>
+              <div className="text-right flex-shrink-0">
+                <p className="text-2xl font-bold text-primary">$5–20K</p>
+                <p className="text-xs text-muted-foreground">cost of one missed season</p>
               </div>
             </div>
           </motion.div>
@@ -384,7 +400,29 @@ export default function WhySourcery() {
       </section>
 
       {/* CTA */}
-      <section className="section-padding">
+      
+      {/* Production intelligence section */}
+      <section className="section-padding border-t border-border">
+        <div className="container-tight">
+          <div className="max-w-2xl">
+            <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">Why the record matters beyond disputes</p>
+            <h2 className="text-3xl font-bold text-foreground mb-6">
+              The platform that tells you what's coming.
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-6">
+              There's a well-documented phenomenon in supply chains called the bullwhip effect: small hesitations by a brand — a 2-week delay on a PO — cascade into months of factory capacity disruption. The cause is always the same. The brand can't see the factory's capacity. The factory can't see the brand's demand signals. Both make decisions based on incomplete information.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-6">
+              Sourcery closes this gap. After your first completed order, the platform knows your lead time with each factory. It knows your reorder patterns. It knows when your production gates typically complete. It uses this to tell you: issue your next PO by this date to hit your target delivery. Reserve your factory slot this week — their capacity will be spoken for otherwise.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              This is what enterprise brands pay $50,000/year for in supply chain software. Sourcery makes it available from your first completed order, at $49/month. The documentation is what makes the intelligence possible. The intelligence is what makes the documentation worth more than a record.
+            </p>
+          </div>
+        </div>
+      </section>
+
+<section className="section-padding">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-heading text-2xl font-bold text-foreground mb-4">

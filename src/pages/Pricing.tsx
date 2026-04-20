@@ -260,6 +260,10 @@ export default function Pricing() {
                   <FeatureGroup label="Orders" />
                   <Feature text="10 active orders simultaneously" />
                   <Feature text="Order templates" />
+                  <Feature text="Reorder intelligence — know when to PO next" />
+                  <Feature text="Upcoming payment calendar" />
+                  <Feature text="Production intelligence dashboard" />
+                  <Feature text="Reorder timing alerts" />
                   <Feature text="AI dispute summary + PDF export" />
                   <FeatureGroup label="Marketplace" />
                   <Feature text="Full marketplace access" />
@@ -296,6 +300,10 @@ export default function Pricing() {
                 </Link>
                 <div className="space-y-0 flex-1">
                   <FeatureGroup label="Signature Pro features" />
+                  <Feature text="Production intelligence" />
+                  <Feature text="Reorder timing alerts" />
+                  <Feature text="Factory health scoring" />
+                  <Feature text="Supply chain compliance docs" />
                   <Feature text="Custom milestone structures" />
                   <Feature text="White-label PDF exports" />
                   <FeatureGroup label="Scale" />
@@ -309,6 +317,7 @@ export default function Pricing() {
                   <Feature text="Analytics dashboard" />
                   <FeatureGroup label="Organisation" />
                   <Feature text="Spec library" />
+                  <Feature text="Supply chain compliance export" />
                   <Feature text="Supplier contact book" />
                   <FeatureGroup label="Supply chain" />
                   <Feature text="Multi-supplier coordination" />

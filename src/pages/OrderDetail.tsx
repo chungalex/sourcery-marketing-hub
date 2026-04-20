@@ -34,8 +34,12 @@ import { OrderSKUs } from "@/components/orders/OrderSKUs";
 import { ProductionPhotoLog } from "@/components/orders/ProductionPhotoLog";
 import { TimezoneApproval } from "@/components/orders/TimezoneApproval";
 import { DeadlineBacktrack } from "@/components/orders/DeadlineBacktrack";
+import { ReorderIntelligence } from "@/components/orders/ReorderIntelligence";
 import { OrderTimeline } from "@/components/orders/OrderTimeline";
 import { ShipmentDocs } from "@/components/orders/ShipmentDocs";
+import { SupplyChainCompliance } from "@/components/orders/SupplyChainCompliance";
+import { SupplyChainCompliance } from "@/components/orders/SupplyChainCompliance";
+import { ComplianceExport } from "@/components/orders/ComplianceExport";
 import { ProductionAssistant } from "@/components/va/ProductionAssistant";
 import { toast } from "sonner";
 import {
@@ -852,6 +856,19 @@ export default function OrderDetail() {
                   orderId={order.id}
                   orderCreatedAt={order.created_at}
                 />
+
+                {/* Compliance export — closed orders */}
+                {order.status === "closed" && (
+                  <ComplianceExport orderId={order.id} orderNumber={order.order_number} />
+                )}
+
+                {/* Supply chain compliance */}
+                {order.status !== "draft" && (
+                  <SupplyChainCompliance
+                    orderId={order.id}
+                    specifications={order.specifications}
+                  />
+                )}
 
                 {/* Share production record — closed orders */}
                 {order.status === "closed" && (

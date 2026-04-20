@@ -113,8 +113,8 @@ export default function Home() {
   return (
     <Layout>
       <SEO
-        title="Sourcery — The Manufacturing OS for Physical Product Brands"
-        description="Whether you're placing your first order or your fiftieth, production deserves better than disconnected tools and informal channels. Sourcery is the marketplace to find the right factory and the OS to manage every order properly."
+        title="Sourcery — Production Intelligence for Physical Product Brands"
+        description="Document every order. Gate every payment. Get told what's coming before it becomes a problem. Sourcery is the production OS for physical product brands."
         canonical="/"
         ogImage="https://sourcery.so/og-image.png"
       />
@@ -129,17 +129,18 @@ export default function Home() {
               {/* Left — copy */}
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-6">
-                  The manufacturing OS for brands who take production seriously.
+                  Stop managing production.
+Let it manage itself.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
-                  Sourcery is the production network to find the right factory — and the OS to manage every order from PO to delivery. Documented, milestone-gated, and fully traceable. Whether it's your first order or your fiftieth.
+                  Document every order. Gate every payment. Get told when to act — before delays happen. Sourcery is the production OS that closes the information gap between brands and factories.
                 </p>
 
                 <div className="space-y-3 mb-8">
                   {[
-                    { gate: "Know who you're working with before you commit", desc: "Factory capabilities, certifications, and performance scores — visible before you reach out." },
-                    { gate: "Every decision explained as you make it", desc: "Incoterms, AQL, milestone structures — plain language guidance at every step." },
-                    { gate: "Your money doesn't move until you say so", desc: "Milestone-gated payments. Sample gate before bulk. QC gate before final payment." },
+                    { gate: "Every decision documented in real time", desc: "Every spec, revision, photo, QC result, and payment — timestamped and attached to the order. Disputes become simple." },
+                    { gate: "Your money doesn't move until you confirm it", desc: "Milestone-gated payments. Sample approval before bulk. QC gate before final payment. You stay in control." },
+                    { gate: "The platform gets smarter with every order", desc: "Reorder timing predictions, factory performance scores, cash flow visibility. Intelligence that compounds." },
                   ].map(item => (
                     <div key={item.gate} className="flex items-start gap-3">
                       <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -273,8 +274,8 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                title: "Guided order creation",
-                body: "Every decision in the order process — incoterms, QC standard, AQL threshold — includes a plain-English explanation before you commit. Nothing left to assumption.",
+                title: "Document everything.",
+                body: "Every spec version, revision, sample, QC result, and payment milestone — timestamped and attached to the order. When a dispute happens, you win. Your record is your leverage.",
               },
               {
                 title: "Milestone-gated payments",

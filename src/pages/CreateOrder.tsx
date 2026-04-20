@@ -1099,6 +1099,15 @@ export default function CreateOrder() {
                         />
                       </TooltipProvider>
 
+                      {/* Holiday warning */}
+                      {watchedValues.factory_id && (
+                        <HolidayWarning
+                          factoryCountry="VN"
+                          deliveryWindowStart={watchedValues.delivery_window_start?.toISOString()}
+                          deliveryWindowEnd={watchedValues.delivery_window_end?.toISOString()}
+                        />
+                      )}
+
                       {/* Delivery window */}
                       <div className="space-y-3">
                         <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-400/30">

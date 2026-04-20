@@ -23,7 +23,12 @@ import { format } from "date-fns";
 import { BrandOnboardingPrompt } from "@/components/onboarding/BrandOnboardingPrompt";
 import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { UpgradePrompt } from "@/components/platform/UpgradePrompt";
+import { PaymentCalendar } from "@/components/platform/PaymentCalendar";
+import { ProductionIntelHub } from "@/components/platform/ProductionIntelHub";
+import { ProductionIntelligence } from "@/components/platform/ProductionIntelligence";
+import { CashFlowCalendar } from "@/components/platform/CashFlowCalendar";
 import { ReorderIntelligence } from "@/components/orders/ReorderIntelligence";
+import { ReorderIntelligencePro } from "@/components/orders/ReorderIntelligencePro";
 import { lazy, Suspense } from "react";
 const RFQDashboard = lazy(() => import("./RFQDashboard"));
 
@@ -353,6 +358,16 @@ export default function BrandDashboard() {
             />
           )}
 
+          {/* Cash flow overview — shown when there are active orders */}
+          {orders.filter(o => !["closed","cancelled","draft"].includes(o.status)).length > 0 && (
+            <div className="mb-6">
+              <CashFlowCalendar />
+            </div>
+          )}
+
+          {/* Production Intelligence — shows when there are signals */}
+          <ProductionIntelligence className="mb-6" />
+
           {/* Tabs */}
           <Tabs defaultValue={defaultTab} className="space-y-5">
             <TabsList className="h-auto p-1">
@@ -393,6 +408,8 @@ export default function BrandDashboard() {
 
             {/* Orders */}
             <TabsContent value="orders" className="space-y-3">
+              {/* Production Intelligence Hub — cross-order signals */}
+              {user && <ProductionIntelHub userId={user.id} />}
               {/* Reorder intelligence — show for recently closed orders */}
               {orders.filter(o => o.status === "closed" || o.status === "shipped").slice(0, 1).map(o => (
 <ReorderIntelligence key={o.id} orderId={o.id} factoryId={o.factories?.id || ""} factoryName={o.factories?.name || "Factory"} />
