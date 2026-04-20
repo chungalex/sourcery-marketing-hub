@@ -36,6 +36,8 @@ import { TimezoneApproval } from "@/components/orders/TimezoneApproval";
 import { DeadlineBacktrack } from "@/components/orders/DeadlineBacktrack";
 import { ReorderIntelligence } from "@/components/orders/ReorderIntelligence";
 import { OrderTimeline } from "@/components/orders/OrderTimeline";
+import { ProductionCountdown } from "@/components/orders/ProductionCountdown";
+import { SafetyStockCalculator } from "@/components/orders/SafetyStockCalculator";
 import { ShipmentDocs } from "@/components/orders/ShipmentDocs";
 import { SupplyChainCompliance } from "@/components/orders/SupplyChainCompliance";
 import { SupplyChainCompliance } from "@/components/orders/SupplyChainCompliance";
@@ -515,6 +517,16 @@ export default function OrderDetail() {
                   );
                 })()}
 
+            {/* Production countdown — backward scheduling from delivery date */}
+            {order.delivery_window_end && !["draft", "closed", "cancelled"].includes(order.status) && (
+              <ProductionCountdown
+                deliveryDate={order.delivery_window_end}
+                orderCreatedAt={order.created_at}
+                orderStatus={order.status}
+                leadTimeWeeks={16}
+              />
+            )}
+
             {/* Deadline backtrack — show for active orders with delivery date */}
             {order.delivery_window_end && !["draft", "closed", "cancelled", "shipped"].includes(order.status) && (
               <div className="mb-6">
@@ -868,6 +880,11 @@ export default function OrderDetail() {
                     orderId={order.id}
                     specifications={order.specifications}
                   />
+                )}
+
+                {/* Safety stock calculator — closed orders */}
+                {order.status === "closed" && (
+                  <SafetyStockCalculator avgLeadWeeks={14} orderId={order.id} />
                 )}
 
                 {/* Share production record — closed orders */}
