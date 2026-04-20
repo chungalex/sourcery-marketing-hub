@@ -26,6 +26,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { FactoryTypeBadge } from "@/components/marketplace/FactoryTypeBadge";
 import { VerifiedBadge } from "@/components/marketplace/VerifiedBadge";
+import { OTIFScore } from "@/components/marketplace/OTIFScore";
 import { CertificationBadge } from "@/components/marketplace/CertificationBadge";
 import { cn } from "@/lib/utils";
 import { InquiryModal } from "@/components/modals/InquiryModal";
@@ -521,6 +522,7 @@ export default function FactoryProfile() {
                         value={`${orderCount} completed`}
                       />
                     )}
+                    {factory.id && <OTIFScore factoryId={factory.id} showDetail={true} className="mt-4" />}
                   </div>
                 </div>
 

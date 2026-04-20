@@ -12,13 +12,11 @@ import { cn } from "@/lib/utils";
 
 // Marketing nav — shown to logged-out users
 const marketingNav = [
-  { label: "For Brands", href: "/brands" },
-  { label: "For Factories", href: "/factories" },
-  { label: "Network", href: "/marketplace" },
-  { label: "Resources", href: "/resources" },
-  { label: "Why Sourcery", href: "/why-sourcery" },
+  { label: "Features", href: "/features" },
+  { label: "How it works", href: "/how-it-works" },
+  { label: "Trade tools", href: "/trade-tools" },
   { label: "Pricing", href: "/pricing" },
-    { label: "Studio", href: "/studio" },
+  { label: "Studio", href: "/studio" },
 ];
 
 // App nav — shown to logged-in brands

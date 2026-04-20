@@ -22,7 +22,7 @@ export default function Brands() {
                 For brands
               </div>
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
-                Production is hard to start. It's just as hard to scale.
+                Enterprise production tools. No enterprise price tag.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-2xl">
                 Whether you're finding your first factory or replacing one that's let you down — whether you're placing your first order or running multiple production lines — the underlying problem is the same: production runs on tools that weren't built for it.

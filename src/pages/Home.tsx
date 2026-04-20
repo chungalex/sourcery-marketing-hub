@@ -5,58 +5,52 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
-import {
-  ArrowRight, CheckCircle, Shield, Package, MessageSquare,
-  FileText, BarChart3, Sparkles, Building2, Loader2, Search,
-  BookOpen, Users, Globe, Zap, TrendingUp
-} from "lucide-react";
+import { ArrowRight, CheckCircle, Shield, Package, MessageSquare, FileText, BarChart3, Sparkles, Building2, Loader2, Search, Globe, Zap, TrendingUp, Star, Clock, Brain, Calculator, AlertTriangle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/useAuth";
-import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 import { toast } from "sonner";
 
 const features = [
   {
-    icon: Building2,
-    title: "Bring your own factory",
-    sub: "No marketplace required.",
-    description: "Invite your existing manufacturer and manage every order on-platform from day one. Full platform functionality immediately.",
+    icon: BarChart3,
+    title: "Production countdown",
+    sub: "Nike's method. Your price.",
+    description: "Enter your delivery date. Sourcery reverse-engineers every required gate — sample approval, bulk start, QC date, cargo cutoff — and fires alerts when anything slips.",
   },
   {
     icon: Shield,
     title: "Milestone-gated payments",
-    sub: "Your money moves when you approve it.",
-    description: "Sample approved before bulk. QC passed before final release. Nothing moves without your confirmation.",
+    sub: "Your money moves when you say so.",
+    description: "Sample approved before bulk. QC passed before final release. Every payment milestone released manually by you. Nothing moves without your confirmation.",
   },
   {
     icon: Package,
-    title: "Structured order creation",
-    sub: "Every decision explained before you make it.",
-    description: "Incoterms, QC standard, AQL threshold — each with plain-English guidance. Built for first orders and experienced operators alike.",
+    title: "Safety stock & reorder timing",
+    sub: "Amazon's formula. Your inventory.",
+    description: "Enter your weekly sales velocity. Sourcery calculates your reorder point and tells you the exact date to issue your next PO — before you hit zero stock.",
+  },
+  {
+    icon: Star,
+    title: "Factory OTIF scores",
+    sub: "Walmart tracks this. Now you can too.",
+    description: "Every factory earns an on-time/in-full rate built from verified completed orders. Visible before you commit. Never self-reported. Gets more accurate with every order.",
+  },
+  {
+    icon: Globe,
+    title: "Trade tools built in",
+    sub: "HTS codes, duties, FTA guidance.",
+    description: "Searchable duty rate table, tariff comparison across 5 countries, FTA qualification checker. Know your true landed cost — not just the FOB quote.",
   },
   {
     icon: FileText,
-    title: "QC documentation",
-    sub: "No more 'defect found after the wire.'",
-    description: "Defects filed as structured reports — type, severity, quantity, photos, factory response. Final payment blocked until QC passes.",
+    title: "Complete order documentation",
+    sub: "Your compliance infrastructure.",
+    description: "Every spec, revision, QC report, and milestone — permanent and exportable. One click generates your CSDDD, UFLPA, and Modern Slavery Act compliance documentation.",
   },
   {
     icon: MessageSquare,
-    title: "On-platform communication",
-    sub: "No more fragmented message threads.",
-    description: "Every message logged, timestamped, and attached to the right order. Full history. Nothing important communicated outside the platform.",
-  },
-  {
-    icon: BarChart3,
-    title: "Factory performance tracking",
-    sub: "Know exactly what you're working with.",
-    description: "Every order completed on the platform adds to a factory's verified record — QC results, response times, defect reports. Builds from the first order. Never self-reported.",
-  },
-  {
-    icon: Search,
-    title: "Production network",
-    sub: "Find the right factory. Or bring your own.",
-    description: "Browse vetted manufacturers with real performance data. AI-matched recommendations in plain language. Or invite your existing factory — same platform either way.",
+    title: "Production intelligence",
+    sub: "Order health. Cash flow. Risk flags.",
+    description: "Traffic-light order health dashboard. Upcoming payment calendar. Holiday warnings before Tet and Golden Week. Intelligence that prevents expensive surprises.",
   },
 ];
 
@@ -116,6 +110,7 @@ export default function Home() {
         title="Sourcery — Production Intelligence for Physical Product Brands"
         description="Document every order. Gate every payment. Get told what's coming before it becomes a problem. Sourcery is the production OS for physical product brands."
         canonical="/"
+        description="The supply chain tools enterprise brands use — backward scheduling, safety stock math, OTIF factory scores — built for brands doing 300 units. Start free."
         ogImage="https://sourcery.so/og-image.png"
       />
 
@@ -129,18 +124,19 @@ export default function Home() {
               {/* Left — copy */}
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-6">
-                  Stop managing production.
-Let it manage itself.
+The supply chain tools
+enterprise brands use.
+Built for yours.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-xl">
-                  Document every order. Gate every payment. Get told when to act — before delays happen. Sourcery is the production OS that closes the information gap between brands and factories.
+                  Nike has backward scheduling. Amazon has safety stock math. Apple has factory scorecards. Walmart tracks OTIF rates. All of it is now available to a brand doing 300 units — at $49/month.
                 </p>
 
                 <div className="space-y-3 mb-8">
                   {[
-                    { gate: "Every decision documented in real time", desc: "Every spec, revision, photo, QC result, and payment — timestamped and attached to the order. Disputes become simple." },
-                    { gate: "Your money doesn't move until you confirm it", desc: "Milestone-gated payments. Sample approval before bulk. QC gate before final payment. You stay in control." },
-                    { gate: "The platform gets smarter with every order", desc: "Reorder timing predictions, factory performance scores, cash flow visibility. Intelligence that compounds." },
+                    { gate: "Every order documented from brief to delivery", desc: "Every spec, revision, sample, QC result, and payment — timestamped, attached to the right order, permanent." },
+                    { gate: "Intelligence that prevents expensive surprises", desc: "Production countdown tells you every deadline. Safety stock math tells you when to reorder. Order health flags problems before they become crises." },
+                    { gate: "Factory performance — verified, not self-reported", desc: "Every factory earns an OTIF score from real completed orders. You know their on-time rate before you commit a dollar." },
                   ].map(item => (
                     <div key={item.gate} className="flex items-start gap-3">
                       <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -310,10 +306,11 @@ Let it manage itself.
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mb-12">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Everything production needs. Nothing it doesn't.
+              Enterprise supply chain tools.
+Built for small brands.
             </h2>
             <p className="text-lg text-muted-foreground">
-              From finding the right factory to closing an order with a permanent record — structured, gated, and traceable at every stage.
+              Nike uses backward scheduling. Amazon uses safety stock formulas. Apple gives every supplier a scorecard. All of it is now in Sourcery — at $49/month.
             </p>
           </motion.div>
 

@@ -58,7 +58,7 @@ export default function About() {
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <p>
-                Sourcery is the system of record. Every order, revision, sample, defect, and payment — documented, timestamped, and attached to the right place. Not a directory. Not an agency. Infrastructure that walks you through the process, keeps everything organised, and gives you the confidence to build your company around production instead of in spite of it.
+                Sourcery is the manufacturing OS. Documentation, intelligence, and trade tools — the things enterprise brands pay teams to manage, automated and available at $49/month. We run a factory in Vietnam. We run a brand that sources from Vietnam. We built this because we couldn't find it. Not an agency. Infrastructure that walks you through the process, keeps everything organised, and gives you the confidence to build your company around production instead of in spite of it.
               </p>
               <p className="mt-4">
                 The platform has two equally important halves. The OS manages every order from PO creation to closed delivery. The marketplace helps brands find the right factory before the first order is placed — vetted manufacturers with verified credentials, matched to your requirements. Because getting production right starts with getting the factory right.
