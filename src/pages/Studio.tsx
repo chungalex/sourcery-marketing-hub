@@ -33,7 +33,7 @@ export default function Studio() {
   return (
     <Layout>
       <SEO
-        title="Managed Production — Sourcery"
+        title="Sourcery Managed — Full-Service Production | Sourcery"
         description="We manage your production run end to end — factory selection, PO, sampling, QC, delivery. Powered by Sourcery. Starting from $2,000 per run."
         ogImage="https://sourcery.so/og-image.png"
       />
