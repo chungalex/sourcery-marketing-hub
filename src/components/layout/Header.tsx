@@ -76,8 +76,10 @@ export function Header() {
   return (
     <>
       <header className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "bg-background/90 backdrop-blur-lg border-b border-border shadow-sm" : "bg-transparent"
+        "sticky top-0 left-0 right-0 z-50 transition-all duration-300",
+        isScrolled
+          ? "bg-background/90 backdrop-blur-lg border-b border-border shadow-sm"
+          : "bg-background border-b border-border"
       )}>
         <div className="container-wide">
           <div className="flex items-center justify-between h-16">
@@ -259,8 +261,6 @@ export function Header() {
         )}
       </AnimatePresence>
 
-      {/* Spacer */}
-      <div className="h-16" />
     </>
   );
 }
