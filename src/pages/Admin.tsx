@@ -24,18 +24,8 @@ import {
 } from "lucide-react";
 
 // Mock data for demonstration
-const [stats, setStats] = useState({ orders: 0, brands: 0, factories: 0 });
+const mockStats = { orders: 0, brands: 0, factories: 0, qc: 0, disputes: 0 };
 
-  useEffect(() => {
-    async function load() {
-      const [o, f] = await Promise.all([
-        (supabase as any).from("orders").select("id", { count: "exact", head: true }),
-        (supabase as any).from("factories").select("id", { count: "exact", head: true }),
-      ]);
-      setStats({ orders: o.count || 0, brands: 0, factories: f.count || 0 });
-    }
-    load();
-  }, []);
 const mockOrders = [
   { id: "1", order_number: "ORD-2024-001", buyer_name: "Fashion Brand Co", factory_name: "Eco Textiles Portugal", status: "in_production", total_amount: 45000, currency: "USD", created_at: "2024-01-15", has_dispute: false, qc_assigned: true },
   { id: "2", order_number: "ORD-2024-002", buyer_name: "Urban Wear Ltd", factory_name: "Milano Leather Works", status: "qc_scheduled", total_amount: 28000, currency: "USD", created_at: "2024-01-18", has_dispute: false, qc_assigned: true },

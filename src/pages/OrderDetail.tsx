@@ -75,6 +75,8 @@ interface OrderData {
   delivery_window_start: string | null;
   delivery_window_end: string | null;
   incoterms: string | null;
+  tech_pack_url: string | null;
+  bom_url: string | null;
   specifications: Record<string, unknown> | null;
   factories: { id: string; name: string; slug: string } | null;
   order_milestones: {
