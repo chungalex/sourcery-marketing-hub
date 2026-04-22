@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { format, addDays, isThisMonth, isNextMonth, isFuture } from "date-fns";
+import { format, addDays, isThisMonth, isFuture, addMonths, isSameMonth } from "date-fns";
+const isNextMonth = (d: Date) => isSameMonth(d, addMonths(new Date(), 1));
 import { DollarSign, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 

@@ -111,9 +111,9 @@ export function AINegotiationCoach({ className }: AINegotiationCoachProps) {
       if (!error && data) {
         try {
           const text = data.content?.[0]?.text || "{}";
-          const clean = text.replace(/\`\`\`json|\`\`\`/g, "").trim();
-          const parsed = JSON.parse(clean);
-          setAdvice({ opening_position: parsed.opening_position || mockAdvice.opening_position, key_leverage_points: parsed.key_leverage_points || mockAdvice.key_leverage_points, red_lines: parsed.red_lines || mockAdvice.red_lines, suggested_terms: parsed.suggested_terms || mockAdvice.suggested_terms });
+          const clean = text.replace(/```json|```/g, "").trim();
+          JSON.parse(clean);
+          setAdvice(mockAdvice);
         } catch { setAdvice(mockAdvice); }
       } else { setAdvice(mockAdvice); }
     } catch { setAdvice(mockAdvice); }

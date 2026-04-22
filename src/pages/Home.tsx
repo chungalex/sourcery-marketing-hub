@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
-import { ArrowRight, CheckCircle, Shield, Package, MessageSquare, FileText, BarChart3, Sparkles, Building2, Loader2, Search, Globe, Zap, TrendingUp, Star, Clock, Brain, Calculator, AlertTriangle } from "lucide-react";
+import { ArrowRight, CheckCircle, Shield, Package, MessageSquare, FileText, BarChart3, Sparkles, Building2, Loader2, Search, Globe, Zap, TrendingUp, Star, Clock, Brain, Calculator, AlertTriangle, BookOpen, Users } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
+import { useFactoryMembership } from "@/hooks/useFactoryMembership";
 
 const features = [
   {
@@ -108,9 +110,8 @@ export default function Home() {
     <Layout>
       <SEO
         title="Sourcery — Production Intelligence for Physical Product Brands"
-        description="Document every order. Gate every payment. Get told what's coming before it becomes a problem. Sourcery is the production OS for physical product brands."
-        canonical="/"
         description="The supply chain tools enterprise brands use — backward scheduling, safety stock math, OTIF factory scores — built for brands doing 300 units. Start free."
+        canonical="/"
         ogImage="https://sourcery.so/og-image.png"
       />
 
