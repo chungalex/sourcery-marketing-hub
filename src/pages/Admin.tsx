@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 
 // Mock data for demonstration
-const mockStats = { orders: 0, brands: 0, factories: 0, qc: 0, disputes: 0 };
+const mockStats = { totalUsers: 0, activeOrders: 0, openDisputes: 0, pendingApplications: 0, totalRevenue: 0, newInquiries: 0, conversionRate: 0, factories: 0 };
 
 const mockOrders = [
   { id: "1", order_number: "ORD-2024-001", buyer_name: "Fashion Brand Co", factory_name: "Eco Textiles Portugal", status: "in_production", total_amount: 45000, currency: "USD", created_at: "2024-01-15", has_dispute: false, qc_assigned: true },
