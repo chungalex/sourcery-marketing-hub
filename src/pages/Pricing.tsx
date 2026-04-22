@@ -113,7 +113,7 @@ export default function Pricing() {
   return (
     <Layout>
       <SEO
-        title="Pricing — Sourcery | Free first order, then $399/yr"
+        title="Pricing — Sourcery | Enterprise supply chain tools from $49/month"
         description="Your first order is free. Full infrastructure, no credit card, no time limit."
       />
 
@@ -260,11 +260,15 @@ export default function Pricing() {
                   <FeatureGroup label="Orders" />
                   <Feature text="10 active orders simultaneously" />
                   <Feature text="Order templates" />
+                  <Feature text="Export PO as PDF" />
+                  <Feature text="AI tech pack reviewer" />
+                  <Feature text="Bill of materials tracker" />
+                  <Feature text="Freight document checklist" />
+                  <Feature text="Shipment tracking" />
+                  <Feature text="FX rate guidance" />
                   <Feature text="Reorder intelligence — know when to PO next" />
                   <Feature text="Upcoming payment calendar" />
                   <Feature text="Production intelligence dashboard" />
-                  <Feature text="Reorder timing alerts" />
-                  <Feature text="AI dispute summary + PDF export" />
                   <FeatureGroup label="Marketplace" />
                   <Feature text="Full marketplace access" />
                   <Feature text="AI factory matcher" />
@@ -300,12 +304,8 @@ export default function Pricing() {
                 </Link>
                 <div className="space-y-0 flex-1">
                   <FeatureGroup label="Signature Pro features" />
-                  <Feature text="Production intelligence" />
-                  <Feature text="Reorder timing alerts" />
-                  <Feature text="Factory health scoring" />
                   <Feature text="Supply chain compliance docs" />
                   <Feature text="Custom milestone structures" />
-                  <Feature text="White-label PDF exports" />
                   <FeatureGroup label="Scale" />
                   <Feature text="Unlimited active orders" />
                   <Feature text="Unlimited AI factory matcher" />
@@ -320,13 +320,7 @@ export default function Pricing() {
                   <Feature text="Supply chain compliance export" />
                   <Feature text="Supplier contact book" />
                   <FeatureGroup label="Supply chain" />
-                  <Feature text="Multi-supplier coordination" />
-                  <Feature text="Bill of materials tracker" />
-                  <Feature text="Landed cost calculator" />
-                  <Feature text="Freight document checklist" />
-                  <Feature text="Shipment tracking" />
-                  <Feature text="QC framework & resources" />
-                  <Feature text="FX rate alerts" />
+                                    <Feature text="QC framework & resources" />
                 </div>
               </motion.div>
 

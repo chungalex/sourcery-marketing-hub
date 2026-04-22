@@ -168,7 +168,7 @@ Built for yours.
                 </div>
               </motion.div>
 
-              {/* Right — live order preview */}
+                            {/* Right — live intelligence demo */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -179,28 +179,46 @@ Built for yours.
                   {/* Main order card */}
                   <div className="bg-card border border-border rounded-2xl p-6 shadow-[0_8px_40px_-8px_rgba(0,0,0,0.12)]">
                     {/* Header */}
-                    <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center justify-between mb-4">
                       <div>
-                        <div className="font-mono text-xs text-muted-foreground mb-0.5">SRC-2026-00042</div>
-                        <div className="font-semibold text-foreground">Premium Denim Jacket</div>
-                        <div className="text-xs text-muted-foreground mt-0.5">Factory — Ho Chi Minh City</div>
+                        <div className="font-mono text-xs text-muted-foreground mb-0.5">SRC-2026-00089</div>
+                        <div className="font-semibold text-foreground">Indigo Selvedge Jacket — SS26</div>
+                        <div className="text-xs text-muted-foreground mt-0.5">HU LA Studios · Ho Chi Minh City</div>
                       </div>
                       <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border bg-amber-500/10 text-amber-700 border-amber-400/40">
-                        Sample to Review
+                        In Production
                       </span>
                     </div>
 
-                    {/* Sample submitted alert */}
-                    <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 mb-5">
-                      <div className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0 animate-pulse" />
-                      <div>
-                        <p className="text-xs font-medium text-foreground">Sample submitted — round 1</p>
-                        <p className="text-xs text-muted-foreground mt-0.5">Factory uploaded 4 photos and measurements. Approve or request revision.</p>
-                      </div>
+                    {/* Backward scheduling countdown */}
+                    <div className="space-y-2 mb-4">
+                      {[
+                        { gate: "Sample approved", date: "May 12", status: "done" },
+                        { gate: "Bulk production start", date: "Jun 3", status: "done" },
+                        { gate: "In-line QC", date: "Jul 14", status: "alert" },
+                        { gate: "Final QC", date: "Aug 4", status: "upcoming" },
+                        { gate: "Cargo cutoff", date: "Aug 22", status: "upcoming" },
+                      ].map((item) => (
+                        <div key={item.gate} className="flex items-center gap-2">
+                          <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
+                            item.status === "done" ? "bg-green-500" :
+                            item.status === "alert" ? "bg-amber-500 animate-pulse" :
+                            "bg-border"
+                          }`} />
+                          <span className={`text-xs flex-1 ${
+                            item.status === "done" ? "text-muted-foreground line-through" :
+                            item.status === "alert" ? "text-foreground font-medium" :
+                            "text-muted-foreground"
+                          }`}>{item.gate}</span>
+                          <span className={`text-xs ${
+                            item.status === "alert" ? "text-amber-600 font-medium" : "text-muted-foreground"
+                          }`}>{item.date}</span>
+                        </div>
+                      ))}
                     </div>
 
                     {/* Milestone track */}
-                    <div className="mb-5">
+                    <div className="pt-3 border-t border-border">
                       <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
                         <span>Payment milestones</span>
                         <span>30% released</span>
@@ -214,47 +232,33 @@ Built for yours.
                         ))}
                       </div>
                     </div>
-
-                    {/* Protection badges */}
-                    <div className="grid grid-cols-3 gap-2 pt-4 border-t border-border">
-                      {[
-                        { label: "Gates active", status: "Enforced", color: "text-green-600" },
-                        { label: "Sample gate", status: "Pending", color: "text-amber-600" },
-                        { label: "QC gate", status: "Upcoming", color: "text-muted-foreground" },
-                      ].map(p => (
-                        <div key={p.label} className="text-center">
-                          <div className={`text-xs font-medium ${p.color}`}>{p.status}</div>
-                          <div className="text-xs text-muted-foreground">{p.label}</div>
-                        </div>
-                      ))}
-                    </div>
                   </div>
 
-                  {/* Floating notification */}
+                  {/* Alert notification */}
                   <motion.div
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8, duration: 0.4 }}
-                    className="absolute -bottom-4 -left-4 bg-card border border-border rounded-xl p-3 shadow-lg flex items-center gap-3"
+                    transition={{ delay: 1.0, duration: 0.4 }}
+                    className="absolute -bottom-4 -left-4 bg-card border border-amber-400/30 rounded-xl p-3 shadow-lg flex items-center gap-3 max-w-[220px]"
                   >
-                    <div className="w-8 h-8 rounded-full bg-green-500/15 flex items-center justify-center flex-shrink-0">
-                      <CheckCircle className="w-4 h-4 text-green-600" />
+                    <div className="w-8 h-8 rounded-full bg-amber-500/15 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     </div>
                     <div>
-                      <p className="text-xs font-medium text-foreground">QC passed</p>
-                      <p className="text-xs text-muted-foreground">Final milestone unlocked</p>
+                      <p className="text-xs font-semibold text-foreground">In-line QC overdue 3 days</p>
+                      <p className="text-xs text-muted-foreground">Delivery window shrinking</p>
                     </div>
                   </motion.div>
 
-                  {/* Floating revision tag */}
+                  {/* Reorder chip */}
                   <motion.div
                     initial={{ opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1, duration: 0.4 }}
-                    className="absolute -top-3 -right-3 bg-card border border-border rounded-lg px-3 py-2 shadow-lg"
+                    transition={{ delay: 1.2, duration: 0.4 }}
+                    className="absolute -top-3 -right-3 bg-card border border-primary/30 rounded-lg px-3 py-2 shadow-lg"
                   >
-                    <p className="text-xs font-medium text-foreground">Revision round logged</p>
-                    <p className="text-xs text-muted-foreground">Factory acknowledged ✓</p>
+                    <p className="text-xs font-semibold text-primary">Issue FW26 PO by Aug 1</p>
+                    <p className="text-xs text-muted-foreground">Based on 14-week lead time</p>
                   </motion.div>
                 </div>
               </motion.div>

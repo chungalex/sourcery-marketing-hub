@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 // Marketing nav — shown to logged-out users
 const marketingNav = [
   { label: "Features", href: "/features" },
+  { label: "Intelligence", href: "/intelligence" },
   { label: "How it works", href: "/how-it-works" },
   { label: "Trade tools", href: "/trade-tools" },
   { label: "Pricing", href: "/pricing" },

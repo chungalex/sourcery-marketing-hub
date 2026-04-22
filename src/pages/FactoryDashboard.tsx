@@ -19,6 +19,7 @@ import {
 import { ProfileViewsChart, InquirySourcesChart, InquiryStatusChart } from "@/components/dashboard/AnalyticsCharts";
 import { SampleSubmitForm } from "@/components/sampling/SampleSubmitForm";
 import { SampleReviewPanel } from "@/components/orders/SampleReviewPanel";
+import { ShipmentTracker } from "@/components/orders/ShipmentTracker";
 import { OrderSKUs } from "@/components/orders/OrderSKUs";
 import { ProductionPhotoLog } from "@/components/orders/ProductionPhotoLog";
 import { TimezoneApproval } from "@/components/orders/TimezoneApproval";
@@ -438,6 +439,13 @@ export default function FactoryDashboard() {
                                 isFactory={true}
                                 onActionComplete={() => refetchOrders()}
                               />
+                            </div>
+                          )}
+
+                          {/* Shipment tracking — factory adds tracking info */}
+                          {["ready_to_ship", "shipped"].includes(order.status) && (
+                            <div className="border-t border-border pt-4">
+                              <ShipmentTracker orderId={order.id} isFactory={true} />
                             </div>
                           )}
 

@@ -36,7 +36,12 @@ import { TimezoneApproval } from "@/components/orders/TimezoneApproval";
 import { DeadlineBacktrack } from "@/components/orders/DeadlineBacktrack";
 import { ReorderIntelligence } from "@/components/orders/ReorderIntelligence";
 import { OrderTimeline } from "@/components/orders/OrderTimeline";
+import { OrderExportPDF } from "@/components/orders/OrderExportPDF";
 import { ProductionCountdown } from "@/components/orders/ProductionCountdown";
+import { TechPackReviewer } from "@/components/orders/TechPackReviewer";
+import { BillOfMaterials } from "@/components/orders/BillOfMaterials";
+import { ShipmentTracker } from "@/components/orders/ShipmentTracker";
+import { FreightChecklist } from "@/components/platform/FreightChecklist";
 import { SafetyStockCalculator } from "@/components/orders/SafetyStockCalculator";
 import { ShipmentDocs } from "@/components/orders/ShipmentDocs";
 import { SupplyChainCompliance } from "@/components/orders/SupplyChainCompliance";
@@ -795,6 +800,30 @@ export default function OrderDetail() {
                   </div>
                 )}
 
+                {/* Tech pack AI review */}
+                {!["closed", "cancelled"].includes(order.status) && (
+                  <TechPackReviewer
+                    orderId={order.id}
+                    techPackUrl={order.tech_pack_url}
+                    specifications={order.specifications as any}
+                  />
+                )}
+
+                {/* Bill of materials */}
+                <BillOfMaterials orderId={order.id} quantity={order.quantity} />
+
+                {/* Shipment tracker */}
+                {["ready_to_ship", "shipped", "closed"].includes(order.status) && (
+                  <ShipmentTracker orderId={order.id} isFactory={false} />
+                )}
+
+                {/* Freight checklist */}
+                <FreightChecklist
+                  incoterms={order.incoterms || "FOB"}
+                  destination={(order.specifications as any)?.shipping_destination || "United States"}
+                  orderStatus={order.status}
+                />
+
                 {/* Defect reports */}
                 {["qc_scheduled", "qc_uploaded", "qc_pass", "qc_fail", "ready_to_ship", "shipped", "closed"].includes(order.status) && (
                   <div className="bg-card border border-border rounded-xl p-6">
@@ -973,6 +1002,7 @@ export default function OrderDetail() {
               <div className="lg:sticky lg:top-6 space-y-4">
                 <PlatformMessaging orderId={order.id} />
                 <OrderChatSummary orderId={order.id} />
+                <OrderExportPDF orderId={order.id} orderNumber={order.order_number} />
                 <OrderExport
                   order={{
                     id: order.id,
