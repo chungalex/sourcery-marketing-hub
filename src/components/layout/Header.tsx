@@ -126,20 +126,42 @@ export function Header() {
                 ))
               ) : (
                 // Marketing navigation
-                marketingNav.map((item) => (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    className={cn(
-                      "px-3 py-2 text-sm font-medium rounded-lg transition-colors",
-                      location.pathname === item.href
-                        ? "text-foreground bg-muted"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                ))
+                <>
+                  {marketingNav.map((item) => (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      className={cn(
+                        "px-3 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap",
+                        location.pathname === item.href
+                          ? "text-foreground bg-muted"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                  {/* More dropdown */}
+                  <div className="relative group">
+                    <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">
+                      More <ChevronDown className="h-3.5 w-3.5" />
+                    </button>
+                    <div className="absolute left-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+                      <div className="bg-card border border-border rounded-xl shadow-xl overflow-hidden w-64 py-1">
+                        {marketingNavMore.map((item) => (
+                          <Link
+                            key={item.href}
+                            to={item.href}
+                            className="flex flex-col px-4 py-2.5 hover:bg-secondary/60 transition-colors"
+                          >
+                            <span className="text-sm font-medium text-foreground">{item.label}</span>
+                            <span className="text-xs text-muted-foreground mt-0.5">{item.desc}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </>
               )}
             </nav>
 
