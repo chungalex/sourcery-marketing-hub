@@ -50,6 +50,12 @@ import Onboarding from "./pages/Onboarding";
 import CreateRFQ from "./pages/CreateRFQ";
 import RFQRespond from "./pages/RFQRespond";
 import FactoryOnboarding from "./pages/FactoryOnboarding";
+import OrderRecord from "./pages/OrderRecord";
+import VietnamManufacturing from "./pages/VietnamManufacturing";
+import HowToFindFactory from "./pages/HowToFindFactory";
+import Alternatives from "./pages/Alternatives";
+import Compliance from "./pages/Compliance";
+import TradeTools from "./pages/TradeTools";
 
 const queryClient = new QueryClient();
 

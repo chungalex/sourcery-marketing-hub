@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
@@ -113,20 +115,22 @@ export default function Apply() {
     setIsSubmitting(true);
     try {
       const { error } = await (supabase as any).from("factory_applications").insert({
-        factory_name: formData.factoryName || null,
-        country: formData.country || null,
-        city: formData.city || null,
-        website: formData.website || null,
-        email: formData.email || null,
-        phone: formData.phone || null,
-        categories: formData.categories || [],
-        moq_min: formData.moqMin ? parseInt(formData.moqMin) : null,
-        lead_time_weeks: formData.leadTime ? parseInt(formData.leadTime) : null,
-        description: formData.description || null,
+        submitted_email: formData.email || "",
+        payload: {
+          factory_name: formData.factoryName,
+          country: formData.country,
+          city: formData.city,
+          website: formData.website,
+          phone: formData.phone,
+          categories: formData.selectedCategories,
+          moq_min: formData.moqMin ? parseInt(formData.moqMin) : null,
+          lead_time_weeks: formData.leadTimeWeeks ? parseInt(formData.leadTimeWeeks) : null,
+          description: formData.description,
+        },
         status: "pending",
       });
       if (error) throw error;
-      toast.success("Application submitted. We\'ll review and be in touch within 3–5 business days.");
+      toast.success("Application submitted. We'll review and be in touch within 3–5 business days.");
       setCurrentStep(7); // success step
     } catch (e: any) {
       // Graceful fallback — save to contact_submissions if factory_applications table doesn't exist
@@ -134,9 +138,9 @@ export default function Apply() {
         name: formData.factoryName || "Factory Application",
         email: formData.email || "",
         message: JSON.stringify(formData, null, 2),
-        type: "factory_application",
+        form_type: "factory_application",
       });
-      toast.success("Application received. We\'ll be in touch within 3–5 business days.");
+      toast.success("Application received. We'll be in touch within 3–5 business days.");
       setCurrentStep(7);
     }
     setIsSubmitting(false);

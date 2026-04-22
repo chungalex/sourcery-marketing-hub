@@ -100,7 +100,7 @@ export function AIRFQGenerator({ className }: AIRFQGeneratorProps) {
         // Fallback to template
         setGeneratedRFQ("# Request for Quotation\n\n**Product:** " + (formData.productType || "Product") + "\n\nPlease complete the form fields above for a detailed AI-generated RFQ.");
       } finally {
-        setLoading(false);
+        setIsGenerating(false);
       }
     })();
     return;

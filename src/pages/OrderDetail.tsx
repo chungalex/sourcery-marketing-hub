@@ -34,7 +34,6 @@ import { OrderSKUs } from "@/components/orders/OrderSKUs";
 import { ProductionPhotoLog } from "@/components/orders/ProductionPhotoLog";
 import { TimezoneApproval } from "@/components/orders/TimezoneApproval";
 import { DeadlineBacktrack } from "@/components/orders/DeadlineBacktrack";
-import { ReorderIntelligence } from "@/components/orders/ReorderIntelligence";
 import { OrderTimeline } from "@/components/orders/OrderTimeline";
 import { OrderExportPDF } from "@/components/orders/OrderExportPDF";
 import { ProductionCountdown } from "@/components/orders/ProductionCountdown";
@@ -44,7 +43,6 @@ import { ShipmentTracker } from "@/components/orders/ShipmentTracker";
 import { FreightChecklist } from "@/components/platform/FreightChecklist";
 import { SafetyStockCalculator } from "@/components/orders/SafetyStockCalculator";
 import { ShipmentDocs } from "@/components/orders/ShipmentDocs";
-import { SupplyChainCompliance } from "@/components/orders/SupplyChainCompliance";
 import { SupplyChainCompliance } from "@/components/orders/SupplyChainCompliance";
 import { ComplianceExport } from "@/components/orders/ComplianceExport";
 import { ProductionAssistant } from "@/components/va/ProductionAssistant";
@@ -77,6 +75,8 @@ interface OrderData {
   delivery_window_start: string | null;
   delivery_window_end: string | null;
   incoterms: string | null;
+  tech_pack_url: string | null;
+  bom_url: string | null;
   specifications: Record<string, unknown> | null;
   factories: { id: string; name: string; slug: string } | null;
   order_milestones: {

@@ -40,7 +40,8 @@ import type { Factory, FactoryPreview } from "@/types/database";
 import type { FactoryType } from "@/data/mockData";
 
 // Reviews come from real order data
-const mockReviews: never[] = [];
+interface Review { id: string; author: string; company: string; rating: number; date: string; title: string; content: string; helpful: number; }
+const mockReviews: Review[] = [];
 
 export default function FactoryProfile() {
   const { slug } = useParams();
@@ -152,8 +153,8 @@ export default function FactoryProfile() {
     return (
       <Layout>
         <SEO
-          title={`${preview.name} — ${preview.location?.city || preview.location?.country || "Factory"} | Sourcery`}
-          description={`${preview.name} is a manufacturer in ${[preview.location?.city, preview.location?.country].filter(Boolean).join(", ")}. Categories: ${(preview.categories || []).slice(0,3).join(", ")}. View on Sourcery.`}
+          title={`${preview.name} — ${preview.city || preview.country || "Factory"} | Sourcery`}
+          description={`${preview.name} is a manufacturer in ${[preview.city, preview.country].filter(Boolean).join(", ")}. Categories: ${(preview.categories || []).slice(0,3).join(", ")}. View on Sourcery.`}
         />
 
         <section className="relative">

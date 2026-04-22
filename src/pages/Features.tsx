@@ -3,7 +3,6 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 import { 
   ArrowRight, CheckCircle, Shield, Package, BarChart3, 
   MessageSquare, FileText, Star, Globe, Clock, 
