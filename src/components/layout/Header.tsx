@@ -13,11 +13,18 @@ import { cn } from "@/lib/utils";
 // Marketing nav — shown to logged-out users
 const marketingNav = [
   { label: "Features", href: "/features" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Trade tools", href: "/trade-tools" },
+  { label: "Studio", href: "/studio" },
+];
+
+// Secondary nav items accessible via mobile menu
+const marketingNavSecondary = [
   { label: "Intelligence", href: "/intelligence" },
   { label: "How it works", href: "/how-it-works" },
-  { label: "Trade tools", href: "/trade-tools" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Studio", href: "/studio" },
+  { label: "Why Sourcery", href: "/why-sourcery" },
+  { label: "Case studies", href: "/case-studies" },
+  { label: "FAQ", href: "/faq" },
 ];
 
 // App nav — shown to logged-in brands
@@ -231,10 +238,11 @@ export function Header() {
                 </>
               ) : (
                 <>
-                  {marketingNav.map((item) => (
+                  {[...marketingNav, ...marketingNavSecondary].map((item) => (
                     <Link
                       key={item.href}
                       to={item.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
                       className={cn(
                         "px-4 py-3 text-sm font-medium rounded-lg transition-colors",
                         location.pathname === item.href ? "text-foreground bg-muted" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
