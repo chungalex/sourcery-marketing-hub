@@ -155,7 +155,7 @@ export default function Auth() {
           >
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-foreground mb-2">
-                Your production, documented.
+                The supply chain tools enterprise brands use. Starting now.
               </h1>
               <p className="text-muted-foreground">
                 Every spec, revision, milestone, and factory relationship — documented from brief to delivery.
@@ -203,6 +203,22 @@ export default function Auth() {
                           className="pl-10"
                           required
                         />
+                        <div className="flex justify-end mt-1">
+                          <button
+                            type="button"
+                            onClick={async () => {
+                              if (!email) { toast.error("Enter your email address first"); return; }
+                              const { supabase } = await import("@/integrations/supabase/client");
+                              await supabase.auth.resetPasswordForEmail(email, {
+                                redirectTo: window.location.origin + "/auth?mode=reset",
+                              });
+                              toast.success("Reset email sent — check your inbox");
+                            }}
+                            className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                          >
+                            Forgot password?
+                          </button>
+                        </div>
                       </div>
                     </div>
 

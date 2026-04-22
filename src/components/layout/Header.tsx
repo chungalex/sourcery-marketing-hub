@@ -43,6 +43,7 @@ const factoryAppNav = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -141,25 +142,34 @@ export function Header() {
                       {item.label}
                     </Link>
                   ))}
-                  {/* More dropdown */}
-                  <div className="relative group">
-                    <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap">
-                      More <ChevronDown className="h-3.5 w-3.5" />
+                  {/* More dropdown - click-based for touch support */}
+                  <div className="relative">
+                    <button
+                      onClick={() => setIsMoreOpen(v => !v)}
+                      className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors whitespace-nowrap"
+                    >
+                      More <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", isMoreOpen && "rotate-180")} />
                     </button>
-                    <div className="absolute left-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
-                      <div className="bg-card border border-border rounded-xl shadow-xl overflow-hidden w-64 py-1">
-                        {marketingNavMore.map((item) => (
-                          <Link
-                            key={item.href}
-                            to={item.href}
-                            className="flex flex-col px-4 py-2.5 hover:bg-secondary/60 transition-colors"
-                          >
-                            <span className="text-sm font-medium text-foreground">{item.label}</span>
-                            <span className="text-xs text-muted-foreground mt-0.5">{item.desc}</span>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
+                    {isMoreOpen && (
+                      <>
+                        <div className="fixed inset-0 z-40" onClick={() => setIsMoreOpen(false)} />
+                        <div className="absolute left-0 top-full pt-1 z-50">
+                          <div className="bg-card border border-border rounded-xl shadow-xl overflow-hidden w-64 py-1">
+                            {marketingNavMore.map((item) => (
+                              <Link
+                                key={item.href}
+                                to={item.href}
+                                onClick={() => setIsMoreOpen(false)}
+                                className="flex flex-col px-4 py-2.5 hover:bg-secondary/60 transition-colors"
+                              >
+                                <span className="text-sm font-medium text-foreground">{item.label}</span>
+                                <span className="text-xs text-muted-foreground mt-0.5">{item.desc}</span>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </>
               )}

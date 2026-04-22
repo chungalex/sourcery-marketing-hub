@@ -33,7 +33,6 @@ import { ReorderButton } from "@/components/orders/ReorderButton";
 import { OrderSKUs } from "@/components/orders/OrderSKUs";
 import { ProductionPhotoLog } from "@/components/orders/ProductionPhotoLog";
 import { TimezoneApproval } from "@/components/orders/TimezoneApproval";
-import { DeadlineBacktrack } from "@/components/orders/DeadlineBacktrack";
 import { OrderTimeline } from "@/components/orders/OrderTimeline";
 import { OrderExportPDF } from "@/components/orders/OrderExportPDF";
 import { ProductionCountdown } from "@/components/orders/ProductionCountdown";
@@ -535,12 +534,7 @@ export default function OrderDetail() {
             {/* Deadline backtrack — show for active orders with delivery date */}
             {order.delivery_window_end && !["draft", "closed", "cancelled", "shipped"].includes(order.status) && (
               <div className="mb-6">
-                <DeadlineBacktrack
-                  deliveryDate={order.delivery_window_end}
-                  orderStatus={order.status}
-                  orderCreatedAt={order.created_at}
-                  factoryLeadTimeWeeks={16}
-                />
+                
               </div>
             )}
 
