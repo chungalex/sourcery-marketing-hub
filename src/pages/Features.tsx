@@ -228,7 +228,7 @@ export default function Features() {
               <Link to="/auth?mode=signup">Start free <ArrowRight className="h-4 w-4" /></Link>
             </Button>
             <Button variant="outline" asChild size="lg">
-              <Link to="/alternatives">Compare to Anvyl & Pietra</Link>
+              <Link to="/alternatives">Compare to enterprise platforms & network platforms</Link>
             </Button>
           </div>
         </div>

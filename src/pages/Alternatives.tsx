@@ -138,8 +138,8 @@ export default function Alternatives() {
   return (
     <Layout>
       <SEO
-        title="Sourcery vs Anvyl vs Pietra — Production Management Software Comparison"
-        description="Compare production management tools for apparel brands. Sourcery vs Anvyl vs Pietra: pricing, features, and who each is built for."
+        title="Sourcery vs enterprise platforms — Production Management Software Comparison"
+        description="Compare production management tools for apparel brands. Sourcery vs enterprise platforms: pricing, features, and who each is built for."
       />
 
       <section className="section-padding border-b border-border">
@@ -161,8 +161,8 @@ export default function Alternatives() {
               <tr className="border-b border-border">
                 <th className="px-4 py-3 text-left font-semibold text-foreground w-1/3">Feature</th>
                 <th className="px-4 py-3 text-center font-semibold text-primary">Sourcery</th>
-                <th className="px-4 py-3 text-center font-semibold text-foreground">Anvyl</th>
-                <th className="px-4 py-3 text-center font-semibold text-foreground">Pietra</th>
+                <th className="px-4 py-3 text-center font-semibold text-foreground">Enterprise platform</th>
+                <th className="px-4 py-3 text-center font-semibold text-foreground">Network platform</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
