@@ -170,6 +170,21 @@ Built for yours.
               </motion.div>
 
                             {/* Right — live intelligence demo */}
+              
+              {/* Mobile proof strip — visible on mobile only */}
+              <div className="lg:hidden grid grid-cols-3 gap-2 mt-6">
+                {[
+                  { n: "6", label: "Production gates tracked automatically" },
+                  { n: "14wk", label: "Avg lead time calculated from real orders" },
+                  { n: "$49", label: "Per month — enterprise tools, startup price" },
+                ].map(({ n, label }) => (
+                  <div key={n} className="bg-card border border-border rounded-xl p-3 text-center">
+                    <p className="text-lg font-bold text-foreground">{n}</p>
+                    <p className="text-xs text-muted-foreground leading-tight mt-0.5">{label}</p>
+                  </div>
+                ))}
+              </div>
+
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
