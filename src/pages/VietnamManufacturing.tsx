@@ -18,7 +18,7 @@ export default function VietnamManufacturing() {
     <Layout>
       <SEO
         title="Apparel Manufacturing in Vietnam — Find Factories | Sourcery"
-        description="Find verified apparel and garment manufacturers in Vietnam. MOQ from 300 units. Direct factory relationships, milestone-gated payments, full documentation."
+        description="Find verified apparel and garment manufacturers in Vietnam. Low MOQ accepted. Direct factory relationships, milestone-gated payments, full documentation."
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",

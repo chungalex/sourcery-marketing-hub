@@ -112,7 +112,7 @@ export default function CaseStudies() {
             <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">Start your own</p>
             <h2 className="text-xl font-bold text-foreground mb-3">Your first order is free. No time limit.</h2>
             <p className="text-muted-foreground mb-5 leading-relaxed">
-              Same platform OKIO uses. Same intelligence. Same factory scorecard system. Free for your first production run.
+              The same platform. Whether you're placing your first order or your fiftieth — same intelligence, same factory scorecard system, same protection. Free for your first order.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button asChild className="gap-2">

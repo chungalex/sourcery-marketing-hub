@@ -135,9 +135,9 @@ Built for yours.
 
                 <div className="space-y-3 mb-8">
                   {[
-                    { gate: "Every order documented from brief to delivery", desc: "Every spec, revision, sample, QC result, and payment — timestamped, attached to the right order, permanent." },
-                    { gate: "Intelligence that prevents expensive surprises", desc: "Production countdown tells you every deadline. Safety stock math tells you when to reorder. Order health flags problems before they become crises." },
-                    { gate: "Factory performance — verified, not self-reported", desc: "Every factory earns an OTIF score from real completed orders. You know their on-time rate before you commit a dollar." },
+                    { gate: "Starting out? We'll walk you through every step.", desc: "Guided PO creation. Milestone-gated payments that protect your money. Verified factories you can trust. Every decision explained, not assumed." },
+                    { gate: "Running production? Stop managing it. Start controlling it.", desc: "Backward scheduling tells you every gate. Order health surfaces problems before they become crises. Safety stock math tells you exactly when to reorder." },
+                    { gate: "Scaling up? Get the infrastructure that matches.", desc: "OTIF scores from verified order data. Team visibility across every active order. Compliance documentation that builds itself as you produce." }
                   ].map(item => (
                     <div key={item.gate} className="flex items-start gap-3">
                       <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -290,20 +290,20 @@ Built for yours.
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                title: "Document everything.",
-                body: "Every spec version, revision, sample, QC result, and payment milestone — timestamped and attached to the order. When a dispute happens, you win. Your record is your leverage.",
+                title: "Find the right factory.",
+                body: "Browse verified manufacturers with real performance scores — not self-reported. AI factory matching from a plain-language brief. Your existing factory? Invite them in one link.",
               },
               {
-                title: "Milestone-gated payments",
-                body: "Every payment stage is gated behind a verified condition. Sample approved before bulk. QC passed before final release. You release each milestone manually — nothing moves without your confirmation.",
+                title: "Protect your money.",
+                body: "Every payment is milestone-gated. Sample approved before bulk starts. QC passed before final releases. Nothing moves without your confirmation. Your first order, fully protected.",
               },
               {
-                title: "Formal revision tracking",
-                body: "Every spec change is a logged revision round the factory must acknowledge before work continues. Full timestamp trail on every change.",
+                title: "Know before it becomes a crisis.",
+                body: "Production countdown calculates every gate backwards from your delivery date. Order health flags problems in week 4, not week 12. Safety stock math tells you exactly when to reorder.",
               },
               {
-                title: "QC gate",
-                body: "Final payment blocked until quality inspection passes. Defects documented as structured reports — type, severity, quantity, factory response — all against the order.",
+                title: "Build a record that compounds.",
+                body: "Every completed order makes your factory's OTIF score more accurate. Your lead time history more reliable. Your compliance documentation more complete. The platform earns its value over time.",
               },
             ].map((item, i) => (
               <motion.div
@@ -326,11 +326,11 @@ Built for yours.
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mb-12">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Enterprise supply chain tools.
-Built for small brands.
+              One platform.
+Every stage of production.
             </h2>
             <p className="text-lg text-muted-foreground">
-              Nike uses backward scheduling. Amazon uses safety stock formulas. Apple gives every supplier a scorecard. All of it is now in Sourcery — at $49/month.
+              Starting out or scaling up — the chaos of physical production hits everyone. Sourcery gives you the infrastructure to get ahead of it, at every stage.
             </p>
           </motion.div>
 

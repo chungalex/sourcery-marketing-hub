@@ -139,7 +139,7 @@ export default function Alternatives() {
     <Layout>
       <SEO
         title="Sourcery vs enterprise platforms — Production Management Software Comparison"
-        description="Compare production management tools for apparel brands. Sourcery vs enterprise platforms: pricing, features, and who each is built for."
+        description="Compare production management platforms. Sourcery vs enterprise platforms: pricing, features, and which stage each is built for."
       />
 
       <section className="section-padding border-b border-border">

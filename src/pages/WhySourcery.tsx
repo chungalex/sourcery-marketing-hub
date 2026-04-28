@@ -105,8 +105,8 @@ export default function WhySourcery() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-              The gap between how big brands manage production
-and how small brands do — closed.
+              The gap between how production should work
+and how it actually works for most brands — closed.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-3 max-w-xl">
               Most production runs on tools that weren't built for it. Spec changes over messaging apps. Sample approvals over email. A bank portal for payments. When things work, it's fine. When they don't, there's no record, no structure, and no clear path forward.

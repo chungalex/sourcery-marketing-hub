@@ -149,7 +149,7 @@ export default function Features() {
     <Layout>
       <SEO
         title="Features — Sourcery Manufacturing OS"
-        description="Enterprise supply chain tools built for small brands. Backward scheduling, safety stock math, factory OTIF scores, trade tools, compliance exports — at $49/month."
+        description="Enterprise supply chain tools for every production stage. Backward scheduling, safety stock math, factory OTIF scores, trade tools, compliance exports — at $49/month."
       />
 
       {/* Hero */}
@@ -160,7 +160,7 @@ export default function Features() {
               Manufacturing OS
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-[1.1] mb-6">
-              Enterprise supply chain tools.<br />Built for small brands.
+              One platform.<br />Every stage of production.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
               Nike has backward scheduling. Amazon has safety stock formulas. Apple gives every supplier a scorecard. Walmart tracks OTIF rates. All of it is now in Sourcery — automated, at $49/month.
