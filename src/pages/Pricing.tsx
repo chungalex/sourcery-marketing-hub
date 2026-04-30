@@ -430,6 +430,10 @@ export default function Pricing() {
             </Button>
           </div>
           <p className="text-xs text-muted-foreground mt-4">No credit card. Switch tiers anytime.</p>
+          <div className="flex gap-4 justify-center mt-3">
+            <Link to="/case-studies" className="text-xs text-primary hover:underline">See OKIO Denim on Sourcery →</Link>
+            <Link to="/why-sourcery" className="text-xs text-muted-foreground hover:text-foreground hover:underline">Why Sourcery →</Link>
+          </div>
         </div>
       </section>
     </Layout>

@@ -283,7 +283,7 @@ and how it actually works for most brands — closed.
                   </div>
                 ))}
                 <div className="pt-2">
-                  <Link to="/marketplace">
+                  <Link to="/directory">
                     <Button size="sm" className="gap-1.5 text-xs">Browse factory network <ArrowRight className="h-3.5 w-3.5" /></Button>
                   </Link>
                 </div>
@@ -436,7 +436,7 @@ and how it actually works for most brands — closed.
               <Link to="/auth?mode=signup">
                 <Button variant="hero" size="xl">Get started free <ArrowRight className="w-5 h-5" /></Button>
               </Link>
-              <Link to="/marketplace">
+              <Link to="/directory">
                 <Button variant="hero-outline" size="xl">Browse factory network</Button>
               </Link>
             </div>

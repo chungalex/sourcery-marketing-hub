@@ -118,9 +118,12 @@ export default function Factories() {
         <div className="container-tight">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Your track record becomes your ranking.</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Your OTIF score becomes your competitive advantage.</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Sourcery scores build from completed order data on the platform. Factories can't pay for better placement. The score starts from zero and the only way to build it is through real orders.
+                OTIF stands for On-Time In-Full — the percentage of orders you deliver on schedule and at the agreed quantity. Walmart charges factories 3% of invoice value for every OTIF failure. On Sourcery, your OTIF score is calculated from every completed order and is visible to every brand browsing the directory. You can't buy a better score. You earn it through real orders.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                HU LA Studios — our production studio in Ho Chi Minh City — was the first factory on the platform. Every OKIO Denim order runs through Sourcery. Their OTIF score is built from real production cycles, not claims.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Factories with high scores get featured placement in search results and priority matching in the AI matcher — meaning more brands see your profile first.

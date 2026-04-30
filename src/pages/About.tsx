@@ -96,7 +96,7 @@ export default function About() {
                     </div>
                   ))}
                   <div className="pt-2">
-                    <Link to="/marketplace">
+                    <Link to="/directory">
                       <Button size="sm" variant="outline" className="gap-1.5 text-xs">
                         Explore the marketplace <ArrowRight className="h-3.5 w-3.5" />
                       </Button>

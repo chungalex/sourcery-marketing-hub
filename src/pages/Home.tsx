@@ -284,6 +284,33 @@ Built for yours.
         </div>
       </section>
 
+
+      {/* ROI stat banner */}
+      <section className="border-b border-border bg-primary/5">
+        <div className="container py-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <div className="flex items-center gap-6 flex-wrap justify-center sm:justify-start">
+              <div>
+                <span className="text-lg font-bold text-foreground">$5K–$20K</span>
+                <span className="text-sm text-muted-foreground ml-2">average cost of one missed season</span>
+              </div>
+              <div className="hidden sm:block w-px h-5 bg-border" />
+              <div>
+                <span className="text-lg font-bold text-foreground">$399/year</span>
+                <span className="text-sm text-muted-foreground ml-2">Sourcery Growth, annually</span>
+              </div>
+              <div className="hidden sm:block w-px h-5 bg-border" />
+              <div>
+                <span className="text-sm text-primary font-semibold">One prevented disaster pays for 12+ years</span>
+              </div>
+            </div>
+            <Link to="/why-sourcery" className="text-xs text-primary font-medium whitespace-nowrap hover:underline">
+              See the full cost breakdown →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Platform pillars strip */}
       <section className="border-y border-border bg-card/40">
         <div className="container-wide py-10">
@@ -404,7 +431,7 @@ Every stage of production.
             Every AI tool improves as the platform grows — factory profiles, order history, and performance records all feed in. The more orders completed on the platform, the sharper every recommendation becomes.
           </p>
           <div className="flex justify-center gap-3 flex-wrap">
-            <Link to="/marketplace">
+            <Link to="/directory">
               <Button variant="outline" size="sm" className="gap-1.5 text-xs">
                 Try AI factory matching → Builder <ArrowRight className="h-3.5 w-3.5" />
               </Button>
@@ -436,7 +463,7 @@ Every stage of production.
                 Already have a factory? Invite them directly. BYOF brings your existing relationship onto the platform immediately — no marketplace needed.
               </p>
               <div className="flex gap-3 flex-wrap">
-                <Link to="/marketplace">
+                <Link to="/directory">
                   <Button className="gap-1.5">
                     Explore the marketplace <ArrowRight className="w-4 h-4" />
                   </Button>

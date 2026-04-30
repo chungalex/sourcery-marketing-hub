@@ -118,7 +118,7 @@ export default function HowToFindFactory() {
                 <Link to="/auth?mode=signup">Start free <ArrowRight className="h-4 w-4" /></Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link to="/marketplace">Browse factories</Link>
+                <Link to="/directory">Browse factories</Link>
               </Button>
             </div>
           </div>

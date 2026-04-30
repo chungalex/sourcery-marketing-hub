@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Plus, Package, Search, BookOpen, ChevronDown, Send } from "lucide-react";
+import { Menu, X, Plus, Package, Search, BookOpen, ChevronDown, Send, BarChart2, Shield } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
@@ -31,6 +31,8 @@ const marketingNavSecondary = [
 const brandAppNav = [
   { label: "Orders", href: "/dashboard", icon: Package },
   { label: "Network", href: "/directory", icon: Search },
+  { label: "Analytics", href: "/analytics", icon: BarChart2 },
+  { label: "Compliance", href: "/compliance", icon: Shield },
   { label: "Resources", href: "/resources", icon: BookOpen },
 ];
 

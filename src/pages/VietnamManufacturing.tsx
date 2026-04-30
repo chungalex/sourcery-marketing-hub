@@ -42,7 +42,7 @@ export default function VietnamManufacturing() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Button asChild size="lg" className="gap-2">
-              <Link to="/marketplace">Browse Vietnam factories <ArrowRight className="h-4 w-4" /></Link>
+              <Link to="/directory">Browse Vietnam factories <ArrowRight className="h-4 w-4" /></Link>
             </Button>
             <Button variant="outline" asChild size="lg">
               <Link to="/auth?mode=signup">Start free</Link>
