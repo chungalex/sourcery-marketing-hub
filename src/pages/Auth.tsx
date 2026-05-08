@@ -155,7 +155,8 @@ export default function Auth() {
           >
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-foreground mb-2">
-                The supply chain tools enterprise brands use. Starting now.
+                The professional infrastructure
+for your factory relationship.
               </h1>
               <p className="text-muted-foreground">
                 Every spec, revision, milestone, and factory relationship — documented from brief to delivery.

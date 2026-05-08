@@ -66,7 +66,7 @@ export default function HowItWorks() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">How it works</p>
             <h1 className="text-4xl font-bold text-foreground leading-[1.15] mb-5">
-              One platform. Every step of production.<br />Intelligence at every stage.
+              Everything your factory relationship needs.<br />From finding the right factory to your twentieth order — fully covered.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
               The tools enterprise brands use to prevent production disasters — backward scheduling, safety stock formulas, factory scorecards — automated and built into every order.

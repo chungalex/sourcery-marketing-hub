@@ -21,10 +21,9 @@ const PRODUCT_CATEGORIES = [
 ];
 
 const STAGES = [
-  { value: "first_order", label: "Planning my first production order" },
-  { value: "repeat", label: "I've ordered before, looking for structure" },
-  { value: "scaling", label: "Scaling — managing multiple factories" },
-  { value: "just_looking", label: "Just exploring" },
+  { value: "no_factory", label: "I don't have a factory yet — help me find one", sub: "We'll guide you through finding, vetting, and placing your first order." },
+  { value: "not_sure", label: "I have a factory but I'm not fully sure I can trust them", sub: "We'll help you verify them and protect yourself properly." },
+  { value: "have_factory", label: "I have a factory I trust — I want to run it professionally", sub: "Invite them in 60 seconds. Structure your orders and protect your payments." },
 ];
 
 type Step = 1 | 2 | 3;
@@ -182,20 +181,21 @@ export default function Onboarding() {
               <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
                 className="space-y-6">
                 <div>
-                  <h1 className="text-2xl font-bold text-foreground mb-1">Where are you in your journey?</h1>
-                  <p className="text-muted-foreground text-sm">Helps us show the most relevant guidance.</p>
+                  <h1 className="text-2xl font-bold text-foreground mb-1">What's your factory situation?</h1>
+                  <p className="text-muted-foreground text-sm">We'll build your production roadmap from this. No wrong answer.</p>
                 </div>
 
                 <div className="space-y-2">
                   {STAGES.map(s => (
                     <button key={s.value} type="button" onClick={() => setStage(s.value)}
                       className={cn(
-                        "w-full text-left px-4 py-3.5 rounded-xl border text-sm transition-all",
+                        "w-full text-left px-4 py-3.5 rounded-xl border transition-all",
                         stage === s.value
-                          ? "border-primary bg-primary/5 text-foreground font-medium"
-                          : "border-border bg-card text-muted-foreground hover:border-primary/40"
+                          ? "border-primary bg-primary/5"
+                          : "border-border bg-card hover:border-primary/40"
                       )}>
-                      {s.label}
+                      <p className={cn("text-sm font-medium", stage === s.value ? "text-foreground" : "text-foreground")}>{s.label}</p>
+                      {s.sub && <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{s.sub}</p>}
                     </button>
                   ))}
                 </div>

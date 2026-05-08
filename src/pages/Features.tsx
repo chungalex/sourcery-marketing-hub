@@ -11,7 +11,7 @@ import {
 
 const FEATURE_GROUPS = [
   {
-    category: "Production intelligence",
+    category: "Operate — Production intelligence",
     tagline: "What Nike, Amazon, and Apple use. Now at $49/month.",
     features: [
       {
@@ -47,7 +47,7 @@ const FEATURE_GROUPS = [
     ],
   },
   {
-    category: "Order management",
+    category: "Operate — Order management",
     tagline: "Every order documented from brief to delivery.",
     features: [
       {
@@ -160,7 +160,7 @@ export default function Features() {
               Manufacturing OS
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-[1.1] mb-6">
-              One platform.<br />Every stage of production.
+              Everything your factory relationship needs.<br />Every stage of production.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
               Nike has backward scheduling. Amazon has safety stock formulas. Apple gives every supplier a scorecard. Walmart tracks OTIF rates. All of it is now in Sourcery — automated, at $49/month.

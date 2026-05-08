@@ -138,7 +138,7 @@ export default function Alternatives() {
   return (
     <Layout>
       <SEO
-        title="Sourcery vs enterprise platforms — Production Management Software Comparison"
+        title="Sourcery vs alternatives — Factory relationship infrastructure comparison"
         description="Compare production management platforms. Sourcery vs enterprise platforms: pricing, features, and which stage each is built for."
       />
 
@@ -147,6 +147,7 @@ export default function Alternatives() {
           <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">Comparison</p>
           <h1 className="text-4xl font-bold text-foreground mb-4">
             Sourcery vs the alternatives.
+The only platform built for the complete factory relationship.
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Most production management tools were built for enterprise brands with $10M+ in revenue. Sourcery was built for brands from their first order — and by people who actually manufacture.

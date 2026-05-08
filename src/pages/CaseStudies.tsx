@@ -16,7 +16,7 @@ export default function CaseStudies() {
       <section className="section-padding border-b border-border">
         <div className="container max-w-3xl">
           <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">Case study</p>
-          <h1 className="text-4xl font-bold text-foreground mb-5">How OKIO Denim runs production on Sourcery.</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-5">How OKIO Denim runs its factory relationship on Sourcery.</h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
             OKIO is a premium denim brand with a Vietnam–LA identity, sourcing from Ho Chi Minh City. Every production run is managed on Sourcery — from PO to delivery.
           </p>
@@ -112,7 +112,7 @@ export default function CaseStudies() {
             <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">Start your own</p>
             <h2 className="text-xl font-bold text-foreground mb-3">Your first order is free. No time limit.</h2>
             <p className="text-muted-foreground mb-5 leading-relaxed">
-              The same platform. Whether you're placing your first order or your fiftieth — same intelligence, same factory scorecard system, same protection. Free for your first order.
+              The same platform OKIO uses. Same infrastructure, same protection, same intelligence layer. Free for your first order.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button asChild className="gap-2">

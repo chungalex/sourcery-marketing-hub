@@ -10,7 +10,7 @@ export default function About() {
     <Layout>
       <SEO
         title="About — Sourcery"
-        description="Sourcery is a manufacturing OS built by people who managed production on both sides. Every feature exists because we encountered the problem it solves."
+        description="The factory relationship is the most important, most fragile, most undermanaged asset a physical product brand has. Everything depends on it — the product, the brand, the revenue. And until Sourcery, there was no professional infrastructure for it. No single place to find factories, verify them, run structured orders, protect payments, document everything, and get guidance at every step. We built it because we needed it."
       />
 
       {/* Hero */}
@@ -18,7 +18,7 @@ export default function About() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
-              Built by people who managed production on both sides.
+              Built because the infrastructure didn't exist.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
               We run HU LA Studios — a garment factory in Ho Chi Minh City — and OKIO Denim, a brand that sources from Vietnam. We've been on both sides of the same order. Every feature exists because we encountered the problem it solves.

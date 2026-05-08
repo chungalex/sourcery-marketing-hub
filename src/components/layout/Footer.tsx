@@ -49,7 +49,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-              The manufacturing OS for physical product brands. Structure, security, and traceability on every order.
+              The factory relationship infrastructure for physical product brands. Find, vet, operate, protect, and grow — everything your factory relationship needs, in one place.lity on every order.
             </p>
             <Newsletter variant="compact" />
           </div>
