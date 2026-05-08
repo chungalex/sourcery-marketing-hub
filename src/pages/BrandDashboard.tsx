@@ -561,7 +561,7 @@ export default function BrandDashboard() {
                   <Building2 className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
                   <h3 className="text-base font-semibold text-foreground mb-1">Who's making your product?</h3>
                   <p className="text-sm text-muted-foreground mb-6 max-w-sm mx-auto">
-                    If you already have a factory, invite them — they get a free account. If you're still sourcing, browse our network of verified manufacturers.
+                    If you already have a factory, invite them — they get a free account. If you're still sourcing, browse our network of registered manufacturers.
                   </p>
                   <div className="flex gap-2 justify-center">
                     <Button asChild><Link to="/dashboard?tab=invite"><UserPlus className="mr-2 h-4 w-4" />Invite your factory</Link></Button>

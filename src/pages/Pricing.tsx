@@ -26,7 +26,7 @@ const TIERS = [
     ctaVariant: "outline" as const,
     features: [
       { group: "Find your factory", items: [
-        "Factory directory — browse verified manufacturers",
+        "Factory directory — browse registered manufacturers",
         "AI factory matcher — describe what you need in plain language",
         "Direct factory messaging",
         "Factory profiles with certifications and MOQ",
@@ -373,7 +373,7 @@ export default function Pricing() {
                   ["BOM tracker + shipment tracker", "—", "✓", "✓"],
                   ["RFQ system", "—", "✓", "✓"],
                   ["Compliance export (CSDDD, UFLPA)", "—", "—", "✓"],
-                  ["White-label PDF exports", "—", "—", "✓"],
+                  ["Branded document exports", "—", "—", "✓"],
                   ["Spec library + advanced analytics", "—", "—", "✓"],
                 ].map(([feature, starter, growth, scale]) => (
                   <tr key={feature} className="hover:bg-secondary/30 transition-colors">

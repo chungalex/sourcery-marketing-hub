@@ -14,7 +14,7 @@ const steps = [
     icon: Search,
     label: "Find your factory",
     headline: "Start with data, not a leap of faith.",
-    description: "Browse verified manufacturers — credentials confirmed, performance tracked from every order on the platform. Describe what you need in plain language and get AI-matched results. Or skip the marketplace entirely and invite your existing factory directly.",
+    description: "Browse registered manufacturers — credentials confirmed, performance tracked from every order on the platform. Describe what you need in plain language and get AI-matched results. Or skip the marketplace entirely and invite your existing factory directly.",
     note: "Free to browse. Factory names and contact on Builder.",
     tag: "Marketplace",
     tagColor: "text-primary bg-primary/10",

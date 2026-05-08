@@ -66,7 +66,7 @@ export default function Marketplace() {
                 <div className="p-6 rounded-2xl bg-background border-2 border-primary">
                   <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Looking for a factory</p>
                   <h3 className="font-semibold text-foreground text-lg mb-2">Browse the network</h3>
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">Vetted, verified manufacturers with real performance data.</p>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">Vetted, registered manufacturers with real performance data.</p>
                   <Link to="/directory">
                     <Button className="gap-1.5 text-sm">Browse factories <ArrowRight className="h-4 w-4" /></Button>
                   </Link>

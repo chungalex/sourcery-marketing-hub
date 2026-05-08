@@ -38,7 +38,7 @@ export default function VietnamManufacturing() {
             Find apparel factories in Vietnam.
           </h1>
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-            Vietnam is the world's third largest garment exporter. Sourcery connects brands with verified manufacturers — denim, knitwear, activewear, and more. Free to browse. Milestone-gated payments. Every order documented.
+            Vietnam is the world's third largest garment exporter. Sourcery connects brands with registered manufacturers — denim, knitwear, activewear, and more. Free to browse. Milestone-gated payments. Every order documented.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Button asChild size="lg" className="gap-2">

@@ -143,7 +143,7 @@ export function AIFactoryMatcher({ className, onSelectFactory }: AIFactoryMatche
               </div>
               <h4 className="font-medium text-foreground mb-3">Analyzing your requirements...</h4>
               <div className="space-y-1.5 text-sm text-muted-foreground">
-                {["Parsing product requirements", "Scanning verified factory network", "Calculating compatibility scores", "Finding your best matches"].map((step, i) => (
+                {["Parsing product requirements", "Scanning registered factory network", "Calculating compatibility scores", "Finding your best matches"].map((step, i) => (
                   <motion.p key={step} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.5 }}>
                     ✓ {step}
                   </motion.p>

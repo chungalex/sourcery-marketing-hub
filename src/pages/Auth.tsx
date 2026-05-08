@@ -142,7 +142,7 @@ export default function Auth() {
     <Layout>
       <SEO 
         title="Sign In | Sourcery" 
-        description="Access your Sourcery account to connect with verified manufacturers or manage your factory profile."
+        description="Access your Sourcery account to connect with registered manufacturers or manage your factory profile."
       />
       
       <section className="section-padding min-h-[80vh] flex items-center">

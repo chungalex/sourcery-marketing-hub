@@ -92,7 +92,7 @@ export function PricingGateModal({
             Upgrade to Access {feature}
           </DialogTitle>
           <DialogDescription>
-            Join thousands of brands connecting with verified manufacturers
+            Join thousands of brands connecting with registered manufacturers
           </DialogDescription>
         </DialogHeader>
 

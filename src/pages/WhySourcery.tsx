@@ -267,7 +267,7 @@ the whole category was missing.
                   Efficiency and security start before the first order.
                 </h2>
                 <p className="text-muted-foreground leading-relaxed text-sm">
-                  Starting with the right factory is the foundation everything else sits on. The Sourcery marketplace shows you verified manufacturers — credentials confirmed, performance tracked from every order on platform — before you commit to anything. Browse free. Contact on Builder.
+                  Starting with the right factory is the foundation everything else sits on. The Sourcery marketplace shows you registered manufacturers — credentials confirmed, performance tracked from every order on platform — before you commit to anything. Browse free. Contact on Builder.
                 </p>
               </div>
               <div className="space-y-2.5">
