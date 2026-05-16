@@ -30,6 +30,7 @@ import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { OrderStatusGuide } from "@/components/orders/OrderStatusGuide";
 import { useAuth } from "@/hooks/useAuth";
 import { useFactoryMembership } from "@/hooks/useFactoryMembership";
+import { FactoryMobileHub } from "@/components/factory/FactoryMobileHub";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { format } from "date-fns";

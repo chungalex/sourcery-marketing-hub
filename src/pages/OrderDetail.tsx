@@ -39,6 +39,8 @@ import { OrderExportPDF } from "@/components/orders/OrderExportPDF";
 import { ProductionCountdown } from "@/components/orders/ProductionCountdown";
 import { ProactiveGuidance } from "@/components/platform/ProactiveGuidance";
 import { MessageDrafter } from "@/components/platform/MessageDrafter";
+import { ChangeOrderFlow } from "@/components/orders/ChangeOrderFlow";
+import { SampleAnnotation } from "@/components/orders/SampleAnnotation";
 import { TechPackReviewer } from "@/components/orders/TechPackReviewer";
 import { BillOfMaterials } from "@/components/orders/BillOfMaterials";
 import { ShipmentTracker } from "@/components/orders/ShipmentTracker";

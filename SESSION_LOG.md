@@ -23,6 +23,27 @@
 - Onboarding Step 2: "What's your factory situation?" + three situations
 - ARIADNE_DOCTRINE.md created at repo root
 
+### Session 14 — Rename + Tier 2 builds
+- Ariadne rename: 341 instances across 86 files
+- Mythology woven into homepage hero, about page, footer, auth page
+- ARIADNE_DOCTRINE.md: brand section with full mythology explanation
+- FactoryMobileHub.tsx: mobile-first factory interface
+  - Large touch targets, order signals, production check-in, quick message
+  - Shows on mobile in factory dashboard (hidden on desktop)
+- SampleAnnotation.tsx: click-to-annotate sample photos
+  - Place numbered markers on photo, add comment, factory sees annotated version
+  - Resolve/delete annotations, list view of all annotations
+- ChangeOrderFlow.tsx: formal change order system
+  - Field-level changes (fabric, GSM, colour, quantity, delivery, etc.)
+  - Factory must acknowledge before work continues
+  - Full audit trail, pending/acknowledged/rejected status
+  - Wired into OrderDetail for sampling + in_production stages
+- FactoryNotes.tsx: living document per factory
+  - Auto-populated from completed order stats (lead time, order count)
+  - Manual notes by category: quirk / contact / lesson / pattern
+  - Only visible to brand, not factory
+  - Wired into FactoryProfile
+
 ### Session 13 — Tier 1 complete
 - orderStageConfig.ts: every status mapped to exact components
 - proactiveRules.ts: 5-rule engine (silent factory, delivery compression, payment gate, spec conflict, overdue stage)
@@ -104,10 +125,10 @@
       Not a chatbot — a thinking partner that knows the operation
 
 ### TIER 2 — Weeks 2-3
-- [ ] 2.1 Order Room — each order as living workspace (1 week)
+- [ ] 2.1 Order Room — each order as living workspace (next)
       Tabbed navigation: Overview / Timeline / Messages / Documents / QC / Payments / Shipping
       Only active tabs for current status. Reorganises existing components.
-- [ ] 2.2 Factory Notes — living document per factory (3-4 days)
+- [x] 2.2 Factory Notes ✓ SHIPPED
       Auto-updated when order closes: actual lead time, defects, revision rounds
       Manually editable: quirks, contacts, lessons learned
 - [ ] 2.3 WhatsApp ingestion (3-4 weeks)
