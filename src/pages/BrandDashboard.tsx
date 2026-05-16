@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { BrandOnboardingPrompt } from "@/components/onboarding/BrandOnboardingPrompt";
+import { PersonalisedDashboard } from "@/components/onboarding/PersonalisedDashboard";
 import { PlatformMessaging } from "@/components/platform/PlatformMessaging";
 import { UpgradePrompt } from "@/components/platform/UpgradePrompt";
 import { PaymentCalendar } from "@/components/platform/PaymentCalendar";
@@ -482,6 +483,8 @@ export default function BrandDashboard() {
                 })
               ) : (
                 <div className="py-8 space-y-4">
+                  {/* Personalised roadmap based on factory situation */}
+                  {user && <PersonalisedDashboard userId={user.id} />}
                   <div className="p-5 rounded-xl bg-card border border-border">
                     <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">How Sourcery works</p>
                     <div className="space-y-4">

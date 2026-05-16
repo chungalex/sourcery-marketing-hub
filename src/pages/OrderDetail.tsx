@@ -36,6 +36,8 @@ import { TimezoneApproval } from "@/components/orders/TimezoneApproval";
 import { OrderTimeline } from "@/components/orders/OrderTimeline";
 import { OrderExportPDF } from "@/components/orders/OrderExportPDF";
 import { ProductionCountdown } from "@/components/orders/ProductionCountdown";
+import { ProactiveGuidance } from "@/components/platform/ProactiveGuidance";
+import { MessageDrafter } from "@/components/platform/MessageDrafter";
 import { TechPackReviewer } from "@/components/orders/TechPackReviewer";
 import { BillOfMaterials } from "@/components/orders/BillOfMaterials";
 import { ShipmentTracker } from "@/components/orders/ShipmentTracker";
@@ -521,6 +523,17 @@ export default function OrderDetail() {
                   );
                 })()}
 
+            {/* AI proactive guidance — speaks before being asked */}
+            {order.status !== "closed" && order.status !== "cancelled" && order.status !== "draft" && (
+              <ProactiveGuidance
+                orderId={order.id}
+                orderStatus={order.status}
+                deliveryWindowEnd={order.delivery_window_end}
+                factoryName={order.factories?.name}
+                qcStandard={(order.specifications as any)?.qc_standard?.aql}
+              />
+            )}
+
             {/* Production countdown — backward scheduling from delivery date */}
             {order.delivery_window_end && !["draft", "closed", "cancelled"].includes(order.status) && (
               <ProductionCountdown
@@ -994,6 +1007,11 @@ export default function OrderDetail() {
 
               {/* Right column — messaging always visible */}
               <div className="lg:sticky lg:top-6 space-y-4">
+                <MessageDrafter
+                    orderId={order.id}
+                    orderStatus={order.status}
+                    factoryName={order.factories?.name}
+                  />
                 <PlatformMessaging orderId={order.id} />
                 <OrderChatSummary orderId={order.id} />
                 <OrderExportPDF orderId={order.id} orderNumber={order.order_number} />
