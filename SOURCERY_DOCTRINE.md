@@ -261,3 +261,130 @@ Why: Naming competitors gives them SEO value and anchors you as their alternativ
 
 *Last updated: 2026-05*
 *Update this document every session when strategic decisions are made.*
+
+---
+
+## SESSION MANAGEMENT
+
+**How every session should start:**
+1. Read SESSION_BRIEF.md — current build state, what was done, what is next
+2. Read SOURCERY_DOCTRINE.md — confirmed decisions and positioning
+3. Start with the first action listed in SESSION_BRIEF
+4. Update both files at end of every session
+
+**SESSION_BRIEF.md** lives at repo root. Gets overwritten every session with current state.
+**SOURCERY_DOCTRINE.md** gets appended — never overwritten. New decisions added at bottom.
+
+---
+
+## CONFIRMED DECISIONS — SESSION 2026-05-16
+
+**Revenue model confirmed:**
+- Line 1: SaaS subscriptions (Starter free / Growth $49 / Scale $149)
+- Line 2: Sourcery Managed ($2,000-3,500/run, limited slots, not hands-on ops)
+- Line 3 (future): GMV-based fee when payment partner exists
+- Line 4 (future): Factory performance data product at 500+ completed orders
+- Line 5 (future): Financing referrals when brand payment history exists
+- NOT a revenue line: QC coordination, per-order Protected fee on top of subscription
+
+**AI layer confirmed:**
+- Proactive guidance is Tier 1 — builds for beginners specifically
+- Production Intelligence workspace — full page at /workspace or /ai
+- Not a chatbot widget. A full thinking partner with order context injected.
+- Level 1: rule-based triggers (buildable now)
+- Level 2: pattern-based (needs 5-10 orders per factory)
+- Level 3: predictive (needs 50+ orders)
+- Five specific triggers to build first:
+  1. Silent factory (PO issued, no response in 3 days)
+  2. Delivery window compression (days vs stage mismatch)
+  3. Payment gate checklist (documents missing before release)
+  4. Spec conflict (PO vs tech pack mismatch)
+  5. Overdue stage (longer in status than typical)
+
+**Order Room confirmed:**
+- Notion/Huly features ONLY inside manufacturing workflow
+- Each order = tabbed workspace: Overview, Timeline, Messages, Documents, QC, Payments, Shipping
+- Not blank docs, not generic kanban, not general wiki
+- The product organizes the production relationship — not the user
+
+**Features to add back for beginners:**
+- Due diligence checklist inline at factory selection
+- Tech pack completeness checklist inline at order creation Step 2
+- Incoterms explainer inline at PO deal step
+- AQL explainer inline at quality step
+- Milestone structure explainer inline at deal step
+- Tet/Golden Week warning at delivery date selection
+- First message template pre-populated at PO issue
+- WhatsApp ingestion (Tier 2 build)
+
+**Marketing strategy confirmed:**
+- Market the transformation not the features
+- Personal LinkedIn content from Alex — specific, operational, Vietnam-native
+- Three-situation framework as conversion architecture
+- AI alert stories as primary social proof (once real users exist)
+- Trade tools as top-of-funnel SEO
+- Rewrite features page around problem moments not feature categories
+- Pricing page around what each tier prevents not what it includes
+- One LinkedIn post per week minimum, first-person, specific, no SaaS language
+
+**Session Brief system confirmed:**
+- SESSION_BRIEF.md created at repo root
+- Overwritten every session with current state
+- Contains: what was built, platform state, master build list, decisions, next action
+- Read at start of every session alongside doctrine
+---
+
+## SESSION SYSTEM
+
+Two files live at repo root and get updated every session:
+
+**SOURCERY_DOCTRINE.md** — what Sourcery is, strategic decisions, voice, what we do/don't do. Changes rarely.
+
+**SESSION_LOG.md** — current build state, full queue, what requires Alex's action. Overwritten every session.
+
+Read both at the start of every session before touching any code or copy.
+
+---
+
+## ADDITIONAL CONFIRMED DECISIONS
+
+**Decision: Order Room concept over generic workspace**
+Why: Notion/Huly features are valuable only inside the manufacturing workflow. Each order becomes a structured workspace with tabbed navigation. Not a general productivity tool — a manufacturing-specific command centre.
+
+**Decision: AI Workspace as full dedicated page**
+Why: Not a corner widget or floating button. A full page where brands think through manufacturing decisions with an AI that knows their operation. Left panel shows what AI is watching. Right panel is conversation. AI speaks first — not "how can I help" but "here is what is happening in your operation right now."
+
+**Decision: WhatsApp ingestion as priority build**
+Why: Biggest factory adoption barrier is losing conversation history. Brand forwards thread → AI extracts decisions → confirms as change orders. Factory never has to change behaviour.
+
+**Decision: Collection planning board**
+Why: Brands think in seasons, not individual orders. Seasonal kanban above order list gives brands visibility into the full season production plan.
+
+**Decision: Shopify CSV import before OAuth**
+Why: CSV import proves the data loop works in 2 days. OAuth requires Shopify Partner account, app review, demonstrated real usage. Validate demand first.
+
+**Decision: Factory Notes auto-generated from real orders**
+Why: Platform should build institutional knowledge automatically, not ask brands to write it. When order closes, factory profile updates with real data.
+
+**Decision: Marketing leads with transformation not features**
+Why: Features are what the platform does. Transformation is what the brand experiences. "We told a brand their season was at risk 3 weeks before they would have noticed" converts better than "backward scheduling from delivery date."
+
+**Decision: Alex posts operational LinkedIn content personally**
+Why: Personal authority on LinkedIn outperforms brand authority for early-stage B2B. Specific Vietnam manufacturing knowledge from someone who runs a factory there. One post per week minimum.
+
+---
+
+## WHAT SOURCERY IS NOT (updated)
+
+- Not an escrow service — never say escrow
+- Not a payment processor
+- Not a logistics company  
+- Not a QC coordination service — not hands-on
+- Not a sourcing agent
+- Not a factory directory only
+- Not enterprise software at a lower price
+- Not a WhatsApp replacement — we solve more than communication
+- Not just for new brands — the problem exists at every stage
+- Not just for Vietnam — though Vietnam-native is a key advantage
+- Not a general workspace/productivity tool — features only inside manufacturing workflow
+

@@ -3,8 +3,7 @@ import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { MilestoneBuilder, type Milestone } from "@/components/orders/MilestoneBuilder";
+import { z } from "zod";import { MilestoneBuilder, type Milestone } from "@/components/orders/MilestoneBuilder";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
@@ -57,7 +56,7 @@ import { format } from "date-fns";
 import { QCOptionSelector, QCOptionBadge, type QCOption } from "@/components/orders/QCOptionSelector";
 import { TechPackGuidance } from "@/components/orders/TechPackGuidance";
 import { getCategoryLeadTime, getGuidanceMode } from "@/components/onboarding/ExperienceQuiz";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";import { IncotermsGuidance, AQLGuidance, MilestoneGuidance, TetWarning, TechPackGuidance, FirstMessageGuidance } from "@/components/onboarding/POGuidance";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { fetchFactories } from "@/lib/factories";
@@ -274,6 +273,7 @@ export default function CreateOrder() {
         if (data.factory_id) form.setValue("factory_id", data.factory_id);
         if (data.unit_price) form.setValue("unit_price", data.unit_price);
         if (data.currency) form.setValue("currency", data.currency);
+              <IncotermsGuidance />
         if (data.incoterms) form.setValue("incoterms", data.incoterms);
         if (data.quantity) form.setValue("quantity", data.quantity);
         if (specs?.notes) form.setValue("specifications", specs.notes);
@@ -1229,6 +1229,7 @@ export default function CreateOrder() {
                         onChange={val => form.setValue("qc_option", val)}
                       />
 
+              <AQLGuidance />
                       {/* AQL */}
                       <TooltipProvider>
                         <FormField

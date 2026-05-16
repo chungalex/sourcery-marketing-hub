@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
+import { shouldShow, ORDER_STAGE_CONFIG, type OrderStatus } from "@/lib/orderStageConfig";
 import { OrderStatusGuide } from "@/components/orders/OrderStatusGuide";
 import { useAuth } from "@/hooks/useAuth";
 import { useFactoryMembership } from "@/hooks/useFactoryMembership";
@@ -531,8 +532,30 @@ export default function OrderDetail() {
                 deliveryWindowEnd={order.delivery_window_end}
                 factoryName={order.factories?.name}
                 qcStandard={(order.specifications as any)?.qc_standard?.aql}
+                orderQuantity={order.quantity}
+                orderUpdatedAt={order.updated_at}
+                orderCreatedAt={order.created_at}
+                orderSpecifications={order.specifications}
               />
             )}
+
+
+          {/* Stage focus — what to focus on right now */}
+          {order.status && ORDER_STAGE_CONFIG[order.status as OrderStatus] && (
+            <div className="bg-primary/5 border border-primary/20 rounded-xl px-4 py-3 mb-4">
+              <div className="flex items-start gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                <div>
+                  <span className="text-xs font-semibold text-primary uppercase tracking-wide mr-2">
+                    {ORDER_STAGE_CONFIG[order.status as OrderStatus].label}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {ORDER_STAGE_CONFIG[order.status as OrderStatus].focus}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
 
             {/* Production countdown — backward scheduling from delivery date */}
             {order.delivery_window_end && !["draft", "closed", "cancelled"].includes(order.status) && (
@@ -552,6 +575,29 @@ export default function OrderDetail() {
             )}
 
             {/* Two-column layout */}
+            
+            {/* Stage indicator — what matters at this stage */}
+            {order.status && order.status !== "draft" && (
+              <div className="flex items-center gap-2 mb-4 px-1">
+                <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                <p className="text-xs font-medium text-muted-foreground">
+                  {{
+                    "po_issued": "Awaiting factory acceptance — check back in 24-48 hours",
+                    "po_accepted": "Factory confirmed — sampling will begin soon",
+                    "sampling": "Sample in progress — review carefully before approving bulk",
+                    "sample_approved": "Sample approved — bulk production can start",
+                    "in_production": "In production — track progress with photos and updates",
+                    "qc_pending": "QC stage — inspect thoroughly before releasing final payment",
+                    "qc_approved": "QC passed — arrange shipment and release final payment",
+                    "ready_to_ship": "Ready to ship — confirm shipping details with factory",
+                    "shipped": "In transit — track your shipment",
+                    "closed": "Order complete — review performance and plan your next order",
+                  }[order.status] || ""
+                  }
+                </p>
+              </div>
+            )}
+
             <div className="grid lg:grid-cols-[1fr_360px] gap-6 items-start">
 
               {/* Left column — order content */}
@@ -753,7 +799,7 @@ export default function OrderDetail() {
                 </div>
 
                 {/* Sampling */}
-                {["po_accepted", "sample_sent", "sample_approved", "sample_revision"].includes(order.status) && (
+                {["po_accepted", "sampling", "sample_sent", "sample_approved", "sample_revision"].includes(order.status) && (
                   <div className="bg-card border border-border rounded-xl p-6">
                     <div className="flex items-center gap-2 mb-4">
                       <div className="h-2 w-2 rounded-full bg-amber-500" />
@@ -820,16 +866,18 @@ export default function OrderDetail() {
                 <BillOfMaterials orderId={order.id} quantity={order.quantity} />
 
                 {/* Shipment tracker */}
-                {["ready_to_ship", "shipped", "closed"].includes(order.status) && (
+                {shouldShow("ShipmentTracker", order.status as OrderStatus) && (
                   <ShipmentTracker orderId={order.id} isFactory={false} />
                 )}
 
                 {/* Freight checklist */}
-                <FreightChecklist
-                  incoterms={order.incoterms || "FOB"}
-                  destination={(order.specifications as any)?.shipping_destination || "United States"}
-                  orderStatus={order.status}
-                />
+                {shouldShow("FreightChecklist", order.status as OrderStatus) && (
+                  <FreightChecklist
+                    incoterms={order.incoterms || "FOB"}
+                    destination={(order.specifications as any)?.shipping_destination || "United States"}
+                    orderStatus={order.status}
+                  />
+                )}
 
                 {/* Defect reports */}
                 {["qc_scheduled", "qc_uploaded", "qc_pass", "qc_fail", "ready_to_ship", "shipped", "closed"].includes(order.status) && (
@@ -851,7 +899,7 @@ export default function OrderDetail() {
                 )}
 
                 {/* Factory review */}
-                {order.factories && !isDraft && (
+                {order.factories && shouldShow("FactoryReview", order.status as OrderStatus) && (
                   <FactoryReview
                     orderId={order.id}
                     factoryId={order.factories.id}
@@ -861,7 +909,7 @@ export default function OrderDetail() {
                 )}
 
                 {/* Dispute filing — available for in-production and QC-stage orders */}
-                {["in_production", "qc_scheduled", "qc_uploaded", "qc_fail", "ready_to_ship"].includes(order.status) && order.factories && (
+                {shouldShow("DisputeFiling", order.status as OrderStatus) && order.factories && (
                   <DisputeFiling
                     orderId={order.id}
                     orderNumber={order.order_number}
@@ -906,7 +954,7 @@ export default function OrderDetail() {
                 />
 
                 {/* Compliance export — closed orders */}
-                {order.status === "closed" && (
+                {order.status === "closed" && shouldShow("ComplianceExport", order.status as OrderStatus) && (
                   <ComplianceExport orderId={order.id} orderNumber={order.order_number} />
                 )}
 
@@ -919,7 +967,7 @@ export default function OrderDetail() {
                 )}
 
                 {/* Safety stock calculator — closed orders */}
-                {order.status === "closed" && (
+                {order.status === "closed" && shouldShow("SafetyStockCalculator", order.status as OrderStatus) && (
                   <SafetyStockCalculator avgLeadWeeks={14} orderId={order.id} />
                 )}
 
@@ -951,11 +999,13 @@ export default function OrderDetail() {
                 {/* Reorder */}
                 {order.status === "closed" && order.factories && (
                   <>
-                    <ReorderIntelligence
-                      orderId={order.id}
-                      factoryId={order.factories.id}
-                      factoryName={order.factories.name}
-                    />
+                    {shouldShow("ReorderIntelligence", order.status as OrderStatus) && (
+                      <ReorderIntelligence
+                        orderId={order.id}
+                        factoryId={order.factories.id}
+                        factoryName={order.factories.name}
+                      />
+                    )}
                     <div className="bg-card border border-border rounded-xl p-6">
                       <div className="flex items-center gap-2 mb-3">
                         <div className="h-2 w-2 rounded-full bg-green-500" />
