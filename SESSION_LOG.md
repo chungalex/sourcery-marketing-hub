@@ -23,6 +23,14 @@
 - Onboarding Step 2: "What's your factory situation?" + three situations
 - SOURCERY_DOCTRINE.md created at repo root
 
+### Session 13 — Tier 1 complete
+- orderStageConfig.ts: every status mapped to exact components
+- proactiveRules.ts: 5-rule engine (silent factory, delivery compression, payment gate, spec conflict, overdue stage)
+- POGuidance.tsx: 6 inline guidance cards for PO wizard
+- ProductionIntelligence.tsx: full AI workspace page at /intelligence
+- Dashboard intelligence widgets gated on order state
+- /intelligence route + app nav Intelligence link added
+
 ### Session 12 — AI features + personalised dashboard
 - PersonalisedDashboard.tsx — three distinct roadmaps by factory situation
 - ProactiveGuidance.tsx — AI reads order state, speaks first without being asked
@@ -75,20 +83,20 @@
 - [ ] Renew GitHub PAT (expires each container session)
 
 ### TIER 1 — Build this week (highest impact for first real users)
-- [ ] 1.1 Status-based OrderDetail rendering (1-2 days)
+- [x] 1.1 Status-based OrderDetail rendering ✓ SHIPPED
       Show 4-6 components based on order status, not all 47 simultaneously
-- [ ] 1.2 AI rule engine: 5 specific proactive triggers (2-3 days)
+- [x] 1.2 AI rule engine: 5 specific proactive triggers ✓ SHIPPED
       Silent factory / delivery compression / payment gate / spec conflict / overdue stage
       Each with specific action + one-click message drafter pre-populated
-- [ ] 1.3 Inline PO wizard guidance (1-2 days)
+- [x] 1.3 Inline PO wizard guidance ✓ SHIPPED
       Incoterms explainer / AQL explainer / milestone protection logic / Tet warning
-- [ ] 1.4 Tech pack completeness checklist inline (1 day)
+- [x] 1.4 Tech pack guidance inline ✓ SHIPPED
       Appears after upload in Step 2, flags missing fields with cost of skipping
-- [ ] 1.5 First message template at PO issue (half day)
+- [x] 1.5 First message template at PO issue ✓ SHIPPED
       Pre-populated professional message, editable, one click to use
-- [ ] 1.6 Dashboard intelligence gating (1 day)
+- [x] 1.6 Dashboard intelligence gating ✓ SHIPPED
       Hide empty intelligence widgets for new users, show roadmap instead
-- [ ] 1.7 Production Intelligence Workspace / AI Workspace (1 week)
+- [x] 1.7 Production Intelligence Workspace ✓ SHIPPED
       Full page at /intelligence or /workspace
       Left panel: what AI is watching (active orders, health, open issues)
       Right panel: conversation — AI opens first with specific current situation

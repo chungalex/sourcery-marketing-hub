@@ -370,7 +370,9 @@ export default function BrandDashboard() {
           )}
 
           {/* Production Intelligence — shows when there are signals */}
+          {orders.filter(o => !["draft"].includes(o.status)).length > 0 && (
           <ProductionIntelligence className="mb-6" />
+          )}
 
           {/* Tabs */}
           <Tabs defaultValue={defaultTab} className="space-y-5">
@@ -413,10 +415,12 @@ export default function BrandDashboard() {
             {/* Orders */}
             <TabsContent value="orders" className="space-y-3">
               {/* Production Intelligence Hub — cross-order signals */}
-              {user && <ProductionIntelHub userId={user.id} />}
+              {user && orders.filter(o => !["draft", "closed", "cancelled"].includes(o.status)).length > 0 && (
+              <ProductionIntelHub userId={user.id} />
+            )}
               {/* Reorder intelligence — show for recently closed orders */}
               {orders.filter(o => o.status === "closed" || o.status === "shipped").slice(0, 1).map(o => (
-<ReorderIntelligence key={o.id} orderId={o.id} factoryId={o.factories?.id || ""} factoryName={o.factories?.name || "Factory"} />
+              <ReorderIntelligence key={o.id} orderId={o.id} factoryId={o.factories?.id || ""} factoryName={o.factories?.name || "Factory"} />
               ))}
               {ordersLoading ? <OrdersSkeleton /> : orders.length > 0 ? (
                 orders.map(order => {

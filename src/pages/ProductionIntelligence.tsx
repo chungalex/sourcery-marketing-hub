@@ -1,13 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Send, Loader2, AlertTriangle, TrendingUp, Package, Clock, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { useOrders } from "@/hooks/useOrders";
+import { 
+  Sparkles, Send, Loader2, AlertTriangle, CheckCircle, 
+  Clock, Package, TrendingUp, MessageSquare, ChevronRight,
+  BarChart3, Zap, Circle
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 interface Message {
   role: "user" | "assistant";
@@ -15,159 +21,226 @@ interface Message {
   timestamp: Date;
 }
 
-interface OrderSummary {
-  id: string;
+interface OrderSignal {
+  orderId: string;
+  orderNumber: string;
+  factoryName: string;
   status: string;
-  product_name?: string;
-  delivery_window_end?: string | null;
-  factories?: { name: string } | null;
-  quantity?: number;
+  signal: "critical" | "warning" | "info" | "good";
+  message: string;
 }
 
-export default function ProductionIntelligence() {
+// ─── Order health signals ─────────────────────────────────────────────────────
+
+function getOrderSignals(orders: any[]): OrderSignal[] {
+  const signals: OrderSignal[] = [];
+  const now = Date.now();
+
+  for (const order of orders) {
+    if (["closed", "cancelled"].includes(order.status)) continue;
+
+    const daysToDelivery = order.delivery_window_end
+      ? Math.ceil((new Date(order.delivery_window_end).getTime() - now) / (1000 * 60 * 60 * 24))
+      : null;
+
+    const daysSinceUpdate = Math.floor(
+      (now - new Date(order.updated_at).getTime()) / (1000 * 60 * 60 * 24)
+    );
+
+    // Critical signals
+    if (order.status === "po_issued" && daysSinceUpdate >= 4) {
+      signals.push({
+        orderId: order.id,
+        orderNumber: order.order_number,
+        factoryName: order.factories?.name || "Factory",
+        status: order.status,
+        signal: "critical",
+        message: `No factory response in ${daysSinceUpdate} days since PO issued`,
+      });
+    } else if (daysToDelivery !== null && daysToDelivery < 14 && 
+               ["sampling", "in_production", "qc_pending"].includes(order.status)) {
+      signals.push({
+        orderId: order.id,
+        orderNumber: order.order_number,
+        factoryName: order.factories?.name || "Factory",
+        status: order.status,
+        signal: "critical",
+        message: `${daysToDelivery} days to delivery — at risk`,
+      });
+    } else if (daysToDelivery !== null && daysToDelivery < 28 && 
+               ["po_accepted", "sampling"].includes(order.status)) {
+      signals.push({
+        orderId: order.id,
+        orderNumber: order.order_number,
+        factoryName: order.factories?.name || "Factory",
+        status: order.status,
+        signal: "warning",
+        message: `${daysToDelivery} days to delivery — monitor closely`,
+      });
+    } else if (["qc_approved", "ready_to_ship"].includes(order.status)) {
+      signals.push({
+        orderId: order.id,
+        orderNumber: order.order_number,
+        factoryName: order.factories?.name || "Factory",
+        status: order.status,
+        signal: "info",
+        message: "Ready for next action",
+      });
+    } else {
+      signals.push({
+        orderId: order.id,
+        orderNumber: order.order_number,
+        factoryName: order.factories?.name || "Factory",
+        status: order.status,
+        signal: "good",
+        message: daysToDelivery ? `${daysToDelivery} days to delivery` : "On track",
+      });
+    }
+  }
+
+  // Sort: critical first
+  return signals.sort((a, b) => {
+    const order = { critical: 0, warning: 1, info: 2, good: 3 };
+    return order[a.signal] - order[b.signal];
+  });
+}
+
+// ─── Build system context for AI ─────────────────────────────────────────────
+
+function buildSystemContext(orders: any[], profile: any): string {
+  const activeOrders = orders.filter(o => !["closed", "cancelled"].includes(o.status));
+  const closedOrders = orders.filter(o => o.status === "closed");
+  const signals = getOrderSignals(orders);
+  const criticalCount = signals.filter(s => s.signal === "critical").length;
+
+  const orderSummaries = activeOrders.map(o => {
+    const daysToDelivery = o.delivery_window_end
+      ? Math.ceil((new Date(o.delivery_window_end).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+      : null;
+    return `- Order ${o.order_number}: ${o.product_name || "Product"} | Factory: ${o.factories?.name || "Unknown"} | Status: ${o.status} | Qty: ${o.quantity || "?"} units${daysToDelivery ? ` | ${daysToDelivery} days to delivery` : ""}`;
+  }).join("\n");
+
+  return `You are the Production Intelligence AI for Sourcery — a factory relationship platform for physical product brands.
+
+You are speaking with ${profile?.brand_name || "a brand founder"} who manufactures overseas.
+
+CURRENT OPERATION SNAPSHOT:
+- Active orders: ${activeOrders.length}
+- Completed orders: ${closedOrders.length}  
+- Critical alerts: ${criticalCount}
+${activeOrders.length > 0 ? `\nACTIVE ORDERS:\n${orderSummaries}` : "\nNo active orders yet."}
+${criticalCount > 0 ? `\nCRITICAL ISSUES:\n${signals.filter(s => s.signal === "critical").map(s => `- ${s.orderNumber} (${s.factoryName}): ${s.message}`).join("\n")}` : ""}
+
+YOUR ROLE:
+You are a senior sourcing director with 15+ years managing overseas production in Vietnam, Bangladesh, and China. You speak directly. You give specific advice, not generic guidance. You know the numbers, the stakes, and the cultural context.
+
+You know this brand's specific operation — their orders, their factories, their history. You don't give generic supply chain advice. You give advice specific to THEIR situation as described above.
+
+IMPORTANT:
+- Be specific. Use their order numbers, factory names, quantities.
+- If there are critical issues, address them directly.
+- Don't pad with caveats or disclaimers.
+- Speak like a trusted expert colleague, not a customer service bot.
+- If you don't know something specific, say so and tell them what question to ask their factory.
+- Manufacturing terms: PP sample = pre-production sample, TOP = top of production, AQL = acceptable quality level, GSM = fabric weight, OTIF = on-time in-full.`;
+}
+
+// ─── Suggested prompts by situation ──────────────────────────────────────────
+
+const SUGGESTED_PROMPTS = [
+  { icon: AlertTriangle, label: "What needs my attention right now?", color: "text-amber-600" },
+  { icon: Package, label: "Walk me through my active orders", color: "text-primary" },
+  { icon: Clock, label: "Am I going to make my delivery windows?", color: "text-blue-600" },
+  { icon: MessageSquare, label: "Help me message my factory about a delay", color: "text-green-600" },
+  { icon: TrendingUp, label: "When should I place my next order?", color: "text-purple-600" },
+  { icon: BarChart3, label: "How is my factory performing?", color: "text-orange-600" },
+];
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
+export default function ProductionIntelligencePage() {
   const { user } = useAuth();
-  const [orders, setOrders] = useState<OrderSummary[]>([]);
+  const { orders } = useOrders();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [contextLoading, setContextLoading] = useState(true);
+  const [profile, setProfile] = useState<any>(null);
+  const [initialized, setInitialized] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    if (user) loadContext();
+    if (user) loadProfile();
   }, [user]);
+
+  useEffect(() => {
+    if (profile && orders && !initialized) {
+      initializeConversation();
+      setInitialized(true);
+    }
+  }, [profile, orders, initialized]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  async function loadContext() {
-    setContextLoading(true);
-    const { data: orderData } = await (supabase as any)
-      .from("orders")
-      .select("id, status, product_name, delivery_window_end, quantity, factories(name)")
-      .eq("brand_id", user?.id)
-      .not("status", "eq", "cancelled")
-      .order("updated_at", { ascending: false })
-      .limit(10);
-
-    if (orderData) {
-      setOrders(orderData);
-      // Generate opening message
-      await generateOpeningMessage(orderData);
-    }
-    setContextLoading(false);
+  async function loadProfile() {
+    const { data } = await (supabase as any)
+      .from("brand_profiles")
+      .select("*")
+      .eq("user_id", user!.id)
+      .single();
+    setProfile(data);
   }
 
-  async function generateOpeningMessage(orderData: OrderSummary[]) {
-    const { data: { session } } = await supabase.auth.getSession();
+  async function initializeConversation() {
+    const signals = getOrderSignals(orders || []);
+    const critical = signals.filter(s => s.signal === "critical");
+    const activeOrders = (orders || []).filter(o => !["closed", "cancelled"].includes(o.status));
 
-    const activeOrders = orderData.filter(o => !["closed", "draft"].includes(o.status));
-    const closedOrders = orderData.filter(o => o.status === "closed");
+    let openingMessage = "";
 
-    // Build context summary
-    const contextSummary = activeOrders.length > 0
-      ? `Brand has ${activeOrders.length} active orders: ${activeOrders.map(o =>
-          `${o.product_name || "Order"} with ${o.factories?.name || "factory"} — status: ${o.status.replace(/_/g, " ")}${o.delivery_window_end ? `, delivery: ${format(new Date(o.delivery_window_end), "MMM d")}` : ""}`
-        ).join("; ")}`
-      : "Brand has no active orders yet.";
-
-    const prompt = `You are the Sourcery Production Intelligence AI. You are the expert sourcing director inside the Sourcery platform — deeply knowledgeable about overseas manufacturing, Vietnam garment production, factory relationships, quality control, payment protection, and production management.
-
-Current brand context:
-${contextSummary}
-${closedOrders.length > 0 ? `Completed orders: ${closedOrders.length}` : "No completed orders yet."}
-
-Generate a short, specific opening message (3-5 sentences) that:
-1. Acknowledges the brand's current production situation specifically
-2. Identifies the single most important thing they should be thinking about RIGHT NOW
-3. Offers to help with something specific
-4. Sounds like an experienced sourcing director — direct, knowledgeable, not generic
-
-If they have no orders yet, focus on helping them get started with their first factory relationship.
-Do not use bullet points. Write in first person. Be specific, not generic.`;
-
-    try {
-      const { data, error } = await (supabase as any).functions.invoke("production-assistant", {
-        headers: session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : undefined,
-        body: {
-          system: "You are the Sourcery Production Intelligence AI — an expert sourcing director with deep knowledge of overseas manufacturing. Be direct, specific, and genuinely helpful. Never be generic.",
-          messages: [{ role: "user", content: prompt }],
-        },
-      });
-
-      if (!error && data?.content?.[0]?.text) {
-        setMessages([{
-          role: "assistant",
-          content: data.content[0].text,
-          timestamp: new Date(),
-        }]);
-      }
-    } catch (e) {
-      setMessages([{
-        role: "assistant",
-        content: "I'm ready to help you navigate your production. What's on your mind — a specific order, a factory question, or something you're trying to figure out?",
-        timestamp: new Date(),
-      }]);
+    if (activeOrders.length === 0) {
+      openingMessage = `No active orders running yet. When you have orders in production, I'll watch every gate, flag every risk, and tell you what to do before you need to ask.\n\nFor now — what are you working on? I can help you think through factory selection, pricing, your first order structure, or anything else production-related.`;
+    } else if (critical.length > 0) {
+      openingMessage = `${critical.length === 1 ? "One thing" : `${critical.length} things`} need your attention right now.\n\n${critical.map(s => `**${s.orderNumber}** (${s.factoryName}) — ${s.message}`).join("\n")}\n\nWhere do you want to start?`;
+    } else {
+      const warningCount = signals.filter(s => s.signal === "warning").length;
+      openingMessage = `${activeOrders.length} active ${activeOrders.length === 1 ? "order" : "orders"}. ${warningCount > 0 ? `${warningCount} worth watching.` : "Everything looks on track."}\n\nWhat do you want to think through?`;
     }
+
+    setMessages([{
+      role: "assistant",
+      content: openingMessage,
+      timestamp: new Date(),
+    }]);
   }
 
-  async function sendMessage() {
-    if (!input.trim() || loading) return;
+  async function sendMessage(text?: string) {
+    const messageText = text || input.trim();
+    if (!messageText || loading) return;
 
-    const userMessage = input.trim();
     setInput("");
-    setMessages(prev => [...prev, { role: "user", content: userMessage, timestamp: new Date() }]);
+    const userMsg: Message = { role: "user", content: messageText, timestamp: new Date() };
+    setMessages(prev => [...prev, userMsg]);
     setLoading(true);
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
+      const systemContext = buildSystemContext(orders || [], profile);
 
-      // Build full order context
-      const activeOrders = orders.filter(o => !["closed", "draft", "cancelled"].includes(o.status));
-      const orderContext = activeOrders.length > 0
-        ? `Active orders: ${activeOrders.map(o =>
-            `${o.product_name || "unnamed"} | ${o.factories?.name || "unknown factory"} | status: ${o.status} | qty: ${o.quantity || "unknown"} | delivery: ${o.delivery_window_end ? format(new Date(o.delivery_window_end), "MMM d, yyyy") : "not set"}`
-          ).join("\n")}`
-        : "No active orders.";
-
-      const systemPrompt = `You are the Sourcery Production Intelligence AI — an expert sourcing director embedded in the Sourcery manufacturing platform.
-
-You have deep expertise in:
-- Overseas garment manufacturing (Vietnam, Bangladesh, China, Indonesia)
-- Factory relationships and how to manage them professionally  
-- QC processes, AQL standards, defect management
-- Payment protection and milestone structures
-- Production timelines, backward scheduling, critical path
-- Vietnamese manufacturing culture and communication norms
-- Tariffs, incoterms, landed cost calculations
-- Fabric and materials sourcing
-- The production lifecycle from PO to delivery
-
-Current brand's production context:
-${orderContext}
-
-Guidelines:
-- Be specific to their actual situation, not generic
-- When they mention a specific order issue, give concrete actionable advice
-- Reference their actual factories and order details when relevant
-- If you don't know something specific, say so and give the best general guidance
-- Write like an experienced sourcing director — direct, knowledgeable, no fluff
-- Use manufacturing terminology correctly (PP sample, TOP sample, AQL, FOB, etc.)
-- Vietnamese manufacturing context: Tet timing, HCMC factories, local norms
-- Never recommend things that create liability or are outside the platform's scope`;
-
-      // Build conversation history
-      const conversationHistory = messages.slice(-10).map(m => ({
+      const conversationHistory = [...messages, userMsg].map(m => ({
         role: m.role,
         content: m.content,
       }));
 
       const { data, error } = await (supabase as any).functions.invoke("production-assistant", {
-        headers: session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : undefined,
+        headers: session?.access_token
+          ? { Authorization: `Bearer ${session.access_token}` }
+          : undefined,
         body: {
-          system: systemPrompt,
-          messages: [...conversationHistory, { role: "user", content: userMessage }],
+          system: systemContext,
+          messages: conversationHistory,
         },
       });
 
@@ -183,203 +256,188 @@ Guidelines:
     } catch (e) {
       setMessages(prev => [...prev, {
         role: "assistant",
-        content: "Something went wrong. Try again — if it persists, the production assistant edge function may need checking.",
+        content: "Something went wrong. Try again.",
         timestamp: new Date(),
       }]);
     }
     setLoading(false);
   }
 
-  const activeOrders = orders.filter(o => !["closed", "draft", "cancelled"].includes(o.status));
-  const draftOrders = orders.filter(o => o.status === "draft");
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+
+  const signals = getOrderSignals(orders || []);
+  const activeOrders = (orders || []).filter(o => !["closed", "cancelled"].includes(o.status));
+
+  const signalColors = {
+    critical: "bg-red-500/10 border-red-400/30 text-red-600",
+    warning: "bg-amber-500/10 border-amber-400/30 text-amber-600",
+    info: "bg-primary/5 border-primary/20 text-primary",
+    good: "bg-green-500/5 border-green-400/20 text-green-600",
+  };
+
+  const signalDots = {
+    critical: "bg-red-500 animate-pulse",
+    warning: "bg-amber-500 animate-pulse",
+    info: "bg-primary",
+    good: "bg-green-500",
+  };
 
   return (
-    <Layout appMode>
-      <SEO title="Production Intelligence — Sourcery" description="Your AI production director" />
-      <div className="flex h-[calc(100vh-64px)]">
+    <Layout showFooter={false}>
+      <SEO
+        title="Intelligence — Sourcery"
+        description="Your production intelligence workspace. Every order watched. Every risk surfaced. Every question answered."
+      />
+      <div className="h-[calc(100vh-64px)] flex overflow-hidden">
 
-        {/* Left panel — context */}
-        <div className="w-72 flex-shrink-0 border-r border-border bg-card/40 flex flex-col hidden lg:flex">
+        {/* ── Left panel: what the AI is watching ── */}
+        <div className="w-72 flex-shrink-0 border-r border-border bg-card/50 flex flex-col overflow-hidden">
           <div className="p-4 border-b border-border">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Sparkles className="h-3.5 w-3.5 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">Production Intelligence</p>
-                <p className="text-xs text-muted-foreground">Watching your orders</p>
-              </div>
+            <div className="flex items-center gap-2 mb-1">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <span className="text-sm font-semibold text-foreground">Intelligence</span>
             </div>
+            <p className="text-xs text-muted-foreground">
+              {activeOrders.length === 0
+                ? "No active orders yet"
+                : `Watching ${activeOrders.length} active ${activeOrders.length === 1 ? "order" : "orders"}`}
+            </p>
           </div>
 
+          {/* Order signals */}
           <div className="flex-1 overflow-y-auto p-3 space-y-2">
-            {contextLoading ? (
-              <div className="flex items-center gap-2 text-xs text-muted-foreground p-2">
-                <Loader2 className="h-3 w-3 animate-spin" />
-                Loading your production context...
-              </div>
-            ) : (
-              <>
-                {activeOrders.length > 0 && (
-                  <div>
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide px-2 mb-1.5">
-                      Active orders
-                    </p>
-                    {activeOrders.map(order => {
-                      const daysLeft = order.delivery_window_end
-                        ? Math.ceil((new Date(order.delivery_window_end).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
-                        : null;
-                      const isUrgent = daysLeft !== null && daysLeft < 21;
-
-                      return (
-                        <Link
-                          key={order.id}
-                          to={`/orders/${order.id}`}
-                          className="block p-2.5 rounded-lg hover:bg-secondary/50 transition-colors group"
-                        >
-                          <div className="flex items-start justify-between gap-1 mb-0.5">
-                            <p className="text-xs font-medium text-foreground leading-tight truncate">
-                              {order.product_name || "Unnamed order"}
-                            </p>
-                            {isUrgent && (
-                              <AlertTriangle className="h-3 w-3 text-amber-500 flex-shrink-0 mt-0.5" />
-                            )}
-                          </div>
-                          <p className="text-xs text-muted-foreground">
-                            {order.factories?.name || "No factory"} · {order.status.replace(/_/g, " ")}
-                          </p>
-                          {daysLeft !== null && (
-                            <p className={cn("text-xs mt-0.5", isUrgent ? "text-amber-600 font-medium" : "text-muted-foreground")}>
-                              {daysLeft > 0 ? `${daysLeft}d to delivery` : "Delivery overdue"}
-                            </p>
-                          )}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
-
-                {draftOrders.length > 0 && (
-                  <div>
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide px-2 mb-1.5">
-                      Drafts
-                    </p>
-                    {draftOrders.map(order => (
-                      <Link
-                        key={order.id}
-                        to={`/orders/${order.id}`}
-                        className="block p-2.5 rounded-lg hover:bg-secondary/50 transition-colors"
-                      >
-                        <p className="text-xs font-medium text-foreground truncate">
-                          {order.product_name || "Unnamed draft"}
-                        </p>
-                        <p className="text-xs text-muted-foreground">Draft — not issued</p>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-
-                {orders.length === 0 && (
-                  <div className="p-3 rounded-lg bg-secondary/40 text-center">
-                    <Package className="h-5 w-5 text-muted-foreground mx-auto mb-1.5" />
-                    <p className="text-xs text-muted-foreground">No orders yet</p>
-                    <Link to="/orders/create" className="text-xs text-primary hover:underline">
-                      Create first order →
-                    </Link>
-                  </div>
-                )}
-
-                {/* Quick prompts */}
-                <div className="pt-2">
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide px-2 mb-1.5">
-                    Ask about
-                  </p>
-                  {[
-                    "What should I focus on today?",
-                    "How do I handle a late factory?",
-                    "What questions to ask a new factory?",
-                    "How do I read a factory quote?",
-                    "What is AQL and how do I use it?",
-                    "When should I release payment?",
-                  ].map(prompt => (
-                    <button
-                      key={prompt}
-                      type="button"
-                      onClick={() => setInput(prompt)}
-                      className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs text-muted-foreground hover:bg-secondary/50 hover:text-foreground transition-colors"
-                    >
-                      {prompt}
-                    </button>
-                  ))}
+            {signals.length === 0 ? (
+              <div className="text-center py-8">
+                <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center mx-auto mb-3">
+                  <Package className="h-4 w-4 text-muted-foreground" />
                 </div>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Right panel — conversation */}
-        <div className="flex-1 flex flex-col min-w-0">
-          {/* Header */}
-          <div className="border-b border-border px-6 py-3 flex items-center justify-between flex-shrink-0">
-            <div>
-              <p className="text-sm font-semibold text-foreground">Production Intelligence</p>
-              <p className="text-xs text-muted-foreground">
-                Your AI sourcing director — knows your orders, your factories, your situation
-              </p>
-            </div>
-            <Sparkles className="h-4 w-4 text-primary" />
-          </div>
-
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-6 py-6 space-y-4">
-            {contextLoading && messages.length === 0 ? (
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Reading your production context...
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  No active orders. Create your first order and I'll start watching it.
+                </p>
               </div>
             ) : (
-              messages.map((msg, i) => (
+              signals.map(signal => (
                 <div
-                  key={i}
+                  key={signal.orderId}
                   className={cn(
-                    "flex gap-3",
-                    msg.role === "user" ? "justify-end" : "justify-start"
+                    "rounded-xl border px-3 py-2.5 cursor-pointer hover:opacity-80 transition-opacity",
+                    signalColors[signal.signal]
                   )}
+                  onClick={() => sendMessage(`Tell me about order ${signal.orderNumber} with ${signal.factoryName}`)}
                 >
-                  {msg.role === "assistant" && (
-                    <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Sparkles className="h-3.5 w-3.5 text-primary" />
+                  <div className="flex items-start gap-2">
+                    <div className={cn("w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1.5", signalDots[signal.signal])} />
+                    <div className="min-w-0">
+                      <p className="text-xs font-semibold truncate">{signal.orderNumber}</p>
+                      <p className="text-xs opacity-80 truncate">{signal.factoryName}</p>
+                      <p className="text-xs mt-0.5 opacity-70 leading-snug">{signal.message}</p>
                     </div>
-                  )}
-                  <div
-                    className={cn(
-                      "max-w-2xl rounded-2xl px-4 py-3",
-                      msg.role === "user"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-card border border-border text-foreground"
-                    )}
-                  >
-                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
-                    <p className={cn(
-                      "text-xs mt-1.5",
-                      msg.role === "user" ? "text-primary-foreground/60" : "text-muted-foreground"
-                    )}>
-                      {format(msg.timestamp, "h:mm a")}
-                    </p>
                   </div>
                 </div>
               ))
             )}
+          </div>
+
+          {/* Stats strip */}
+          {activeOrders.length > 0 && (
+            <div className="p-3 border-t border-border grid grid-cols-3 gap-2">
+              <div className="text-center">
+                <p className="text-base font-bold text-foreground">{activeOrders.length}</p>
+                <p className="text-[10px] text-muted-foreground">Active</p>
+              </div>
+              <div className="text-center border-x border-border">
+                <p className="text-base font-bold text-red-500">
+                  {signals.filter(s => s.signal === "critical").length}
+                </p>
+                <p className="text-[10px] text-muted-foreground">Critical</p>
+              </div>
+              <div className="text-center">
+                <p className="text-base font-bold text-green-500">
+                  {signals.filter(s => s.signal === "good").length}
+                </p>
+                <p className="text-[10px] text-muted-foreground">On track</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* ── Right panel: conversation ── */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+
+          {/* Conversation header */}
+          <div className="px-6 py-4 border-b border-border bg-background flex items-center justify-between">
+            <div>
+              <h1 className="text-sm font-semibold text-foreground">Production Intelligence</h1>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Knows your orders, your factories, your operation. Speaks first.
+              </p>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-xs text-muted-foreground">Live</span>
+            </div>
+          </div>
+
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
+            {messages.length === 0 && (
+              <div className="flex items-center justify-center h-full">
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            )}
+
+            {messages.map((msg, i) => (
+              <div
+                key={i}
+                className={cn(
+                  "flex",
+                  msg.role === "user" ? "justify-end" : "justify-start"
+                )}
+              >
+                {msg.role === "assistant" && (
+                  <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mr-3 mt-0.5">
+                    <Sparkles className="h-3.5 w-3.5 text-primary" />
+                  </div>
+                )}
+                <div
+                  className={cn(
+                    "max-w-[72%] rounded-2xl px-4 py-3",
+                    msg.role === "user"
+                      ? "bg-primary text-primary-foreground rounded-tr-sm"
+                      : "bg-card border border-border rounded-tl-sm"
+                  )}
+                >
+                  <p className={cn(
+                    "text-sm leading-relaxed whitespace-pre-wrap",
+                    msg.role === "user" ? "text-primary-foreground" : "text-foreground"
+                  )}>
+                    {msg.content}
+                  </p>
+                  <p className={cn(
+                    "text-[10px] mt-1.5",
+                    msg.role === "user" ? "text-primary-foreground/60" : "text-muted-foreground"
+                  )}>
+                    {format(msg.timestamp, "h:mm a")}
+                  </p>
+                </div>
+              </div>
+            ))}
+
             {loading && (
-              <div className="flex gap-3 justify-start">
-                <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <div className="flex justify-start">
+                <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mr-3 mt-0.5">
                   <Sparkles className="h-3.5 w-3.5 text-primary" />
                 </div>
-                <div className="bg-card border border-border rounded-2xl px-4 py-3">
-                  <div className="flex gap-1 items-center">
-                    <div className="w-1.5 h-1.5 bg-primary/60 rounded-full animate-bounce" style={{animationDelay:"0ms"}} />
-                    <div className="w-1.5 h-1.5 bg-primary/60 rounded-full animate-bounce" style={{animationDelay:"150ms"}} />
-                    <div className="w-1.5 h-1.5 bg-primary/60 rounded-full animate-bounce" style={{animationDelay:"300ms"}} />
+                <div className="bg-card border border-border rounded-2xl rounded-tl-sm px-4 py-3">
+                  <div className="flex gap-1.5 items-center h-5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40 animate-bounce" style={{animationDelay: "0ms"}} />
+                    <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40 animate-bounce" style={{animationDelay: "150ms"}} />
+                    <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40 animate-bounce" style={{animationDelay: "300ms"}} />
                   </div>
                 </div>
               </div>
@@ -387,38 +445,63 @@ Guidelines:
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Suggested prompts — show when conversation is short */}
+          {messages.length <= 1 && !loading && (
+            <div className="px-6 py-3 border-t border-border/50">
+              <p className="text-xs text-muted-foreground mb-2">Suggested</p>
+              <div className="flex flex-wrap gap-2">
+                {SUGGESTED_PROMPTS.map(prompt => {
+                  const Icon = prompt.icon;
+                  return (
+                    <button
+                      key={prompt.label}
+                      type="button"
+                      onClick={() => sendMessage(prompt.label)}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all"
+                    >
+                      <Icon className={cn("h-3 w-3", prompt.color)} />
+                      {prompt.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {/* Input */}
-          <div className="border-t border-border px-6 py-4 flex-shrink-0">
-            <div className="flex gap-2 items-end">
-              <textarea
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                onKeyDown={e => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                  }
-                }}
-                placeholder="Ask about your orders, your factories, or any production decision..."
-                className="flex-1 resize-none rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary min-h-[48px] max-h-32"
-                rows={1}
-                disabled={loading}
-              />
+          <div className="px-6 py-4 border-t border-border bg-background">
+            <div className="flex items-end gap-3">
+              <div className="flex-1 bg-card border border-border rounded-2xl px-4 py-3 focus-within:border-primary/50 transition-colors">
+                <textarea
+                  ref={inputRef}
+                  value={input}
+                  onChange={e => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Ask anything about your production…"
+                  className="w-full text-sm bg-transparent text-foreground placeholder:text-muted-foreground/60 resize-none outline-none leading-relaxed max-h-32"
+                  rows={1}
+                  style={{ height: "auto" }}
+                  onInput={e => {
+                    const target = e.target as HTMLTextAreaElement;
+                    target.style.height = "auto";
+                    target.style.height = Math.min(target.scrollHeight, 128) + "px";
+                  }}
+                />
+              </div>
               <Button
+                onClick={() => sendMessage()}
+                disabled={!input.trim() || loading}
                 size="sm"
-                onClick={sendMessage}
-                disabled={loading || !input.trim()}
-                className="h-12 w-12 p-0 rounded-xl"
+                className="h-10 w-10 rounded-xl p-0 flex-shrink-0"
               >
-                {loading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Send className="h-4 w-4" />
-                )}
+                {loading
+                  ? <Loader2 className="h-4 w-4 animate-spin" />
+                  : <Send className="h-4 w-4" />
+                }
               </Button>
             </div>
-            <p className="text-xs text-muted-foreground mt-2 text-center">
-              Knows your current orders and factory history · Press Enter to send
+            <p className="text-[10px] text-muted-foreground mt-2 text-center">
+              Enter to send · Shift+Enter for new line
             </p>
           </div>
         </div>

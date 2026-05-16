@@ -30,6 +30,7 @@ const marketingNavSecondary = [
 // App nav — shown to logged-in brands
 const brandAppNav = [
   { label: "Orders", href: "/dashboard", icon: Package },
+  { label: "Intelligence", href: "/intelligence", icon: Sparkles },
   { label: "Network", href: "/directory", icon: Search },
   { label: "Analytics", href: "/analytics", icon: BarChart2 },
   { label: "Compliance", href: "/compliance", icon: Shield },
