@@ -120,7 +120,7 @@ function buildSystemContext(orders: any[], profile: any): string {
     return `- Order ${o.order_number}: ${o.product_name || "Product"} | Factory: ${o.factories?.name || "Unknown"} | Status: ${o.status} | Qty: ${o.quantity || "?"} units${daysToDelivery ? ` | ${daysToDelivery} days to delivery` : ""}`;
   }).join("\n");
 
-  return `You are the Production Intelligence AI for Sourcery — a factory relationship platform for physical product brands.
+  return `You are the Production Intelligence AI for Ariadne — a factory relationship platform for physical product brands.
 
 You are speaking with ${profile?.brand_name || "a brand founder"} who manufactures overseas.
 
@@ -290,7 +290,7 @@ export default function ProductionIntelligencePage() {
   return (
     <Layout showFooter={false}>
       <SEO
-        title="Intelligence — Sourcery"
+        title="Intelligence — Ariadne"
         description="Your production intelligence workspace. Every order watched. Every risk surfaced. Every question answered."
       />
       <div className="h-[calc(100vh-64px)] flex overflow-hidden">

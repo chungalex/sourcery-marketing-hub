@@ -41,7 +41,7 @@ export default function TradeTools() {
   return (
     <Layout>
       <SEO
-        title="Trade Tools — HTS Codes, Duty Rates, Tariff Calculator | Sourcery"
+        title="Trade Tools — HTS Codes, Duty Rates, Tariff Calculator | Ariadne"
         description="Free trade tools for apparel brands: HTS code lookup, import duty rates for Vietnam, tariff comparison calculator, and FTA guidance."
       />
       <section className="section-padding border-b border-border">

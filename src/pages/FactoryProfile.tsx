@@ -153,8 +153,8 @@ export default function FactoryProfile() {
     return (
       <Layout>
         <SEO
-          title={`${preview.name} — ${preview.city || preview.country || "Factory"} | Sourcery`}
-          description={`${preview.name} is a manufacturer in ${[preview.city, preview.country].filter(Boolean).join(", ")}. Categories: ${(preview.categories || []).slice(0,3).join(", ")}. View on Sourcery.`}
+          title={`${preview.name} — ${preview.city || preview.country || "Factory"} | Ariadne`}
+          description={`${preview.name} is a manufacturer in ${[preview.city, preview.country].filter(Boolean).join(", ")}. Categories: ${(preview.categories || []).slice(0,3).join(", ")}. View on Ariadne.`}
         />
 
         <section className="relative">
@@ -223,7 +223,7 @@ export default function FactoryProfile() {
                     About
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    This factory is part of the Sourcery network. Full profile details available once connected.
+                    This factory is part of the Ariadne network. Full profile details available once connected.
                   </p>
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center bg-card/80 rounded-xl">
@@ -317,10 +317,10 @@ export default function FactoryProfile() {
   return (
     <Layout>
       <SEO
-        title={`${factory.name} — ${factory.city || factory.country || "Factory"} | Sourcery`}
+        title={`${factory.name} — ${factory.city || factory.country || "Factory"} | Ariadne`}
         description={factory.description
           ? factory.description.slice(0, 155)
-          : `${factory.name} is a verified manufacturer in ${[factory.city, factory.country].filter(Boolean).join(", ")}. MOQ from ${factory.moq_min || "varies"} units. View profile on Sourcery.`}
+          : `${factory.name} is a verified manufacturer in ${[factory.city, factory.country].filter(Boolean).join(", ")}. MOQ from ${factory.moq_min || "varies"} units. View profile on Ariadne.`}
       />
       {/* JSON-LD structured data for SEO */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -328,7 +328,7 @@ export default function FactoryProfile() {
         "@type": "Organization",
         "name": factory.name,
         "description": factory.description || `Manufacturer in ${factory.country}`,
-        "url": `https://sourcery.so/directory/${factory.slug}`,
+        "url": `https://ariadne.io/directory/${factory.slug}`,
         "address": {
           "@type": "PostalAddress",
           "addressLocality": factory.city || "",
@@ -519,7 +519,7 @@ export default function FactoryProfile() {
                     {orderCount > 0 && (
                       <StatRow
                         icon={CheckCircle}
-                        label="Orders on Sourcery"
+                        label="Orders on Ariadne"
                         value={`${orderCount} completed`}
                       />
                     )}
@@ -665,7 +665,7 @@ export default function FactoryProfile() {
               <div className="space-y-4">
                 {mockReviews.length === 0 ? (
                 <div className="py-8 text-center">
-                  <p className="text-sm text-muted-foreground">No reviews yet. Reviews appear here after completed orders on Sourcery.</p>
+                  <p className="text-sm text-muted-foreground">No reviews yet. Reviews appear here after completed orders on Ariadne.</p>
                 </div>
               ) : mockReviews.map((review) => (
                   <motion.div

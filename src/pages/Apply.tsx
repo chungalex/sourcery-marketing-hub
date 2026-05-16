@@ -152,8 +152,8 @@ export default function Apply() {
   return (
     <Layout>
       <SEO 
-        title="Apply as a Factory | Sourcery" 
-        description="Apply to join the Sourcery factory network. Connect with brands managing production on the platform."
+        title="Apply as a Factory | Ariadne" 
+        description="Apply to join the Ariadne factory network. Connect with brands managing production on the platform."
       />
       
       <section className="section-padding">
@@ -165,11 +165,11 @@ export default function Apply() {
             className="text-center mb-12"
           >
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Apply to the Sourcery network.
+              Apply to the Ariadne network.
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Complete your application to showcase your manufacturing capabilities 
-              to brands managing production through Sourcery.
+              to brands managing production through Ariadne.
             </p>
           </motion.div>
 

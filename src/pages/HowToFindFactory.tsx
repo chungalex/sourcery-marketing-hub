@@ -50,7 +50,7 @@ export default function HowToFindFactory() {
   return (
     <Layout>
       <SEO
-        title="How to Find a Factory for Your Clothing Brand | Sourcery"
+        title="How to Find a Factory for Your Clothing Brand | Ariadne"
         description="Step-by-step guide to finding, vetting, and working with apparel manufacturers. From RFQ to first order. Written by people who've done it."
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -109,7 +109,7 @@ export default function HowToFindFactory() {
       <section className="section-padding">
         <div className="container max-w-3xl">
           <div className="p-6 rounded-2xl bg-card border border-border">
-            <h2 className="text-xl font-bold text-foreground mb-2">Do this on Sourcery</h2>
+            <h2 className="text-xl font-bold text-foreground mb-2">Do this on Ariadne</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               Send RFQs to multiple factories, get comparable quotes, create structured POs with milestone payments, and document every step. Free to start.
             </p>

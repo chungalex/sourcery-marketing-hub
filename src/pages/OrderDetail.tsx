@@ -62,7 +62,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 
-type QCMode = "sourcery" | "byo" | "factory_self";
+type QCMode = "ariadne" | "byo" | "factory_self";
 
 interface OrderData {
   id: string;
@@ -121,7 +121,7 @@ export default function OrderDetail() {
   // Editable fields
   const [unitPrice, setUnitPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [qcMode, setQcMode] = useState<QCMode>("sourcery");
+  const [qcMode, setQcMode] = useState<QCMode>("ariadne");
   const [editCurrency, setEditCurrency] = useState("USD");
   const [milestones, setMilestones] = useState<{ label: string; percentage: number }[]>([
     { label: "Deposit", percentage: 30 },
@@ -333,7 +333,7 @@ export default function OrderDetail() {
   return (
     <Layout>
       <SEO
-        title={`${(specs?.product_name as string) || order.order_number} | Sourcery`}
+        title={`${(specs?.product_name as string) || order.order_number} | Ariadne`}
         description="Track specs, revisions, milestones, and QC for this order."
       />
 

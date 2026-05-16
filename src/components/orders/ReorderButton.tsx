@@ -64,7 +64,7 @@ export function ReorderButton({ order }: ReorderButtonProps) {
             reorder_of: order.id,
             reorder_notes: notes.trim() || undefined,
           },
-          qc_option: "sourcery",
+          qc_option: "ariadne",
         },
       });
 

@@ -1,4 +1,4 @@
-# Sourcery Copy Style Guide
+# Ariadne Copy Style Guide
 
 ## Voice
 
@@ -7,7 +7,7 @@ Professional and composed. Write like a senior operator at a credible B2B platfo
 ## Core rules
 
 **1. Declarative, not reactive**
-State what the platform does. Don't frame copy around problems the reader might have — frame it around what Sourcery provides. The product is the subject, not the reader's pain.
+State what the platform does. Don't frame copy around problems the reader might have — frame it around what Ariadne provides. The product is the subject, not the reader's pain.
 
 ✗ "You shouldn't have to Google what FOB means mid-order."
 ✓ "Every decision in the order process includes a plain-English explanation before you commit."
@@ -27,8 +27,8 @@ Headlines describe what the product is and does — not who it's for. Audience c
 **4. No slogans, hooks, or rhetorical punches**
 The product is serious. The copy should match. Avoid anything that reads like a tagline, ad headline, or emotional manipulation. State the value plainly.
 
-✗ "Production is where money disappears. Sourcery is how you stop it."
-✓ "Sourcery manages the full production lifecycle with structured payment gates and permanent order records."
+✗ "Production is where money disappears. Ariadne is how you stop it."
+✓ "Ariadne manages the full production lifecycle with structured payment gates and permanent order records."
 
 **5. Honest and accurate — always**
 Every claim must be verifiable against the actual platform. No stats without a named, linkable, independent primary source with year and author. No feature listed that doesn't exist in the codebase. No service promised that can't be delivered.
@@ -65,7 +65,7 @@ No statistic appears on the site without:
 If all three criteria cannot be met, the stat is not used. Illustrative cost estimates are acceptable when clearly labeled as estimates.
 
 ## What stays constant across all pages
-- Honest framing: Sourcery is a platform, not an agent
+- Honest framing: Ariadne is a platform, not an agent
 - Vetting caveat: credential review, not on-site audits
 - Pricing: 3% transaction fee, no subscription, no retainer
 - AI tools: Factory Matcher is live, three others are in development
@@ -73,14 +73,14 @@ If all three criteria cannot be met, the stat is not used. Illustrative cost est
 
 ## Payment and funds — what to say and what not to say
 
-Sourcery operates as a milestone gate enforcement platform, not a payment processor or fund custodian. Be precise.
+Ariadne operates as a milestone gate enforcement platform, not a payment processor or fund custodian. Be precise.
 
 **Never say:**
 - "Funds held in escrow"
 - "Escrow protection"
 - "Funds freeze in a dispute"
-- "Sourcery holds your payment"
-- "Money is released when milestones are met" (implies Sourcery holds it)
+- "Ariadne holds your payment"
+- "Money is released when milestones are met" (implies Ariadne holds it)
 
 **Always say:**
 - "Milestone-gated payments"
@@ -88,7 +88,7 @@ Sourcery operates as a milestone gate enforcement platform, not a payment proces
 - "You release each milestone manually when the gate is met"
 - "Brand withholds final payment pending dispute resolution"
 - "Documented grounds to withhold payment"
-- "Sourcery does not hold, process, or custody funds"
+- "Ariadne does not hold, process, or custody funds"
 
 **The honest framing:**
-The value is the structure and the paper trail — not fund custody. A brand using Sourcery has documented, timestamped, platform-enforced grounds to make or withhold each payment. That's a real and strong value proposition without claiming to hold money.
+The value is the structure and the paper trail — not fund custody. A brand using Ariadne has documented, timestamped, platform-enforced grounds to make or withhold each payment. That's a real and strong value proposition without claiming to hold money.

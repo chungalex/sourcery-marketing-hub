@@ -140,7 +140,7 @@ const orderSchema = z.object({
   specifications: z.string().optional(),
   tech_pack_url: z.string().url().optional().or(z.literal("")),
   bom_url: z.string().url().optional().or(z.literal("")),
-  qc_option: z.enum(["sourcery", "byoqc", "factory"]),
+  qc_option: z.enum(["ariadne", "byoqc", "factory"]),
   aql_standard: z.enum(["1.0", "2.5", "4.0"]).default("2.5"),
   po_message: z.string().optional(),
   fx_rate_locked: z.string().optional(),
@@ -225,7 +225,7 @@ export default function CreateOrder() {
   const totalAmount = (watchedValues.quantity || 0) * (watchedValues.unit_price || 0);
   const selectedFactory = factories.find(f => f.id === watchedValues.factory_id);
 
-  // Group factories: BYOF (brand's own) vs Sourcery Network
+  // Group factories: BYOF (brand's own) vs Ariadne Network
   const byofFactories = factories.filter(f => f.is_byof);
   const networkFactories = factories.filter(f => !f.is_byof);
 
@@ -417,7 +417,7 @@ export default function CreateOrder() {
   return (
     <Layout>
       <SEO 
-        title="New order — Sourcery"
+        title="New order — Ariadne"
         description="Start a new order. Spec, factory, milestones, QC — all in one place."
       />
 
@@ -641,11 +641,11 @@ export default function CreateOrder() {
                                   <SelectSeparator />
                                 )}
 
-                                {/* Sourcery Network */}
+                                {/* Ariadne Network */}
                                 {networkFactories.length > 0 && (
                                   <SelectGroup>
                                     <SelectLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                                      Sourcery Network
+                                      Ariadne Network
                                     </SelectLabel>
                                     {networkFactories.map((factory) => (
                                       <SelectItem key={factory.id} value={factory.id}>

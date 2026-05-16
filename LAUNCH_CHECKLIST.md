@@ -1,4 +1,4 @@
-# Sourcery Launch Checklist
+# Ariadne Launch Checklist
 > Run this end-to-end before any external brand touches the platform.
 > Two accounts required: one brand (OKIO), one factory (HU LA Studios).
 
@@ -16,7 +16,7 @@
 - [ ] Set `STRIPE_WEBHOOK_SECRET` in Supabase Edge Function secrets
 - [ ] Set `ANTHROPIC_API_KEY` in Supabase Edge Function secrets
 - [ ] Set `RESEND_API_KEY` in Supabase Edge Function secrets (get from resend.com — free tier is 3,000 emails/month)
-- [ ] Set `SITE_URL` in Supabase Edge Function secrets (e.g. https://sourcery.so) — used in email notification links
+- [ ] Set `SITE_URL` in Supabase Edge Function secrets (e.g. https://ariadne.io) — used in email notification links
 - [ ] Create Stripe account and configure webhook endpoint
 - [ ] Seed at least 3 real factory records in the `factories` table
 - [ ] Add DB status constraint (see SOURCERY_BUILD_STATE.md)

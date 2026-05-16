@@ -7,8 +7,8 @@ export default function Privacy() {
   return (
     <Layout>
       <SEO
-        title="Privacy — Sourcery"
-        description="How Sourcery handles your data. Plain language — not legal boilerplate."
+        title="Privacy — Ariadne"
+        description="How Ariadne handles your data. Plain language — not legal boilerplate."
         canonical="/privacy"
       />
 
@@ -24,7 +24,7 @@ export default function Privacy() {
 
             <div className="prose max-w-none">
               <p className="text-lg text-muted-foreground leading-relaxed mb-10">
-                Sourcery handles commercially sensitive information — factory names, order pricing, product specifications, delivery windows. This page explains what we do with that information in plain language.
+                Ariadne handles commercially sensitive information — factory names, order pricing, product specifications, delivery windows. This page explains what we do with that information in plain language.
               </p>
 
               <div className="space-y-10">
@@ -33,7 +33,7 @@ export default function Privacy() {
                 <div>
                   <h2 className="font-heading text-xl font-bold text-foreground mb-3">Who can see your order data</h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    Every order on Sourcery is visible only to the brand and the factory on that specific order. This is enforced at the database level — row-level security means other users cannot access your orders, regardless of permissions. No other brand sees your orders, specs, pricing, or factory relationships.
+                    Every order on Ariadne is visible only to the brand and the factory on that specific order. This is enforced at the database level — row-level security means other users cannot access your orders, regardless of permissions. No other brand sees your orders, specs, pricing, or factory relationships.
                   </p>
                 </div>
 
@@ -63,7 +63,7 @@ export default function Privacy() {
                 <div>
                   <h2 className="font-heading text-xl font-bold text-foreground mb-3">Disputes</h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    If there is a dispute between a brand and a factory, Sourcery provides the documented record — every message, spec version, revision, and milestone — as a neutral reference. We do not take sides, rule on outcomes, or share the record with parties outside the dispute. We give both parties access to the same documented history.
+                    If there is a dispute between a brand and a factory, Ariadne provides the documented record — every message, spec version, revision, and milestone — as a neutral reference. We do not take sides, rule on outcomes, or share the record with parties outside the dispute. We give both parties access to the same documented history.
                   </p>
                 </div>
 

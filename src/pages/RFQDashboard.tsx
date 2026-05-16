@@ -75,7 +75,7 @@ export default function RFQDashboard() {
         <div className="space-y-3">
           {[
             { n: "01", t: "Write one brief", b: "Describe what you're making — specs, quantity range, target price, delivery window. Takes 3 minutes." },
-            { n: "02", t: "Send to every factory at once", b: "Pick from the Sourcery network or type any factory's email address. No account needed to respond." },
+            { n: "02", t: "Send to every factory at once", b: "Pick from the Ariadne network or type any factory's email address. No account needed to respond." },
             { n: "03", t: "See who quotes what", b: "Each factory submits their price, MOQ, and lead time. Everything in one place, no inbox archaeology." },
             { n: "04", t: "Convert the best one to a PO", b: "Select the quote you want. Their pricing pre-fills your order form. Done." },
           ].map(s => (

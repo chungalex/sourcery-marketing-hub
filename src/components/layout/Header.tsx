@@ -22,7 +22,7 @@ const marketingNav = [
 const marketingNavSecondary = [
   { label: "Intelligence", href: "/intelligence" },
   { label: "How it works", href: "/how-it-works" },
-  { label: "Why Sourcery", href: "/why-sourcery" },
+  { label: "Why Ariadne", href: "/why-ariadne" },
   { label: "Case studies", href: "/case-studies" },
   { label: "FAQ", href: "/faq" },
 ];
@@ -100,7 +100,7 @@ export function Header() {
               <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
                 <span className="text-primary-foreground font-heading font-bold text-base">S</span>
               </div>
-              <span className="font-heading font-semibold text-lg text-foreground">Sourcery</span>
+              <span className="font-heading font-semibold text-lg text-foreground">Ariadne</span>
               {isBrand && (
                 <span className="hidden sm:block text-xs text-muted-foreground font-normal ml-1">/ Brand</span>
               )}

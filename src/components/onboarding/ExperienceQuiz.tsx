@@ -49,7 +49,7 @@ const questions = [
     question: "Do you already have a factory you work with?",
     sub: "This determines whether you're bringing your own or sourcing from the network.",
     options: [
-      { value: "byof", label: "Yes — I have a manufacturer", sub: "I'll invite them to Sourcery" },
+      { value: "byof", label: "Yes — I have a manufacturer", sub: "I'll invite them to Ariadne" },
       { value: "sourcing", label: "No — I'm still sourcing", sub: "I'll find one in the marketplace" },
     ],
   },

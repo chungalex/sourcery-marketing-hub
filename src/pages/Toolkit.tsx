@@ -37,7 +37,7 @@ export default function Toolkit() {
   return (
     <Layout>
       <SEO 
-        title="Your Toolkit | Sourcery" 
+        title="Your Toolkit | Ariadne" 
         description="Powerful tools to help you find factories, compare quotes, track orders, and manage supplier relationships."
       />
       

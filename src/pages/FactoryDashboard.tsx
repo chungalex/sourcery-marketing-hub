@@ -218,7 +218,7 @@ export default function FactoryDashboard() {
 
   return (
     <Layout>
-      <SEO title="Your orders — Sourcery" description="Review purchase orders, submit samples, manage QC, and track production — all in one place." />
+      <SEO title="Your orders — Ariadne" description="Review purchase orders, submit samples, manage QC, and track production — all in one place." />
 
       <section className="section-padding">
         <div className="container-wide">
@@ -306,7 +306,7 @@ export default function FactoryDashboard() {
               ) : factoryOrders.length === 0 ? (
                 <div className="py-8 space-y-4">
                   <div className="p-5 rounded-xl bg-card border border-border">
-                    <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">How orders work on Sourcery</p>
+                    <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">How orders work on Ariadne</p>
                     <div className="space-y-3">
                       {[
                         { num: "01", title: "You receive a PO", body: "When a brand issues a purchase order, it appears here immediately. Review the spec, quantity, pricing, and delivery window. Nothing is committed until you accept." },
@@ -506,7 +506,7 @@ export default function FactoryDashboard() {
                 <div className="text-center py-16 bg-card border border-border rounded-xl">
                   <MessageSquare className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
                   <h3 className="text-lg font-semibold text-foreground mb-2">Waiting on your first inquiry.</h3>
-                  <p className="text-muted-foreground">Brands discover factories through the Sourcery directory. Make sure your profile is complete — categories, MOQ, lead time, and photos help brands find the right fit.</p>
+                  <p className="text-muted-foreground">Brands discover factories through the Ariadne directory. Make sure your profile is complete — categories, MOQ, lead time, and photos help brands find the right fit.</p>
                 </div>
               ) : inquiries.map((inquiry) => (
                 <div key={inquiry.id} className={`bg-card border rounded-xl p-6 ${inquiry.status === "new" ? "border-primary/50 bg-primary/5" : "border-border"}`}>

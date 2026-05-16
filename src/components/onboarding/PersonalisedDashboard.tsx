@@ -62,7 +62,7 @@ const ROADMAPS = {
     color: "border-amber-400/30 bg-amber-500/5",
     iconBg: "bg-amber-500/10",
     iconColor: "text-amber-600",
-    primaryCta: { label: "Invite your factory to Sourcery", href: "/dashboard?action=invite" },
+    primaryCta: { label: "Invite your factory to Ariadne", href: "/dashboard?action=invite" },
     secondaryCta: { label: "Open due diligence checklist", href: "/dashboard?tab=tools" },
     steps: [
       {
@@ -74,7 +74,7 @@ const ROADMAPS = {
       },
       {
         id: "invite_factory",
-        title: "Invite them to Sourcery",
+        title: "Invite them to Ariadne",
         body: "One link, they join free. Once they're on the platform, every communication is documented, every spec change is tracked, and their performance builds into an OTIF score over time.",
         action: { label: "Invite your factory", href: "/dashboard?action=invite" },
         why: "A factory that agrees to work on a structured platform signals professionalism. One that refuses tells you something too.",
@@ -96,7 +96,7 @@ const ROADMAPS = {
       {
         id: "track_otif",
         title: "Start tracking their OTIF score",
-        body: "From the moment their first order closes on Sourcery, their on-time/in-full rate starts building. After 5 orders you have real, verified data on whether they deliver what they promise.",
+        body: "From the moment their first order closes on Ariadne, their on-time/in-full rate starts building. After 5 orders you have real, verified data on whether they deliver what they promise.",
         action: null,
         why: "OTIF replaces gut feel with evidence. After 5 orders you'll know exactly who you're working with.",
       },
@@ -173,7 +173,7 @@ export function PersonalisedDashboard({ userId }: PersonalisedDashboardProps) {
       if (profile?.stage) setStage(profile.stage);
 
       // Load completed steps from localStorage
-      const saved = localStorage.getItem(`sourcery_roadmap_${userId}`);
+      const saved = localStorage.getItem(`ariadne_roadmap_${userId}`);
       if (saved) setCompleted(JSON.parse(saved));
       setLoading(false);
     }
@@ -185,7 +185,7 @@ export function PersonalisedDashboard({ userId }: PersonalisedDashboardProps) {
       ? completed.filter(c => c !== id)
       : [...completed, id];
     setCompleted(next);
-    localStorage.setItem(`sourcery_roadmap_${userId}`, JSON.stringify(next));
+    localStorage.setItem(`ariadne_roadmap_${userId}`, JSON.stringify(next));
   }
 
   if (loading) return null;

@@ -43,7 +43,7 @@ const quickFilters: { label: string; type: FactoryType | 'all' }[] = [
 
 type SortOption = 'newest' | 'completeness' | 'moq_low' | 'moq_high' | 'lead_time';
 
-const RECENTLY_VIEWED_KEY = 'sourcery_recently_viewed';
+const RECENTLY_VIEWED_KEY = 'ariadne_recently_viewed';
 
 // Transform DB factory to display format
 // Note: null values for moqMin/leadTimeWeeks are preserved as null for proper filter handling
@@ -293,7 +293,7 @@ export default function Directory() {
   return (
     <Layout>
       <SEO
-        title="Factory Network — Sourcery"
+        title="Factory Network — Ariadne"
         description="Browse vetted manufacturers with verified credentials. Find the right factory by category, location, MOQ, and certifications."
       />
 

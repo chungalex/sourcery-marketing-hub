@@ -10,7 +10,7 @@ const footerLinks = {
         { label: "Pricing", href: "/pricing" },
   ],
   learn: [
-    { label: "Why Sourcery", href: "/why-sourcery" },
+    { label: "Why Ariadne", href: "/why-ariadne" },
     { label: "How it works", href: "/how-it-works" },
     { label: "Resources", href: "/resources" },
     { label: "Intelligence", href: "/intelligence" },
@@ -45,11 +45,11 @@ export function Footer() {
                 <span className="text-primary-foreground font-heading font-bold text-lg">S</span>
               </div>
               <span className="font-heading font-semibold text-xl text-foreground">
-                Sourcery
+                Ariadne
               </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-              The factory relationship infrastructure for physical product brands. Find, vet, operate, protect, and grow — everything your factory relationship needs, in one place.lity on every order.
+              The thread through your manufacturing labyrinth. Find factories, run structured orders, protect every payment. The infrastructure the whole category was missing.lity on every order.
             </p>
             <Newsletter variant="compact" />
           </div>
@@ -109,7 +109,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Sourcery. All rights reserved.
+            © {new Date().getFullYear()} Ariadne. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <a

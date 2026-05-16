@@ -82,9 +82,9 @@ export function SavingsCalculator() {
         </div>
       </div>
 
-      {/* Sourcery cost — subscription, not percentage */}
+      {/* Ariadne cost — subscription, not percentage */}
       <div className="space-y-2">
-        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sourcery cost</p>
+        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Ariadne cost</p>
         <div className="flex items-center justify-between p-3 rounded-lg bg-primary/5 border border-primary/20">
           <div>
             <p className="text-sm text-foreground">Builder plan — flat annual subscription</p>

@@ -53,7 +53,7 @@ export default function OrderRecord() {
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="text-center">
         <p className="text-muted-foreground mb-4">This production record isn't available.</p>
-        <Link to="/" className="text-sm text-primary hover:underline">Sourcery →</Link>
+        <Link to="/" className="text-sm text-primary hover:underline">Ariadne →</Link>
       </div>
     </div>
   );
@@ -67,8 +67,8 @@ export default function OrderRecord() {
   return (
     <>
       <SEO
-        title={`${productName} — Production Record | Sourcery`}
-        description={`${order.quantity} units of ${productName}${order.factories ? ` produced by ${order.factories.name}` : ""}. Documented on Sourcery.`}
+        title={`${productName} — Production Record | Ariadne`}
+        description={`${order.quantity} units of ${productName}${order.factories ? ` produced by ${order.factories.name}` : ""}. Documented on Ariadne.`}
       />
       <div className="min-h-screen bg-background">
         {/* Header */}
@@ -78,7 +78,7 @@ export default function OrderRecord() {
               <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-sm">S</span>
               </div>
-              <span className="font-semibold text-foreground">Sourcery</span>
+              <span className="font-semibold text-foreground">Ariadne</span>
             </Link>
             <span className="text-xs text-muted-foreground">Production record</span>
           </div>
@@ -118,7 +118,7 @@ export default function OrderRecord() {
 
           {/* What was documented */}
           <div className="bg-card border border-border rounded-xl p-6 mb-8">
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Documented on Sourcery</p>
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Documented on Ariadne</p>
             <div className="space-y-2">
               {[
                 "Purchase order with agreed specs and pricing",
@@ -150,7 +150,7 @@ export default function OrderRecord() {
           {/* CTA */}
           <div className="border-t border-border pt-8">
             <p className="text-sm text-muted-foreground mb-4">
-              This production record was documented on Sourcery — the manufacturing OS for physical product brands.
+              This production record was documented on Ariadne — the manufacturing OS for physical product brands.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button asChild>
@@ -158,7 +158,7 @@ export default function OrderRecord() {
               </Button>
               <Button variant="outline" asChild>
                 <Link to="/how-it-works" className="flex items-center gap-2">
-                  How Sourcery works <ExternalLink className="h-3.5 w-3.5" />
+                  How Ariadne works <ExternalLink className="h-3.5 w-3.5" />
                 </Link>
               </Button>
             </div>

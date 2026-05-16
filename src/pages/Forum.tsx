@@ -55,7 +55,7 @@ export default function Forum() {
   return (
     <Layout>
       <SEO
-        title="Community forum — Sourcery"
+        title="Community forum — Ariadne"
         description="Brands and factories talking to each other. Factory recommendations, production questions, supply chain discussions, tariff updates."
       />
 
@@ -70,7 +70,7 @@ export default function Forum() {
                   Brands and factories.<br />Talking to each other.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  The production community doesn't have a neutral space. Sourcery's forum is three channels: founders talking to founders, factories announcing capacity, and open supply chain discussion on tariffs, freight, and market moves.
+                  The production community doesn't have a neutral space. Ariadne's forum is three channels: founders talking to founders, factories announcing capacity, and open supply chain discussion on tariffs, freight, and market moves.
                 </p>
               </div>
               <div className="grid grid-cols-3 gap-4">

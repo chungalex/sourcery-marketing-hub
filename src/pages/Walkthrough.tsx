@@ -96,7 +96,7 @@ const steps = [
     icon: Shield,
     label: "QC gate",
     headline: "Final payment blocked until quality passes.",
-    description: "The factory uploads their QC report — photos, defect counts, AQL result — into the order. Sourcery walks you through a structured checklist when your goods arrive. Need a professional inspector? We point you to agencies like SGS and QIMA. The final payment is blocked until you confirm the result and release it manually.",
+    description: "The factory uploads their QC report — photos, defect counts, AQL result — into the order. Ariadne walks you through a structured checklist when your goods arrive. Need a professional inspector? We point you to agencies like SGS and QIMA. The final payment is blocked until you confirm the result and release it manually.",
     note: "You never wire the final amount until this step is complete.",
     tag: "Enforced gate",
     tagColor: "text-primary bg-primary/10",
@@ -310,7 +310,7 @@ export default function Walkthrough() {
   return (
     <Layout>
       <SEO
-        title="See how Sourcery works — Interactive walkthrough"
+        title="See how Ariadne works — Interactive walkthrough"
         description="A complete production order from finding your factory to closing the delivery. See every step before you sign up."
       />
 
@@ -506,7 +506,7 @@ export default function Walkthrough() {
               Everything else on the platform.
             </h2>
             <p className="text-muted-foreground leading-relaxed max-w-2xl">
-              The production order walkthrough above is the core. Around it, Sourcery is building the full infrastructure layer for physical product brands.
+              The production order walkthrough above is the core. Around it, Ariadne is building the full infrastructure layer for physical product brands.
             </p>
           </motion.div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">

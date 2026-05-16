@@ -33,8 +33,8 @@ const articles: Record<string, {
         body: "AQL 2.5 is the industry standard for most garment production and the right starting point for most brands.\n\nUse AQL 1.5 when: you're producing premium or technical product where quality consistency is central to your brand promise, or when previous orders with this factory have shown recurring issues.\n\nUse AQL 4.0 when: you're producing basics or commodity product where price is the priority and minor variations are acceptable. Not recommended for branded product.\n\nNever use AQL 0.65 in a standard garment context — it requires inspecting almost the entire batch and drives up QC cost without proportional benefit unless you're producing medical or safety-critical products.",
       },
       {
-        heading: "What Sourcery does",
-        body: "When you create an order on Sourcery, the AQL selector explains what each level means before you commit — including how many units will be inspected and what defect count will trigger a failure. The QC gate on the final payment milestone is set to the AQL level you chose at order creation. You can't accidentally accept a failing inspection without explicitly overriding the gate.",
+        heading: "What Ariadne does",
+        body: "When you create an order on Ariadne, the AQL selector explains what each level means before you commit — including how many units will be inspected and what defect count will trigger a failure. The QC gate on the final payment milestone is set to the AQL level you chose at order creation. You can't accidentally accept a failing inspection without explicitly overriding the gate.",
       },
     ],
     takeaway: "Default to AQL 2.5 for most garment production. Tighten to 1.5 for premium product or repeat-problem factories. Always distinguish between critical, major, and minor defects — and make sure your factory knows which defect types your AQL threshold applies to.",
@@ -88,7 +88,7 @@ const articles: Record<string, {
       },
       {
         heading: "What you can control",
-        body: "You can't control what happens at the yarn mill. You can control the handoffs that touch your order directly.\n\nBetween trim supplier and garment factory: require confirmed receipt from the factory before production begins. Sourcery's multi-supplier coordination feature makes this a formal platform gate — both parties confirm, both are on record.\n\nBetween factory and QC inspection: use a third-party QC agency you book directly, not one the factory recommends. Receive the report directly before releasing any payment.\n\nBetween factory and freight forwarder: require a packing list that matches your PO quantity before goods leave the factory. Check it against what arrives.\n\nBetween freight forwarder and customs: verify your HTS codes before shipment, not after. Have your freight documents ready before goods arrive at the port.",
+        body: "You can't control what happens at the yarn mill. You can control the handoffs that touch your order directly.\n\nBetween trim supplier and garment factory: require confirmed receipt from the factory before production begins. Ariadne's multi-supplier coordination feature makes this a formal platform gate — both parties confirm, both are on record.\n\nBetween factory and QC inspection: use a third-party QC agency you book directly, not one the factory recommends. Receive the report directly before releasing any payment.\n\nBetween factory and freight forwarder: require a packing list that matches your PO quantity before goods leave the factory. Check it against what arrives.\n\nBetween freight forwarder and customs: verify your HTS codes before shipment, not after. Have your freight documents ready before goods arrive at the port.",
       },
     ],
     takeaway: "The handoffs you don't manage are the ones that cost you. The trim-to-factory handoff, the QC step, and the packing list verification are the three you can control directly — and the three most brands leave to chance.",
@@ -413,7 +413,7 @@ export default function ResourceArticle() {
   return (
     <Layout>
       <SEO
-        title={`${article.title} — Sourcery Resources`}
+        title={`${article.title} — Ariadne Resources`}
         description={article.intro.slice(0, 155)}
       />
 
@@ -503,7 +503,7 @@ export default function ResourceArticle() {
 
                 <div className="p-4 rounded-xl bg-card border border-border">
                   <p className="text-sm font-semibold text-foreground mb-2">Put this into practice</p>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-3">Sourcery enforces the structure this guide describes — AQL gates, milestone payments, revision rounds. Your first order is free.</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-3">Ariadne enforces the structure this guide describes — AQL gates, milestone payments, revision rounds. Your first order is free.</p>
                   <Link to="/auth?mode=signup">
                     <Button size="sm" className="w-full gap-1.5 text-xs">Start free <ArrowRight className="h-3 w-3" /></Button>
                   </Link>

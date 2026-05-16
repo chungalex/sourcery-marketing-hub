@@ -11,19 +11,19 @@ const faqSections = [
     title: "The basics",
     faqs: [
       {
-        q: "What is Sourcery?",
+        q: "What is Ariadne?",
         a: "A manufacturing operating system for physical product brands. It replaces fragmented email chains, file-sharing links, and bank wire coordination with a single system where every order, revision, sample, QC report, and payment is documented and traceable.",
       },
       {
-        q: "Who built Sourcery?",
-        a: "Sourcery was built by operators with direct experience on both sides of manufacturing — as brands managing production and as manufacturers supplying them. Every feature exists because we encountered the problem it solves.",
+        q: "Who built Ariadne?",
+        a: "Ariadne was built by operators with direct experience on both sides of manufacturing — as brands managing production and as manufacturers supplying them. Every feature exists because we encountered the problem it solves.",
       },
       {
-        q: "Is Sourcery an agency or a platform?",
-        a: "A platform. Sourcery doesn't manage your factory relationships, negotiate on your behalf, or intervene in production. It gives you the structure, documentation, and milestone gate enforcement to manage your own production — with accountability built into every stage.",
+        q: "Is Ariadne an agency or a platform?",
+        a: "A platform. Ariadne doesn't manage your factory relationships, negotiate on your behalf, or intervene in production. It gives you the structure, documentation, and milestone gate enforcement to manage your own production — with accountability built into every stage.",
       },
       {
-        q: "What types of products does Sourcery support?",
+        q: "What types of products does Ariadne support?",
         a: "Apparel, accessories, bags, footwear, home goods, and most soft goods categories. The order management, sampling, and QC workflow applies to any physical product manufactured in runs.",
       },
     ],
@@ -65,14 +65,14 @@ const faqSections = [
       },
       {
         q: "What if there are quality issues?",
-        a: "The QC gate blocks final payment until you approve the inspection result. If goods arrive with defects, you have a documented record of what was agreed and what was delivered — every spec, revision, and message is attached to the order. You can file a formal defect report, withhold the final milestone, and negotiate from a position of documented evidence. Sourcery provides the structure and the record — not the ruling. How QC is conducted is your choice: a third-party inspector you book directly (SGS, QIMA, Bureau Veritas), factory self-reporting with structured photo evidence, or a Sourcery arrival checklist when goods reach you."
+        a: "The QC gate blocks final payment until you approve the inspection result. If goods arrive with defects, you have a documented record of what was agreed and what was delivered — every spec, revision, and message is attached to the order. You can file a formal defect report, withhold the final milestone, and negotiate from a position of documented evidence. Ariadne provides the structure and the record — not the ruling. How QC is conducted is your choice: a third-party inspector you book directly (SGS, QIMA, Bureau Veritas), factory self-reporting with structured photo evidence, or a Ariadne arrival checklist when goods reach you."
       },
       {
         q: "How long does the process take?",
         a: "If you're using BYOF, you can have an order created in under 10 minutes. For new factory matching through the network, timing depends on factory response and your category. The platform doesn't add process time — it replaces the unstructured coordination that typically causes delays.",
       },
       {
-        q: "Does Sourcery handle shipping and logistics?",
+        q: "Does Ariadne handle shipping and logistics?",
         a: "Not currently. Shipping is coordinated between you and your factory or freight forwarder. The platform tracks order status through to shipped and closed, and shipment documentation can be uploaded to the order record. Logistics integration is on the roadmap.",
       },
       {
@@ -102,7 +102,7 @@ const faqSections = [
     faqs: [
       {
         q: "Does joining the network cost anything?",
-        a: "No. Network membership is free. Sourcery charges brands a subscription fee — factories join and use the full platform at no cost.",
+        a: "No. Network membership is free. Ariadne charges brands a subscription fee — factories join and use the full platform at no cost.",
       },
       {
         q: "I was invited by a brand — do I need to apply to the network?",
@@ -126,8 +126,8 @@ const faqSections = [
     title: "Pricing",
     faqs: [
       {
-        q: "How much does Sourcery cost?",
-        a: "Sourcery offers a free first order, a one-off option at $79/order, and annual subscriptions — Builder at $399/year and Pro at $699/year. Your first order is always free, no credit card required. See the full breakdown on the pricing page.",
+        q: "How much does Ariadne cost?",
+        a: "Ariadne offers a free first order, a one-off option at $79/order, and annual subscriptions — Builder at $399/year and Pro at $699/year. Your first order is always free, no credit card required. See the full breakdown on the pricing page.",
       },
       {
         q: "What does a subscription include?",
@@ -148,7 +148,7 @@ const faqSections = [
       },
       {
         q: "Does the factory matcher use real data?",
-        a: "Yes. It queries real factory rows in the Sourcery database — if no factories match your criteria, it returns an empty state with suggestions. It never generates fictional results.",
+        a: "Yes. It queries real factory rows in the Ariadne database — if no factories match your criteria, it returns an empty state with suggestions. It never generates fictional results.",
       },
       {
         q: "How does the AI get better over time?",
@@ -162,8 +162,8 @@ export default function FAQ() {
   return (
     <Layout>
       <SEO
-        title="FAQ — Sourcery"
-        description="Common questions about Sourcery — pricing, how it works, factory vetting, BYOF, and the AI toolkit."
+        title="FAQ — Ariadne"
+        description="Common questions about Ariadne — pricing, how it works, factory vetting, BYOF, and the AI toolkit."
       />
 
       <section className="section-padding bg-[var(--hero-gradient)]">

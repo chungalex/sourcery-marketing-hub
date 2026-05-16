@@ -50,7 +50,7 @@ export function OrderExport({ order, isPro = false }: OrderExportProps) {
         .select("defect_type, severity, quantity_affected, notes, created_at")
         .eq("order_id", order.id);
 
-      const displayBrand = isPro && brandName.trim() ? brandName.trim() : "Sourcery";
+      const displayBrand = isPro && brandName.trim() ? brandName.trim() : "Ariadne";
       const currSym = order.currency === "EUR" ? "€" : order.currency === "GBP" ? "£" : order.currency === "CNY" ? "¥" : "$";
       const total = order.quantity * order.unit_price;
 
@@ -143,7 +143,7 @@ ${(messages as any[])?.length > 0 ? `
 </div>` : ""}
 
 <div class="footer">
-  <p>This document was generated from ${isPro && brandName ? brandName : "Sourcery"} — production management platform.</p>
+  <p>This document was generated from ${isPro && brandName ? brandName : "Ariadne"} — production management platform.</p>
   <p>Order ${order.order_number} — ${format(new Date(), "MMM d, yyyy HH:mm")}</p>
 </div>
 </body>

@@ -114,7 +114,7 @@ const GUIDANCE = [
 
 // ─── Intelligence stats ───────────────────────────────────────────────────────
 const INTEL_STATS = [
-  { n: "$5K–$20K", l: "Average cost of one missed season", sub: "Sourcery Growth: $399/year" },
+  { n: "$5K–$20K", l: "Average cost of one missed season", sub: "Ariadne Growth: $399/year" },
   { n: "94%", l: "OTIF — HU LA Studios, HCMC", sub: "From 12 verified completed orders" },
   { n: "14.2wks", l: "Real avg lead time — verified", sub: "Not what the factory claims" },
   { n: "6 gates", l: "Auto-calculated from delivery date", sub: "Backward scheduling, no setup" },
@@ -135,8 +135,8 @@ export default function Home() {
   return (
     <Layout>
       <SEO
-        title="Sourcery — The factory relationship infrastructure for physical product brands"
-        description="Find the right manufacturer. Verify them properly. Run every order with professional infrastructure. Everything your factory relationship needs — in one place."
+        title="Ariadne — The thread through your manufacturing labyrinth"
+        description="Ariadne gives brands the thread to navigate overseas manufacturing. Find factories, run structured orders, protect every payment. The infrastructure the whole category was missing."
         canonical="/"
       />
 
@@ -146,7 +146,7 @@ export default function Home() {
           <div className="max-w-4xl">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-5">
-                Factory relationship infrastructure
+                The thread through your manufacturing labyrinth
               </p>
               <h1 className="font-heading text-5xl md:text-6xl font-bold text-foreground leading-[1.06] mb-6">
                 Everything your factory<br className="hidden md:block" />
@@ -210,7 +210,7 @@ export default function Home() {
               We built the infrastructure<br className="hidden md:block" /> for every part of it.
             </h2>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              Don't have a factory. Have one you're not sure about. Have one you trust. Whatever your situation — Sourcery handles it.
+              Don't have a factory. Have one you're not sure about. Have one you trust. Whatever your situation — Ariadne handles it.
             </p>
           </motion.div>
 
@@ -268,7 +268,7 @@ export default function Home() {
                 You'll never miss a step.<br />Or a beat.
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                Most brands learn production by making expensive mistakes. Sourcery tells you what to do before you need to ask — the questions to raise, the steps in the right order, the decisions that matter and why.
+                Most brands learn production by making expensive mistakes. Ariadne tells you what to do before you need to ask — the questions to raise, the steps in the right order, the decisions that matter and why.
               </p>
               <p className="text-base text-muted-foreground leading-relaxed mb-6">
                 At every stage of every order, the platform surfaces the guidance an experienced sourcing director would give you. Not in a help article. Not in a FAQ. Right there, in context, when the decision is being made.
@@ -396,8 +396,8 @@ export default function Home() {
           <div className="max-w-3xl mx-auto">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
               <div>
-                <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-1">Live on Sourcery</p>
-                <h2 className="text-xl font-bold text-foreground">OKIO Denim runs every production run on Sourcery.</h2>
+                <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-1">Live on Ariadne</p>
+                <h2 className="text-xl font-bold text-foreground">OKIO Denim runs every production run on Ariadne.</h2>
               </div>
               <Link to="/case-studies" className="text-sm text-primary font-medium whitespace-nowrap hover:underline flex-shrink-0">
                 Read the case study →
@@ -468,7 +468,7 @@ export default function Home() {
               Start where you are.
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Whatever your factory situation — Sourcery handles it. Free for your first order. The full platform available from day one.
+              Whatever your factory situation — Ariadne handles it. Free for your first order. The full platform available from day one.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild size="lg" className="gap-2">

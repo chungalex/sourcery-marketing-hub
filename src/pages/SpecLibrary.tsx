@@ -82,7 +82,7 @@ export default function SpecLibrary() {
 
   return (
     <Layout>
-      <SEO title="Spec Library — Sourcery" description="Save and reuse product specs across orders." />
+      <SEO title="Spec Library — Ariadne" description="Save and reuse product specs across orders." />
       <section className="section-padding">
         <div className="container-wide max-w-3xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>

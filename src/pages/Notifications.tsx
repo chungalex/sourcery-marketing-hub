@@ -98,7 +98,7 @@ export default function Notifications() {
 
   return (
     <Layout>
-      <SEO title="Notifications — Sourcery" description="Your notification history." />
+      <SEO title="Notifications — Ariadne" description="Your notification history." />
       <section className="section-padding">
         <div className="container-wide max-w-2xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>

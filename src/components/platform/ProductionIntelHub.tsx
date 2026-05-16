@@ -230,7 +230,7 @@ export function ProductionIntelHub({ userId }: ProductionIntelHubProps) {
       </div>
 
       <p className="text-xs text-muted-foreground mt-2 text-center">
-        Intelligence is calculated from your order history on Sourcery
+        Intelligence is calculated from your order history on Ariadne
       </p>
     </div>
   );

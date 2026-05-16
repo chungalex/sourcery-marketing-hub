@@ -10,7 +10,7 @@ import HowItWorks from "./pages/HowItWorks";
 import Brands from "./pages/Brands";
 import Factories from "./pages/Factories";
 import Pricing from "./pages/Pricing";
-import WhySourcery from "./pages/WhySourcery";
+import WhyAriadne from "./pages/WhyAriadne";
 import Notifications from "./pages/Notifications";
 import FactoryCompare from "./pages/FactoryCompare";
 import ProductionCalendar from "./pages/ProductionCalendar";
@@ -73,7 +73,7 @@ const App = () => (
             <Route path="/brands" element={<Brands />} />
             <Route path="/factories" element={<Factories />} />
             <Route path="/pricing" element={<Pricing />} />
-            <Route path="/why-sourcery" element={<WhySourcery />} />
+            <Route path="/why-ariadne" element={<WhyAriadne />} />
             <Route path="/consulting" element={<Consulting />} />
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/about" element={<About />} />

@@ -275,7 +275,7 @@ export default function BrandDashboard() {
     <>
     <UpgradePrompt open={showUpgrade} onClose={() => setShowUpgrade(false)} reason="second_order" />
     <Layout>
-      <SEO title="Your orders — Sourcery" description="Every active order, factory relationship, and production milestone in one place." />
+      <SEO title="Your orders — Ariadne" description="Every active order, factory relationship, and production milestone in one place." />
       <section className="section-padding">
         <div className="container-wide">
 
@@ -490,7 +490,7 @@ export default function BrandDashboard() {
                   {/* Personalised roadmap based on factory situation */}
                   {user && <PersonalisedDashboard userId={user.id} />}
                   <div className="p-5 rounded-xl bg-card border border-border">
-                    <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">How Sourcery works</p>
+                    <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">How Ariadne works</p>
                     <div className="space-y-4">
                       {[
                         {
@@ -560,7 +560,7 @@ export default function BrandDashboard() {
                     </div>
                   ))}
                   <Button variant="outline" className="w-full" asChild>
-                    <Link to="/directory"><Search className="mr-2 h-4 w-4" />Browse Sourcery network</Link>
+                    <Link to="/directory"><Search className="mr-2 h-4 w-4" />Browse Ariadne network</Link>
                   </Button>
                 </>
               ) : (
@@ -688,19 +688,19 @@ export default function BrandDashboard() {
 
                   <div className="border-t border-border pt-6">
                     <h4 className="text-sm font-medium text-foreground mb-1">Refer a brand founder</h4>
-                    <p className="text-xs text-muted-foreground mb-3">Share Sourcery with another founder. They get their first order free — same as you did.</p>
+                    <p className="text-xs text-muted-foreground mb-3">Share Ariadne with another founder. They get their first order free — same as you did.</p>
                     <div className="flex gap-2">
                       <input
                         type="text"
                         readOnly
-                        value={`https://sourcery.so/auth?mode=signup&ref=${user?.id?.slice(0,8) || "sourcery"}`}
+                        value={`https://ariadne.io/auth?mode=signup&ref=${user?.id?.slice(0,8) || "ariadne"}`}
                         className="flex-1 text-xs px-3 py-2 rounded-lg border border-border bg-muted text-muted-foreground"
                       />
                       <Button
                         size="sm"
                         variant="outline"
                         onClick={() => {
-                          navigator.clipboard.writeText(`https://sourcery.so/auth?mode=signup&ref=${user?.id?.slice(0,8) || "sourcery"}`);
+                          navigator.clipboard.writeText(`https://ariadne.io/auth?mode=signup&ref=${user?.id?.slice(0,8) || "ariadne"}`);
                           toast.success("Link copied");
                         }}
                       >

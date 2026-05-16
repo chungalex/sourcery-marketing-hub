@@ -1,5 +1,5 @@
 # SOURCERY SESSION LOG
-*Read this + SOURCERY_DOCTRINE.md at the start of every session.*
+*Read this + ARIADNE_DOCTRINE.md at the start of every session.*
 *Overwrite this file at the end of every session.*
 *Last updated: 2026-05-16 — Session 12*
 
@@ -21,7 +21,7 @@
 - Analytics + Compliance added to app nav
 - FAQ tier names updated: Builder→Growth, Pro→Scale
 - Onboarding Step 2: "What's your factory situation?" + three situations
-- SOURCERY_DOCTRINE.md created at repo root
+- ARIADNE_DOCTRINE.md created at repo root
 
 ### Session 13 — Tier 1 complete
 - orderStageConfig.ts: every status mapped to exact components
@@ -111,7 +111,7 @@
       Auto-updated when order closes: actual lead time, defects, revision rounds
       Manually editable: quirks, contacts, lessons learned
 - [ ] 2.3 WhatsApp ingestion (3-4 weeks)
-      Forward thread to Sourcery email → AI extracts decisions → confirm as change orders
+      Forward thread to Ariadne email → AI extracts decisions → confirm as change orders
       Biggest factory adoption barrier removed
 - [ ] 2.4 Due diligence checklist in factory selection (1-2 days)
       Inline prompt when viewing factory profile or typing BYOF invite
@@ -153,8 +153,8 @@
 3. Post one Vietnam/tariff LinkedIn article (specific, operational, no product pitch)
 
 **This month:**
-4. Register Sourcery trademark USPTO ~$350
-5. Incorporate Sourcery as separate legal entity (Delaware LLC minimum)
+4. Register Ariadne trademark USPTO ~$350
+5. Incorporate Ariadne as separate legal entity (Delaware LLC minimum)
 6. Set up Zalo OA Token for Vietnam factory notifications
 7. Sign up for Shopify Partner account (needed for App Store later)
 

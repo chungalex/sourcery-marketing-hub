@@ -31,7 +31,7 @@ function getChecklist(incoterms: string, destination: string): CheckItem[] {
       { id: "freight_fwd", label: "Freight forwarder booked", description: "You arrange ocean freight on FOB terms. Confirm booking and get B/L number.", required: true, done: false },
     ] : []),
     // Optional quality
-    { id: "qc_report", label: "QC inspection report", description: "Third-party or Sourcery-documented QC results. Not legally required but strongly recommended.", required: false, done: false },
+    { id: "qc_report", label: "QC inspection report", description: "Third-party or Ariadne-documented QC results. Not legally required but strongly recommended.", required: false, done: false },
     { id: "fta_cert", label: "FTA certificate (if applicable)", description: "For CPTPP preferential rates to UK/AU/CA: Form D or certified origin declaration.", required: false, done: false },
   ];
 }

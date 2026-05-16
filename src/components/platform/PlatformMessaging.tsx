@@ -292,7 +292,7 @@ export function PlatformMessaging({ orderId, inquiryId, rfqId, title, className 
           </Button>
         </div>
         <p className="text-xs text-muted-foreground mt-1.5">
-          Messages are visible to both parties and Sourcery support. Cmd+Enter to send.
+          Messages are visible to both parties and Ariadne support. Cmd+Enter to send.
         </p>
       </div>
     </div>

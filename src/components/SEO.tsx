@@ -10,11 +10,11 @@ interface SEOProps {
 }
 
 const defaults = {
-  title: "Sourcery | Premium Manufacturing Sourcing for Modern Brands",
+  title: "Ariadne | Premium Manufacturing Sourcing for Modern Brands",
   description:
     "From factory vetting to final delivery. We handle sourcing, quality control, and production tracking so you can focus on building your brand.",
   ogImage: "/og-image.jpg",
-  siteUrl: "https://sourcery.com",
+  siteUrl: "https://ariadne.com",
 };
 
 export function SEO({
@@ -43,7 +43,7 @@ export function SEO({
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={imageUrl} />
-      <meta property="og:site_name" content="Sourcery" />
+      <meta property="og:site_name" content="Ariadne" />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />

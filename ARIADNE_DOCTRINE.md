@@ -388,3 +388,30 @@ Why: Personal authority on LinkedIn outperforms brand authority for early-stage 
 - Not just for Vietnam — though Vietnam-native is a key advantage
 - Not a general workspace/productivity tool — features only inside manufacturing workflow
 
+
+---
+
+## THE ARIADNE BRAND
+
+**The name:** Ariadne — from Greek mythology.
+
+**The myth:** Ariadne gave Theseus the thread (the "clew") to navigate the Labyrinth. Without it he enters a complex, opaque, potentially deadly system and gets lost. With the thread he navigates successfully, defeats the threat, and comes out the other side.
+
+**The metaphor:**
+- The labyrinth = overseas manufacturing. Complex, opaque, full of invisible risks.
+- The thread = Ariadne guidance layer. Intelligence, structure, protection, documentation.
+- Theseus = the brand founder. Brave enough to enter, needs the thread to succeed.
+
+**The triple meaning of "the thread":**
+1. Actual thread — the material everything is made from. Textile-native.
+2. The thread you follow through production — critical path, milestone sequence.
+3. Ariadne thread through the labyrinth — intelligence that makes navigation possible.
+
+**The brand line:** "The thread through your manufacturing labyrinth."
+**The one sentence:** "Ariadne gives brands the thread to navigate overseas manufacturing."
+
+**Domain target:** ariadne.io (confirm availability)
+**Previous name:** Sourcery (cannot use — trademark/domain taken)
+**Why Ariadne over alternatives:** Ariad feels truncated. Clew is clever but nobody asks what it means. Ariadne creates the story moment every time.
+
+---

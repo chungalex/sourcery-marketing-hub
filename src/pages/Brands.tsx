@@ -9,8 +9,8 @@ export default function Brands() {
   return (
     <Layout>
       <SEO
-        title="For Brands — Sourcery"
-        description="Production is hard to start and just as hard to scale. Sourcery is the marketplace to find the right factory and the OS to manage every order — first-time founders to experienced operators."
+        title="For Brands — Ariadne"
+        description="Production is hard to start and just as hard to scale. Ariadne is the marketplace to find the right factory and the OS to manage every order — first-time founders to experienced operators."
       />
 
       {/* Hero */}
@@ -28,7 +28,7 @@ export default function Brands() {
                 Whether you're finding your first factory or replacing one that's let you down — whether you're placing your first order or running multiple production lines — the underlying problem is the same: production runs on tools that weren't built for it.
               </p>
               <p className="text-base font-medium text-foreground mb-8 max-w-2xl">
-                Sourcery is the infrastructure it's always needed.
+                Ariadne is the infrastructure it's always needed.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/auth?mode=signup">
@@ -50,7 +50,7 @@ export default function Brands() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
             <h2 className="font-heading text-3xl font-bold text-foreground mb-3">Two problems. One platform.</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Finding the right factory and managing every order properly are both hard. Sourcery is built to solve both — and the two halves work seamlessly together.
+              Finding the right factory and managing every order properly are both hard. Ariadne is built to solve both — and the two halves work seamlessly together.
             </p>
           </motion.div>
           <div className="grid md:grid-cols-2 gap-5">
@@ -64,7 +64,7 @@ export default function Brands() {
               </div>
               <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Find the right factory before you commit to anything.</h3>
               <p className="text-muted-foreground leading-relaxed mb-4 flex-1">
-                The biggest fear in sourcing is locking in capital before you know if the factory is right. Sourcery shows you verified credentials, certifications, and a performance record that builds with every order — before you reach out, before you wire a deposit.
+                The biggest fear in sourcing is locking in capital before you know if the factory is right. Ariadne shows you verified credentials, certifications, and a performance record that builds with every order — before you reach out, before you wire a deposit.
               </p>
               <div className="space-y-2 mb-5">
                 {[
@@ -131,7 +131,7 @@ Bring your existing manufacturer or find one in the marketplace. Either way, you
                 You shouldn't have to figure this out alone.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Production has its own language and its own process — incoterms, AQL standards, sampling gates, revision rounds. Sourcery explains every decision before you make it, walks you through every stage, and gives you a vetted factory network to start from if you don't have one.
+                Production has its own language and its own process — incoterms, AQL standards, sampling gates, revision rounds. Ariadne explains every decision before you make it, walks you through every stage, and gives you a vetted factory network to start from if you don't have one.
               </p>
               <p className="text-sm text-muted-foreground italic">"Every decision is explained before you commit. You start with the same information an experienced buyer has."</p>
             </motion.div>
@@ -156,7 +156,7 @@ Bring your existing manufacturer or find one in the marketplace. Either way, you
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
             <h2 className="font-heading text-3xl font-bold text-foreground mb-3">Four things every production run needs.</h2>
             <p className="text-muted-foreground max-w-lg mx-auto">
-              Sourcing overseas opens up your quality and your margins. It also introduces uncertainty most brands manage badly. Sourcery closes that gap.
+              Sourcing overseas opens up your quality and your margins. It also introduces uncertainty most brands manage badly. Ariadne closes that gap.
             </p>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -234,9 +234,9 @@ Bring your existing manufacturer or find one in the marketplace. Either way, you
       <section className="section-padding">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-card border border-border">
-            <h2 className="font-heading text-xl font-bold text-foreground mb-4">What Sourcery is — and isn't</h2>
+            <h2 className="font-heading text-xl font-bold text-foreground mb-4">What Ariadne is — and isn't</h2>
             <p className="text-muted-foreground leading-relaxed mb-3">
-              Sourcery is a platform, not an agent. We don't manage your factory relationships, negotiate on your behalf, or intervene in production. What we do is give every order the structure, documentation, and gate enforcement that most brands only discover they needed after learning the hard way.
+              Ariadne is a platform, not an agent. We don't manage your factory relationships, negotiate on your behalf, or intervene in production. What we do is give every order the structure, documentation, and gate enforcement that most brands only discover they needed after learning the hard way.
             </p>
             <p className="text-sm text-muted-foreground">The system works best when both parties use it properly — orders created formally, communication on-platform, revision rounds acknowledged. The more you put in, the stronger your paper trail.</p>
           </motion.div>

@@ -4,11 +4,11 @@ import { SEO } from "@/components/SEO";
 const sections = [
   {
     title: "Acceptance of Terms",
-    content: `By accessing and using Sourcery's services, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to these terms, please do not use our services.`,
+    content: `By accessing and using Ariadne's services, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to these terms, please do not use our services.`,
   },
   {
     title: "Description of Services",
-    content: `Sourcery is a manufacturing operating system for physical product brands. Our services include:
+    content: `Ariadne is a manufacturing operating system for physical product brands. Our services include:
 
 • A structured order management system for production runs
 • A factory marketplace connecting brands with evaluated manufacturers
@@ -60,24 +60,24 @@ const sections = [
   },
   {
     title: "Intellectual Property",
-    content: `All content, trademarks, and intellectual property on our platform remain the property of Sourcery or respective owners. Users retain ownership of their product designs and specifications shared through our platform.`,
+    content: `All content, trademarks, and intellectual property on our platform remain the property of Ariadne or respective owners. Users retain ownership of their product designs and specifications shared through our platform.`,
   },
   {
     title: "Client Due Diligence & Responsibility",
-    content: `While Sourcery works diligently to vet and curate our factory network, all manufacturing partnerships formed through our platform are ultimately the client's responsibility. By using our services, you acknowledge and agree that:
+    content: `While Ariadne works diligently to vet and curate our factory network, all manufacturing partnerships formed through our platform are ultimately the client's responsibility. By using our services, you acknowledge and agree that:
 
 • You are responsible for conducting your own due diligence before entering into any manufacturing agreement
 • Factory profiles, certifications, and capabilities should be independently verified before committing to production
 • Sample orders and trial runs are strongly recommended before placing large orders
 • Any tools, calculators, or estimates provided on our platform are for informational purposes only and should be fact-checked
-• Sourcery does not guarantee the accuracy of factory-provided information or third-party data
+• Ariadne does not guarantee the accuracy of factory-provided information or third-party data
 • You should seek professional advice for legal, financial, and compliance matters
 
 We encourage all clients to visit factories in person when possible, request references, and start with smaller orders to build trust with new manufacturing partners.`,
   },
   {
     title: "Limitation of Liability",
-    content: `Sourcery acts as a facilitator between brands and factories. While we vet our factory partners and provide quality control services, we are not liable for:
+    content: `Ariadne acts as a facilitator between brands and factories. While we vet our factory partners and provide quality control services, we are not liable for:
 
 • Manufacturing defects beyond our inspection scope
 • Delays caused by factory partners or shipping
@@ -99,7 +99,7 @@ The arbitration shall be conducted in San Francisco, California.`,
   },
   {
     title: "Indemnification",
-    content: `You agree to indemnify and hold harmless Sourcery, its officers, directors, employees, and agents from any claims, damages, losses, liabilities, costs, or expenses (including reasonable attorney's fees) arising from:
+    content: `You agree to indemnify and hold harmless Ariadne, its officers, directors, employees, and agents from any claims, damages, losses, liabilities, costs, or expenses (including reasonable attorney's fees) arising from:
 
 • Your use of the platform or services
 • Your violation of these Terms of Service
@@ -109,7 +109,7 @@ The arbitration shall be conducted in San Francisco, California.`,
   },
   {
     title: "Termination",
-    content: `Sourcery reserves the right to suspend or terminate your account at any time for:
+    content: `Ariadne reserves the right to suspend or terminate your account at any time for:
 
 • Violation of these Terms of Service
 • Fraudulent or illegal activity
@@ -130,7 +130,7 @@ Upon termination, you must settle any outstanding payments. Access to platform f
     title: "Contact Information",
     content: `For questions about these Terms of Service, please contact:
 
-Email: legal@sourcery.com
+Email: legal@ariadne.com
 Address: contact us through the platform`,
   },
 ];
@@ -139,8 +139,8 @@ export default function Terms() {
   return (
     <Layout>
       <SEO
-        title="Terms of Service | Sourcery"
-        description="Read the terms and conditions governing your use of Sourcery's manufacturing sourcing platform and services."
+        title="Terms of Service | Ariadne"
+        description="Read the terms and conditions governing your use of Ariadne's manufacturing sourcing platform and services."
         canonical="/terms"
       />
       
@@ -157,7 +157,7 @@ export default function Terms() {
           
           <div className="prose prose-neutral max-w-none">
             <p className="text-lg text-muted-foreground mb-8">
-              These Terms of Service govern your use of Sourcery's platform and services. Please read them carefully before using our services.
+              These Terms of Service govern your use of Ariadne's platform and services. Please read them carefully before using our services.
             </p>
             
             <div className="space-y-10">

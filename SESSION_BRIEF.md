@@ -2,7 +2,7 @@
 ## Single source of current build state — updated every session
 
 *This file is overwritten at the end of every session.*
-*Read this + SOURCERY_DOCTRINE.md at the start of every session before touching any code.*
+*Read this + ARIADNE_DOCTRINE.md at the start of every session before touching any code.*
 *Last updated: 2026-05-16*
 
 ---
@@ -16,7 +16,7 @@
 - Three situations: Don't have a factory / Have one not sure / Have one I trust
 
 **All marketing pages** — new positioning applied
-- WhySourcery, Features, About, HowItWorks, Factories, CaseStudies, Brands, Intelligence, Alternatives, Auth, Footer — all updated
+- WhyAriadne, Features, About, HowItWorks, Factories, CaseStudies, Brands, Intelligence, Alternatives, Auth, Footer — all updated
 - Old: supply chain tools / enterprise tools / manufacturing OS
 - New: factory relationship infrastructure / the category was missing
 
@@ -35,7 +35,7 @@
 - Before: "Where are you in your journey?" + 4 generic options
 - After: "What's your factory situation?" + 3 situations with sub-descriptions
 
-**SOURCERY_DOCTRINE.md** — created at repo root
+**ARIADNE_DOCTRINE.md** — created at repo root
 - Complete positioning history and why each phase changed
 - What we do/don't do (payments, verification, exports)
 - Tier features and pricing
@@ -45,7 +45,7 @@
 
 ### Session: AI features + personalised dashboard
 **PersonalisedDashboard.tsx** — new component
-- Before: Every new user sees same generic "How Sourcery works" card
+- Before: Every new user sees same generic "How Ariadne works" card
 - After: Three distinct roadmaps based on factory situation from onboarding
   - no_factory: 5-step find-a-factory roadmap
   - not_sure: 5-step verify-and-protect roadmap  
@@ -85,7 +85,7 @@
 - MessageDrafter: English + Vietnamese drafting ✓
 - Homepage: new positioning, three situations, guidance layer ✓
 - All marketing pages: new positioning ✓
-- SOURCERY_DOCTRINE.md: created ✓
+- ARIADNE_DOCTRINE.md: created ✓
 
 ### What is NOT working / not real yet:
 - Factory directory: empty (needs HU LA Studios added) ✗
@@ -156,7 +156,7 @@
 ### NEVER BUILD — confirmed decisions
 - ✗ Escrow / payment processing
 - ✗ QC coordination as a service
-- ✗ Hands-on managed operations beyond Sourcery Managed
+- ✗ Hands-on managed operations beyond Ariadne Managed
 - ✗ Competitor names on website
 - ✗ Aggregate platform stats before real orders exist
 - ✗ General workspace unconnected to manufacturing workflow
@@ -166,8 +166,8 @@
 - [ ] Post weekly operational content from Alex's personal account
 - [ ] Document OKIO case study with real numbers
 - [ ] Set up Zalo OA for factory notifications (ZALO_OA_TOKEN)
-- [ ] Register Sourcery trademark USPTO ~$350
-- [ ] Incorporate Sourcery as separate legal entity
+- [ ] Register Ariadne trademark USPTO ~$350
+- [ ] Incorporate Ariadne as separate legal entity
 - [ ] Rewrite features page around problem moments not feature categories
 - [ ] Add specific AI story to homepage (what it caught, what it prevented)
 - [ ] Sharpen pricing page around what each tier prevents, not what it includes
@@ -176,7 +176,7 @@
 
 ## 4. CONFIRMED DECISIONS THIS SESSION
 
-- Revenue model: SaaS + Sourcery Managed + future GMV fee + future data product
+- Revenue model: SaaS + Ariadne Managed + future GMV fee + future data product
 - No QC coordination service (not hands-on)
 - No escrow / milestone-gated payments only
 - Three situations as core navigation framework
@@ -189,7 +189,7 @@
 
 ## 5. FIRST ACTION NEXT SESSION
 
-Read SESSION_BRIEF.md and SOURCERY_DOCTRINE.md first.
+Read SESSION_BRIEF.md and ARIADNE_DOCTRINE.md first.
 Then start with: **1.1 Status-based OrderDetail rendering** — highest UX impact, unblocks everything else.
 Token for push: ghp_REDACTED
 
