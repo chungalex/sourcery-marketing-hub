@@ -148,7 +148,7 @@ export default function Home() {
               <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-5">
                 The thread through your manufacturing labyrinth
               </p>
-              <h1 className="font-heading text-5xl md:text-6xl font-bold text-foreground leading-[1.06] mb-6">
+              <h1 className="font-display text-5xl md:text-6xl font-normal text-foreground leading-[1.1] mb-6">
                 Everything your factory<br className="hidden md:block" />
                 relationship needs.
               </h1>
@@ -206,7 +206,7 @@ export default function Home() {
             <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">
               However you work with factories
             </p>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="font-display text-3xl md:text-4xl font-normal text-foreground mb-4">
               We built the infrastructure<br className="hidden md:block" /> for every part of it.
             </h2>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
@@ -264,7 +264,7 @@ export default function Home() {
               <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">
                 Built-in guidance
               </p>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-5 leading-tight">
+              <h2 className="font-display text-3xl md:text-4xl font-normal text-foreground mb-5 leading-tight">
                 You'll never miss a step.<br />Or a beat.
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4">
@@ -319,7 +319,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-widest mb-4 text-background/50">
                 Financial protection
               </p>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold mb-5 leading-tight text-background">
+              <h2 className="font-display text-3xl md:text-4xl font-normal mb-5 leading-tight text-background">
                 Your money never moves<br />without your approval.
               </h2>
               <p className="text-lg leading-relaxed text-background/70 mb-4">
@@ -464,7 +464,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="font-display text-3xl md:text-4xl font-normal text-foreground mb-4">
               Start where you are.
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">

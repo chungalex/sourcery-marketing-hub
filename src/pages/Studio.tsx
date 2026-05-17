@@ -43,7 +43,7 @@ export default function Studio() {
         <div className="container max-w-3xl">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">Clewa Studio</p>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+            <h1 className="font-display text-4xl md:text-5xl font-normal text-foreground mb-6 leading-tight">
               Your production, managed.<br className="hidden md:block" /> End to end.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">

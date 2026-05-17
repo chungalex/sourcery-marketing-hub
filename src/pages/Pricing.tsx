@@ -173,7 +173,7 @@ export default function Pricing() {
         <div className="container max-w-2xl">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
             <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">Pricing</p>
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
+            <h1 className="font-display text-4xl md:text-5xl font-normal text-foreground mb-5 leading-tight">
               Wherever you are in production. There's a tier for that.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
