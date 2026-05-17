@@ -42,12 +42,13 @@ function checkRules(order: OrderData): ProactiveAlert | null {
     const updatedAt = new Date(order.updated_at).getTime();
     const daysSinceUpdate = (now - updatedAt) / (1000 * 60 * 60 * 24);
     if (daysSinceUpdate >= 3) {
+      const days = Math.floor(daysSinceUpdate);
       return {
         id: `silent_factory_${orderId}`,
         type: "warning",
         urgency: "high",
-        headline: `${factoryName} hasn't responded in ${Math.floor(daysSinceUpdate)} days`,
-        body: `Your PO has been waiting for acceptance since ${new Date(order.updated_at).toLocaleDateString()}. Factories sometimes miss emails. A direct follow-up today is the right move — not aggressive, just a confirmation request.`,
+        headline: `${factoryName} hasn't confirmed the PO — follow up today`,
+        body: `Factories miss emails more than they ignore them. One direct message asking for PO confirmation usually gets a same-day response. If there's still nothing after 24 hours, that's a different problem — and you want to know now, not at the end of the week.`,
         action: { label: "Draft follow-up message", href: `?action=message` },
         rule: "silent_factory",
       };
@@ -76,12 +77,13 @@ function checkRules(order: OrderData): ProactiveAlert | null {
     const needed = minDaysNeeded[status] || 0;
     if (needed > 0 && daysToDelivery < needed && daysToDelivery > 0) {
       const daysShort = needed - daysToDelivery;
+      const stageLabel = status.replace(/_/g, " ");
       return {
         id: `delivery_compression_${orderId}`,
         type: "warning",
         urgency: daysShort > 14 ? "high" : "medium",
-        headline: `Delivery window is ${daysShort} days tighter than it should be`,
-        body: `At ${status.replace(/_/g, " ")} stage with ${daysToDelivery} days to delivery, you have ${daysShort} fewer days than this stage typically requires. Contact ${factoryName} today to confirm their production timeline.`,
+        headline: `Timeline is ${daysShort} days tighter than this stage needs`,
+        body: `You're at ${stageLabel} with ${daysToDelivery} days to delivery. This stage typically needs ${needed} days from here. That gap doesn't fix itself — it becomes either a conversation now, or air freight later. Ask ${factoryName} for their current completion percentage and whether the original ship date is still on.`,
         action: { label: "Message factory now", href: `?action=message` },
         rule: "delivery_compression",
       };
@@ -98,29 +100,30 @@ function checkRules(order: OrderData): ProactiveAlert | null {
     if (!specs?.commercial_invoice_uploaded) missingDocs.push("commercial invoice");
 
     if (missingDocs.length > 0) {
+      const docList = missingDocs.join(", ");
       return {
         id: `missing_docs_${orderId}`,
         type: "action",
         urgency: "high",
-        headline: `Don't release final payment yet`,
-        body: `Before releasing your final payment, make sure you have: ${missingDocs.join(", ")}. Without these documents, you have very limited recourse if goods arrive damaged or short-shipped.`,
-        action: { label: "Request documents", href: `?action=message` },
+        headline: `Hold final payment — ${missingDocs.length === 1 ? "one document" : `${missingDocs.length} documents`} still missing`,
+        body: `You're still missing: ${docList}. Once the goods ship, these are your only leverage on a short-shipment or damage claim. The factory needs your final payment — use that to get them first. Release when everything is uploaded here.`,
+        action: { label: "Request documents from factory", href: `?action=message` },
         rule: "payment_gate",
       };
     }
   }
 
   // ── Rule 4: Spec conflict ─────────────────────────────────────────────────
-  // Order quantity is 0 or unit price is 0 but status has moved past draft
+  // Order quantity is 0 or not set but status has moved past draft
   if (!["draft", "closed", "cancelled"].includes(status)) {
-    const specs = order.specifications as any;
     if (!order.quantity || order.quantity === 0) {
+      const stageLabel = status.replace(/_/g, " ");
       return {
         id: `spec_conflict_${orderId}`,
         type: "warning",
         urgency: "medium",
-        headline: "Order quantity is not confirmed",
-        body: `Your order is at ${status.replace(/_/g, " ")} stage but the quantity hasn't been set. ${factoryName} may be producing to a verbal agreement that isn't documented on this order. Update the order to match what was agreed.`,
+        headline: "Quantity not confirmed — production is on a verbal agreement",
+        body: `Your order is at ${stageLabel} stage but no quantity is locked into this record. If something goes wrong, "we agreed on 500 units" becomes a dispute with no paper trail. Update this to match what was actually agreed before the bulk cut.`,
         rule: "spec_conflict",
       };
     }
@@ -141,14 +144,25 @@ function checkRules(order: OrderData): ProactiveAlert | null {
     const typical = typicalDays[status];
 
     if (daysInStatus > typical * 1.3) {
-      // 30% over typical duration
       const daysOver = Math.floor(daysInStatus - typical);
+      const daysTotal = Math.floor(daysInStatus);
+
+      // Stage-specific body copy — each stage has a different implication
+      const stageBodyMap: Record<string, string> = {
+        po_issued: `Most factories confirm or push back within 4 days. You're at ${daysTotal} days. This is either a communication miss or a capacity problem — one direct message to ${factoryName} will tell you which.`,
+        sampling: `Three weeks is standard for sampling. You're at ${daysTotal} days. Ask ${factoryName} for the current sample status and expected submission date — sampling delays compress the production window directly, and the sooner you know, the better your options.`,
+        in_production: `Bulk production typically runs 8–10 weeks. You're ${daysTotal} days in (${Math.round(daysTotal / 7)} weeks). Ask ${factoryName} for their current cut/sew percentage and whether the original ship date is still achievable. If the answer is vague, push for a concrete number.`,
+        qc_pending: `QC inspections typically complete within a week. Yours has been pending ${daysTotal} days — the inspection either hasn't been scheduled, the factory isn't ready, or there's a result they haven't shared. Ask ${factoryName} directly: when is the inspection, and what is the current status?`,
+      };
+
+      const body = stageBodyMap[status] || `${daysTotal} days in ${status.replace(/_/g, " ")} — ${daysOver} days longer than typical. Check in with ${factoryName} to confirm where things stand.`;
+
       return {
         id: `overdue_stage_${orderId}`,
         type: "warning",
         urgency: daysOver > 14 ? "high" : "medium",
         headline: `${daysOver} days over typical for this stage`,
-        body: `Orders usually move from "${status.replace(/_/g, " ")}" in about ${typical} days. You're ${Math.floor(daysInStatus)} days in. This may be normal for your specific situation — or it may be worth checking in with ${factoryName} to confirm progress.`,
+        body,
         action: { label: "Check in with factory", href: `?action=message` },
         rule: "overdue_stage",
       };
