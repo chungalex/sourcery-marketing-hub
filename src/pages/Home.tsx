@@ -153,10 +153,10 @@ export default function Home() {
                 relationship needs.
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed mb-4 max-w-2xl font-light">
-                Finding the right manufacturer. Verifying them properly. Structuring every order. Protecting every payment. Documenting everything. Knowing what to do at every step.
+                Most brands find out something is wrong in week 10. The factory has gone quiet. The delivery window that felt safe isn't. The spec they're building from isn't the one you sent.
               </p>
               <p className="text-xl text-foreground leading-relaxed mb-8 max-w-2xl font-medium">
-                The infrastructure the whole category was missing — in one platform.
+                Clewa tells you in week 4. And structures every order so the problems that usually hit week 10 can't get past week 2.
               </p>
               <div className="flex flex-wrap gap-3 mb-6">
                 <Button asChild size="lg" className="gap-2">
