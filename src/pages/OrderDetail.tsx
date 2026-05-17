@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
   SelectContent,
@@ -52,7 +53,8 @@ import { ComplianceExport } from "@/components/orders/ComplianceExport";
 import { ProductionAssistant } from "@/components/va/ProductionAssistant";
 import { toast } from "sonner";
 import {
-  ArrowLeft, Shield,
+  ArrowLeft,
+  Shield,
   Loader2,
   Package,
   Building2,
@@ -61,6 +63,11 @@ import {
   AlertCircle,
   CreditCard,
   ExternalLink,
+  LayoutDashboard,
+  CalendarDays,
+  MessageSquare,
+  Truck,
+  FlaskConical,
 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -94,6 +101,26 @@ interface OrderData {
   }[];
 }
 
+// Statuses where QC tab is relevant
+const QC_STATUSES = [
+  "po_accepted", "sampling", "sample_sent", "sample_revision",
+  "sample_approved", "in_production", "qc_scheduled", "qc_uploaded",
+  "qc_pass", "qc_fail", "qc_pending", "qc_approved",
+  "ready_to_ship", "shipped", "closed",
+];
+
+// Statuses where Shipping tab is relevant
+const SHIPPING_STATUSES = ["ready_to_ship", "shipped", "closed"];
+
+function getVisibleTabs(status: string) {
+  return {
+    timeline: status !== "draft" && status !== "cancelled",
+    messages: status !== "draft" && status !== "cancelled",
+    qc: QC_STATUSES.includes(status),
+    shipping: SHIPPING_STATUSES.includes(status),
+  };
+}
+
 export default function OrderDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -101,17 +128,26 @@ export default function OrderDetail() {
   const { user, isLoading: authLoading } = useAuth();
   const { hasFactoryAccess } = useFactoryMembership(user?.id);
 
+  const [activeTab, setActiveTab] = useState(() => searchParams.get("tab") || "overview");
+
   // Handle Stripe return
   useEffect(() => {
     const paymentStatus = searchParams.get("payment");
     if (paymentStatus === "success") {
       toast.success("Payment successful! Milestone released.");
-      setSearchParams({}, { replace: true });
+      setSearchParams({ tab: "payments" }, { replace: true });
+      setActiveTab("payments");
     } else if (paymentStatus === "cancelled") {
       toast.info("Payment cancelled.");
-      setSearchParams({}, { replace: true });
+      setSearchParams({ tab: "payments" }, { replace: true });
+      setActiveTab("payments");
     }
   }, []);
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    setSearchParams({ tab }, { replace: true });
+  };
 
   const [order, setOrder] = useState<OrderData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -167,7 +203,6 @@ export default function OrderDetail() {
     setQuantity(String(orderData.quantity));
     setEditCurrency(orderData.currency || "USD");
 
-    // Restore QC mode from specifications if saved
     const specs = orderData.specifications as Record<string, unknown> | null;
     if (specs?.qc_mode) {
       setQcMode(specs.qc_mode as QCMode);
@@ -175,7 +210,6 @@ export default function OrderDetail() {
 
     setLoading(false);
   };
-
 
   useEffect(() => {
     if (!user || !id) return;
@@ -188,12 +222,6 @@ export default function OrderDetail() {
   const computedTotal = parsedPrice * parsedQty;
   const canIssuePO = isDraft && parsedPrice > 0 && parsedQty > 0;
 
-  const formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: order?.currency || "USD",
-  });
-
-  // Save draft changes
   const handleSave = async () => {
     if (!order || !isDraft) return;
     setSaving(true);
@@ -216,7 +244,6 @@ export default function OrderDetail() {
     if (error) {
       toast.error("Failed to save changes");
     } else {
-      // Update milestones amounts
       if (order.order_milestones.length > 0) {
         for (const m of order.order_milestones) {
           const newAmount = computedTotal * (m.percentage / 100);
@@ -228,7 +255,6 @@ export default function OrderDetail() {
       }
 
       toast.success("Draft saved");
-      // Refresh order data
       setOrder((prev) =>
         prev
           ? {
@@ -248,19 +274,14 @@ export default function OrderDetail() {
     setSaving(false);
   };
 
-  // Issue PO
   const handleIssuePO = async () => {
     if (!order || !canIssuePO) return;
-
-    // Save first
     await handleSave();
-
     setIssuingPO(true);
 
-    // Get session for auth
-      const { data: { session: _sess } } = await supabase.auth.getSession();
-      const { data, error } = await supabase.functions.invoke("order-action", {
-        headers: { Authorization: `Bearer ${_sess?.access_token}` },
+    const { data: { session: _sess } } = await supabase.auth.getSession();
+    const { data, error } = await supabase.functions.invoke("order-action", {
+      headers: { Authorization: `Bearer ${_sess?.access_token}` },
       body: {
         action: "issue_po",
         order_id: order.id,
@@ -278,7 +299,6 @@ export default function OrderDetail() {
     navigate("/dashboard?tab=orders&highlight=" + order.id);
   };
 
-  // Pay a milestone via Stripe Checkout
   const handlePayMilestone = async (milestoneId: string) => {
     if (!order) return;
     setPayingMilestone(milestoneId);
@@ -318,10 +338,11 @@ export default function OrderDetail() {
     return (
       <Layout>
         <div className="section-padding">
-          <div className="container-wide max-w-3xl mx-auto space-y-6">
+          <div className="container-wide max-w-4xl mx-auto space-y-6">
             <Skeleton className="h-8 w-48" />
+            <Skeleton className="h-24 w-full rounded-xl" />
+            <Skeleton className="h-10 w-full rounded-xl" />
             <Skeleton className="h-64 w-full rounded-xl" />
-            <Skeleton className="h-48 w-full rounded-xl" />
           </div>
         </div>
       </Layout>
@@ -331,6 +352,7 @@ export default function OrderDetail() {
   if (!order) return null;
 
   const specs = order.specifications as Record<string, unknown> | null;
+  const visible = getVisibleTabs(order.status);
 
   return (
     <Layout>
@@ -340,8 +362,9 @@ export default function OrderDetail() {
       />
 
       <section className="section-padding">
-        <div className="container-wide">
-          {/* Back */}
+        <div className="container-wide max-w-5xl mx-auto">
+
+          {/* Back + duplicate */}
           <div className="flex items-center justify-between mb-6">
             <Button
               variant="ghost"
@@ -356,7 +379,6 @@ export default function OrderDetail() {
                 variant="outline"
                 size="sm"
                 onClick={() => {
-                  const specs = order.specifications as any;
                   const params = new URLSearchParams({
                     factory: order.factories?.id || "",
                     duplicate: order.id,
@@ -371,11 +393,9 @@ export default function OrderDetail() {
             )}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            {/* Header */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+
+            {/* ── Order header ── */}
             <div className="flex items-start justify-between mb-6 flex-wrap gap-4">
               <div>
                 <div className="font-mono text-xs text-muted-foreground mb-1">{order.order_number}</div>
@@ -416,7 +436,7 @@ export default function OrderDetail() {
               </div>
             </div>
 
-            {/* Needs attention banner */}
+            {/* ── Needs attention banner (always visible) ── */}
             {(() => {
               const attentionStatuses: Record<string, string> = {
                 draft: "Draft order — set pricing and quantity, then issue the PO when you're ready.",
@@ -430,67 +450,138 @@ export default function OrderDetail() {
               const msg = attentionStatuses[order.status];
               if (!msg) return null;
               return (
-                <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/25 mb-6">
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/25 mb-4">
                   <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
                   <p className="text-sm text-foreground">{msg}</p>
                 </div>
               );
             })()}
 
-            {/* Status guide */}
-            <OrderStatusGuide
-              status={order.status}
-              role="brand"
-              orderNumber={order.order_number}
-              factoryName={order.factories?.name}
-              className="mb-6"
-            />
-
-            {/* Prominent Issue PO — shown at top for draft orders */}
-            {order.status === "draft" && canIssuePO && (
-              <div className="mb-6 p-5 rounded-xl bg-primary/5 border-2 border-primary/20 flex items-center justify-between gap-4">
-                <div>
-                  <p className="font-semibold text-foreground mb-0.5">Ready to send this PO?</p>
-                  <p className="text-xs text-muted-foreground">Issues the order to {order.factories?.name} for formal acceptance. Both sides are committed once accepted.</p>
-                </div>
-                <Button
-                  onClick={handleIssuePO}
-                  disabled={issuingPO}
-                  className="flex-shrink-0 gap-2"
-                >
-                  {issuingPO ? <><Loader2 className="h-4 w-4 animate-spin" />Issuing...</> : <>Issue PO</>}
-                </Button>
-              </div>
-            )}
-            {order.status === "draft" && !canIssuePO && (
-              <div className="mb-6 p-4 rounded-xl bg-amber-500/5 border border-amber-400/30 flex items-start gap-3">
-                <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-semibold text-amber-700">Set quantity and unit price to issue the PO</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">Edit the fields below then come back to issue.</p>
-                </div>
-              </div>
+            {/* ── AI proactive guidance (always visible when active) ── */}
+            {order.status !== "closed" && order.status !== "cancelled" && order.status !== "draft" && (
+              <ProactiveGuidance
+                orderId={order.id}
+                orderStatus={order.status}
+                deliveryWindowEnd={order.delivery_window_end}
+                factoryName={order.factories?.name}
+                qcStandard={(order.specifications as any)?.qc_standard?.aql}
+                orderQuantity={order.quantity}
+                orderUpdatedAt={order.updated_at}
+                orderCreatedAt={order.created_at}
+                orderSpecifications={order.specifications}
+              />
             )}
 
+            {/* ── Tab navigation ── */}
+            <Tabs value={activeTab} onValueChange={handleTabChange} className="mt-6">
+              <TabsList className="flex h-auto flex-wrap gap-1 bg-muted/50 p-1 rounded-xl mb-6 w-full justify-start">
+                <TabsTrigger value="overview" className="gap-1.5 text-xs sm:text-sm">
+                  <LayoutDashboard className="h-3.5 w-3.5" />
+                  Overview
+                </TabsTrigger>
+                {visible.timeline && (
+                  <TabsTrigger value="timeline" className="gap-1.5 text-xs sm:text-sm">
+                    <CalendarDays className="h-3.5 w-3.5" />
+                    Timeline
+                  </TabsTrigger>
+                )}
+                {visible.messages && (
+                  <TabsTrigger value="messages" className="gap-1.5 text-xs sm:text-sm">
+                    <MessageSquare className="h-3.5 w-3.5" />
+                    Messages
+                  </TabsTrigger>
+                )}
+                <TabsTrigger value="documents" className="gap-1.5 text-xs sm:text-sm">
+                  <FileText className="h-3.5 w-3.5" />
+                  Documents
+                </TabsTrigger>
+                {visible.qc && (
+                  <TabsTrigger value="qc" className="gap-1.5 text-xs sm:text-sm">
+                    <FlaskConical className="h-3.5 w-3.5" />
+                    QC
+                  </TabsTrigger>
+                )}
+                <TabsTrigger value="payments" className="gap-1.5 text-xs sm:text-sm">
+                  <CreditCard className="h-3.5 w-3.5" />
+                  Payments
+                </TabsTrigger>
+                {visible.shipping && (
+                  <TabsTrigger value="shipping" className="gap-1.5 text-xs sm:text-sm">
+                    <Truck className="h-3.5 w-3.5" />
+                    Shipping
+                  </TabsTrigger>
+                )}
+              </TabsList>
 
-                {/* Deadline backtrack — shown when delivery date is set */}
-                {order.delivery_window_end && !["closed","shipped","cancelled"].includes(order.status) && (() => {
+              {/* ══════════════════════════════════════════════
+                  OVERVIEW TAB
+              ══════════════════════════════════════════════ */}
+              <TabsContent value="overview" className="space-y-6 mt-0">
+
+                {/* Draft: Issue PO prompts */}
+                {isDraft && canIssuePO && (
+                  <div className="p-5 rounded-xl bg-primary/5 border-2 border-primary/20 flex items-center justify-between gap-4">
+                    <div>
+                      <p className="font-semibold text-foreground mb-0.5">Ready to send this PO?</p>
+                      <p className="text-xs text-muted-foreground">Issues the order to {order.factories?.name} for formal acceptance.</p>
+                    </div>
+                    <Button onClick={handleIssuePO} disabled={issuingPO} className="flex-shrink-0 gap-2">
+                      {issuingPO ? <><Loader2 className="h-4 w-4 animate-spin" />Issuing...</> : <>Issue PO</>}
+                    </Button>
+                  </div>
+                )}
+                {isDraft && !canIssuePO && (
+                  <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-400/30 flex items-start gap-3">
+                    <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-semibold text-amber-700">Set quantity and unit price to issue the PO</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">Edit the fields below, then come back to issue.</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Stage focus */}
+                {order.status && ORDER_STAGE_CONFIG[order.status as OrderStatus] && (
+                  <div className="bg-primary/5 border border-primary/20 rounded-xl px-4 py-3">
+                    <div className="flex items-start gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                      <div>
+                        <span className="text-xs font-semibold text-primary uppercase tracking-wide mr-2">
+                          {ORDER_STAGE_CONFIG[order.status as OrderStatus].label}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          {ORDER_STAGE_CONFIG[order.status as OrderStatus].focus}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Production countdown */}
+                {order.delivery_window_end && !["draft", "closed", "cancelled"].includes(order.status) && (
+                  <ProductionCountdown
+                    deliveryDate={order.delivery_window_end}
+                    orderCreatedAt={order.created_at}
+                    orderStatus={order.status}
+                    leadTimeWeeks={16}
+                  />
+                )}
+
+                {/* Production timeline (deadline backtrack) */}
+                {order.delivery_window_end && !["closed", "cancelled"].includes(order.status) && (() => {
                   const delivery = new Date(order.delivery_window_end);
                   const today = new Date();
                   const daysUntilDelivery = Math.floor((delivery.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-                  
-                  // Work backwards from delivery date
                   const shipDate = new Date(delivery); shipDate.setDate(shipDate.getDate() - 7);
                   const qcDate = new Date(shipDate); qcDate.setDate(qcDate.getDate() - 7);
                   const bulkStartDate = new Date(qcDate); bulkStartDate.setDate(bulkStartDate.getDate() - 28);
                   const sampleApprovalDate = new Date(bulkStartDate); sampleApprovalDate.setDate(sampleApprovalDate.getDate() - 7);
                   const poIssuedDate = new Date(sampleApprovalDate); poIssuedDate.setDate(poIssuedDate.getDate() - 21);
-
                   const isLate = daysUntilDelivery < 0;
                   const isTight = daysUntilDelivery < 60;
 
                   return (
-                    <div className={`mb-6 p-4 rounded-xl border ${isLate ? "bg-rose-500/5 border-rose-400/30" : isTight ? "bg-amber-500/5 border-amber-400/30" : "bg-secondary/30 border-border"}`}>
+                    <div className={`p-4 rounded-xl border ${isLate ? "bg-rose-500/5 border-rose-400/30" : isTight ? "bg-amber-500/5 border-amber-400/30" : "bg-secondary/30 border-border"}`}>
                       <div className="flex items-center justify-between mb-3">
                         <p className="text-xs font-semibold text-foreground uppercase tracking-wide">Production timeline</p>
                         <span className={`text-xs font-medium ${isLate ? "text-rose-600" : isTight ? "text-amber-600" : "text-muted-foreground"}`}>
@@ -512,7 +603,7 @@ export default function OrderDetail() {
                             <div key={label} className="flex items-center justify-between text-xs">
                               <div className="flex items-center gap-2">
                                 <div className={`w-2 h-2 rounded-full flex-shrink-0 ${done ? "bg-green-500" : isNext ? "bg-amber-500 animate-pulse" : isPast ? "bg-rose-400" : "bg-muted-foreground/30"}`} />
-                                <span className={`${done ? "text-muted-foreground line-through" : "text-foreground"}`}>{label}</span>
+                                <span className={done ? "text-muted-foreground line-through" : "text-foreground"}>{label}</span>
                               </div>
                               <span className={`font-medium ${isPast && !done ? "text-rose-600" : "text-muted-foreground"}`}>
                                 {date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
@@ -526,114 +617,26 @@ export default function OrderDetail() {
                   );
                 })()}
 
-            {/* AI proactive guidance — speaks before being asked */}
-            {order.status !== "closed" && order.status !== "cancelled" && order.status !== "draft" && (
-              <ProactiveGuidance
-                orderId={order.id}
-                orderStatus={order.status}
-                deliveryWindowEnd={order.delivery_window_end}
-                factoryName={order.factories?.name}
-                qcStandard={(order.specifications as any)?.qc_standard?.aql}
-                orderQuantity={order.quantity}
-                orderUpdatedAt={order.updated_at}
-                orderCreatedAt={order.created_at}
-                orderSpecifications={order.specifications}
-              />
-            )}
-
-
-          {/* Stage focus — what to focus on right now */}
-          {order.status && ORDER_STAGE_CONFIG[order.status as OrderStatus] && (
-            <div className="bg-primary/5 border border-primary/20 rounded-xl px-4 py-3 mb-4">
-              <div className="flex items-start gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                <div>
-                  <span className="text-xs font-semibold text-primary uppercase tracking-wide mr-2">
-                    {ORDER_STAGE_CONFIG[order.status as OrderStatus].label}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    {ORDER_STAGE_CONFIG[order.status as OrderStatus].focus}
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
-
-            {/* Production countdown — backward scheduling from delivery date */}
-            {order.delivery_window_end && !["draft", "closed", "cancelled"].includes(order.status) && (
-              <ProductionCountdown
-                deliveryDate={order.delivery_window_end}
-                orderCreatedAt={order.created_at}
-                orderStatus={order.status}
-                leadTimeWeeks={16}
-              />
-            )}
-
-            {/* Deadline backtrack — show for active orders with delivery date */}
-            {order.delivery_window_end && !["draft", "closed", "cancelled", "shipped"].includes(order.status) && (
-              <div className="mb-6">
-                
-              </div>
-            )}
-
-            {/* Two-column layout */}
-            
-            {/* Stage indicator — what matters at this stage */}
-            {order.status && order.status !== "draft" && (
-              <div className="flex items-center gap-2 mb-4 px-1">
-                <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                <p className="text-xs font-medium text-muted-foreground">
-                  {{
-                    "po_issued": "Awaiting factory acceptance — check back in 24-48 hours",
-                    "po_accepted": "Factory confirmed — sampling will begin soon",
-                    "sampling": "Sample in progress — review carefully before approving bulk",
-                    "sample_approved": "Sample approved — bulk production can start",
-                    "in_production": "In production — track progress with photos and updates",
-                    "qc_pending": "QC stage — inspect thoroughly before releasing final payment",
-                    "qc_approved": "QC passed — arrange shipment and release final payment",
-                    "ready_to_ship": "Ready to ship — confirm shipping details with factory",
-                    "shipped": "In transit — track your shipment",
-                    "closed": "Order complete — review performance and plan your next order",
-                  }[order.status] || ""
-                  }
-                </p>
-              </div>
-            )}
-
-            <div className="grid lg:grid-cols-[1fr_360px] gap-6 items-start">
-
-              {/* Left column — order content */}
-              <div className="space-y-6 min-w-0">
-
-                {/* Inquiry context */}
-                {specs?.product_description && (
-                  <div className="bg-muted/50 border border-border rounded-xl p-4">
-                    <div className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wide">From Inquiry</div>
-                    <p className="text-sm text-foreground">{String(specs.product_description)}</p>
-                  </div>
-                )}
-
-                {/* Editable fields (draft only) */}
+                {/* Order details card */}
                 <div className="bg-card border border-border rounded-xl p-6 space-y-5">
                   <div className="flex items-center gap-2 mb-2">
                     <Package className="h-5 w-5 text-primary" />
                     <h2 className="text-lg font-semibold text-foreground">Order Details</h2>
-                    {isDraft && (
-                      <Badge variant="outline" className="ml-auto text-xs">Editable</Badge>
-                    )}
+                    {isDraft && <Badge variant="outline" className="ml-auto text-xs">Editable</Badge>}
                   </div>
+
+                  {specs?.product_description && (
+                    <div className="bg-muted/50 border border-border rounded-lg p-3">
+                      <div className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wide">From Inquiry</div>
+                      <p className="text-sm text-foreground">{String(specs.product_description)}</p>
+                    </div>
+                  )}
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <Label className="text-xs text-muted-foreground mb-1 block">Quantity</Label>
                       {isDraft ? (
-                        <Input
-                          type="number"
-                          value={parsedQty}
-                          onChange={e => setQuantity(e.target.value)}
-                          min={1}
-                          className="text-sm"
-                        />
+                        <Input type="number" value={parsedQty} onChange={e => setQuantity(e.target.value)} min={1} className="text-sm" />
                       ) : (
                         <p className="text-sm font-medium text-foreground">{order.quantity.toLocaleString()} units</p>
                       )}
@@ -642,18 +645,9 @@ export default function OrderDetail() {
                       <Label className="text-xs text-muted-foreground mb-1 block">Unit price</Label>
                       {isDraft ? (
                         <div className="flex gap-2">
-                          <Input
-                            type="number"
-                            value={parsedPrice}
-                            onChange={e => setUnitPrice(e.target.value)}
-                            min={0}
-                            step={0.01}
-                            className="text-sm"
-                          />
+                          <Input type="number" value={parsedPrice} onChange={e => setUnitPrice(e.target.value)} min={0} step={0.01} className="text-sm" />
                           <Select value={editCurrency} onValueChange={setEditCurrency}>
-                            <SelectTrigger className="w-24 text-sm">
-                              <SelectValue />
-                            </SelectTrigger>
+                            <SelectTrigger className="w-24 text-sm"><SelectValue /></SelectTrigger>
                             <SelectContent>
                               {["USD","EUR","GBP","VND","SGD","HKD"].map(c => (
                                 <SelectItem key={c} value={c}>{c}</SelectItem>
@@ -669,7 +663,7 @@ export default function OrderDetail() {
                     </div>
                   </div>
 
-                  {(parsedQty > 0 && parsedPrice > 0) && (
+                  {parsedQty > 0 && parsedPrice > 0 && (
                     <div className="pt-3 border-t border-border flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">Order total</span>
                       <span className="text-sm font-semibold text-foreground">
@@ -678,8 +672,35 @@ export default function OrderDetail() {
                     </div>
                   )}
 
+                  <div className="grid grid-cols-2 gap-3 pt-2 border-t border-border text-sm">
+                    {order.delivery_window_end && (
+                      <div>
+                        <p className="text-xs text-muted-foreground">Delivery by</p>
+                        <p className="font-medium text-foreground">{format(new Date(order.delivery_window_end), "MMM d, yyyy")}</p>
+                      </div>
+                    )}
+                    {order.incoterms && (
+                      <div>
+                        <p className="text-xs text-muted-foreground">Incoterms</p>
+                        <p className="font-medium text-foreground">{order.incoterms}</p>
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-xs text-muted-foreground">Created</p>
+                      <p className="font-medium text-foreground">{format(new Date(order.created_at), "MMM d, yyyy")}</p>
+                    </div>
+                    {order.factories && (
+                      <div>
+                        <p className="text-xs text-muted-foreground">Factory</p>
+                        <Link to={`/directory/${order.factories.slug}`} className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
+                          {order.factories.name} <ExternalLink className="h-3 w-3" />
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+
                   {isDraft && (
-                    <div className="flex gap-2 pt-2">
+                    <div className="flex gap-2 pt-1">
                       <Button size="sm" variant="outline" onClick={handleSave} disabled={saving}>
                         {saving ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : null}
                         Save changes
@@ -688,7 +709,290 @@ export default function OrderDetail() {
                   )}
                 </div>
 
-                {/* Milestones */}
+                {/* Production Assistant */}
+                <ProductionAssistant
+                  mode="order"
+                  orderContext={{
+                    orderNumber: order.order_number,
+                    status: order.status,
+                    factoryName: order.factories?.name,
+                    quantity: order.quantity,
+                    unitPrice: order.unit_price,
+                    currency: order.currency,
+                    totalAmount: order.total_amount ?? order.quantity * order.unit_price,
+                    milestones: order.order_milestones,
+                    specifications: order.specifications ?? undefined,
+                  }}
+                />
+
+                {/* Closed: post-order actions */}
+                {order.status === "closed" && (
+                  <div className="space-y-4">
+                    <div className="bg-card border border-border rounded-xl p-5">
+                      <div className="flex items-center gap-2 mb-2">
+                        <ExternalLink className="h-4 w-4 text-primary" />
+                        <h3 className="text-sm font-semibold text-foreground">Share this production record</h3>
+                      </div>
+                      <p className="text-xs text-muted-foreground mb-3">
+                        Share a public summary with investors, partners, or future factories.
+                      </p>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-1.5 w-full"
+                        onClick={() => {
+                          const url = `${window.location.origin}/record/${order.id}`;
+                          navigator.clipboard.writeText(url);
+                          toast.success("Link copied to clipboard");
+                        }}
+                      >
+                        <ExternalLink className="h-3.5 w-3.5" /> Copy shareable link
+                      </Button>
+                    </div>
+
+                    {shouldShow("SafetyStockCalculator", order.status as OrderStatus) && (
+                      <SafetyStockCalculator avgLeadWeeks={14} orderId={order.id} />
+                    )}
+
+                    {order.factories && shouldShow("ReorderIntelligence", order.status as OrderStatus) && (
+                      <ReorderIntelligence
+                        orderId={order.id}
+                        factoryId={order.factories.id}
+                        factoryName={order.factories.name}
+                      />
+                    )}
+
+                    {order.factories && (
+                      <div className="bg-card border border-border rounded-xl p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="h-2 w-2 rounded-full bg-green-500" />
+                          <h2 className="text-lg font-semibold text-foreground">Order again</h2>
+                        </div>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Pre-fills all specs from this order. Confirm quantity and price before submitting.
+                        </p>
+                        <ReorderButton
+                          order={{
+                            id: order.id,
+                            order_number: order.order_number,
+                            factory_id: order.factories.id,
+                            quantity: order.quantity,
+                            unit_price: order.unit_price,
+                            currency: order.currency,
+                            incoterms: null,
+                            tech_pack_url: null,
+                            bom_url: null,
+                            specifications: order.specifications,
+                            factories: order.factories,
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Draft: bottom Issue PO */}
+                {isDraft && (
+                  <div className="bg-card border-2 border-primary/20 rounded-xl p-6">
+                    <h2 className="text-lg font-semibold text-foreground mb-2">Ready to issue the PO?</h2>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Issuing the PO sends this order to the factory for review. Ensure quantity and unit price are set before proceeding.
+                    </p>
+                    {!canIssuePO && (
+                      <div className="flex items-center gap-2 text-sm text-amber-600 mb-4">
+                        <AlertCircle className="h-4 w-4" />
+                        Set a unit price greater than 0 and confirm quantity to proceed.
+                      </div>
+                    )}
+                    <Button onClick={handleIssuePO} disabled={!canIssuePO || issuingPO}>
+                      {issuingPO ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <CheckCircle className="h-4 w-4 mr-2" />}
+                      Issue Purchase Order
+                    </Button>
+                  </div>
+                )}
+              </TabsContent>
+
+              {/* ══════════════════════════════════════════════
+                  TIMELINE TAB
+              ══════════════════════════════════════════════ */}
+              {visible.timeline && (
+                <TabsContent value="timeline" className="space-y-6 mt-0">
+                  <OrderStatusGuide
+                    status={order.status}
+                    role="brand"
+                    orderNumber={order.order_number}
+                    factoryName={order.factories?.name}
+                  />
+                  <OrderTimeline
+                    orderId={order.id}
+                    orderCreatedAt={order.created_at}
+                  />
+                </TabsContent>
+              )}
+
+              {/* ══════════════════════════════════════════════
+                  MESSAGES TAB
+              ══════════════════════════════════════════════ */}
+              {visible.messages && (
+                <TabsContent value="messages" className="space-y-6 mt-0">
+                  <MessageDrafter
+                    orderId={order.id}
+                    orderStatus={order.status}
+                    factoryName={order.factories?.name}
+                  />
+                  <PlatformMessaging orderId={order.id} />
+                  <OrderChatSummary orderId={order.id} />
+                  {!["closed", "cancelled"].includes(order.status) && (
+                    <TimezoneApproval
+                      orderId={order.id}
+                      isFactory={false}
+                      deliveryDate={order.delivery_window_end || undefined}
+                    />
+                  )}
+                </TabsContent>
+              )}
+
+              {/* ══════════════════════════════════════════════
+                  DOCUMENTS TAB
+              ══════════════════════════════════════════════ */}
+              <TabsContent value="documents" className="space-y-6 mt-0">
+                {order.status !== "draft" && (
+                  <div className="bg-card border border-border rounded-xl p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="h-2 w-2 rounded-full bg-blue-500" />
+                      <h2 className="text-lg font-semibold text-foreground">Tech Pack</h2>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Every version is preserved. The factory confirms which version they're building from.
+                    </p>
+                    <TechPackVersions orderId={order.id} isFactory={false} onActionComplete={loadOrder} />
+                  </div>
+                )}
+
+                {!["closed", "cancelled"].includes(order.status) && (
+                  <TechPackReviewer
+                    orderId={order.id}
+                    techPackUrl={order.tech_pack_url}
+                    specifications={order.specifications as any}
+                  />
+                )}
+
+                <BillOfMaterials orderId={order.id} quantity={order.quantity} />
+
+                <OrderSKUs orderId={order.id} isFactory={false} orderStatus={order.status} />
+
+                {["sampling", "sample_sent", "sample_revision", "sample_approved", "in_production"].includes(order.status) && (
+                  <SampleAnnotation orderId={order.id} photoUrl={(order.specifications as any)?.sample_photo_url || ""} />
+                )}
+
+                {["sampling", "sample_approved", "in_production", "qc_scheduled", "qc_uploaded", "qc_pass", "qc_fail"].includes(order.status) && (
+                  <ChangeOrderFlow orderId={order.id} orderStatus={order.status} onChangeCreated={loadOrder} />
+                )}
+
+                {!["draft", "closed", "cancelled"].includes(order.status) && (
+                  <ProductionPhotoLog orderId={order.id} isFactory={false} />
+                )}
+
+                {["ready_to_ship", "shipped", "closed"].includes(order.status) && (
+                  <ShipmentDocs orderId={order.id} />
+                )}
+
+                {order.status !== "draft" && (
+                  <SupplyChainCompliance orderId={order.id} specifications={order.specifications} />
+                )}
+
+                {order.status === "closed" && shouldShow("ComplianceExport", order.status as OrderStatus) && (
+                  <ComplianceExport orderId={order.id} orderNumber={order.order_number} />
+                )}
+
+                <div className="flex flex-col gap-3">
+                  <OrderExportPDF orderId={order.id} orderNumber={order.order_number} />
+                  <OrderExport
+                    order={{
+                      id: order.id,
+                      order_number: order.order_number,
+                      status: order.status,
+                      quantity: order.quantity,
+                      unit_price: order.unit_price,
+                      currency: order.currency,
+                      specifications: order.specifications ? JSON.stringify(order.specifications) : null,
+                      created_at: order.created_at,
+                      factories: order.factories ? { name: order.factories.name, country: "", city: null } : null,
+                    }}
+                    isPro={false}
+                  />
+                </div>
+              </TabsContent>
+
+              {/* ══════════════════════════════════════════════
+                  QC TAB
+              ══════════════════════════════════════════════ */}
+              {visible.qc && (
+                <TabsContent value="qc" className="space-y-6 mt-0">
+                  {["po_accepted", "sampling", "sample_sent", "sample_approved", "sample_revision"].includes(order.status) && (
+                    <div className="bg-card border border-border rounded-xl p-6">
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="h-2 w-2 rounded-full bg-amber-500" />
+                        <h2 className="text-lg font-semibold text-foreground">Sample Review</h2>
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Sample must be approved before bulk production can begin.
+                      </p>
+                      <SampleReviewPanel
+                        orderId={order.id}
+                        orderStatus={order.status}
+                        isFactory={false}
+                        onActionComplete={loadOrder}
+                      />
+                    </div>
+                  )}
+
+                  {["sample_approved", "in_production", "qc_scheduled", "qc_uploaded"].includes(order.status) && (
+                    <div className="bg-card border border-border rounded-xl p-6">
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="h-2 w-2 rounded-full bg-primary" />
+                        <h2 className="text-lg font-semibold text-foreground">Revision Rounds</h2>
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        All spec changes must be formally logged and acknowledged by the factory.
+                      </p>
+                      <RevisionRounds orderId={order.id} isFactory={false} onActionComplete={loadOrder} />
+                    </div>
+                  )}
+
+                  {["qc_scheduled", "qc_uploaded", "qc_pass", "qc_fail", "ready_to_ship", "shipped", "closed"].includes(order.status) && (
+                    <div className="bg-card border border-border rounded-xl p-6">
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="h-2 w-2 rounded-full bg-rose-500" />
+                        <h2 className="text-lg font-semibold text-foreground">Defect Reports</h2>
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Structured defect log. Factory must respond to every report. Feeds into factory performance score.
+                      </p>
+                      <DefectReports
+                        orderId={order.id}
+                        totalQuantity={order.quantity}
+                        isFactory={false}
+                        onActionComplete={loadOrder}
+                      />
+                    </div>
+                  )}
+
+                  {order.factories && shouldShow("FactoryReview", order.status as OrderStatus) && (
+                    <FactoryReview
+                      orderId={order.id}
+                      factoryId={order.factories.id}
+                      factoryName={order.factories.name}
+                      orderStatus={order.status}
+                    />
+                  )}
+                </TabsContent>
+              )}
+
+              {/* ══════════════════════════════════════════════
+                  PAYMENTS TAB
+              ══════════════════════════════════════════════ */}
+              <TabsContent value="payments" className="space-y-6 mt-0">
                 <div className="bg-card border border-border rounded-xl p-6">
                   <div className="flex items-center gap-2 mb-5">
                     <CreditCard className="h-5 w-5 text-primary" />
@@ -757,7 +1061,9 @@ export default function OrderDetail() {
                               <div>
                                 <p className="text-sm font-semibold text-foreground">{m.label}</p>
                                 <p className="text-xs text-muted-foreground mt-0.5">
-                                  {m.percentage}% · <span className="font-medium text-foreground">{new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency }).format(m.amount)}</span>
+                                  {m.percentage}% · <span className="font-medium text-foreground">
+                                    {new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency }).format(m.amount)}
+                                  </span>
                                 </p>
                                 {m.release_condition && (
                                   <p className="text-xs text-muted-foreground mt-0.5 italic">{m.release_condition}</p>
@@ -769,8 +1075,8 @@ export default function OrderDetail() {
                             ) : m.status === "eligible" ? (() => {
                               const isBulkMilestone = m.label.toLowerCase().includes("bulk") || m.sequence_order === 2;
                               const isFinalMilestone = m.label.toLowerCase().includes("final") || m.sequence_order === (order.order_milestones?.length || 0);
-                              const sampleNotApproved = isBulkMilestone && !["sample_approved", "in_production", "qc_scheduled", "qc_uploaded", "qc_pass", "qc_fail", "ready_to_ship", "shipped", "closed"].includes(order.status);
-                              const qcNotPassed = isFinalMilestone && !["qc_pass", "ready_to_ship", "shipped"].includes(order.status);
+                              const sampleNotApproved = isBulkMilestone && !["sample_approved","in_production","qc_scheduled","qc_uploaded","qc_pass","qc_fail","ready_to_ship","shipped","closed"].includes(order.status);
+                              const qcNotPassed = isFinalMilestone && !["qc_pass","ready_to_ship","shipped"].includes(order.status);
                               if (sampleNotApproved || qcNotPassed) {
                                 return (
                                   <div className="text-right">
@@ -800,117 +1106,6 @@ export default function OrderDetail() {
                   )}
                 </div>
 
-                {/* Sampling */}
-                {["po_accepted", "sampling", "sample_sent", "sample_approved", "sample_revision"].includes(order.status) && (
-                  <div className="bg-card border border-border rounded-xl p-6">
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="h-2 w-2 rounded-full bg-amber-500" />
-                      <h2 className="text-lg font-semibold text-foreground">Sample Review</h2>
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Sample must be approved before bulk production can begin.
-                    </p>
-                    <SampleReviewPanel
-                      orderId={order.id}
-                      orderStatus={order.status}
-                      isFactory={false}
-                      onActionComplete={loadOrder}
-                    />
-                  </div>
-                )}
-
-                {/* Tech pack */}
-                {order.status !== "draft" && (
-                  <div className="bg-card border border-border rounded-xl p-6">
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="h-2 w-2 rounded-full bg-blue-500" />
-                      <h2 className="text-lg font-semibold text-foreground">Tech Pack</h2>
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Every version is preserved. The factory confirms which version they're building from.
-                    </p>
-                    <TechPackVersions
-                      orderId={order.id}
-                      isFactory={false}
-                      onActionComplete={loadOrder}
-                    />
-                  </div>
-                )}
-
-                {/* Revision rounds */}
-                {["sample_approved", "in_production", "qc_scheduled", "qc_uploaded"].includes(order.status) && (
-                  <div className="bg-card border border-border rounded-xl p-6">
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="h-2 w-2 rounded-full bg-primary" />
-                      <h2 className="text-lg font-semibold text-foreground">Revision Rounds</h2>
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      All spec changes must be formally logged and acknowledged by the factory before production continues.
-                    </p>
-                    <RevisionRounds
-                      orderId={order.id}
-                      isFactory={false}
-                      onActionComplete={loadOrder}
-                    />
-                  </div>
-                )}
-
-                {/* Tech pack AI review */}
-                {!["closed", "cancelled"].includes(order.status) && (
-                  <TechPackReviewer
-                    orderId={order.id}
-                    techPackUrl={order.tech_pack_url}
-                    specifications={order.specifications as any}
-                  />
-                )}
-
-                {/* Bill of materials */}
-                <BillOfMaterials orderId={order.id} quantity={order.quantity} />
-
-                {/* Shipment tracker */}
-                {shouldShow("ShipmentTracker", order.status as OrderStatus) && (
-                  <ShipmentTracker orderId={order.id} isFactory={false} />
-                )}
-
-                {/* Freight checklist */}
-                {shouldShow("FreightChecklist", order.status as OrderStatus) && (
-                  <FreightChecklist
-                    incoterms={order.incoterms || "FOB"}
-                    destination={(order.specifications as any)?.shipping_destination || "United States"}
-                    orderStatus={order.status}
-                  />
-                )}
-
-                {/* Defect reports */}
-                {["qc_scheduled", "qc_uploaded", "qc_pass", "qc_fail", "ready_to_ship", "shipped", "closed"].includes(order.status) && (
-                  <div className="bg-card border border-border rounded-xl p-6">
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="h-2 w-2 rounded-full bg-rose-500" />
-                      <h2 className="text-lg font-semibold text-foreground">Defect Reports</h2>
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Structured defect log. Factory must respond to every report. Feeds into factory performance score.
-                    </p>
-                    <DefectReports
-                      orderId={order.id}
-                      totalQuantity={order.quantity}
-                      isFactory={false}
-                      onActionComplete={loadOrder}
-                    />
-                  </div>
-                )}
-
-                {/* Factory review */}
-                {order.factories && shouldShow("FactoryReview", order.status as OrderStatus) && (
-                  <FactoryReview
-                    orderId={order.id}
-                    factoryId={order.factories.id}
-                    factoryName={order.factories.name}
-                    orderStatus={order.status}
-                  />
-                )}
-
-                {/* Dispute filing — available for in-production and QC-stage orders */}
                 {shouldShow("DisputeFiling", order.status as OrderStatus) && order.factories && (
                   <DisputeFiling
                     orderId={order.id}
@@ -919,230 +1114,28 @@ export default function OrderDetail() {
                     onFiled={loadOrder}
                   />
                 )}
+              </TabsContent>
 
-                {/* SKU tracking */}
-                <OrderSKUs
-                  orderId={order.id}
-                  isFactory={false}
-                  orderStatus={order.status}
-                />
-
-                {/* Production photo log — active orders */}
-                {!["draft", "closed", "cancelled"].includes(order.status) && (
-                  <ProductionPhotoLog
-                    orderId={order.id}
-                    isFactory={false}
-                  />
-                )}
-
-                {/* Timezone-aware approvals — active orders */}
-                {!["draft", "closed", "cancelled"].includes(order.status) && (
-                  <TimezoneApproval
-                    orderId={order.id}
-                    isFactory={false}
-                    deliveryDate={order.delivery_window_end || undefined}
-                  />
-                )}
-
-                {/* Shipment documents — near/past shipping */}
-                {["ready_to_ship", "shipped", "closed"].includes(order.status) && (
+              {/* ══════════════════════════════════════════════
+                  SHIPPING TAB
+              ══════════════════════════════════════════════ */}
+              {visible.shipping && (
+                <TabsContent value="shipping" className="space-y-6 mt-0">
+                  {shouldShow("ShipmentTracker", order.status as OrderStatus) && (
+                    <ShipmentTracker orderId={order.id} isFactory={false} />
+                  )}
+                  {shouldShow("FreightChecklist", order.status as OrderStatus) && (
+                    <FreightChecklist
+                      incoterms={order.incoterms || "FOB"}
+                      destination={(order.specifications as any)?.shipping_destination || "United States"}
+                      orderStatus={order.status}
+                    />
+                  )}
                   <ShipmentDocs orderId={order.id} />
-                )}
+                </TabsContent>
+              )}
 
-                {/* Order timeline */}
-                <OrderTimeline
-                  orderId={order.id}
-                  orderCreatedAt={order.created_at}
-                />
-
-                {/* Compliance export — closed orders */}
-                {order.status === "closed" && shouldShow("ComplianceExport", order.status as OrderStatus) && (
-                  <ComplianceExport orderId={order.id} orderNumber={order.order_number} />
-                )}
-
-                {/* Supply chain compliance */}
-                {order.status !== "draft" && (
-                  <SupplyChainCompliance
-                    orderId={order.id}
-                    specifications={order.specifications}
-                  />
-                )}
-
-                {/* Safety stock calculator — closed orders */}
-                {order.status === "closed" && shouldShow("SafetyStockCalculator", order.status as OrderStatus) && (
-                  <SafetyStockCalculator avgLeadWeeks={14} orderId={order.id} />
-                )}
-
-                {/* Share production record — closed orders */}
-                {order.status === "closed" && (
-                  <div className="bg-card border border-border rounded-xl p-5">
-                    <div className="flex items-center gap-2 mb-2">
-                      <ExternalLink className="h-4 w-4 text-primary" />
-                      <h3 className="text-sm font-semibold text-foreground">Share this production record</h3>
-                    </div>
-                    <p className="text-xs text-muted-foreground mb-3">
-                      Share a public summary of this completed order — useful for showing investors, partners, or future factories.
-                    </p>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="gap-1.5 w-full"
-                      onClick={() => {
-                        const url = `${window.location.origin}/record/${order.id}`;
-                        navigator.clipboard.writeText(url);
-                        toast.success("Link copied to clipboard");
-                      }}
-                    >
-                      <ExternalLink className="h-3.5 w-3.5" /> Copy shareable link
-                    </Button>
-                  </div>
-                )}
-
-                {/* Reorder */}
-                {order.status === "closed" && order.factories && (
-                  <>
-                    {shouldShow("ReorderIntelligence", order.status as OrderStatus) && (
-                      <ReorderIntelligence
-                        orderId={order.id}
-                        factoryId={order.factories.id}
-                        factoryName={order.factories.name}
-                      />
-                    )}
-                    <div className="bg-card border border-border rounded-xl p-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="h-2 w-2 rounded-full bg-green-500" />
-                        <h2 className="text-lg font-semibold text-foreground">Order again</h2>
-                      </div>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        Pre-fills all specs from this order. Confirm quantity and price before submitting.
-                      </p>
-                      <ReorderButton
-                        order={{
-                          id: order.id,
-                          order_number: order.order_number,
-                          factory_id: order.factories.id,
-                          quantity: order.quantity,
-                          unit_price: order.unit_price,
-                          currency: order.currency,
-                          incoterms: null,
-                          tech_pack_url: null,
-                          bom_url: null,
-                          specifications: order.specifications,
-                          factories: order.factories,
-                        }}
-                      />
-                    </div>
-                  </>
-                )}
-
-                {/* Issue PO */}
-                {isDraft && (
-                  <div className="bg-card border-2 border-primary/20 rounded-xl p-6">
-                    <h2 className="text-lg font-semibold text-foreground mb-2">Ready to issue the PO?</h2>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Issuing the PO sends this order to the factory for review. Ensure quantity and unit price are set before proceeding.
-                    </p>
-                    {!canIssuePO && (
-                      <div className="flex items-center gap-2 text-sm text-amber-600 mb-4">
-                        <AlertCircle className="h-4 w-4" />
-                        Set a unit price greater than 0 and confirm quantity to proceed.
-                      </div>
-                    )}
-                    <Button onClick={handleIssuePO} disabled={!canIssuePO || issuingPO}>
-                      {issuingPO ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <CheckCircle className="h-4 w-4 mr-2" />}
-                      Issue Purchase Order
-                    </Button>
-                  </div>
-                )}
-
-              </div>
-
-              {/* Right column — messaging always visible */}
-              <div className="lg:sticky lg:top-6 space-y-4">
-                <MessageDrafter
-                    orderId={order.id}
-                    orderStatus={order.status}
-                    factoryName={order.factories?.name}
-                  />
-                <PlatformMessaging orderId={order.id} />
-                <OrderChatSummary orderId={order.id} />
-                <OrderExportPDF orderId={order.id} orderNumber={order.order_number} />
-                <OrderExport
-                  order={{
-                    id: order.id,
-                    order_number: order.order_number,
-                    status: order.status,
-                    quantity: order.quantity,
-                    unit_price: order.unit_price,
-                    currency: order.currency,
-                    specifications: order.specifications ? JSON.stringify(order.specifications) : null,
-                    created_at: order.created_at,
-                    factories: order.factories ? { name: order.factories.name, country: "", city: null } : null,
-                  }}
-                  isPro={false}
-                />
-
-                {/* Order meta */}
-                <div className="bg-card border border-border rounded-xl p-4 space-y-3 text-sm">
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Order details</p>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Status</span>
-                    <StatusBadge status={order.status} />
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Quantity</span>
-                    <span className="font-medium text-foreground">{order.quantity.toLocaleString()} units</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Unit price</span>
-                    <span className="font-medium text-foreground">
-                      {new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency }).format(order.unit_price)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between border-t border-border pt-3">
-                    <span className="text-muted-foreground">Order total</span>
-                    <span className="font-semibold text-foreground">
-                      {new Intl.NumberFormat("en-US", { style: "currency", currency: order.currency }).format(order.total_amount || order.quantity * order.unit_price)}
-                    </span>
-                  </div>
-                  {order.delivery_window_end && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Delivery by</span>
-                      <span className="font-medium text-foreground">{format(new Date(order.delivery_window_end), "MMM d, yyyy")}</span>
-                    </div>
-                  )}
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Created</span>
-                    <span className="text-foreground">{format(new Date(order.created_at), "MMM d, yyyy")}</span>
-                  </div>
-                  {order.factories && (
-                    <Link
-                      to={`/directory/${order.factories.slug}`}
-                      className="flex items-center gap-1 text-primary text-xs hover:underline pt-1"
-                    >
-                      View factory profile <ExternalLink className="h-3 w-3" />
-                    </Link>
-                  )}
-                </div>
-
-                {/* Production Assistant */}
-                <ProductionAssistant
-                  mode="order"
-                  orderContext={{
-                    orderNumber: order.order_number,
-                    status: order.status,
-                    factoryName: order.factories?.name,
-                    quantity: order.quantity,
-                    unitPrice: order.unit_price,
-                    currency: order.currency,
-                    totalAmount: order.total_amount ?? order.quantity * order.unit_price,
-                    milestones: order.order_milestones,
-                    specifications: order.specifications ?? undefined,
-                  }}
-                />
-              </div>
-
-            </div>
+            </Tabs>
           </motion.div>
         </div>
       </section>
@@ -1168,19 +1161,4 @@ function StatusBadge({ status }: { status: string }) {
   };
   const c = config[status] || { label: status, variant: "outline" as const };
   return <Badge variant={c.variant}>{c.label}</Badge>;
-}
-
-function MilestoneStatusBadge({ status }: { status: string }) {
-  const colors: Record<string, string> = {
-    pending: "text-muted-foreground",
-    eligible: "text-primary",
-    released: "text-primary",
-    disputed: "text-destructive",
-    cancelled: "text-muted-foreground line-through",
-  };
-  return (
-    <span className={`text-xs font-medium capitalize ${colors[status] || "text-muted-foreground"}`}>
-      {status}
-    </span>
-  );
 }
