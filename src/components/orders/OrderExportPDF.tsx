@@ -57,8 +57,8 @@ td{padding:9px 10px;border-bottom:1px solid #eee;font-size:13px}
     <div style="font-size:12px;color:#888;margin-top:4px">Issued ${issued}</div>
   </div>
   <div style="text-align:right">
-    <div class="brand">Ariadne</div>
-    <div style="font-size:11px;color:#888;margin-top:3px">ariadne.io</div>
+    <div class="brand">Clewa</div>
+    <div style="font-size:11px;color:#888;margin-top:3px">clewa.io</div>
   </div>
 </div>
 
@@ -117,11 +117,11 @@ ${milestones.length > 0 ? `<div class="section">
 ${specs.notes ? `<div class="section"><div class="sec-title">Notes & specifications</div><div style="line-height:1.6;color:#444">${specs.notes}</div></div>` : ""}
 
 <div style="margin-top:32px;padding:16px;background:#f9f9f9;border-radius:8px;font-size:12px;color:#666">
-  <strong>Terms:</strong> This purchase order is subject to the specifications, quality standards, and milestone payment conditions agreed on Ariadne. All deliverables must meet AQL ${(specs as any)?.qc_standard?.aql || "2.5"} inspection standard. Final payment releases after successful QC inspection.
+  <strong>Terms:</strong> This purchase order is subject to the specifications, quality standards, and milestone payment conditions agreed on Clewa. All deliverables must meet AQL ${(specs as any)?.qc_standard?.aql || "2.5"} inspection standard. Final payment releases after successful QC inspection.
 </div>
 
 <div class="footer">
-  Issued and managed on Ariadne (ariadne.io) — production intelligence platform. Order ID: ${order.id} · Generated ${today}
+  Issued and managed on Clewa (clewa.io) — production intelligence platform. Order ID: ${order.id} · Generated ${today}
 </div>
 </body>
 </html>`;

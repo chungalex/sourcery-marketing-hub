@@ -52,7 +52,7 @@ export function SupplyChainCompliance({ orderId, specifications }: SupplyChainCo
 
     setCheckData({
       tech_pack: !!(techPackRes.data?.length || specs.tech_pack_url),
-      factory_cert: true, // Ariadne verifies this on onboarding
+      factory_cert: true, // Clewa verifies this on onboarding
       fabric_origin: !!(specs.fabric_composition && specs.fabric_composition.length > 5),
       qc_report: !!(qcRes.data?.length),
       care_labels: !!(specs.care_instructions || specs.fiber_content),
@@ -142,7 +142,7 @@ export function SupplyChainCompliance({ orderId, specifications }: SupplyChainCo
 
           <div className="px-5 py-3 bg-primary/5 border-t border-border">
             <p className="text-xs text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">Why this matters:</strong> The EU Digital Product Passport (required from 2026), UFLPA compliance, and retailer audits all require documentation you're already capturing on Ariadne. This order is {pct}% compliant. Complete orders to improve your score.
+              <strong className="text-foreground">Why this matters:</strong> The EU Digital Product Passport (required from 2026), UFLPA compliance, and retailer audits all require documentation you're already capturing on Clewa. This order is {pct}% compliant. Complete orders to improve your score.
             </p>
           </div>
         </div>

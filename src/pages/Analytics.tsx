@@ -112,7 +112,7 @@ export default function Analytics() {
 
   return (
     <Layout>
-      <SEO title="Analytics — Ariadne" description="Production analytics and order history." />
+      <SEO title="Analytics — Clewa" description="Production analytics and order history." />
       <section className="section-padding">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>

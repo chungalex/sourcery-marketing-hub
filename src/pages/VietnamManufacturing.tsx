@@ -17,15 +17,15 @@ export default function VietnamManufacturing() {
   return (
     <Layout>
       <SEO
-        title="Apparel Manufacturing in Vietnam — Find Factories | Ariadne"
+        title="Apparel Manufacturing in Vietnam — Find Factories | Clewa"
         description="Find verified apparel and garment manufacturers in Vietnam. Low MOQ accepted. Direct factory relationships, milestone-gated payments, full documentation."
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Apparel Manufacturing in Vietnam",
-        "description": "Find verified garment factories in Vietnam. Ariadne connects brands with manufacturers in Ho Chi Minh City, Hanoi, and beyond.",
-        "url": "https://ariadne.io/vietnam-manufacturing",
+        "description": "Find verified garment factories in Vietnam. Clewa connects brands with manufacturers in Ho Chi Minh City, Hanoi, and beyond.",
+        "url": "https://clewa.io/vietnam-manufacturing",
       })}} />
 
       <section className="section-padding border-b border-border">
@@ -38,7 +38,7 @@ export default function VietnamManufacturing() {
             Find apparel factories in Vietnam.
           </h1>
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-            Vietnam is the world's third largest garment exporter. Ariadne connects brands with registered manufacturers — denim, knitwear, activewear, and more. Free to browse. Milestone-gated payments. Every order documented.
+            Vietnam is the world's third largest garment exporter. Clewa connects brands with registered manufacturers — denim, knitwear, activewear, and more. Free to browse. Milestone-gated payments. Every order documented.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Button asChild size="lg" className="gap-2">
@@ -67,7 +67,7 @@ export default function VietnamManufacturing() {
 
       <section className="section-padding border-b border-border">
         <div className="container max-w-3xl">
-          <h2 className="text-2xl font-bold text-foreground mb-4">How Ariadne works for Vietnam sourcing</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">How Clewa works for Vietnam sourcing</h2>
           <div className="space-y-4">
             {[
               { n: "01", title: "Browse or get matched", body: "Filter by category, MOQ, certifications, and location. AI matcher describes what you need in plain language and gets ranked recommendations." },
@@ -92,10 +92,10 @@ export default function VietnamManufacturing() {
           <div className="p-6 rounded-2xl bg-card border border-border">
             <h2 className="text-xl font-bold text-foreground mb-2">Built by people in Vietnam</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              We run HU LA Studios — a garment factory in Ho Chi Minh City — and OKIO Denim, a brand that sources from Vietnam. Ariadne was built because we couldn't find software that worked for how production actually runs here.
+              We run HU LA Studios — a garment factory in Ho Chi Minh City — and OKIO Denim, a brand that sources from Vietnam. Clewa was built because we couldn't find software that worked for how production actually runs here.
             </p>
             <Button asChild>
-              <Link to="/about">About Ariadne →</Link>
+              <Link to="/about">About Clewa →</Link>
             </Button>
           </div>
         </div>

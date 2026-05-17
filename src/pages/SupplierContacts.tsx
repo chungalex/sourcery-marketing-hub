@@ -65,7 +65,7 @@ export default function SupplierContacts() {
 
   return (
     <Layout>
-      <SEO title="Supplier Contacts — Ariadne" description="Store individual contacts at each factory." />
+      <SEO title="Supplier Contacts — Clewa" description="Store individual contacts at each factory." />
       <section className="section-padding">
         <div className="container-wide max-w-3xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>

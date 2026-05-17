@@ -7,8 +7,8 @@ import { CheckCircle, X, ArrowRight } from "lucide-react";
 const COMPARISON = [
   {
     feature: "Free tier",
-    ariadne: true,
-    ariadne_note: "First order free, no time limit",
+    clewa: true,
+    clewa_note: "First order free, no time limit",
     anvyl: false,
     anvyl_note: "$1,500+/month minimum",
     pietra: "partial",
@@ -16,98 +16,98 @@ const COMPARISON = [
   },
   {
     feature: "Works for brands under 5,000 units",
-    ariadne: true,
+    clewa: true,
     anvyl: false,
     anvyl_note: "Enterprise-focused",
     pietra: true,
   },
   {
     feature: "Vietnam factory network",
-    ariadne: true,
-    ariadne_note: "Founding team based in HCMC",
+    clewa: true,
+    clewa_note: "Founding team based in HCMC",
     anvyl: "partial",
     anvyl_note: "Global but US-centric",
     pietra: "partial",
   },
   {
     feature: "RFQ to multiple factories",
-    ariadne: true,
+    clewa: true,
     anvyl: true,
     pietra: false,
   },
   {
     feature: "Bring your own factory (BYOF)",
-    ariadne: true,
-    ariadne_note: "Full OS works with any factory",
+    clewa: true,
+    clewa_note: "Full OS works with any factory",
     anvyl: true,
     pietra: false,
     pietra_note: "Only their network",
   },
   {
     feature: "Milestone-gated payments",
-    ariadne: true,
+    clewa: true,
     anvyl: true,
     pietra: false,
   },
   {
     feature: "AI production assistant",
-    ariadne: true,
-    ariadne_note: "Has full order context",
+    clewa: true,
+    clewa_note: "Has full order context",
     anvyl: "partial",
     pietra: false,
   },
   {
     feature: "Vietnam/Zalo notifications",
-    ariadne: true,
-    ariadne_note: "Built specifically for Vietnam",
+    clewa: true,
+    clewa_note: "Built specifically for Vietnam",
     anvyl: false,
     pietra: false,
   },
   {
     feature: "Shareable production record",
-    ariadne: true,
+    clewa: true,
     anvyl: false,
     pietra: false,
   },
   {
     feature: "Backward scheduling (critical path)",
-    ariadne: true,
-    ariadne_note: "Auto-calculated from delivery date",
+    clewa: true,
+    clewa_note: "Auto-calculated from delivery date",
     anvyl: "partial",
     anvyl_note: "Manual, enterprise only",
     pietra: false,
   },
   {
     feature: "Safety stock calculator",
-    ariadne: true,
+    clewa: true,
     anvyl: false,
     pietra: false,
   },
   {
     feature: "Factory OTIF scoring",
-    ariadne: true,
-    ariadne_note: "Verified from real order data",
+    clewa: true,
+    clewa_note: "Verified from real order data",
     anvyl: true,
     anvyl_note: "Enterprise plan only",
     pietra: false,
   },
   {
     feature: "HTS codes & duty calculator",
-    ariadne: true,
+    clewa: true,
     anvyl: false,
     pietra: false,
   },
   {
     feature: "Tet/holiday warnings",
-    ariadne: true,
-    ariadne_note: "Vietnam-native",
+    clewa: true,
+    clewa_note: "Vietnam-native",
     anvyl: false,
     pietra: false,
   },
   {
     feature: "Monthly pricing available",
-    ariadne: true,
-    ariadne_note: "$49/month",
+    clewa: true,
+    clewa_note: "$49/month",
     anvyl: false,
     anvyl_note: "Annual contracts only",
     pietra: "partial",
@@ -138,19 +138,19 @@ export default function Alternatives() {
   return (
     <Layout>
       <SEO
-        title="Ariadne vs alternatives — Factory relationship infrastructure comparison"
-        description="Compare production management platforms. Ariadne vs enterprise platforms: pricing, features, and which stage each is built for."
+        title="Clewa vs alternatives — Factory relationship infrastructure comparison"
+        description="Compare production management platforms. Clewa vs enterprise platforms: pricing, features, and which stage each is built for."
       />
 
       <section className="section-padding border-b border-border">
         <div className="container max-w-4xl">
           <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">Comparison</p>
           <h1 className="text-4xl font-bold text-foreground mb-4">
-            Ariadne vs the alternatives.
+            Clewa vs the alternatives.
 The only platform built for the complete factory relationship.
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Most production management tools were built for enterprise brands with $10M+ in revenue. Ariadne was built for brands from their first order — and by people who actually manufacture.
+            Most production management tools were built for enterprise brands with $10M+ in revenue. Clewa was built for brands from their first order — and by people who actually manufacture.
           </p>
         </div>
       </section>
@@ -161,7 +161,7 @@ The only platform built for the complete factory relationship.
             <thead>
               <tr className="border-b border-border">
                 <th className="px-4 py-3 text-left font-semibold text-foreground w-1/3">Feature</th>
-                <th className="px-4 py-3 text-center font-semibold text-primary">Ariadne</th>
+                <th className="px-4 py-3 text-center font-semibold text-primary">Clewa</th>
                 <th className="px-4 py-3 text-center font-semibold text-foreground">Enterprise platform</th>
                 <th className="px-4 py-3 text-center font-semibold text-foreground">Network platform</th>
               </tr>
@@ -170,7 +170,7 @@ The only platform built for the complete factory relationship.
               {COMPARISON.map(row => (
                 <tr key={row.feature} className="hover:bg-secondary/30 transition-colors">
                   <td className="px-4 py-3 text-sm text-foreground font-medium">{row.feature}</td>
-                  <Cell value={row.ariadne as any} note={row.ariadne_note} />
+                  <Cell value={row.clewa as any} note={row.clewa_note} />
                   <Cell value={row.anvyl as any} note={row.anvyl_note} />
                   <Cell value={(row.pietra ?? false) as any} note={row.pietra_note} />
                 </tr>
@@ -186,7 +186,7 @@ The only platform built for the complete factory relationship.
           <div className="grid sm:grid-cols-3 gap-4">
             {[
               {
-                name: "Ariadne",
+                name: "Clewa",
                 for: "Emerging brands from first order. Vietnam-native. Works with any factory you bring. Free to start.",
                 price: "Free → $49/month",
                 highlight: true,

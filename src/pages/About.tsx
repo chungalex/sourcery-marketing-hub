@@ -9,8 +9,8 @@ export default function About() {
   return (
     <Layout>
       <SEO
-        title="About — Ariadne"
-        description="In Greek mythology, Ariadne gave Theseus the thread to navigate the Labyrinth — without it, he would have been lost. Overseas manufacturing is the labyrinth. Complex, opaque, full of invisible risks, easy to get catastrophically lost in. Ariadne gives brands the thread.
+        title="About — Clewa"
+        description="In Greek mythology, Clewa gave Theseus the thread to navigate the Labyrinth — without it, he would have been lost. Overseas manufacturing is the labyrinth. Complex, opaque, full of invisible risks, easy to get catastrophically lost in. Clewa gives brands the thread.
 
 The complete infrastructure for your factory relationship. Find the right manufacturer. Verify them properly. Run every order with professional structure and payment protection. Get guided at every step by an AI that knows your operation. The thread that connects every production decision — from first factory to fiftieth order."
       />
@@ -60,7 +60,7 @@ The complete infrastructure for your factory relationship. Find the right manufa
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <p>
-                Ariadne is the manufacturing OS. Documentation, intelligence, and trade tools — the things enterprise brands pay teams to manage, automated and available at $49/month. We run a factory in Vietnam. We run a brand that sources from Vietnam. We built this because we couldn't find it. Not an agency. Infrastructure that walks you through the process, keeps everything organised, and gives you the confidence to build your company around production instead of in spite of it.
+                Clewa is the manufacturing OS. Documentation, intelligence, and trade tools — the things enterprise brands pay teams to manage, automated and available at $49/month. We run a factory in Vietnam. We run a brand that sources from Vietnam. We built this because we couldn't find it. Not an agency. Infrastructure that walks you through the process, keeps everything organised, and gives you the confidence to build your company around production instead of in spite of it.
               </p>
               <p className="mt-4">
                 The platform has two equally important halves. The OS manages every order from PO creation to closed delivery. The marketplace helps brands find the right factory before the first order is placed — vetted manufacturers with verified credentials, matched to your requirements. Because getting production right starts with getting the factory right.
@@ -115,7 +115,7 @@ The complete infrastructure for your factory relationship. Find the right manufa
       <section className="section-padding bg-card/50 border-y border-border">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-8">What Ariadne is — and isn't</h2>
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-8">What Clewa is — and isn't</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-3">
                 <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">What it is</p>

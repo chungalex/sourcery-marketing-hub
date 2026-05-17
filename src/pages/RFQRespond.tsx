@@ -91,14 +91,14 @@ export default function RFQRespond() {
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
         <p className="text-foreground font-medium mb-2">This link is invalid or has expired.</p>
-        <Link to="/" className="text-primary hover:underline text-sm">Visit Ariadne →</Link>
+        <Link to="/" className="text-primary hover:underline text-sm">Visit Clewa →</Link>
       </div>
     </div>
   );
 
   return (
     <>
-      <SEO title={`RFQ: ${rfq.title} — Ariadne`} description="Review the brief below and submit your quote. The brand will be notified immediately." noIndex />
+      <SEO title={`RFQ: ${rfq.title} — Clewa`} description="Review the brief below and submit your quote. The brand will be notified immediately." noIndex />
       <div className="min-h-screen bg-background">
         {/* Header */}
         <div className="border-b border-border bg-card/50">
@@ -106,7 +106,7 @@ export default function RFQRespond() {
             <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-base">S</span>
             </div>
-            <span className="font-semibold text-foreground">Ariadne</span>
+            <span className="font-semibold text-foreground">Clewa</span>
             <span className="text-muted-foreground text-sm ml-2">Request for Quotation</span>
           </div>
         </div>
@@ -126,7 +126,7 @@ export default function RFQRespond() {
                   : "The brand will review your quote alongside others and be in touch if they'd like to proceed."}
               </p>
               <p className="text-xs text-muted-foreground">
-                Want to manage orders on Ariadne?{" "}
+                Want to manage orders on Clewa?{" "}
                 <Link to="/auth?mode=signup&factory=1" className="text-primary hover:underline">Create a free factory account →</Link>
               </p>
             </motion.div>
@@ -137,7 +137,7 @@ export default function RFQRespond() {
                 <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">Request for quotation</p>
                 <h1 className="text-2xl font-bold text-foreground mb-1">{rfq.title}</h1>
                 <p className="text-muted-foreground text-sm mb-4">
-                  Submitted by a brand on Ariadne · Respond with your quote below
+                  Submitted by a brand on Clewa · Respond with your quote below
                 </p>
                 <div className="p-5 rounded-xl bg-card border border-border space-y-3">
                   {rfq.product_category && (
@@ -235,8 +235,8 @@ export default function RFQRespond() {
               </div>
 
               <p className="text-xs text-muted-foreground text-center mt-6">
-                No Ariadne account required. Your quote goes directly to the brand.{" "}
-                <Link to="/" className="text-primary hover:underline">Learn about Ariadne →</Link>
+                No Clewa account required. Your quote goes directly to the brand.{" "}
+                <Link to="/" className="text-primary hover:underline">Learn about Clewa →</Link>
               </p>
             </>
           )}

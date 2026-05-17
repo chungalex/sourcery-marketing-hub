@@ -37,7 +37,7 @@ export default function Toolkit() {
   return (
     <Layout>
       <SEO 
-        title="Your Toolkit | Ariadne" 
+        title="Your Toolkit | Clewa" 
         description="Powerful tools to help you find factories, compare quotes, track orders, and manage supplier relationships."
       />
       

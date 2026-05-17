@@ -18,13 +18,13 @@ const FEATURE_GROUPS = [
         icon: Clock,
         title: "Backward scheduling",
         method: "Nike's critical path method",
-        desc: "Enter your delivery date. Ariadne reverse-engineers every gate — sample approval by June 16, bulk start by July 28, QC by September 3, cargo cutoff September 10. Fires alerts the moment anything slips.",
+        desc: "Enter your delivery date. Clewa reverse-engineers every gate — sample approval by June 16, bulk start by July 28, QC by September 3, cargo cutoff September 10. Fires alerts the moment anything slips.",
       },
       {
         icon: Calculator,
         title: "Safety stock calculator",
         method: "Amazon's inventory formula",
-        desc: "Enter your weekly sales velocity and current stock. Ariadne calculates your reorder point and the exact date to issue your next PO before you hit zero. No stockouts. No emergency air freight.",
+        desc: "Enter your weekly sales velocity and current stock. Clewa calculates your reorder point and the exact date to issue your next PO before you hit zero. No stockouts. No emergency air freight.",
       },
       {
         icon: BarChart3,
@@ -148,7 +148,7 @@ export default function Features() {
   return (
     <Layout>
       <SEO
-        title="Features — Ariadne Manufacturing OS"
+        title="Features — Clewa Manufacturing OS"
         description="Enterprise supply chain tools for every production stage. Backward scheduling, safety stock math, factory OTIF scores, trade tools, compliance exports — at $49/month."
       />
 
@@ -163,7 +163,7 @@ export default function Features() {
               Everything your factory relationship needs.<br />Every stage of production.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Nike has backward scheduling. Amazon has safety stock formulas. Apple gives every supplier a scorecard. Walmart tracks OTIF rates. All of it is now in Ariadne — automated, at $49/month.
+              Nike has backward scheduling. Amazon has safety stock formulas. Apple gives every supplier a scorecard. Walmart tracks OTIF rates. All of it is now in Clewa — automated, at $49/month.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button asChild size="lg" className="gap-2">

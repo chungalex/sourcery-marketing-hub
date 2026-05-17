@@ -1,5 +1,5 @@
 // ─── Formal Change Order Flow ─────────────────────────────────────────────────
-// Every spec change is a formal change order on Ariadne.
+// Every spec change is a formal change order on Clewa.
 // Brand raises the change — field level, what was agreed vs what is changing.
 // Factory receives it, reviews, formally acknowledges.
 // Change order attached to PO. Audit trail permanent.

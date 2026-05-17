@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 export type Language = "en" | "vi" | "zh";
 
-const STORAGE_KEY = "ariadne_language";
+const STORAGE_KEY = "clewa_language";
 
 export function useLanguage() {
   const [lang, setLang] = useState<Language>(() => {

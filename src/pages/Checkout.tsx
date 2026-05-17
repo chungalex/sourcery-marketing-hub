@@ -116,8 +116,8 @@ export default function Checkout() {
   return (
     <Layout>
       <SEO 
-        title={`Subscribe to ${selectedPlan.name} | Ariadne`}
-        description="Complete your Ariadne subscription."
+        title={`Subscribe to ${selectedPlan.name} | Clewa`}
+        description="Complete your Clewa subscription."
       />
 
       <section className="section-padding min-h-[80vh]">

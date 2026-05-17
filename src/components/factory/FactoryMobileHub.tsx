@@ -2,7 +2,7 @@
 // Mobile-first interface for factory users.
 // Designed to work on a phone in a factory environment.
 // Large touch targets. Simple flows. No unnecessary complexity.
-// This is what makes factories prefer Ariadne over WhatsApp.
+// This is what makes factories prefer Clewa over WhatsApp.
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";

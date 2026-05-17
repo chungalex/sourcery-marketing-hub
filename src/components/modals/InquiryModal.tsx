@@ -105,7 +105,7 @@ export function InquiryModal({
   const [message, setMessage] = useState("");
   const [techPackUrl, setTechPackUrl] = useState("");
 
-  const draftKey = factoryId ? `ariadne_inquiry_draft_${factoryId}` : null;
+  const draftKey = factoryId ? `clewa_inquiry_draft_${factoryId}` : null;
 
   // Restore draft from localStorage on open
   useEffect(() => {

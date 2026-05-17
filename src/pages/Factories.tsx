@@ -9,8 +9,8 @@ export default function Factories() {
   return (
     <Layout>
       <SEO
-        title="For Factories — Ariadne"
-        description="Join the Ariadne network free. Build a verified performance record that compounds with every order. Better clients, structured orders, real reputation."
+        title="For Factories — Clewa"
+        description="Join the Clewa network free. Build a verified performance record that compounds with every order. Better clients, structured orders, real reputation."
       />
 
       {/* Hero */}
@@ -26,7 +26,7 @@ export default function Factories() {
                 and a reputation that builds with every run.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                Brands on Ariadne come with clear specs and structured payment milestones. Every completed order builds your verified performance record — the longer you work on the platform, the more your reputation works for you.
+                Brands on Clewa come with clear specs and structured payment milestones. Every completed order builds your verified performance record — the longer you work on the platform, the more your reputation works for you.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/apply">
@@ -64,7 +64,7 @@ export default function Factories() {
               <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">Join the marketplace</p>
               <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Apply and get discovered by new brands.</h2>
               <p className="text-muted-foreground leading-relaxed mb-5">
-                Apply to the Ariadne network, complete a credential review, and build a public profile. Brands searching for your category see your capabilities, certifications, and growing performance record.
+                Apply to the Clewa network, complete a credential review, and build a public profile. Brands searching for your category see your capabilities, certifications, and growing performance record.
               </p>
 <Link to="/apply"><Button size="sm" variant="outline" className="gap-1.5 text-xs">Apply <ArrowRight className="h-3 w-3" /></Button></Link>
             </motion.div>
@@ -76,7 +76,7 @@ export default function Factories() {
       <section className="section-padding bg-card/50 border-y border-border">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">What working through Ariadne means for you.</h2>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">What working through Clewa means for you.</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
               Orders arrive differently. Payments are structured. And every order you complete builds something that works in your favour permanently.
             </p>
@@ -87,7 +87,7 @@ export default function Factories() {
                 icon: Package,
                 title: "Orders that arrive with everything you need.",
                 sub: "No more chasing specs.",
-                desc: "Brands on Ariadne create structured POs — versioned tech packs, documented AQL standards, clear QC requirements, milestone payment terms. Every order arrives with the information you need to build correctly.",
+                desc: "Brands on Clewa create structured POs — versioned tech packs, documented AQL standards, clear QC requirements, milestone payment terms. Every order arrives with the information you need to build correctly.",
               },
               {
                 icon: TrendingUp,
@@ -120,10 +120,10 @@ export default function Factories() {
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Your OTIF score becomes your competitive advantage.</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                OTIF stands for On-Time In-Full — the percentage of orders you deliver on schedule and at the agreed quantity. Walmart charges factories 3% of invoice value for every OTIF failure. On Ariadne, your OTIF score is calculated from every completed order and is visible to every brand browsing the directory. You can't buy a better score. You earn it through real orders.
+                OTIF stands for On-Time In-Full — the percentage of orders you deliver on schedule and at the agreed quantity. Walmart charges factories 3% of invoice value for every OTIF failure. On Clewa, your OTIF score is calculated from every completed order and is visible to every brand browsing the directory. You can't buy a better score. You earn it through real orders.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                HU LA Studios — our production studio in Ho Chi Minh City — was the first factory on the platform. Every OKIO Denim order runs through Ariadne. Their OTIF score is built from real production cycles, not claims.
+                HU LA Studios — our production studio in Ho Chi Minh City — was the first factory on the platform. Every OKIO Denim order runs through Clewa. Their OTIF score is built from real production cycles, not claims.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Factories with high scores get featured placement in search results and priority matching in the AI matcher — meaning more brands see your profile first.
@@ -174,7 +174,7 @@ export default function Factories() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <div className="text-center mb-8">
               <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Free to join. Free forever.</h2>
-              <p className="text-muted-foreground">Ariadne charges brands. Factories join, list, and operate on the platform at no cost.</p>
+              <p className="text-muted-foreground">Clewa charges brands. Factories join, list, and operate on the platform at no cost.</p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 max-w-3xl mx-auto">
               {[
@@ -246,7 +246,7 @@ export default function Factories() {
               {
                 label: "Community",
                 title: "Part of a network, not just a listing.",
-                body: "Ariadne is a two-sided community — brands and factories both participating, both building reputations. The platform grows more valuable the more people use it.",
+                body: "Clewa is a two-sided community — brands and factories both participating, both building reputations. The platform grows more valuable the more people use it.",
               },
             ].map((item, i) => (
               <motion.div

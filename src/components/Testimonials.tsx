@@ -22,7 +22,7 @@ export function Testimonials({ className = "" }: TestimonialsProps) {
           Coming Soon
         </h3>
         <p className="text-muted-foreground text-sm leading-relaxed max-w-md mx-auto">
-          We're currently onboarding our first cohort of brands. Check back soon to see what they're saying about Ariadne.
+          We're currently onboarding our first cohort of brands. Check back soon to see what they're saying about Clewa.
         </p>
       </motion.div>
     </div>

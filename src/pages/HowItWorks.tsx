@@ -25,7 +25,7 @@ const STEPS = [
   },
   {
     n: "03",
-    title: "Ariadne monitors everything — and tells you when to act",
+    title: "Clewa monitors everything — and tells you when to act",
     body: "From the moment the PO is issued, the platform tracks every gate. Is your sample approval on track? Is the factory running behind? Are you approaching cargo cutoff with QC not yet complete? You find out before it becomes a crisis.",
     features: ["Order health dashboard — green/amber/red across all orders", "Holiday alerts 45 days before Tet and Golden Week", "Factory capacity warnings when load is high", "Reorder intelligence using your actual lead time history"],
     icon: AlertTriangle,
@@ -57,7 +57,7 @@ export default function HowItWorks() {
   return (
     <Layout>
       <SEO
-        title="How Ariadne Works — Production Intelligence for Small Brands"
+        title="How Clewa Works — Production Intelligence for Small Brands"
         description="From factory connection to closed delivery. Backward scheduling, safety stock math, OTIF scores, trade tools — the enterprise supply chain system built for brands doing 300 units."
       />
 

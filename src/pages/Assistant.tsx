@@ -57,7 +57,7 @@ export default function Assistant() {
   return (
     <Layout>
       <SEO
-        title="Production Assistant — Ariadne"
+        title="Production Assistant — Clewa"
         description="A production assistant that works with your order context — not a generic chatbot. Get specific answers on any active order, fast."
       />
 
@@ -132,7 +132,7 @@ export default function Assistant() {
               Why it's more useful than a general AI tool.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-              Ask ChatGPT "is this lead time reasonable?" and you get a general answer. Ask the Ariadne assistant the same question on an active order, and the answer is based on that specific factory, your delivery window, and the current milestone status. The difference is context — your order context, used only to answer your questions.
+              Ask ChatGPT "is this lead time reasonable?" and you get a general answer. Ask the Clewa assistant the same question on an active order, and the answer is based on that specific factory, your delivery window, and the current milestone status. The difference is context — your order context, used only to answer your questions.
             </p>
             <div className="grid md:grid-cols-2 gap-5">
               {[

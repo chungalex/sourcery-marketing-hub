@@ -8,7 +8,7 @@ export default function Consulting() {
   return (
     <Layout>
       <SEO
-        title="Production Consulting — Ariadne"
+        title="Production Consulting — Clewa"
         description="Managed production and consulting for physical product brands sourcing from Vietnam."
       />
       <section className="section-padding">
@@ -16,11 +16,11 @@ export default function Consulting() {
           <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">Production support</p>
           <h1 className="text-4xl font-bold text-foreground mb-4">You need more than software.</h1>
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-            Ariadne Studio handles your production end to end — factory selection, PO, sampling, QC, and delivery.
+            Clewa Studio handles your production end to end — factory selection, PO, sampling, QC, and delivery.
             For brands who want the outcome, not the overhead.
           </p>
           <Button asChild size="lg" className="gap-2">
-            <Link to="/studio">See Ariadne Studio <ArrowRight className="h-4 w-4" /></Link>
+            <Link to="/studio">See Clewa Studio <ArrowRight className="h-4 w-4" /></Link>
           </Button>
         </div>
       </section>

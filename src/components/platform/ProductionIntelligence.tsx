@@ -232,7 +232,7 @@ export function ProductionIntelligence({ className }: { className?: string }) {
           })}
           <div className="px-5 py-3 bg-secondary/30">
             <p className="text-xs text-muted-foreground">
-              Intelligence is based on your order history. The more orders you complete on Ariadne, the more accurate these signals become.
+              Intelligence is based on your order history. The more orders you complete on Clewa, the more accurate these signals become.
             </p>
           </div>
         </div>

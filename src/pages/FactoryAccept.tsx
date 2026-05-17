@@ -152,7 +152,7 @@ export default function FactoryAccept() {
 
   return (
     <Layout>
-      <SEO title="Review Purchase Order — Ariadne" />
+      <SEO title="Review Purchase Order — Clewa" />
       <section className="py-12 px-4 min-h-screen">
         <div className="max-w-2xl mx-auto">
           <motion.div

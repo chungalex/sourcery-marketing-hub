@@ -92,12 +92,12 @@ const scenarios = [
   },
 ];
 
-export default function WhyAriadne() {
+export default function WhyClewa() {
   return (
     <Layout>
       <SEO
-        title="Why Ariadne"
-        description="Production that's faster, more visible, and more secure. Ariadne is the infrastructure that makes it possible."
+        title="Why Clewa"
+        description="Production that's faster, more visible, and more secure. Clewa is the infrastructure that makes it possible."
       />
 
       {/* Hero */}
@@ -112,7 +112,7 @@ the whole category was missing.
               Most production runs on tools that weren't built for it. Spec changes over messaging apps. Sample approvals over email. A bank portal for payments. When things work, it's fine. When they don't, there's no record, no structure, and no clear path forward.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
-              Ariadne is the infrastructure that makes production efficient, visible, and protected — so your time and your capital are both working for you.
+              Clewa is the infrastructure that makes production efficient, visible, and protected — so your time and your capital are both working for you.
             </p>
           </motion.div>
         </div>
@@ -127,7 +127,7 @@ the whole category was missing.
               The gap between how big brands manage production and how you do it — closed.
             </h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
-              The average production run is managed across 4–6 different tools. That fragmentation creates constant overhead — chasing confirmations, reconstructing specs, coordinating the same information in multiple places. Ariadne collapses all of it into one system.
+              The average production run is managed across 4–6 different tools. That fragmentation creates constant overhead — chasing confirmations, reconstructing specs, coordinating the same information in multiple places. Clewa collapses all of it into one system.
             </p>
           </motion.div>
 
@@ -161,7 +161,7 @@ the whole category was missing.
           >
             <div className="flex items-center justify-between gap-6 flex-wrap">
               <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
-                For a brand running 10 orders a year, unstructured production overhead adds up to <span className="font-semibold text-foreground">40–80 hours annually</span> — coordination that produces nothing. Ariadne handles that coordination by default.
+                For a brand running 10 orders a year, unstructured production overhead adds up to <span className="font-semibold text-foreground">40–80 hours annually</span> — coordination that produces nothing. Clewa handles that coordination by default.
               </p>
               <div className="text-right flex-shrink-0">
                 <p className="text-2xl font-bold text-primary">40–80 hrs</p>
@@ -175,7 +175,7 @@ the whole category was missing.
                 <p className="text-sm font-semibold text-foreground mb-1">The cost of one missed season</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Late delivery = missed retail window = emergency air freight ($3–8K) or deep discounts to clear old stock (20–40% margin hit).
-                  One missed season on a $50K production run costs more than 5 years of Ariadne.
+                  One missed season on a $50K production run costs more than 5 years of Clewa.
                   The reorder intelligence feature exists specifically to prevent this.
                 </p>
               </div>
@@ -197,7 +197,7 @@ the whole category was missing.
               Production intelligence that prevents the expensive surprises.
             </h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
-              Security in production isn't just about protecting against the worst case. It's the confidence of knowing exactly what was agreed, where the money is, what stage the order is at, and what your leverage is if something shifts. Ariadne makes that visibility the default — not something you have to work to maintain.
+              Security in production isn't just about protecting against the worst case. It's the confidence of knowing exactly what was agreed, where the money is, what stage the order is at, and what your leverage is if something shifts. Clewa makes that visibility the default — not something you have to work to maintain.
             </p>
           </motion.div>
 
@@ -229,7 +229,7 @@ the whole category was missing.
               Your capital moves on your terms. Not theirs.
             </h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
-              Every production order involves real money moving to a manufacturer before you've seen the finished product. Ariadne doesn't hold your funds — but it gives you something more valuable: a documented, platform-enforced structure that tells you exactly when each payment should move, and the paper trail to back you up if it doesn't.
+              Every production order involves real money moving to a manufacturer before you've seen the finished product. Clewa doesn't hold your funds — but it gives you something more valuable: a documented, platform-enforced structure that tells you exactly when each payment should move, and the paper trail to back you up if it doesn't.
             </p>
           </motion.div>
 
@@ -267,7 +267,7 @@ the whole category was missing.
                   Efficiency and security start before the first order.
                 </h2>
                 <p className="text-muted-foreground leading-relaxed text-sm">
-                  Starting with the right factory is the foundation everything else sits on. The Ariadne marketplace shows you registered manufacturers — credentials confirmed, performance tracked from every order on platform — before you commit to anything. Browse free. Contact on Builder.
+                  Starting with the right factory is the foundation everything else sits on. The Clewa marketplace shows you registered manufacturers — credentials confirmed, performance tracked from every order on platform — before you commit to anything. Browse free. Contact on Builder.
                 </p>
               </div>
               <div className="space-y-2.5">
@@ -388,7 +388,7 @@ the whole category was missing.
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-xl bg-card border border-border">
             <h2 className="font-heading text-xl font-bold text-foreground mb-4">
-              Ariadne doesn't guarantee you'll never have a production problem.
+              Clewa doesn't guarantee you'll never have a production problem.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
               It guarantees that every sample is formally approved before bulk production begins, every spec change is acknowledged before work continues, and every final payment gate requires a QC result before you release it. You own every decision. The platform enforces the structure and builds the record. That's not a small thing when $15,000 is on the line.
@@ -414,10 +414,10 @@ the whole category was missing.
               There's a well-documented phenomenon in supply chains called the bullwhip effect: small hesitations by a brand — a 2-week delay on a PO — cascade into months of factory capacity disruption. The cause is always the same. The brand can't see the factory's capacity. The factory can't see the brand's demand signals. Both make decisions based on incomplete information.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-6">
-              Ariadne closes this gap. After your first completed order, the platform knows your lead time with each factory. It knows your reorder patterns. It knows when your production gates typically complete. It uses this to tell you: issue your next PO by this date to hit your target delivery. Reserve your factory slot this week — their capacity will be spoken for otherwise.
+              Clewa closes this gap. After your first completed order, the platform knows your lead time with each factory. It knows your reorder patterns. It knows when your production gates typically complete. It uses this to tell you: issue your next PO by this date to hit your target delivery. Reserve your factory slot this week — their capacity will be spoken for otherwise.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              This is what enterprise brands pay $50,000/year for in supply chain software. Ariadne makes it available from your first completed order, at $49/month. The documentation is what makes the intelligence possible. The intelligence is what makes the documentation worth more than a record.
+              This is what enterprise brands pay $50,000/year for in supply chain software. Clewa makes it available from your first completed order, at $49/month. The documentation is what makes the intelligence possible. The intelligence is what makes the documentation worth more than a record.
             </p>
           </div>
         </div>

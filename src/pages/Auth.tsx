@@ -141,8 +141,8 @@ export default function Auth() {
   return (
     <Layout>
       <SEO 
-        title="Sign In | Ariadne" 
-        description="Access your Ariadne account to connect with registered manufacturers or manage your factory profile."
+        title="Sign In | Clewa" 
+        description="Access your Clewa account to connect with registered manufacturers or manage your factory profile."
       />
       
       <section className="section-padding min-h-[80vh] flex items-center">

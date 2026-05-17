@@ -238,7 +238,7 @@ export function ReorderIntelligencePro({ className }: ReorderIntelligenceProProp
 
           <div className="px-5 py-3 bg-primary/5">
             <p className="text-xs text-muted-foreground leading-relaxed">
-              <span className="font-medium text-foreground">How this works:</span> Ariadne calculates your average lead time per factory from your order history, then estimates when to issue your next PO to hit a seasonal delivery target. The more orders you complete on Ariadne, the more accurate this becomes.
+              <span className="font-medium text-foreground">How this works:</span> Clewa calculates your average lead time per factory from your order history, then estimates when to issue your next PO to hit a seasonal delivery target. The more orders you complete on Clewa, the more accurate this becomes.
             </p>
           </div>
         </div>

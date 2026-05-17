@@ -80,7 +80,7 @@ export default function ProductionCalendar() {
 
   return (
     <Layout>
-      <SEO title="Production Calendar — Ariadne" description="Visual timeline of all active orders by delivery window." />
+      <SEO title="Production Calendar — Clewa" description="Visual timeline of all active orders by delivery window." />
       <section className="section-padding">
         <div className="container-wide max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>

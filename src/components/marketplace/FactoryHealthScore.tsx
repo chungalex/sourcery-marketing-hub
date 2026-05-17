@@ -166,7 +166,7 @@ export function FactoryHealthScore({ factoryId, compact = false }: FactoryHealth
       </div>
 
       <p className="text-xs text-muted-foreground mt-3 pt-3 border-t border-border leading-relaxed">
-        Based on {health.completedOrders} completed order{health.completedOrders !== 1 ? "s" : ""} on Ariadne. Score improves as more orders complete.
+        Based on {health.completedOrders} completed order{health.completedOrders !== 1 ? "s" : ""} on Clewa. Score improves as more orders complete.
       </p>
     </div>
   );

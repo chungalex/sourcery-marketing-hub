@@ -10,7 +10,7 @@ const footerLinks = {
         { label: "Pricing", href: "/pricing" },
   ],
   learn: [
-    { label: "Why Ariadne", href: "/why-ariadne" },
+    { label: "Why Clewa", href: "/why-clewa" },
     { label: "How it works", href: "/how-it-works" },
     { label: "Resources", href: "/resources" },
     { label: "Intelligence", href: "/intelligence" },
@@ -45,7 +45,7 @@ export function Footer() {
                 <span className="text-primary-foreground font-heading font-bold text-lg">S</span>
               </div>
               <span className="font-heading font-semibold text-xl text-foreground">
-                Ariadne
+                Clewa
               </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
@@ -109,7 +109,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Ariadne. All rights reserved.
+            © {new Date().getFullYear()} Clewa. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <a

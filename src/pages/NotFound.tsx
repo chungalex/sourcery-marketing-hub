@@ -11,7 +11,7 @@ const NotFound = () => {
   return (
     <Layout>
       <SEO
-        title="Page not found — Ariadne"
+        title="Page not found — Clewa"
         description="This page doesn't exist."
         noIndex={true}
       />

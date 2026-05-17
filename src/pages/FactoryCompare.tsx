@@ -102,7 +102,7 @@ export default function FactoryCompare() {
   if (!loading && ids.length < 2) {
     return (
       <Layout>
-        <SEO title="Compare Factories — Ariadne" description="Side-by-side factory comparison." />
+        <SEO title="Compare Factories — Clewa" description="Side-by-side factory comparison." />
         <section className="section-padding">
           <div className="container-tight text-center py-20">
             <Building2 className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
@@ -117,7 +117,7 @@ export default function FactoryCompare() {
 
   return (
     <Layout>
-      <SEO title="Compare Factories — Ariadne" description="Side-by-side factory comparison on MOQ, lead time, certifications, and performance." />
+      <SEO title="Compare Factories — Clewa" description="Side-by-side factory comparison on MOQ, lead time, certifications, and performance." />
       <section className="section-padding">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>

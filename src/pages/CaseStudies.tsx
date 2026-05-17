@@ -9,16 +9,16 @@ export default function CaseStudies() {
   return (
     <Layout>
       <SEO
-        title="Case Studies — OKIO Denim on Ariadne"
-        description="How OKIO Denim manages production from Ho Chi Minh City using Ariadne. Real numbers, real orders, real results."
+        title="Case Studies — OKIO Denim on Clewa"
+        description="How OKIO Denim manages production from Ho Chi Minh City using Clewa. Real numbers, real orders, real results."
       />
 
       <section className="section-padding border-b border-border">
         <div className="container max-w-3xl">
           <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">Case study</p>
-          <h1 className="text-4xl font-bold text-foreground mb-5">How OKIO Denim runs its factory relationship on Ariadne.</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-5">How OKIO Denim runs its factory relationship on Clewa.</h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            OKIO is a premium denim brand with a Vietnam–LA identity, sourcing from Ho Chi Minh City. Every production run is managed on Ariadne — from PO to delivery.
+            OKIO is a premium denim brand with a Vietnam–LA identity, sourcing from Ho Chi Minh City. Every production run is managed on Clewa — from PO to delivery.
           </p>
         </div>
       </section>
@@ -51,7 +51,7 @@ export default function CaseStudies() {
               {
                 icon: Clock,
                 title: "Production countdown from delivery date",
-                body: "Every OKIO order has a target delivery date. Ariadne automatically calculates every required gate — sample approval by X, bulk start by Y, cargo cutoff by Z — and fires alerts if anything slips. No sourcing director required.",
+                body: "Every OKIO order has a target delivery date. Clewa automatically calculates every required gate — sample approval by X, bulk start by Y, cargo cutoff by Z — and fires alerts if anything slips. No sourcing director required.",
               },
               {
                 icon: Shield,
@@ -66,7 +66,7 @@ export default function CaseStudies() {
               {
                 icon: Package,
                 title: "Reorder intelligence prevents stockouts",
-                body: "After the first OKIO order closed, Ariadne began tracking lead time history. It now tells OKIO exactly when to issue the next PO based on their actual 14-week average — before they hit zero inventory.",
+                body: "After the first OKIO order closed, Clewa began tracking lead time history. It now tells OKIO exactly when to issue the next PO based on their actual 14-week average — before they hit zero inventory.",
               },
             ].map(({ icon: Icon, title, body }) => (
               <div key={title} className="flex gap-4">

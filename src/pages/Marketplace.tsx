@@ -40,9 +40,9 @@ export default function Marketplace() {
   return (
     <Layout>
       <SEO
-        title="Find Manufacturers in Vietnam & Southeast Asia | Ariadne"
+        title="Find Manufacturers in Vietnam & Southeast Asia | Clewa"
         description="Browse verified apparel, denim, and soft goods manufacturers in Vietnam, Indonesia, Bangladesh, and beyond. Free to contact. Bring your own factory or find one through us."
-        ogImage="https://ariadne.io/og-image.png"
+        ogImage="https://clewa.io/og-image.png"
       />
 
       {/* Hero */}
@@ -57,7 +57,7 @@ export default function Marketplace() {
                 Start with your factory — or find one here.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-2xl">
-                The Ariadne marketplace is intentionally small. Every factory is personally evaluated before listing — categories verified, capabilities confirmed, credentials checked. We'd rather show you four manufacturers we've personally evaluated than fifty you'd have to figure out yourself.
+                The Clewa marketplace is intentionally small. Every factory is personally evaluated before listing — categories verified, capabilities confirmed, credentials checked. We'd rather show you four manufacturers we've personally evaluated than fifty you'd have to figure out yourself.
               </p>
               <p className="text-base text-muted-foreground leading-relaxed mb-8 max-w-2xl">
                 We're a new platform and the network is growing. If you have a factory you work with and trust, invite them directly — that's what BYOF is for.
@@ -75,7 +75,7 @@ export default function Marketplace() {
                   <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Already have a factory</p>
               <div className="mb-4 p-3 rounded-lg bg-secondary/50 border border-border">
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  <span className="font-medium text-foreground">Your factory stays private.</span> Manufacturers you invite through BYOF are connected only to your account — not listed in the marketplace, not discoverable by other brands. Bringing your factory onto Ariadne does not expose your supply chain.
+                  <span className="font-medium text-foreground">Your factory stays private.</span> Manufacturers you invite through BYOF are connected only to your account — not listed in the marketplace, not discoverable by other brands. Bringing your factory onto Clewa does not expose your supply chain.
                 </p>
               </div>
                   <h3 className="font-semibold text-foreground text-lg mb-2">Bring your own</h3>
@@ -102,7 +102,7 @@ export default function Marketplace() {
                 Locking in a 30% deposit before you've seen real data on a manufacturer is one of the most stressful moments in production. A good sample is useful — but it doesn't tell you QC pass rates, response time, or how the factory handles disputes.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Every factory in the Ariadne network has been personally evaluated. You see what they're verified for, what categories they produce, their MOQ range, and a performance record that builds from real completed orders. Browse before you reach out. Reach out before you commit.
+                Every factory in the Clewa network has been personally evaluated. You see what they're verified for, what categories they produce, their MOQ range, and a performance record that builds from real completed orders. Browse before you reach out. Reach out before you commit.
               </p>
               <div className="space-y-2.5">
                 {whyPoints.map((item, i) => (
@@ -214,7 +214,7 @@ export default function Marketplace() {
             </p>
             <div className="mt-6 p-5 rounded-xl bg-card border border-border max-w-2xl mx-auto text-left">
               <p className="text-sm font-semibold text-foreground mb-1.5">We're building this network carefully.</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">Ariadne is a new platform. The factory network is intentionally small right now — every manufacturer is personally evaluated before listing. We'd rather grow slowly with factories we've personally evaluated than list broadly and hope for the best. Have a factory you trust and would like to recommend? <Link to="/contact" className="text-primary hover:underline">Reach out.</Link></p>
+              <p className="text-sm text-muted-foreground leading-relaxed">Clewa is a new platform. The factory network is intentionally small right now — every manufacturer is personally evaluated before listing. We'd rather grow slowly with factories we've personally evaluated than list broadly and hope for the best. Have a factory you trust and would like to recommend? <Link to="/contact" className="text-primary hover:underline">Reach out.</Link></p>
             </div>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

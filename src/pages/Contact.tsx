@@ -56,7 +56,7 @@ export default function Contact() {
   return (
     <Layout>
       <SEO
-        title="Contact — Ariadne"
+        title="Contact — Clewa"
         description="Questions about the platform, factory applications, or anything else — get in touch."
       />
 
@@ -174,7 +174,7 @@ export default function Contact() {
 
               <div className="flex items-center gap-3 text-muted-foreground">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <span className="text-sm">hello@ariadne.io</span>
+                <span className="text-sm">hello@clewa.io</span>
               </div>
             </motion.div>
           </div>

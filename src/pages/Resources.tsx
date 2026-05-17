@@ -314,7 +314,7 @@ export default function Resources() {
   return (
     <Layout>
       <SEO
-        title="Production resources — Ariadne"
+        title="Production resources — Clewa"
         description="Everything brands need to know about production — AQL, incoterms, supply chain, compliance certifications, import duties, factory evaluation, and market guides."
       />
 
@@ -480,7 +480,7 @@ export default function Resources() {
               Knowledge is one thing. A system is another.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-              Ariadne puts everything you've learned here into an infrastructure that enforces it — gates, records, and a production assistant that answers specific questions on every live order.
+              Clewa puts everything you've learned here into an infrastructure that enforces it — gates, records, and a production assistant that answers specific questions on every live order.
             </p>
             <div className="flex justify-center gap-3 flex-wrap">
               <Link to="/auth?mode=signup">

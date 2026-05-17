@@ -112,7 +112,7 @@ const TIERS = [
       ]},
       { group: "Compliance & documentation", items: [
         "Supply chain compliance export — CSDDD, UFLPA, Modern Slavery Act",
-        "White-label PO PDF exports — your brand, not Ariadne's",
+        "White-label PO PDF exports — your brand, not Clewa's",
         "Shareable production records for investors and retailers",
       ]},
       { group: "Advanced operations", items: [
@@ -144,8 +144,8 @@ const FAQS = [
     a: "Nothing. Factories join and use the full platform completely free. You pay — they benefit from structured orders, milestone-protected payments, and a growing OTIF score that helps them attract more brands.",
   },
   {
-    q: "What is Ariadne Managed?",
-    a: "Ariadne Managed is a separate service — not a subscription tier — where we handle your entire production run: factory selection, PO, sampling, QC, and delivery, using Ariadne as the backbone. From $2,000 per production run. 3–5 slots available per season.",
+    q: "What is Clewa Managed?",
+    a: "Clewa Managed is a separate service — not a subscription tier — where we handle your entire production run: factory selection, PO, sampling, QC, and delivery, using Clewa as the backbone. From $2,000 per production run. 3–5 slots available per season.",
   },
   {
     q: "What happens to my data if I downgrade or cancel?",
@@ -163,7 +163,7 @@ export default function Pricing() {
   return (
     <Layout>
       <SEO
-        title="Pricing — Ariadne | Starter, Growth, Scale"
+        title="Pricing — Clewa | Starter, Growth, Scale"
         description="Start free with Starter — factory discovery and guided first orders. Upgrade to Growth for the production intelligence the biggest brands use. Scale for teams and compliance."
         canonical="/pricing"
       />
@@ -326,20 +326,20 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* Ariadne Managed */}
+      {/* Clewa Managed */}
       <section className="section-padding border-b border-border bg-card/40">
         <div className="container max-w-3xl">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
             <div>
               <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-1">Not a subscription tier</p>
-              <h2 className="text-xl font-bold text-foreground mb-2">Ariadne Managed</h2>
+              <h2 className="text-xl font-bold text-foreground mb-2">Clewa Managed</h2>
               <p className="text-sm text-muted-foreground leading-relaxed max-w-xl">
-                We handle your entire production run — factory selection, PO, sampling, QC, and delivery — using Ariadne as the backbone. You stay informed and in control at every step. Nothing moves without your approval. From $2,000 per production run. 3–5 slots per season.
+                We handle your entire production run — factory selection, PO, sampling, QC, and delivery — using Clewa as the backbone. You stay informed and in control at every step. Nothing moves without your approval. From $2,000 per production run. 3–5 slots per season.
               </p>
             </div>
             <Link to="/studio" className="flex-shrink-0">
               <Button variant="outline" className="gap-2 whitespace-nowrap">
-                See Ariadne Managed <ArrowRight className="h-4 w-4" />
+                See Clewa Managed <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
           </div>
@@ -431,8 +431,8 @@ export default function Pricing() {
           </div>
           <p className="text-xs text-muted-foreground mt-4">No credit card. Switch tiers anytime.</p>
           <div className="flex gap-4 justify-center mt-3">
-            <Link to="/case-studies" className="text-xs text-primary hover:underline">See OKIO Denim on Ariadne →</Link>
-            <Link to="/why-ariadne" className="text-xs text-muted-foreground hover:text-foreground hover:underline">Why Ariadne →</Link>
+            <Link to="/case-studies" className="text-xs text-primary hover:underline">See OKIO Denim on Clewa →</Link>
+            <Link to="/why-clewa" className="text-xs text-muted-foreground hover:text-foreground hover:underline">Why Clewa →</Link>
           </div>
         </div>
       </section>

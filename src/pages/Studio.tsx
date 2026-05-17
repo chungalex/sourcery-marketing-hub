@@ -12,7 +12,7 @@ const WHAT_WE_HANDLE = [
   "QC inspection — AQL standard, defect reporting",
   "Milestone payments structured to protect you",
   "Shipping and delivery oversight",
-  "Every step documented on Ariadne — your record, permanently",
+  "Every step documented on Clewa — your record, permanently",
 ];
 
 const WHO_ITS_FOR = [
@@ -25,7 +25,7 @@ const WHO_ITS_FOR = [
 const PROCESS = [
   { n: "01", title: "Tell us what you're making", body: "Product type, quantity, target price, delivery timeline. 15-minute intake call. We tell you honestly if we can help." },
   { n: "02", title: "We match you with a factory", body: "From our Vietnam network. We've worked with these factories ourselves. We know their strengths, their lead times, and where they fall short — and we'll tell you honestly." },
-  { n: "03", title: "We run the order", body: "PO, sampling, revisions, QC, delivery. Every step documented on Ariadne. You get notified at each milestone and give final approval. Nothing moves without your sign-off." },
+  { n: "03", title: "We run the order", body: "PO, sampling, revisions, QC, delivery. Every step documented on Clewa. You get notified at each milestone and give final approval. Nothing moves without your sign-off." },
   { n: "04", title: "You receive the goods with a complete record", body: "Every spec, revision, QC result, and payment milestone permanently documented. Use it for reorders, disputes, or due diligence." },
 ];
 
@@ -33,21 +33,21 @@ export default function Studio() {
   return (
     <Layout>
       <SEO
-        title="Ariadne Managed — Full-Service Production | Ariadne"
-        description="We manage your production run end to end — factory selection, PO, sampling, QC, delivery. Powered by Ariadne. Starting from $2,000 per run."
-        ogImage="https://ariadne.io/og-image.png"
+        title="Clewa Managed — Full-Service Production | Clewa"
+        description="We manage your production run end to end — factory selection, PO, sampling, QC, delivery. Powered by Clewa. Starting from $2,000 per run."
+        ogImage="https://clewa.io/og-image.png"
       />
 
       {/* Hero */}
       <section className="section-padding border-b border-border">
         <div className="container max-w-3xl">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">Ariadne Studio</p>
+            <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">Clewa Studio</p>
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
               Your production, managed.<br className="hidden md:block" /> End to end.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-              We handle factory selection, purchase orders, sampling, QC, and delivery — using Ariadne as the backbone. You stay informed at every step. Nothing moves without your approval.
+              We handle factory selection, purchase orders, sampling, QC, and delivery — using Clewa as the backbone. You stay informed at every step. Nothing moves without your approval.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button asChild size="lg" className="gap-2">
@@ -121,7 +121,7 @@ export default function Studio() {
                 name: "First run",
                 price: "$2,000",
                 desc: "For brands placing their first overseas production order. Full cycle — factory, PO, sampling, QC, delivery.",
-                features: ["Up to 500 units", "Single factory", "One revision round included", "Full Ariadne documentation"],
+                features: ["Up to 500 units", "Single factory", "One revision round included", "Full Clewa documentation"],
               },
               {
                 name: "Production run",
@@ -156,7 +156,7 @@ export default function Studio() {
           <Button asChild size="lg" className="gap-2">
             <Link to="/contact?subject=managed-production">Apply for a managed slot <ArrowRight className="h-4 w-4" /></Link>
           </Button>
-          <p className="text-xs text-muted-foreground mt-4">Or manage your own production with Ariadne — <Link to="/auth" className="text-primary hover:underline">create a free account</Link>.</p>
+          <p className="text-xs text-muted-foreground mt-4">Or manage your own production with Clewa — <Link to="/auth" className="text-primary hover:underline">create a free account</Link>.</p>
         </div>
       </section>
     </Layout>

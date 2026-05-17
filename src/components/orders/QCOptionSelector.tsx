@@ -8,7 +8,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
-export type QCOption = "ariadne" | "byoqc" | "factory";
+export type QCOption = "clewa" | "byoqc" | "factory";
 
 // ─── Self-inspection guide ───────────────────────────────────────────────────
 
@@ -131,10 +131,10 @@ export function QCOptionSelector({ value, onChange, disabled = false, className 
           <div>
             <p className="text-sm font-semibold text-foreground mb-1">About quality control</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              QC is the gate between production and your final payment. Before you release the last milestone, you need to verify the goods match your spec. Ariadne provides the framework — the gate, the record, and the tools. How the inspection happens is your choice.
+              QC is the gate between production and your final payment. Before you release the last milestone, you need to verify the goods match your spec. Clewa provides the framework — the gate, the record, and the tools. How the inspection happens is your choice.
             </p>
             <p className="text-xs text-muted-foreground mt-2">
-              <span className="font-medium text-foreground">Ariadne does not conduct inspections.</span>{" "}
+              <span className="font-medium text-foreground">Clewa does not conduct inspections.</span>{" "}
               We ensure the result is documented and the final payment is gated on your approval.{" "}
               <a href="/resources/what-is-aql" className="text-primary hover:underline">Read about AQL standards →</a>
             </p>
@@ -148,21 +148,21 @@ export function QCOptionSelector({ value, onChange, disabled = false, className 
         {/* Option 1 — Self-inspection */}
         <div className={cn(
           "rounded-xl border-2 overflow-hidden transition-all",
-          value === "ariadne" ? "border-primary" : "border-border"
+          value === "clewa" ? "border-primary" : "border-border"
         )}>
           <button
             type="button"
             disabled={disabled}
-            onClick={() => onChange("ariadne")}
+            onClick={() => onChange("clewa")}
             className={cn(
               "w-full text-left p-4 transition-colors",
-              value === "ariadne" ? "bg-primary/5" : "bg-card hover:bg-secondary/30"
+              value === "clewa" ? "bg-primary/5" : "bg-card hover:bg-secondary/30"
             )}
           >
             <div className="flex items-start gap-3">
               <div className={cn(
                 "h-9 w-9 rounded-lg flex items-center justify-center flex-shrink-0",
-                value === "ariadne" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
+                value === "clewa" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
               )}>
                 <Eye className="h-4 w-4" />
               </div>
@@ -172,9 +172,9 @@ export function QCOptionSelector({ value, onChange, disabled = false, className 
                   <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-700 border border-green-500/20 font-medium">No extra cost</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium">Guided</span>
                 </div>
-                <p className="text-xs text-muted-foreground">Ariadne walks you through a step-by-step inspection checklist when your goods arrive. No experience required.</p>
+                <p className="text-xs text-muted-foreground">Clewa walks you through a step-by-step inspection checklist when your goods arrive. No experience required.</p>
               </div>
-              {value === "ariadne" && (
+              {value === "clewa" && (
                 <div className="h-5 w-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
                   <Check className="h-3 w-3 text-primary-foreground" />
                 </div>
@@ -302,7 +302,7 @@ export function QCOptionSelector({ value, onChange, disabled = false, className 
                 >
                   <div className="px-4 pb-5 bg-background">
                     <p className="text-xs text-muted-foreground leading-relaxed py-3 border-b border-border mb-4">
-                      All three agencies have Vietnam and China coverage. Typical inspection day covers up to 200–300 units. Book directly — Ariadne is not affiliated with any agency.
+                      All three agencies have Vietnam and China coverage. Typical inspection day covers up to 200–300 units. Book directly — Clewa is not affiliated with any agency.
                     </p>
                     <div className="space-y-3">
                       {agencies.map((agency, i) => (
@@ -443,7 +443,7 @@ interface QCOptionBadgeProps {
 
 export function QCOptionBadge({ option, className }: QCOptionBadgeProps) {
   const config = {
-    ariadne: { label: "Self-inspection", icon: Eye, color: "text-green-700 bg-green-500/10 border-green-500/20" },
+    clewa: { label: "Self-inspection", icon: Eye, color: "text-green-700 bg-green-500/10 border-green-500/20" },
     byoqc: { label: "Third-party inspector", icon: UserCheck, color: "text-blue-700 bg-blue-500/10 border-blue-400/30" },
     factory: { label: "Factory self-report", icon: Camera, color: "text-amber-700 bg-amber-500/10 border-amber-400/30" },
   }[option];
@@ -460,5 +460,5 @@ export function QCOptionBadge({ option, className }: QCOptionBadgeProps) {
 }
 
 export function getQCOptionConfig(option: QCOption) {
-  return { ariadne: "Self-inspection", byoqc: "Third-party inspector", factory: "Factory self-report" }[option];
+  return { clewa: "Self-inspection", byoqc: "Third-party inspector", factory: "Factory self-report" }[option];
 }

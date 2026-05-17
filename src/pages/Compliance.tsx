@@ -64,7 +64,7 @@ export default function Compliance() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `ariadne-supply-chain-report-${format(new Date(), "yyyy-MM-dd")}.json`;
+      a.download = `clewa-supply-chain-report-${format(new Date(), "yyyy-MM-dd")}.json`;
       a.click();
       toast.success("Supply chain report downloaded");
     } catch { toast.error("Export failed"); }
@@ -80,7 +80,7 @@ export default function Compliance() {
 
   return (
     <Layout>
-      <SEO title="Supply Chain Compliance — Ariadne" description="Export your complete supply chain documentation for CSDDD, UFLPA, and Modern Slavery Act compliance." />
+      <SEO title="Supply Chain Compliance — Clewa" description="Export your complete supply chain documentation for CSDDD, UFLPA, and Modern Slavery Act compliance." />
       
       <section className="section-padding border-b border-border">
         <div className="container max-w-3xl">
@@ -90,7 +90,7 @@ export default function Compliance() {
           </div>
           <h1 className="text-3xl font-bold text-foreground mb-3">Your supply chain documentation</h1>
           <p className="text-muted-foreground leading-relaxed">
-            Every order you run through Ariadne generates the documentation that EU and US regulations increasingly require.
+            Every order you run through Clewa generates the documentation that EU and US regulations increasingly require.
             Export your complete supply chain record at any time.
           </p>
         </div>

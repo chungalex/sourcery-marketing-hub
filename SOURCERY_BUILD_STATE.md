@@ -3,7 +3,7 @@
 ## PLATFORM STATUS: LAUNCH READY
 
 ### Repo
-- github.com/chungalex/ariadne-marketing-hub
+- github.com/chungalex/clewa-marketing-hub
 - Latest: d42e636 (OTIF scoring + full marketing overhaul)
 - Stack: React/TypeScript/Vite + Supabase + Stripe + Anthropic API
 - Hosting: Lovable Cloud
@@ -99,7 +99,7 @@ Features | Intelligence | How it works | Trade tools | Pricing | Studio
 3. Sign up as OKIO at /auth [5 min]
 4. Sign up HU LA Studios at /onboarding/factory [10 min]
 5. Create one real OKIO order → issue PO to HU LA → test the loop [30 min]
-6. Submit sitemap: search.google.com/search-console → ariadne.io/sitemap.xml [5 min]
+6. Submit sitemap: search.google.com/search-console → clewa.io/sitemap.xml [5 min]
 7. Write and post the Vietnam tariff content on LinkedIn [30 min]
 
 ---

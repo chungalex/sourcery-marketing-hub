@@ -10,11 +10,11 @@ interface SEOProps {
 }
 
 const defaults = {
-  title: "Ariadne | Premium Manufacturing Sourcing for Modern Brands",
+  title: "Clewa | Premium Manufacturing Sourcing for Modern Brands",
   description:
     "From factory vetting to final delivery. We handle sourcing, quality control, and production tracking so you can focus on building your brand.",
   ogImage: "/og-image.jpg",
-  siteUrl: "https://ariadne.com",
+  siteUrl: "https://clewa.com",
 };
 
 export function SEO({
@@ -43,7 +43,7 @@ export function SEO({
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={imageUrl} />
-      <meta property="og:site_name" content="Ariadne" />
+      <meta property="og:site_name" content="Clewa" />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />

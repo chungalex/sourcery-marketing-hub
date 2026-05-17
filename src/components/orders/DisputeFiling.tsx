@@ -124,7 +124,7 @@ export function DisputeFiling({ orderId, orderNumber, factoryName, onFiled }: Di
 
           <div className="bg-secondary/50 rounded-lg p-3">
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Your complete order record — every message, revision round, defect report, and tech pack version — is automatically attached as evidence when you file. Ariadne does not mediate disputes but provides the documented record that gives you leverage.
+              Your complete order record — every message, revision round, defect report, and tech pack version — is automatically attached as evidence when you file. Clewa does not mediate disputes but provides the documented record that gives you leverage.
             </p>
           </div>
 

@@ -214,7 +214,7 @@ export default function CreateRFQ() {
   if (sent) {
     return (
       <Layout>
-        <SEO title="RFQ Sent — Ariadne" description="" noIndex />
+        <SEO title="RFQ Sent — Clewa" description="" noIndex />
         <section className="section-padding min-h-[70vh] flex items-center">
           <div className="container max-w-lg">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
@@ -265,7 +265,7 @@ export default function CreateRFQ() {
 
   return (
     <Layout>
-      <SEO title="Request for Quotation — Ariadne" description="Send a product brief to multiple factories and compare quotes." />
+      <SEO title="Request for Quotation — Clewa" description="Send a product brief to multiple factories and compare quotes." />
       <section className="section-padding min-h-[80vh]">
         <div className="container max-w-2xl">
           <Link to="/dashboard" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8 text-sm">
@@ -275,7 +275,7 @@ export default function CreateRFQ() {
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-foreground mb-1">Request for Quotation</h1>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Send your product brief to multiple factories at once. Each factory submits their own quote — price, MOQ, lead time. You compare and convert the best one to a formal PO. Factories outside Ariadne can respond without creating an account.
+              Send your product brief to multiple factories at once. Each factory submits their own quote — price, MOQ, lead time. You compare and convert the best one to a formal PO. Factories outside Clewa can respond without creating an account.
             </p>
           </div>
 
@@ -495,7 +495,7 @@ export default function CreateRFQ() {
                 <div>
                   <h2 className="text-lg font-semibold text-foreground mb-1">Who receives this RFQ?</h2>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Add factories from the Ariadne network or send to any factory by email — even if they're not on the platform yet. Each receives a unique response link. No account required to quote.
+                    Add factories from the Clewa network or send to any factory by email — even if they're not on the platform yet. Each receives a unique response link. No account required to quote.
                   </p>
                 </div>
 
@@ -540,7 +540,7 @@ export default function CreateRFQ() {
 
                 {addMode === "network" && (
                   <div className="p-4 rounded-xl border border-primary/20 bg-primary/5 space-y-3">
-                    <Label>Select a factory from the Ariadne network</Label>
+                    <Label>Select a factory from the Clewa network</Label>
                     {networkFactories.length === 0 ? (
                       <p className="text-sm text-muted-foreground">All network factories have been added, or none are available.</p>
                     ) : (
@@ -567,7 +567,7 @@ export default function CreateRFQ() {
                   <div className="p-4 rounded-xl border border-primary/20 bg-primary/5 space-y-3">
                     <div>
                       <p className="text-sm font-semibold text-foreground mb-0.5">Add any factory by email</p>
-                      <p className="text-xs text-muted-foreground">They receive the RFQ email and respond through a public link — no Ariadne account needed. This works for any factory you've worked with before or found independently.</p>
+                      <p className="text-xs text-muted-foreground">They receive the RFQ email and respond through a public link — no Clewa account needed. This works for any factory you've worked with before or found independently.</p>
                     </div>
                     <div className="grid grid-cols-2 gap-3">
                       <div className="space-y-1.5">

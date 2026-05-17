@@ -48,7 +48,7 @@ export function ComplianceExport({ orderId, orderNumber }: ComplianceExportProps
         "-".repeat(30),
         `Factory name: ${factory?.name || "—"}`,
         `Location: ${[factory?.city, factory?.country].filter(Boolean).join(", ") || "—"}`,
-        `Verified on Ariadne: ${factory?.is_verified ? "Yes" : "No"}`,
+        `Verified on Clewa: ${factory?.is_verified ? "Yes" : "No"}`,
         `Certifications: ${(factory?.certifications || []).join(", ") || "None on file"}`,
         "",
         "ORDER DETAILS",
@@ -79,7 +79,7 @@ export function ComplianceExport({ orderId, orderNumber }: ComplianceExportProps
         "",
         "COMPLIANCE NOTES",
         "-".repeat(30),
-        "This report was generated from documented production data on Ariadne.",
+        "This report was generated from documented production data on Clewa.",
         "All order actions, approvals, and payments are timestamped and immutable.",
         "This documentation supports compliance with:",
         "- US Uyghur Forced Labor Prevention Act (UFLPA) supply chain transparency requirements",
@@ -87,7 +87,7 @@ export function ComplianceExport({ orderId, orderNumber }: ComplianceExportProps
         "- UK Modern Slavery Act supply chain transparency statements",
         "",
         "For full order documentation including message history, revision rounds,",
-        `and QC reports, access this order on Ariadne: /orders/${orderId}`,
+        `and QC reports, access this order on Clewa: /orders/${orderId}`,
       ].join("\n");
 
       // Download as text file
@@ -95,7 +95,7 @@ export function ComplianceExport({ orderId, orderNumber }: ComplianceExportProps
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `ariadne-compliance-${order.order_number}-${format(new Date(), "yyyy-MM-dd")}.txt`;
+      a.download = `clewa-compliance-${order.order_number}-${format(new Date(), "yyyy-MM-dd")}.txt`;
       a.click();
       URL.revokeObjectURL(url);
       toast.success("Compliance report downloaded");

@@ -35,10 +35,10 @@ const mockOrders = [
 ];
 
 const mockUsers = [
-  { id: "1", email: "admin@ariadne.io", role: "admin" as const, created_at: "2023-06-01", last_sign_in: "2024-01-20", is_factory_user: false },
+  { id: "1", email: "admin@clewa.io", role: "admin" as const, created_at: "2023-06-01", last_sign_in: "2024-01-20", is_factory_user: false },
   { id: "2", email: "john@fashionbrand.com", role: "user" as const, created_at: "2023-09-15", last_sign_in: "2024-01-19", is_factory_user: false },
   { id: "3", email: "contact@ecotextiles.pt", role: "user" as const, created_at: "2023-08-20", last_sign_in: "2024-01-20", factory_name: "Eco Textiles Portugal", is_factory_user: true },
-  { id: "4", email: "mod@ariadne.io", role: "moderator" as const, created_at: "2023-07-10", last_sign_in: "2024-01-18", is_factory_user: false },
+  { id: "4", email: "mod@clewa.io", role: "moderator" as const, created_at: "2023-07-10", last_sign_in: "2024-01-18", is_factory_user: false },
 ];
 
 const mockQCPartners = [
@@ -90,7 +90,7 @@ export default function Admin() {
 
   return (
     <Layout>
-      <SEO title="Admin Dashboard | Ariadne" description="Platform administration and management." />
+      <SEO title="Admin Dashboard | Clewa" description="Platform administration and management." />
       
       <section className="section-padding">
         <div className="container-wide">

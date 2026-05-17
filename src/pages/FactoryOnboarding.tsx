@@ -124,7 +124,7 @@ export default function FactoryOnboarding() {
 
   return (
     <>
-      <SEO title="Set up your factory profile — Ariadne" description="Complete your factory profile to start receiving orders." />
+      <SEO title="Set up your factory profile — Clewa" description="Complete your factory profile to start receiving orders." />
       <div className="min-h-screen bg-background flex flex-col">
         {/* Language selector — always visible */}
         <div className="flex justify-end px-4 pt-3">
@@ -151,7 +151,7 @@ export default function FactoryOnboarding() {
                     {hasInvite && (
                       <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 text-left mb-2">
                         <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">You've been invited</p>
-                        <p className="text-sm text-foreground font-medium">{invitingBrandName} uses Ariadne to manage their production orders.</p>
+                        <p className="text-sm text-foreground font-medium">{invitingBrandName} uses Clewa to manage their production orders.</p>
                         <p className="text-xs text-muted-foreground mt-1">Once you're set up, their orders will appear in your dashboard. Takes about 5 minutes.</p>
                       </div>
                     )}

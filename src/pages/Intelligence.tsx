@@ -9,8 +9,8 @@ export default function Intelligence() {
   return (
     <Layout>
       <SEO
-        title="Production Intelligence — Ariadne"
-        description="The Ariadne intelligence layer — OTIF scores, reorder timing, order health, backward scheduling. Enterprise supply chain intelligence built for brands doing 300 units."
+        title="Production Intelligence — Clewa"
+        description="The Clewa intelligence layer — OTIF scores, reorder timing, order health, backward scheduling. Enterprise supply chain intelligence built for brands doing 300 units."
       />
 
       <section className="section-padding border-b border-border">
@@ -23,7 +23,7 @@ export default function Intelligence() {
               The supply chain tools that cost enterprise brands $1M+ per year — automated.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Nike's critical path scheduling. Amazon's safety stock formulas. Apple's factory scorecards. Walmart's OTIF tracking. Not expensive software. Not a sourcing team. Ariadne — built from the data in your orders.
+              Nike's critical path scheduling. Amazon's safety stock formulas. Apple's factory scorecards. Walmart's OTIF tracking. Not expensive software. Not a sourcing team. Clewa — built from the data in your orders.
             </p>
           </motion.div>
         </div>
@@ -33,7 +33,7 @@ export default function Intelligence() {
         <div className="container max-w-3xl">
           <h2 className="text-2xl font-bold text-foreground mb-3">Why intelligence compounds</h2>
           <p className="text-muted-foreground mb-8 leading-relaxed">
-            Unlike spreadsheets and generic tools, Ariadne gets more accurate with every order. Your first order gives you a lead time estimate. Your fifth gives you an average. Your twentieth gives you variance, trend detection, and factory comparison. The platform earns its value over time.
+            Unlike spreadsheets and generic tools, Clewa gets more accurate with every order. Your first order gives you a lead time estimate. Your fifth gives you an average. Your twentieth gives you variance, trend detection, and factory comparison. The platform earns its value over time.
           </p>
           <div className="space-y-4">
             {[
@@ -45,7 +45,7 @@ export default function Intelligence() {
               {
                 icon: Star,
                 title: "OTIF scores — built from real completed orders",
-                body: "Every factory on Ariadne earns an on-time/in-full score. Not self-reported. Built from verified order data. After 10 orders, the score is meaningful. After 50, it's a market benchmark. The first brand to place 10 orders with a factory creates a score that helps the next 100 brands make a better decision.",
+                body: "Every factory on Clewa earns an on-time/in-full score. Not self-reported. Built from verified order data. After 10 orders, the score is meaningful. After 50, it's a market benchmark. The first brand to place 10 orders with a factory creates a score that helps the next 100 brands make a better decision.",
               },
               {
                 icon: BarChart3,
@@ -55,7 +55,7 @@ export default function Intelligence() {
               {
                 icon: Shield,
                 title: "Order health — calibrated to your factory",
-                body: "After enough orders with a specific factory, the health scoring model knows that this factory typically runs 3 days late on QC. It adjusts the at-risk threshold accordingly. Generic tools give you generic alerts. Ariadne gives you alerts based on this factory's actual behaviour.",
+                body: "After enough orders with a specific factory, the health scoring model knows that this factory typically runs 3 days late on QC. It adjusts the at-risk threshold accordingly. Generic tools give you generic alerts. Clewa gives you alerts based on this factory's actual behaviour.",
               },
             ].map(({ icon: Icon, title, body }) => (
               <div key={title} className="flex gap-4 p-5 bg-card border border-border rounded-xl">
@@ -81,7 +81,7 @@ export default function Intelligence() {
                 <tr className="border-b border-border">
                   <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">What enterprise brands use</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">Annual cost</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-primary font-semibold">Ariadne equivalent</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-primary font-semibold">Clewa equivalent</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -92,12 +92,12 @@ export default function Intelligence() {
                   ["Supply chain visibility platform", "$15,000–$60,000/yr", "Order health dashboard — included in Builder"],
                   ["Compliance documentation", "$3,000–$15,000/yr", "One-click export — included in Pro"],
                   ["Trade & tariff analysis", "$5,000–$25,000/yr", "Trade tools — free, no login required"],
-                  ["Total", "$48,000–$200,000/yr", "Ariadne Builder: $588/yr"],
-                ].map(([enterprise, cost, ariadne], i) => (
+                  ["Total", "$48,000–$200,000/yr", "Clewa Builder: $588/yr"],
+                ].map(([enterprise, cost, clewa], i) => (
                   <tr key={i} className={i === 6 ? "font-semibold bg-primary/5" : ""}>
                     <td className="px-4 py-3 text-foreground">{enterprise}</td>
                     <td className="px-4 py-3 text-muted-foreground">{cost}</td>
-                    <td className="px-4 py-3 text-primary">{ariadne}</td>
+                    <td className="px-4 py-3 text-primary">{clewa}</td>
                   </tr>
                 ))}
               </tbody>

@@ -13,7 +13,7 @@
 Every dimension of working with a manufacturer — finding one, vetting one, operating every order professionally, protecting every payment, documenting everything, knowing what to do at every step — in one platform.
 
 **The one sentence:**
-> "Ariadne is how serious brands work with factories."
+> "Clewa is how serious brands work with factories."
 
 **The infrastructure statement:**
 > "The infrastructure the whole category was missing."
@@ -96,7 +96,7 @@ This is the "sourcing director" concept — experienced guidance delivered conte
 
 ### White-label exports
 
-**CURRENT REALITY:** OrderExportPDF shows Ariadne branding. No brand logo swap is built.
+**CURRENT REALITY:** OrderExportPDF shows Clewa branding. No brand logo swap is built.
 
 **WHAT TO SAY:** "Branded document exports" (aspirational, accurate direction)
 **DO NOT SAY:** "White-label PDF exports" until brand logo/name swap is built
@@ -156,7 +156,7 @@ For brands with teams and compliance requirements.
 - Advanced analytics
 - Supplier audit system
 
-### Ariadne Managed (not a subscription tier)
+### Clewa Managed (not a subscription tier)
 A separate service — we handle the entire production run.
 From $2,000 per run. 3-5 slots per season. Apply at /studio.
 
@@ -207,7 +207,7 @@ Why: The directory is currently empty. BYOF works with zero factories in the dat
 Why: Tiers are about price. Situations are about the customer. A brand reads a situation and immediately sees themselves. They read a tier and start comparing features. The situation frame converts better and is more honest.
 
 **Decision: "Factory relationship infrastructure" not "supply chain tools"**
-Why: Supply chain tools positions Ariadne against enterprise software (irrelevant comparison for most users). Factory relationship infrastructure names a new category that Ariadne owns entirely.
+Why: Supply chain tools positions Clewa against enterprise software (irrelevant comparison for most users). Factory relationship infrastructure names a new category that Clewa owns entirely.
 
 **Decision: Remove escrow language**
 Why: We do not hold funds. Describing our payment tracking as "escrow" is legally and factually wrong. We enforce payment gates and track payment history. That's milestone-gated payment protection, not escrow.
@@ -228,9 +228,9 @@ Why: Naming competitors gives them SEO value and anchors you as their alternativ
 
 ## CURRENT PLATFORM STATUS
 
-- **Repo:** github.com/chungalex/ariadne-marketing-hub
+- **Repo:** github.com/chungalex/clewa-marketing-hub
 - **Stack:** React + TypeScript + Vite + Supabase + Stripe + Anthropic API
-- **Hosting:** Lovable Cloud → ariadne.io
+- **Hosting:** Lovable Cloud → clewa.io
 - **Token for git push:** Set per session — expires with container
 
 ### Blocking launch (must do before external users):
@@ -268,12 +268,12 @@ Why: Naming competitors gives them SEO value and anchors you as their alternativ
 
 **How every session should start:**
 1. Read SESSION_BRIEF.md — current build state, what was done, what is next
-2. Read ARIADNE_DOCTRINE.md — confirmed decisions and positioning
+2. Read CLEWA_DOCTRINE.md — confirmed decisions and positioning
 3. Start with the first action listed in SESSION_BRIEF
 4. Update both files at end of every session
 
 **SESSION_BRIEF.md** lives at repo root. Gets overwritten every session with current state.
-**ARIADNE_DOCTRINE.md** gets appended — never overwritten. New decisions added at bottom.
+**CLEWA_DOCTRINE.md** gets appended — never overwritten. New decisions added at bottom.
 
 ---
 
@@ -281,7 +281,7 @@ Why: Naming competitors gives them SEO value and anchors you as their alternativ
 
 **Revenue model confirmed:**
 - Line 1: SaaS subscriptions (Starter free / Growth $49 / Scale $149)
-- Line 2: Ariadne Managed ($2,000-3,500/run, limited slots, not hands-on ops)
+- Line 2: Clewa Managed ($2,000-3,500/run, limited slots, not hands-on ops)
 - Line 3 (future): GMV-based fee when payment partner exists
 - Line 4 (future): Factory performance data product at 500+ completed orders
 - Line 5 (future): Financing referrals when brand payment history exists
@@ -338,7 +338,7 @@ Why: Naming competitors gives them SEO value and anchors you as their alternativ
 
 Two files live at repo root and get updated every session:
 
-**ARIADNE_DOCTRINE.md** — what Ariadne is, strategic decisions, voice, what we do/don't do. Changes rarely.
+**CLEWA_DOCTRINE.md** — what Clewa is, strategic decisions, voice, what we do/don't do. Changes rarely.
 
 **SESSION_LOG.md** — current build state, full queue, what requires Alex's action. Overwritten every session.
 
