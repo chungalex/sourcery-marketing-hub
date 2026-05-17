@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Circle, ArrowRight, Search, Shield, Zap, ChevronDown, ChevronUp } from "lucide-react";
+import { CheckCircle, Circle, ArrowRight, Search, Shield, Zap, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // ── Roadmap steps per situation ───────────────────────────────────────────────
@@ -151,6 +150,37 @@ const ROADMAPS = {
   },
 };
 
+// ── Situation picker ──────────────────────────────────────────────────────────
+const SITUATIONS = [
+  {
+    id: "no_factory",
+    icon: Search,
+    headline: "I don't have a factory yet",
+    body: "I'm looking for a manufacturer for my product.",
+    color: "border-blue-400/40 hover:border-blue-400 hover:bg-blue-500/5",
+    iconColor: "text-blue-600",
+    iconBg: "bg-blue-500/10",
+  },
+  {
+    id: "not_sure",
+    icon: Shield,
+    headline: "I have one but I'm not fully sure I can trust them",
+    body: "I'm working with a factory but want more protection and visibility.",
+    color: "border-amber-400/40 hover:border-amber-400 hover:bg-amber-500/5",
+    iconColor: "text-amber-600",
+    iconBg: "bg-amber-500/10",
+  },
+  {
+    id: "have_factory",
+    icon: Zap,
+    headline: "I have a factory I trust",
+    body: "I want to bring them onto the platform and run structured orders.",
+    color: "border-primary/40 hover:border-primary hover:bg-primary/5",
+    iconColor: "text-primary",
+    iconBg: "bg-primary/10",
+  },
+] as const;
+
 // ── Component ─────────────────────────────────────────────────────────────────
 interface PersonalisedDashboardProps {
   userId: string;
@@ -161,6 +191,7 @@ export function PersonalisedDashboard({ userId }: PersonalisedDashboardProps) {
   const [completed, setCompleted] = useState<string[]>([]);
   const [expanded, setExpanded] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -172,13 +203,24 @@ export function PersonalisedDashboard({ userId }: PersonalisedDashboardProps) {
 
       if (profile?.stage) setStage(profile.stage);
 
-      // Load completed steps from localStorage
       const saved = localStorage.getItem(`clewa_roadmap_${userId}`);
       if (saved) setCompleted(JSON.parse(saved));
       setLoading(false);
     }
     load();
   }, [userId]);
+
+  async function handleSelectSituation(situationId: string) {
+    setSaving(true);
+    const { error } = await (supabase as any)
+      .from("brand_profiles")
+      .upsert({ user_id: userId, stage: situationId }, { onConflict: "user_id" });
+
+    if (!error) {
+      setStage(situationId);
+    }
+    setSaving(false);
+  }
 
   function toggleStep(id: string) {
     const next = completed.includes(id)
@@ -189,15 +231,58 @@ export function PersonalisedDashboard({ userId }: PersonalisedDashboardProps) {
   }
 
   if (loading) return null;
-  if (!stage || !ROADMAPS[stage as keyof typeof ROADMAPS]) return null;
+
+  // ── No stage set: show situation picker ──────────────────────────────────
+  if (!stage) {
+    return (
+      <div className="bg-card border border-border rounded-2xl p-6 mb-6">
+        <div className="mb-5">
+          <h2 className="text-lg font-semibold text-foreground mb-1">What's your factory situation right now?</h2>
+          <p className="text-sm text-muted-foreground">Your answer shapes everything — your roadmap, your first action, what the platform prioritises for you.</p>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-3">
+          {SITUATIONS.map(s => {
+            const Icon = s.icon;
+            return (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => handleSelectSituation(s.id)}
+                disabled={saving}
+                className={cn(
+                  "text-left p-4 rounded-xl border-2 transition-all cursor-pointer group",
+                  s.color,
+                  saving && "opacity-50 cursor-not-allowed"
+                )}
+              >
+                <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center mb-3", s.iconBg)}>
+                  {saving ? (
+                    <Loader2 className={cn("h-4 w-4 animate-spin", s.iconColor)} />
+                  ) : (
+                    <Icon className={cn("h-4 w-4", s.iconColor)} />
+                  )}
+                </div>
+                <p className="text-sm font-semibold text-foreground mb-1 leading-snug">{s.headline}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">{s.body}</p>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // ── Stage set but not in our map: don't render ────────────────────────────
+  if (!ROADMAPS[stage as keyof typeof ROADMAPS]) return null;
 
   const roadmap = ROADMAPS[stage as keyof typeof ROADMAPS];
   const Icon = roadmap.icon;
   const doneCount = roadmap.steps.filter(s => completed.includes(s.id)).length;
   const allDone = doneCount === roadmap.steps.length;
 
-  if (allDone) return null; // Disappears once complete
+  if (allDone) return null;
 
+  // ── Roadmap ───────────────────────────────────────────────────────────────
   return (
     <div className={cn("rounded-2xl border mb-5 overflow-hidden", roadmap.color)}>
       {/* Header */}
@@ -218,7 +303,6 @@ export function PersonalisedDashboard({ userId }: PersonalisedDashboardProps) {
           </div>
         </div>
         <div className="flex items-center gap-3 flex-shrink-0">
-          {/* Progress dots */}
           <div className="hidden sm:flex gap-1">
             {roadmap.steps.map(s => (
               <div
@@ -305,6 +389,13 @@ export function PersonalisedDashboard({ userId }: PersonalisedDashboardProps) {
             <Button asChild variant="outline" size="sm">
               <Link to={roadmap.secondaryCta.href}>{roadmap.secondaryCta.label}</Link>
             </Button>
+            <button
+              type="button"
+              onClick={() => handleSelectSituation("")}
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors ml-auto"
+            >
+              Change situation
+            </button>
           </div>
         </div>
       )}
