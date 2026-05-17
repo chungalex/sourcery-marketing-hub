@@ -230,12 +230,19 @@ export default function BrandDashboard() {
   const [loadingByof, setLoadingByof] = useState(true);
   const [converting, setConverting] = useState<string | null>(null);
   const [expandedInquiry, setExpandedInquiry] = useState<string | null>(null);
+  const [brandStage, setBrandStage] = useState<string | null | undefined>(undefined);
 
   useEffect(() => {
     if (!user) return;
     (supabase as any).from("factories").select("id, name, city, country")
       .eq("is_byof", true).eq("invited_by", user.id)
       .then(({ data }: any) => { setByofFactories(data || []); setLoadingByof(false); });
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+    (supabase as any).from("brand_profiles").select("stage").eq("user_id", user.id).single()
+      .then(({ data }: any) => setBrandStage(data?.stage ?? null));
   }, [user]);
 
   useEffect(() => {
@@ -354,8 +361,8 @@ export default function BrandDashboard() {
             ))}
           </div>
 
-          {/* Onboarding prompt — shown until brand has factory + order */}
-          {!loadingByof && !ordersLoading && (
+          {/* Onboarding prompt — shown until brand has picked a situation and has factory + order */}
+          {!loadingByof && !ordersLoading && brandStage === null && (
             <BrandOnboardingPrompt
               hasFactory={byofFactories.length > 0}
               hasOrder={orders.length > 0}

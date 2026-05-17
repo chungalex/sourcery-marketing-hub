@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { FactoryTypeBadge } from "@/components/marketplace/FactoryTypeBadge";
+import { DueDiligenceChecklist } from "@/components/factory/DueDiligenceChecklist";
 import { VerifiedBadge } from "@/components/marketplace/VerifiedBadge";
 import { OTIFScore } from "@/components/marketplace/OTIFScore";
 import { CertificationBadge } from "@/components/marketplace/CertificationBadge";
@@ -442,6 +443,14 @@ export default function FactoryProfile() {
                 )}
               </TabsTrigger>
             ))}
+            {isAuthenticated && (
+              <TabsTrigger
+                value="due-diligence"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-4 py-3 whitespace-nowrap"
+              >
+                Due Diligence
+              </TabsTrigger>
+            )}
           </TabsList>
 
           {/* Overview Tab */}
@@ -714,6 +723,16 @@ export default function FactoryProfile() {
               </div>
             </div>
           </TabsContent>
+
+          {/* Due Diligence Tab */}
+          {isAuthenticated && (
+            <TabsContent value="due-diligence" className="mt-0">
+              <div className="max-w-2xl">
+                <DueDiligenceChecklist factoryId={factory.id} factoryName={factory.name} />
+              </div>
+            </TabsContent>
+          )}
+
         </Tabs>
       </section>
 
