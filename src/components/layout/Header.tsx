@@ -158,7 +158,7 @@ export function Header() {
                         <div className="fixed inset-0 z-40" onClick={() => setIsMoreOpen(false)} />
                         <div className="absolute left-0 top-full pt-1 z-50">
                           <div className="bg-card border border-border rounded-xl shadow-xl overflow-hidden w-64 py-1">
-                            {marketingNavMore.map((item) => (
+                            {marketingNavSecondary.map((item) => (
                               <Link
                                 key={item.href}
                                 to={item.href}
@@ -166,7 +166,7 @@ export function Header() {
                                 className="flex flex-col px-4 py-2.5 hover:bg-secondary/60 transition-colors"
                               >
                                 <span className="text-sm font-medium text-foreground">{item.label}</span>
-                                <span className="text-xs text-muted-foreground mt-0.5">{item.desc}</span>
+                                
                               </Link>
                             ))}
                           </div>
