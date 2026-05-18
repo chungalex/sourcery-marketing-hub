@@ -166,7 +166,7 @@ export function Header() {
                                 className="flex flex-col px-4 py-2.5 hover:bg-secondary/60 transition-colors"
                               >
                                 <span className="text-sm font-medium text-foreground">{item.label}</span>
-                                <span className="text-xs text-muted-foreground mt-0.5">{item.desc}</span>
+                                
                               </Link>
                             ))}
                           </div>
