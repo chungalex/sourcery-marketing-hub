@@ -122,15 +122,15 @@ const INTEL_STATS = [
 
 export default function Home() {
   const { user } = useAuth();
-  const { isFactoryMember } = useFactoryMembership();
+  const { hasFactoryAccess } = useFactoryMembership(user?.id);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
-      if (isFactoryMember) navigate("/dashboard/factory");
+      if (hasFactoryAccess) navigate("/dashboard/factory");
       else navigate("/dashboard");
     }
-  }, [user, isFactoryMember]);
+  }, [user, hasFactoryAccess]);
 
   return (
     <Layout>
