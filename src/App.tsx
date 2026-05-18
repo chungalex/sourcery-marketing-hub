@@ -2,60 +2,63 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import Home from "./pages/Home";
-import HowItWorks from "./pages/HowItWorks";
-import Brands from "./pages/Brands";
-import Factories from "./pages/Factories";
-import Pricing from "./pages/Pricing";
-import WhyClewa from "./pages/WhyClewa";
-import Notifications from "./pages/Notifications";
-import FactoryCompare from "./pages/FactoryCompare";
-import ProductionCalendar from "./pages/ProductionCalendar";
-import SpecLibrary from "./pages/SpecLibrary";
-import Analytics from "./pages/Analytics";
-import SupplierContacts from "./pages/SupplierContacts";
-import Features from "./pages/Features";
-import Marketplace from "./pages/Marketplace";
-import Walkthrough from "./pages/Walkthrough";
-import Assistant from "./pages/Assistant";
-import Resources from "./pages/Resources";
-import ResourceArticle from "./pages/ResourceArticle";
-import Forum from "./pages/Forum";
-import Intelligence from "./pages/Intelligence";
-import CaseStudies from "./pages/CaseStudies";
-import Consulting from "./pages/Consulting";
-import About from "./pages/About";
-import Studio from "./pages/Studio";
-import FAQ from "./pages/FAQ";
-import Contact from "./pages/Contact";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
+const HowItWorks = lazy(() => import("./pages/HowItWorks"));
+const Brands = lazy(() => import("./pages/Brands"));
+const Factories = lazy(() => import("./pages/Factories"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const WhyClewa = lazy(() => import("./pages/WhyClewa"));
+const Notifications = lazy(() => import("./pages/Notifications"));
+const FactoryCompare = lazy(() => import("./pages/FactoryCompare"));
+const ProductionCalendar = lazy(() => import("./pages/ProductionCalendar"));
+const SpecLibrary = lazy(() => import("./pages/SpecLibrary"));
+const Analytics = lazy(() => import("./pages/Analytics"));
+const SupplierContacts = lazy(() => import("./pages/SupplierContacts"));
+const Features = lazy(() => import("./pages/Features"));
+const Marketplace = lazy(() => import("./pages/Marketplace"));
+const Walkthrough = lazy(() => import("./pages/Walkthrough"));
+const Assistant = lazy(() => import("./pages/Assistant"));
+const Resources = lazy(() => import("./pages/Resources"));
+const ResourceArticle = lazy(() => import("./pages/ResourceArticle"));
+const Forum = lazy(() => import("./pages/Forum"));
+const Intelligence = lazy(() => import("./pages/Intelligence"));
+const CaseStudies = lazy(() => import("./pages/CaseStudies"));
+const Consulting = lazy(() => import("./pages/Consulting"));
+const About = lazy(() => import("./pages/About"));
+const Studio = lazy(() => import("./pages/Studio"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
 import NotFound from "./pages/NotFound";
-import Directory from "./pages/Directory";
-import FactoryProfile from "./pages/FactoryProfile";
+const Directory = lazy(() => import("./pages/Directory"));
+const FactoryProfile = lazy(() => import("./pages/FactoryProfile"));
 import Auth from "./pages/Auth";
-import Apply from "./pages/Apply";
-import BrandDashboard from "./pages/BrandDashboard";
-import FactoryDashboard from "./pages/FactoryDashboard";
-import Admin from "./pages/Admin";
-import Checkout from "./pages/Checkout";
-import Toolkit from "./pages/Toolkit";
-import CreateOrder from "./pages/CreateOrder";
-import OrderDetail from "./pages/OrderDetail";
-import FactoryAccept from "./pages/FactoryAccept";
-import Onboarding from "./pages/Onboarding";
-import CreateRFQ from "./pages/CreateRFQ";
-import RFQRespond from "./pages/RFQRespond";
-import FactoryOnboarding from "./pages/FactoryOnboarding";
-import OrderRecord from "./pages/OrderRecord";
-import VietnamManufacturing from "./pages/VietnamManufacturing";
-import HowToFindFactory from "./pages/HowToFindFactory";
-import Alternatives from "./pages/Alternatives";
-import Compliance from "./pages/Compliance";
-import TradeTools from "./pages/TradeTools";
+const Apply = lazy(() => import("./pages/Apply"));
+const BrandDashboard = lazy(() => import("./pages/BrandDashboard"));
+const FactoryDashboard = lazy(() => import("./pages/FactoryDashboard"));
+const Admin = lazy(() => import("./pages/Admin"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const Toolkit = lazy(() => import("./pages/Toolkit"));
+const CreateOrder = lazy(() => import("./pages/CreateOrder"));
+const OrderDetail = lazy(() => import("./pages/OrderDetail"));
+const FactoryAccept = lazy(() => import("./pages/FactoryAccept"));
+const Onboarding = lazy(() => import("./pages/Onboarding"));
+const CreateRFQ = lazy(() => import("./pages/CreateRFQ"));
+const RFQRespond = lazy(() => import("./pages/RFQRespond"));
+const FactoryOnboarding = lazy(() => import("./pages/FactoryOnboarding"));
+const OrderRecord = lazy(() => import("./pages/OrderRecord"));
+const VietnamManufacturing = lazy(() => import("./pages/VietnamManufacturing"));
+const HowToFindFactory = lazy(() => import("./pages/HowToFindFactory"));
+const Alternatives = lazy(() => import("./pages/Alternatives"));
+const Compliance = lazy(() => import("./pages/Compliance"));
+const ProductionIntelligencePage = lazy(() => import("./pages/ProductionIntelligence"));
+const TradeTools = lazy(() => import("./pages/TradeTools"));
+
 
 const queryClient = new QueryClient();
 
@@ -67,6 +70,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ErrorBoundary>
+            <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" /></div>}>
             <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
@@ -117,9 +121,11 @@ const App = () => (
             <Route path="/resources" element={<Resources />} />
             <Route path="/resources/:slug" element={<ResourceArticle />} />
             <Route path="/forum" element={<Forum />} />
-            <Route path="/intelligence" element={<Intelligence />} />
+            <Route path="/intelligence" element={<ProductionIntelligencePage />} />
+            <Route path="/market-intelligence" element={<Intelligence />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
+            </Suspense>
           </ErrorBoundary>
         </BrowserRouter>
       </TooltipProvider>
