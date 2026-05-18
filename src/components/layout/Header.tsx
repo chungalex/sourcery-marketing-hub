@@ -158,7 +158,7 @@ export function Header() {
                         <div className="fixed inset-0 z-40" onClick={() => setIsMoreOpen(false)} />
                         <div className="absolute left-0 top-full pt-1 z-50">
                           <div className="bg-card border border-border rounded-xl shadow-xl overflow-hidden w-64 py-1">
-                            {marketingNavMore.map((item) => (
+                            {marketingNavSecondary.map((item) => (
                               <Link
                                 key={item.href}
                                 to={item.href}
