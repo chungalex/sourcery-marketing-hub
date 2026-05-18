@@ -208,9 +208,9 @@ for your factory relationship.
                           <button
                             type="button"
                             onClick={async () => {
-                              if (!email) { toast.error("Enter your email address first"); return; }
+                              if (!loginEmail) { toast.error("Enter your email address first"); return; }
                               const { supabase } = await import("@/integrations/supabase/client");
-                              await supabase.auth.resetPasswordForEmail(email, {
+                              await supabase.auth.resetPasswordForEmail(loginEmail, {
                                 redirectTo: window.location.origin + "/auth?mode=reset",
                               });
                               toast.success("Reset email sent — check your inbox");
