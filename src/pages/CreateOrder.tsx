@@ -854,7 +854,7 @@ export default function CreateOrder() {
                       </div>
 
                       {/* Tech pack guidance */}
-                      <TechPackGuidance />
+                      <TechPackGuidance hasUpload={false} />
 
                       {/* Category — optional, last */}
                       <FormField
