@@ -8,7 +8,7 @@ import {
   ArrowRight, CheckCircle, Shield, Package, MessageSquare,
   FileText, BarChart3, Sparkles, Search, Globe, Zap,
   TrendingUp, Star, Clock, AlertTriangle, Users, Lock,
-  ShoppingBag, Award, Layers
+  ShoppingBag, Award, Layers, Calculator
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useFactoryMembership } from "@/hooks/useFactoryMembership";
