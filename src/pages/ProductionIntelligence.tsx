@@ -288,7 +288,7 @@ export default function ProductionIntelligencePage() {
   };
 
   return (
-    <Layout showFooter={false}>
+    <Layout>
       <SEO
         title="Intelligence — Clewa"
         description="Your production intelligence workspace. Every order watched. Every risk surfaced. Every question answered."
