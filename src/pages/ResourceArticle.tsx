@@ -401,7 +401,7 @@ export default function ResourceArticle() {
       <Layout>
         <section className="section-padding">
           <div className="container-tight text-center">
-            <h1 className="font-heading text-2xl font-bold text-foreground mb-4">Article Article not found</h1>
+            <h1 className="font-body text-2xl font-bold text-foreground mb-4">Article Article not found</h1>
             <p className="text-muted-foreground mb-6">This guide is being written. Check back shortly or browse the full resource library.</p>
             <Link to="/resources"><Button>Back to resources</Button></Link>
           </div>
@@ -438,7 +438,7 @@ export default function ResourceArticle() {
             </div>
 
             {/* Title */}
-            <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight max-w-2xl">
+            <h1 className="font-body text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight max-w-2xl">
               {article.title}
             </h1>
 
@@ -461,7 +461,7 @@ export default function ResourceArticle() {
                 <div className="space-y-8">
                   {article.sections.map((section, i) => (
                     <div key={i}>
-                      <h2 className="font-heading text-xl font-bold text-foreground mb-3">{section.heading}</h2>
+                      <h2 className="font-body text-xl font-bold text-foreground mb-3">{section.heading}</h2>
                       <div className="space-y-3">
                         {section.body.split("\n\n").map((para, j) => (
                           <p key={j} className="text-muted-foreground leading-relaxed">{para}</p>

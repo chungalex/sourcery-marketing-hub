@@ -324,7 +324,7 @@ export default function Resources() {
           <div className="grid lg:grid-cols-2 gap-12 items-end">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">Production resources</p>
-              <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
+              <h1 className="font-body text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
                 Everything production requires you to know.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
@@ -340,7 +340,7 @@ export default function Resources() {
                     <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{featuredArticle.category}</span>
                     <span className="text-xs text-muted-foreground">{featuredArticle.readTime} read</span>
                   </div>
-                  <h2 className="font-heading font-bold text-foreground mb-2 group-hover:text-primary transition-colors leading-snug">
+                  <h2 className="font-body font-bold text-foreground mb-2 group-hover:text-primary transition-colors leading-snug">
                     {featuredArticle.title}
                   </h2>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-4">{featuredArticle.sub}</p>
@@ -401,7 +401,7 @@ export default function Resources() {
                       <Icon className="h-4 w-4" />
                     </div>
                     <div>
-                      <h2 className="font-heading font-bold text-foreground">{cat.label}</h2>
+                      <h2 className="font-body font-bold text-foreground">{cat.label}</h2>
                       <p className="text-sm text-muted-foreground">{cat.desc}</p>
                     </div>
                   </div>
@@ -476,7 +476,7 @@ export default function Resources() {
       <section className="section-padding">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+            <h2 className="font-body text-2xl font-bold text-foreground mb-4">
               Knowledge is one thing. A system is another.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">

@@ -25,7 +25,7 @@ const NotFound = () => {
             className="max-w-lg"
           >
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-5">404</p>
-            <h1 className="font-heading text-4xl font-bold text-foreground mb-4 leading-tight">
+            <h1 className="font-body text-4xl font-bold text-foreground mb-4 leading-tight">
               This page doesn't exist.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">

@@ -42,9 +42,9 @@ export function Footer() {
           <div className="col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-heading font-bold text-lg">S</span>
+                <span className="text-primary-foreground font-body font-bold text-lg">S</span>
               </div>
-              <span className="font-heading font-semibold text-xl text-foreground">
+              <span className="font-body font-semibold text-xl text-foreground">
                 Clewa
               </span>
             </Link>
@@ -56,7 +56,7 @@ export function Footer() {
 
           {/* Platform */}
           <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Platform</h4>
+            <h4 className="font-body font-semibold text-foreground mb-4">Platform</h4>
             <ul className="space-y-3">
               {footerLinks.platform.map((link) => (
                 <li key={link.href}>
@@ -70,7 +70,7 @@ export function Footer() {
 
           {/* Learn */}
           <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Learn</h4>
+            <h4 className="font-body font-semibold text-foreground mb-4">Learn</h4>
             <ul className="space-y-3">
               {footerLinks.learn.map((link) => (
                 <li key={link.href}>
@@ -84,7 +84,7 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Company</h4>
+            <h4 className="font-body font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>

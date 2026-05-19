@@ -78,7 +78,7 @@ The complete infrastructure for your factory relationship. Find the right manufa
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Factory marketplace</p>
-                  <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+                  <h2 className="font-body text-2xl font-bold text-foreground mb-3">
                     Built for factories too.
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
@@ -115,7 +115,7 @@ The complete infrastructure for your factory relationship. Find the right manufa
       <section className="section-padding bg-card/50 border-y border-border">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-8">What Clewa is — and isn't</h2>
+            <h2 className="font-body text-2xl font-bold text-foreground mb-8">What Clewa is — and isn't</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-3">
                 <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">What it is</p>
@@ -158,7 +158,7 @@ The complete infrastructure for your factory relationship. Find the right manufa
       <section className="section-padding">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Questions before you start?</h2>
+            <h2 className="font-body text-2xl font-bold text-foreground mb-4">Questions before you start?</h2>
             <p className="text-muted-foreground mb-8 max-w-sm mx-auto">Platform, pricing, factory network — anything.</p>
             <div className="flex justify-center gap-3 flex-wrap">
               <Link to="/auth?mode=signup">

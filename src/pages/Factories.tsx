@@ -21,7 +21,7 @@ export default function Factories() {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
                 For factories
               </div>
-              <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
+              <h1 className="font-body text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
                 Structured orders, serious brands,<br className="hidden md:block" />
                 and a reputation that builds with every run.
               </h1>
@@ -51,7 +51,7 @@ export default function Factories() {
           <div className="grid md:grid-cols-2 gap-6">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-card border border-border">
               <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">A brand invited you</p>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Accept the invite and start immediately.</h2>
+              <h2 className="font-body text-2xl font-bold text-foreground mb-4">Accept the invite and start immediately.</h2>
               <p className="text-muted-foreground leading-relaxed mb-5">
                 If a brand you work with sent you an invite, accept it, complete your profile, and you're connected. No application needed. You start receiving structured orders from that brand right away.
               </p>
@@ -62,7 +62,7 @@ export default function Factories() {
 
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.07 }} className="p-8 rounded-2xl bg-card border border-border">
               <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">Join the marketplace</p>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Apply and get discovered by new brands.</h2>
+              <h2 className="font-body text-2xl font-bold text-foreground mb-4">Apply and get discovered by new brands.</h2>
               <p className="text-muted-foreground leading-relaxed mb-5">
                 Apply to the Clewa network, complete a credential review, and build a public profile. Brands searching for your category see your capabilities, certifications, and growing performance record.
               </p>
@@ -76,7 +76,7 @@ export default function Factories() {
       <section className="section-padding bg-card/50 border-y border-border">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">What working through Clewa means for you.</h2>
+            <h2 className="font-body text-3xl font-bold text-foreground mb-3">What working through Clewa means for you.</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
               Orders arrive differently. Payments are structured. And every order you complete builds something that works in your favour permanently.
             </p>
@@ -118,7 +118,7 @@ export default function Factories() {
         <div className="container-tight">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Your OTIF score becomes your competitive advantage.</h2>
+              <h2 className="font-body text-2xl font-bold text-foreground mb-4">Your OTIF score becomes your competitive advantage.</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
                 OTIF stands for On-Time In-Full — the percentage of orders you deliver on schedule and at the agreed quantity. Walmart charges factories 3% of invoice value for every OTIF failure. On Clewa, your OTIF score is calculated from every completed order and is visible to every brand browsing the directory. You can't buy a better score. You earn it through real orders.
               </p>
@@ -173,7 +173,7 @@ export default function Factories() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <div className="text-center mb-8">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Free to join. Free forever.</h2>
+              <h2 className="font-body text-2xl font-bold text-foreground mb-2">Free to join. Free forever.</h2>
               <p className="text-muted-foreground">Clewa charges brands. Factories join, list, and operate on the platform at no cost.</p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 max-w-3xl mx-auto">
@@ -200,7 +200,7 @@ export default function Factories() {
       <section className="section-padding">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">Less chaos. More clarity. Starting from the first order.</h2>
+            <h2 className="font-body text-2xl font-bold text-foreground mb-3">Less chaos. More clarity. Starting from the first order.</h2>
             <p className="text-muted-foreground leading-relaxed max-w-xl">
               You don't need to change how you produce. You just get a better system around it — one that works in your language, tracks everything automatically, and makes you look more professional to every brand you work with.
             </p>
@@ -270,7 +270,7 @@ export default function Factories() {
       <section className="section-padding">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Ready to join the network?</h2>
+            <h2 className="font-body text-3xl font-bold text-foreground mb-4">Ready to join the network?</h2>
             <p className="text-muted-foreground mb-8 max-w-sm mx-auto">Free to join. No fees on any order. Build a public performance record that works for you permanently.</p>
             <div className="flex justify-center gap-3 flex-wrap">
               <Link to="/apply">

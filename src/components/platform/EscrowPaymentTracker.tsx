@@ -134,7 +134,7 @@ export function EscrowPaymentTracker({
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Shield className="w-5 h-5 text-primary" />
-            <h3 className="font-heading font-semibold text-foreground">
+            <h3 className="font-body font-semibold text-foreground">
               Payment Milestones
             </h3>
           </div>

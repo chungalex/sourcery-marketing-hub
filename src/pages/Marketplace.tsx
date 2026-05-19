@@ -53,7 +53,7 @@ export default function Marketplace() {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
                 Factory marketplace
               </div>
-              <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
+              <h1 className="font-body text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
                 Start with your factory — or find one here.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-2xl">
@@ -95,7 +95,7 @@ export default function Marketplace() {
         <div className="container-wide">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              <h2 className="font-body text-3xl font-bold text-foreground mb-4">
                 See credentials before you commit to anything.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
@@ -183,7 +183,7 @@ export default function Marketplace() {
 
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">AI factory matcher</p>
-              <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+              <h2 className="font-body text-3xl font-bold text-foreground mb-4">
                 Describe what you need.<br />Get ranked matches.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
@@ -206,7 +206,7 @@ export default function Marketplace() {
       <section className="section-padding">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
+            <h2 className="font-body text-3xl font-bold text-foreground mb-3">
               Scores that build with every order. Not claims.
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
@@ -235,7 +235,7 @@ export default function Marketplace() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
-                <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+                <h2 className="font-body text-2xl font-bold text-foreground mb-4">
                   Confirm fit before you upgrade.
                 </h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
@@ -292,7 +292,7 @@ export default function Marketplace() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">For factories</p>
-                <h2 className="font-heading text-2xl font-bold text-foreground mb-3">Join the network free.</h2>
+                <h2 className="font-body text-2xl font-bold text-foreground mb-3">Join the network free.</h2>
                 <p className="text-muted-foreground leading-relaxed">
                   Free to join, free to list, free to receive orders. Build a public performance record that compounds with every order.
                 </p>
@@ -319,7 +319,7 @@ export default function Marketplace() {
       <section className="section-padding bg-card/50 border-t border-border">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
+            <h2 className="font-body text-3xl font-bold text-foreground mb-4">
               Find your factory. Then manage everything.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">

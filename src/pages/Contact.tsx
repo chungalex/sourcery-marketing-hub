@@ -63,7 +63,7 @@ export default function Contact() {
       <section className="section-padding bg-[var(--hero-gradient)]">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-xl">
-            <h1 className="font-heading text-4xl font-bold text-foreground mb-4">
+            <h1 className="font-body text-4xl font-bold text-foreground mb-4">
               We'll respond to everything.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
@@ -131,7 +131,7 @@ export default function Contact() {
               ) : (
                 <div className="p-8 rounded-2xl bg-card border border-border text-center">
                   <CheckCircle className="h-10 w-10 text-primary mx-auto mb-4" />
-                  <h2 className="font-heading text-xl font-bold text-foreground mb-2">Got it.</h2>
+                  <h2 className="font-body text-xl font-bold text-foreground mb-2">Got it.</h2>
                   <p className="text-muted-foreground mb-1">We read and respond to everything personally.</p>
                   <p className="text-sm text-muted-foreground">Usually within 24 hours. Check your spam folder if you don't hear back.</p>
                 </div>
@@ -141,7 +141,7 @@ export default function Contact() {
             {/* Contact info */}
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="space-y-6">
               <div>
-                <h2 className="font-heading text-xl font-bold text-foreground mb-3">Common questions</h2>
+                <h2 className="font-body text-xl font-bold text-foreground mb-3">Common questions</h2>
                 <div className="space-y-4">
                   {[
                     {

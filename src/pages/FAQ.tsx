@@ -169,7 +169,7 @@ export default function FAQ() {
       <section className="section-padding bg-[var(--hero-gradient)]">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <h1 className="font-body text-4xl md:text-5xl font-bold text-foreground mb-4">
               Everything you need to know before you start.
             </h1>
             <p className="text-xl text-muted-foreground">
@@ -189,7 +189,7 @@ export default function FAQ() {
               viewport={{ once: true }}
               transition={{ delay: si * 0.05 }}
             >
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">{section.title}</h2>
+              <h2 className="font-body text-2xl font-bold text-foreground mb-6">{section.title}</h2>
               <Accordion type="single" collapsible className="space-y-2">
                 {section.faqs.map((faq, i) => (
                   <AccordionItem key={i} value={`${si}-${i}`} className="bg-card border border-border rounded-xl px-6">
@@ -206,7 +206,7 @@ export default function FAQ() {
       <section className="section-padding bg-card/50">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Still have questions?</h2>
+            <h2 className="font-body text-2xl font-bold text-foreground mb-4">Still have questions?</h2>
             <p className="text-muted-foreground mb-8 max-w-sm mx-auto">We're happy to walk you through anything — platform, pricing, or factory network.</p>
             <div className="flex justify-center gap-3 flex-wrap">
               <Link to="/contact"><Button variant="hero" size="lg">Get in touch <ArrowRight className="ml-2 w-4 h-4" /></Button></Link>

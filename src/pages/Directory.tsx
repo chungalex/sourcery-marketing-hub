@@ -305,7 +305,7 @@ export default function Directory() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl mx-auto mb-8"
           >
-            <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            <h1 className="font-body text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
               Find your manufacturing partner.
             </h1>
             <p className="text-lg text-muted-foreground">
@@ -556,7 +556,7 @@ export default function Directory() {
                   <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
                     <Search className="w-8 h-8 text-muted-foreground" />
                   </div>
-                  <h3 className="font-heading text-xl font-semibold text-foreground mb-2">
+                  <h3 className="font-body text-xl font-semibold text-foreground mb-2">
                     No factories found
                   </h3>
                   <p className="text-muted-foreground mb-4">

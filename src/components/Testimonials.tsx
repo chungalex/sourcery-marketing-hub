@@ -18,7 +18,7 @@ export function Testimonials({ className = "" }: TestimonialsProps) {
         <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
           <Sparkles className="w-6 h-6 text-primary" />
         </div>
-        <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
+        <h3 className="font-body text-lg font-semibold text-foreground mb-2">
           Coming Soon
         </h3>
         <p className="text-muted-foreground text-sm leading-relaxed max-w-md mx-auto">

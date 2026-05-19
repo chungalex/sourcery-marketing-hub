@@ -155,7 +155,7 @@ export function QualityDashboard({ orderId = "ORD-2024-001", className }: Qualit
         <div>
           <div className="flex items-center gap-2 mb-1">
             <ClipboardCheck className="w-5 h-5 text-primary" />
-            <h3 className="font-heading font-semibold text-foreground">
+            <h3 className="font-body font-semibold text-foreground">
               Quality Assurance
             </h3>
           </div>

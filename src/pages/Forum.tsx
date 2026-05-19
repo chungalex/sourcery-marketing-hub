@@ -66,7 +66,7 @@ export default function Forum() {
             <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">Community</p>
             <div className="grid lg:grid-cols-2 gap-10 items-end">
               <div>
-                <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
+                <h1 className="font-body text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
                   Brands and factories.<br />Talking to each other.
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed">
@@ -104,7 +104,7 @@ export default function Forum() {
             <div className="lg:col-span-2">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="font-heading font-bold text-foreground">{active.label}</h2>
+                  <h2 className="font-body font-bold text-foreground">{active.label}</h2>
                   <p className="text-sm text-muted-foreground">{active.desc}</p>
                 </div>
                 <Link to="/auth?mode=signup">

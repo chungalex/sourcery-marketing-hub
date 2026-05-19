@@ -318,7 +318,7 @@ export default function Walkthrough() {
       <section className="section-padding bg-[var(--hero-gradient)] border-b border-border">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">
+            <h1 className="font-body text-3xl md:text-4xl font-bold text-foreground mb-3">
               A production order, start to finish.
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto">
@@ -383,7 +383,7 @@ export default function Walkthrough() {
                   </span>
                 </div>
 
-                <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
+                <h2 className="font-body text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
                   {step.headline}
                 </h2>
 
@@ -448,7 +448,7 @@ export default function Walkthrough() {
             <div className="grid md:grid-cols-2 gap-8 items-start">
               <div>
                 <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Production assistant</p>
-                <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+                <h2 className="font-body text-2xl font-bold text-foreground mb-3">
                   Have a production question? Ask it here.
                 </h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
@@ -467,7 +467,7 @@ export default function Walkthrough() {
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Supply chain — Pro</p>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+            <h2 className="font-body text-2xl font-bold text-foreground mb-3">
               Coordinate your full supply chain on one order.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-2xl">
@@ -502,7 +502,7 @@ export default function Walkthrough() {
       <section className="section-padding border-t border-border">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+            <h2 className="font-body text-2xl font-bold text-foreground mb-3">
               Everything else on the platform.
             </h2>
             <p className="text-muted-foreground leading-relaxed max-w-2xl">
@@ -578,7 +578,7 @@ export default function Walkthrough() {
       <section className="section-padding bg-card/50 border-t border-border">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+            <h2 className="font-body text-2xl font-bold text-foreground mb-4">
               Your first order is free.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">

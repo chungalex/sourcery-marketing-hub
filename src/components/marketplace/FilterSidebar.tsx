@@ -223,7 +223,7 @@ export function FilterSidebar({ filters, onFiltersChange, onReset, className }: 
       {/* Desktop Sidebar */}
       <aside className={cn("hidden lg:block w-64 flex-shrink-0", className)}>
         <div className="sticky top-24 bg-card rounded-xl border border-border p-5">
-          <h2 className="font-heading font-semibold text-foreground mb-4">Filters</h2>
+          <h2 className="font-body font-semibold text-foreground mb-4">Filters</h2>
           {content}
         </div>
       </aside>

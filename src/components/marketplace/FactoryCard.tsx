@@ -90,7 +90,7 @@ export function FactoryCard({
             </div>
           ) : (
             <div>
-              <h3 className="font-heading font-semibold text-foreground text-lg leading-tight group-hover:text-primary transition-colors">
+              <h3 className="font-body font-semibold text-foreground text-lg leading-tight group-hover:text-primary transition-colors">
                 {factory.name}
               </h3>
               <div className="flex items-center gap-1.5 text-muted-foreground text-sm mt-1">

@@ -104,7 +104,7 @@ export default function WhyClewa() {
       <section className="section-padding bg-[var(--hero-gradient)]">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+            <h1 className="font-body text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
               The factory relationship infrastructure
 the whole category was missing.
             </h1>
@@ -123,7 +123,7 @@ the whole category was missing.
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
             <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Efficiency</p>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
+            <h2 className="font-body text-3xl font-bold text-foreground mb-3">
               The gap between how big brands manage production and how you do it — closed.
             </h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
@@ -193,7 +193,7 @@ the whole category was missing.
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
             <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Security</p>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
+            <h2 className="font-body text-3xl font-bold text-foreground mb-3">
               Production intelligence that prevents the expensive surprises.
             </h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
@@ -225,7 +225,7 @@ the whole category was missing.
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
             <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Capital</p>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
+            <h2 className="font-body text-3xl font-bold text-foreground mb-3">
               Your capital moves on your terms. Not theirs.
             </h2>
             <p className="text-muted-foreground max-w-2xl leading-relaxed">
@@ -263,7 +263,7 @@ the whole category was missing.
                   <Search className="h-4 w-4 text-primary" />
                   <p className="text-xs font-semibold text-primary uppercase tracking-wide">The marketplace</p>
                 </div>
-                <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+                <h2 className="font-body text-2xl font-bold text-foreground mb-3">
                   Efficiency and security start before the first order.
                 </h2>
                 <p className="text-muted-foreground leading-relaxed text-sm">
@@ -297,7 +297,7 @@ the whole category was missing.
       <section className="section-padding bg-card/50">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">
+            <h2 className="font-body text-3xl font-bold text-foreground mb-3">
               What does unstructured production cost you annually?
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-xl">
@@ -312,7 +312,7 @@ the whole category was missing.
       <section className="section-padding">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-8">
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-2">
+            <h2 className="font-body text-2xl font-bold text-foreground mb-2">
               What production looks like without the infrastructure.
             </h2>
             <p className="text-sm text-muted-foreground max-w-xl">
@@ -333,7 +333,7 @@ the whole category was missing.
                 <div className="flex items-start justify-between gap-3 mb-4">
                   <div className="flex items-center gap-3">
                     <span className="font-mono text-xs text-muted-foreground">{s.number}</span>
-                    <h3 className="font-heading font-bold text-foreground">{s.type}</h3>
+                    <h3 className="font-body font-bold text-foreground">{s.type}</h3>
                   </div>
                   <span className="text-xs font-semibold text-destructive flex-shrink-0 text-right">{s.exposure}</span>
                 </div>
@@ -370,7 +370,7 @@ the whole category was missing.
             <div className="grid md:grid-cols-2 gap-8 items-start">
               <div>
                 <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Production assistant</p>
-                <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+                <h2 className="font-body text-2xl font-bold text-foreground mb-3">
                   Have a production question? Ask it now.
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
@@ -387,7 +387,7 @@ the whole category was missing.
       <section className="section-padding bg-card/50">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-xl bg-card border border-border">
-            <h2 className="font-heading text-xl font-bold text-foreground mb-4">
+            <h2 className="font-body text-xl font-bold text-foreground mb-4">
               Clewa doesn't guarantee you'll never have a production problem.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -426,7 +426,7 @@ the whole category was missing.
 <section className="section-padding">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+            <h2 className="font-body text-2xl font-bold text-foreground mb-4">
               Your first order is free.
             </h2>
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">

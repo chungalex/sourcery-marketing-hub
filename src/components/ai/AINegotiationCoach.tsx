@@ -138,7 +138,7 @@ export function AINegotiationCoach({ className }: AINegotiationCoachProps) {
             <MessageSquare className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <h3 className="font-heading font-semibold text-foreground">
+            <h3 className="font-body font-semibold text-foreground">
               AI Negotiation Coach
             </h3>
             <p className="text-sm text-muted-foreground">
@@ -255,7 +255,7 @@ export function AINegotiationCoach({ className }: AINegotiationCoachProps) {
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
                 <Sparkles className="w-8 h-8 text-primary animate-pulse" />
               </div>
-              <h4 className="font-heading font-medium text-foreground mb-2">
+              <h4 className="font-body font-medium text-foreground mb-2">
                 Analyzing negotiation opportunity...
               </h4>
               <div className="space-y-2 text-sm text-muted-foreground">
@@ -287,7 +287,7 @@ export function AINegotiationCoach({ className }: AINegotiationCoachProps) {
               <div className="bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 rounded-lg p-5 border border-emerald-500/20">
                 <div className="flex items-center gap-2 mb-3">
                   <Target className="w-5 h-5 text-emerald-600" />
-                  <h4 className="font-heading font-semibold text-foreground">
+                  <h4 className="font-body font-semibold text-foreground">
                     Recommended Counter-Offer
                   </h4>
                 </div>

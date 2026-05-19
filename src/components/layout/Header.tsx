@@ -98,9 +98,9 @@ export function Header() {
             {/* Logo */}
             <Link to={isLoggedIn ? dashboardHref : "/"} className="flex items-center gap-2 flex-shrink-0">
               <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-heading font-bold text-base">S</span>
+                <span className="text-primary-foreground font-body font-bold text-base">S</span>
               </div>
-              <span className="font-heading font-semibold text-lg text-foreground">Clewa</span>
+              <span className="font-body font-semibold text-lg text-foreground">Clewa</span>
               {isBrand && (
                 <span className="hidden sm:block text-xs text-muted-foreground font-normal ml-1">/ Brand</span>
               )}

@@ -147,7 +147,7 @@ export default function Terms() {
       <section className="section-padding">
         <div className="container-tight">
           <div className="mb-12">
-            <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h1 className="font-body text-3xl md:text-4xl font-bold text-foreground mb-4">
               Terms of Service
             </h1>
             <p className="text-muted-foreground">
@@ -163,7 +163,7 @@ export default function Terms() {
             <div className="space-y-10">
               {sections.map((section, index) => (
                 <div key={index}>
-                  <h2 className="font-heading text-xl font-semibold text-foreground mb-4">
+                  <h2 className="font-body text-xl font-semibold text-foreground mb-4">
                     {index + 1}. {section.title}
                   </h2>
                   <div className="text-muted-foreground whitespace-pre-line leading-relaxed">

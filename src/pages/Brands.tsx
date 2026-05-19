@@ -21,7 +21,7 @@ export default function Brands() {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
                 For brands
               </div>
-              <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
+              <h1 className="font-body text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
                 The factory relationship infrastructure for serious brands.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-2xl">
@@ -48,7 +48,7 @@ export default function Brands() {
       <section className="section-padding">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">Two problems. One platform.</h2>
+            <h2 className="font-body text-3xl font-bold text-foreground mb-3">Two problems. One platform.</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
               Finding the right factory and managing every order properly are both hard. Clewa is built to solve both — and the two halves work seamlessly together.
             </p>
@@ -62,7 +62,7 @@ export default function Brands() {
                 </div>
                 <p className="text-xs font-semibold text-primary uppercase tracking-wide">Factory marketplace</p>
               </div>
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Find the right factory before you commit to anything.</h3>
+              <h3 className="font-body text-2xl font-bold text-foreground mb-3">Find the right factory before you commit to anything.</h3>
               <p className="text-muted-foreground leading-relaxed mb-4 flex-1">
                 The biggest fear in sourcing is locking in capital before you know if the factory is right. Clewa shows you verified credentials, certifications, and a performance record that builds with every order — before you reach out, before you wire a deposit.
               </p>
@@ -93,7 +93,7 @@ export default function Brands() {
                 </div>
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Production OS</p>
               </div>
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-3">Replace the chaos with a system that actually scales.</h3>
+              <h3 className="font-body text-2xl font-bold text-foreground mb-3">Replace the chaos with a system that actually scales.</h3>
               <p className="text-muted-foreground leading-relaxed mb-4 flex-1">
                 Tech packs versioned. Revision rounds logged and factory-acknowledged. Sample gates enforced. QC gated against final payment. Every message, spec, defect, and milestone attached to the right order — permanently. Whether you're managing one production run or ten.
 
@@ -127,7 +127,7 @@ Bring your existing manufacturer or find one in the marketplace. Either way, you
           <div className="grid md:grid-cols-2 gap-6">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-background border border-border">
               <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">New to production</p>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+              <h2 className="font-body text-2xl font-bold text-foreground mb-4">
                 You shouldn't have to figure this out alone.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
@@ -138,7 +138,7 @@ Bring your existing manufacturer or find one in the marketplace. Either way, you
 
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.07 }} className="p-8 rounded-2xl bg-background border border-border">
               <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-4">Already managing production</p>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+              <h2 className="font-body text-2xl font-bold text-foreground mb-4">
                 Replace the chaos. Get your time back.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
@@ -154,7 +154,7 @@ Bring your existing manufacturer or find one in the marketplace. Either way, you
       <section className="section-padding">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-3">Four things every production run needs.</h2>
+            <h2 className="font-body text-3xl font-bold text-foreground mb-3">Four things every production run needs.</h2>
             <p className="text-muted-foreground max-w-lg mx-auto">
               Sourcing overseas opens up your quality and your margins. It also introduces uncertainty most brands manage badly. Clewa closes that gap.
             </p>
@@ -181,7 +181,7 @@ Bring your existing manufacturer or find one in the marketplace. Either way, you
         <div className="container-wide">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Every stage of production. One system.</h2>
+              <h2 className="font-body text-3xl font-bold text-foreground mb-4">Every stage of production. One system.</h2>
               <p className="text-muted-foreground leading-relaxed mb-6">From structured PO creation to closed delivery — with guided decisions, documented milestones, and a permanent record built automatically at every step.</p>
               <div className="space-y-3">
                 {[
@@ -234,7 +234,7 @@ Bring your existing manufacturer or find one in the marketplace. Either way, you
       <section className="section-padding">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-card border border-border">
-            <h2 className="font-heading text-xl font-bold text-foreground mb-4">What Clewa is — and isn't</h2>
+            <h2 className="font-body text-xl font-bold text-foreground mb-4">What Clewa is — and isn't</h2>
             <p className="text-muted-foreground leading-relaxed mb-3">
               Clewa is a platform, not an agent. We don't manage your factory relationships, negotiate on your behalf, or intervene in production. What we do is give every order the structure, documentation, and gate enforcement that most brands only discover they needed after learning the hard way.
             </p>
@@ -247,7 +247,7 @@ Bring your existing manufacturer or find one in the marketplace. Either way, you
       <section className="section-padding bg-card/50 border-t border-border">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Your first order is free.</h2>
+            <h2 className="font-body text-3xl font-bold text-foreground mb-4">Your first order is free.</h2>
             <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
               No credit card, no commitment. Bring your factory or find one in the marketplace. If it changes how you manage production — great. If not, no hard feelings.
             </p>

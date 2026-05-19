@@ -138,7 +138,7 @@ export default function FactoryProfile() {
     return (
       <Layout>
         <div className="container-wide section-padding text-center">
-          <h1 className="font-heading text-2xl font-bold">Factory not found</h1>
+          <h1 className="font-body text-2xl font-bold">Factory not found</h1>
           <Link to="/directory">
             <Button variant="outline" className="mt-4">
               Back to Directory
@@ -190,7 +190,7 @@ export default function FactoryProfile() {
                       {preview.is_verified && <VerifiedBadge />}
                     </div>
 
-                    <h1 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2">
+                    <h1 className="font-body text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2">
                       {preview.name}
                     </h1>
 
@@ -220,7 +220,7 @@ export default function FactoryProfile() {
             <div className="lg:col-span-2 space-y-6">
               <div className="bg-card rounded-xl border border-border p-6 relative">
                 <div className="blur-sm pointer-events-none">
-                  <h2 className="font-heading text-xl font-semibold text-foreground mb-3">
+                  <h2 className="font-body text-xl font-semibold text-foreground mb-3">
                     About
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
@@ -230,7 +230,7 @@ export default function FactoryProfile() {
                 <div className="absolute inset-0 flex items-center justify-center bg-card/80 rounded-xl">
                   <div className="text-center p-6">
                     <Lock className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
-                    <h4 className="font-heading font-semibold text-foreground mb-2">
+                    <h4 className="font-body font-semibold text-foreground mb-2">
                       Sign in to View Full Details
                     </h4>
                     <p className="text-sm text-muted-foreground mb-4">
@@ -248,7 +248,7 @@ export default function FactoryProfile() {
 
             <div className="space-y-4">
               <div className="bg-card rounded-xl border border-border p-5">
-                <h3 className="font-heading font-semibold text-foreground mb-4">
+                <h3 className="font-body font-semibold text-foreground mb-4">
                   Quick Stats
                 </h3>
                 <div className="space-y-3">
@@ -267,7 +267,7 @@ export default function FactoryProfile() {
 
               {preview.categories.length > 0 && (
                 <div className="bg-card rounded-xl border border-border p-5">
-                  <h3 className="font-heading font-semibold text-foreground mb-4">
+                  <h3 className="font-body font-semibold text-foreground mb-4">
                     Product Categories
                   </h3>
                   <div className="flex flex-wrap gap-2">
@@ -282,7 +282,7 @@ export default function FactoryProfile() {
 
               {preview.certifications.length > 0 && (
                 <div className="bg-card rounded-xl border border-border p-5">
-                  <h3 className="font-heading font-semibold text-foreground mb-4">
+                  <h3 className="font-body font-semibold text-foreground mb-4">
                     Certifications
                   </h3>
                   <div className="flex flex-wrap gap-2">
@@ -304,7 +304,7 @@ export default function FactoryProfile() {
     return (
       <Layout>
         <div className="container-wide section-padding text-center">
-          <h1 className="font-heading text-2xl font-bold">Factory not found</h1>
+          <h1 className="font-body text-2xl font-bold">Factory not found</h1>
           <Link to="/directory">
             <Button variant="outline" className="mt-4">
               Back to Directory
@@ -376,7 +376,7 @@ export default function FactoryProfile() {
                     {factory.is_verified && <VerifiedBadge />}
                   </div>
 
-                  <h1 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2">
+                  <h1 className="font-body text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2">
                     {factory.name}
                   </h1>
 
@@ -458,7 +458,7 @@ export default function FactoryProfile() {
             <div className="grid lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2 space-y-6">
                 <div>
-                  <h2 className="font-heading text-xl font-semibold text-foreground mb-3">
+                  <h2 className="font-body text-xl font-semibold text-foreground mb-3">
                     About
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
@@ -468,7 +468,7 @@ export default function FactoryProfile() {
 
                 {factory.categories.length > 0 && (
                   <div>
-                    <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
+                    <h3 className="font-body text-lg font-semibold text-foreground mb-3">
                       Specializations
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -483,7 +483,7 @@ export default function FactoryProfile() {
 
                 {factory.certifications.length > 0 && (
                   <div>
-                    <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
+                    <h3 className="font-body text-lg font-semibold text-foreground mb-3">
                       Certifications
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -497,7 +497,7 @@ export default function FactoryProfile() {
 
               <div className="space-y-4">
                 <div className="bg-card rounded-xl border border-border p-5">
-                  <h3 className="font-heading font-semibold text-foreground mb-4">
+                  <h3 className="font-body font-semibold text-foreground mb-4">
                     Quick Stats
                   </h3>
                   <div className="space-y-3">
@@ -538,7 +538,7 @@ export default function FactoryProfile() {
 
                 {(factory.website || factory.email) && (
                   <div className="bg-card rounded-xl border border-border p-5">
-                    <h3 className="font-heading font-semibold text-foreground mb-4">
+                    <h3 className="font-body font-semibold text-foreground mb-4">
                       Contact
                     </h3>
                     <div className="space-y-2 text-sm">
@@ -787,7 +787,7 @@ function CapabilityCard({ icon: Icon, label, value }: { icon: any; label: string
     <div className="bg-card rounded-xl border border-border p-4 text-center">
       <Icon className="w-6 h-6 text-primary mx-auto mb-2" />
       <p className="text-xs text-muted-foreground mb-1">{label}</p>
-      <p className="font-heading font-semibold text-foreground">{value}</p>
+      <p className="font-body font-semibold text-foreground">{value}</p>
     </div>
   );
 }

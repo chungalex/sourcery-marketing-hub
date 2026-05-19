@@ -150,7 +150,7 @@ export function AuditRequestModal({
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-emerald-500/10 flex items-center justify-center">
                 <CheckCircle className="w-8 h-8 text-emerald-500" />
               </div>
-              <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
+              <h3 className="font-body text-lg font-semibold text-foreground mb-2">
                 Request Submitted!
               </h3>
               <p className="text-sm text-muted-foreground mb-6">

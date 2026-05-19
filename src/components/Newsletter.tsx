@@ -75,7 +75,7 @@ export function Newsletter({ variant = "default", className = "" }: NewsletterPr
 
   return (
     <div className={`p-6 md:p-8 rounded-xl bg-card border border-border ${className}`}>
-      <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
+      <h3 className="font-body text-lg font-semibold text-foreground mb-2">
         Stay Updated
       </h3>
       <p className="text-sm text-muted-foreground mb-4">

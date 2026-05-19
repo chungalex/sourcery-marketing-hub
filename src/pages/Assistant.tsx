@@ -71,7 +71,7 @@ export default function Assistant() {
                 <span className="text-xs font-semibold text-primary uppercase tracking-wide">Production assistant</span>
                 <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">Pro</span>
               </div>
-              <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
+              <h1 className="font-body text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
                 Get specific answers on your production — not generic advice.
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-xl">
@@ -128,7 +128,7 @@ export default function Assistant() {
       <section className="section-padding border-b border-border">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+            <h2 className="font-body text-2xl font-bold text-foreground mb-3">
               Why it's more useful than a general AI tool.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-2xl">
@@ -179,7 +179,7 @@ export default function Assistant() {
       <section className="section-padding">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+            <h2 className="font-body text-2xl font-bold text-foreground mb-3">
               What you can ask it.
             </h2>
             <p className="text-muted-foreground max-w-xl leading-relaxed">
@@ -223,7 +223,7 @@ export default function Assistant() {
       <section className="section-padding bg-card/50">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+            <h2 className="font-body text-2xl font-bold text-foreground mb-3">
               Available in three places.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-xl">
@@ -280,7 +280,7 @@ export default function Assistant() {
       <section className="section-padding">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-3">
+            <h2 className="font-body text-2xl font-bold text-foreground mb-3">
               Decisions saved to your order record.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-2xl">
@@ -311,7 +311,7 @@ export default function Assistant() {
       <section className="section-padding bg-card/50">
         <div className="container-tight text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-4">
+            <h2 className="font-body text-2xl font-bold text-foreground mb-4">
               Better answers on every order.
             </h2>
             <p className="text-muted-foreground mb-2 max-w-md mx-auto">

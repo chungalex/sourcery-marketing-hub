@@ -160,7 +160,7 @@ export function AIQuoteAnalyzer({ className }: AIQuoteAnalyzerProps) {
             <Sparkles className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <h3 className="font-heading font-semibold text-foreground">
+            <h3 className="font-body font-semibold text-foreground">
               AI Quote Analyzer
             </h3>
             <p className="text-sm text-muted-foreground">
@@ -193,7 +193,7 @@ export function AIQuoteAnalyzer({ className }: AIQuoteAnalyzerProps) {
         {quotes.length > 0 && (
           <div className="space-y-4 mb-6">
             <div className="flex items-center justify-between">
-              <h4 className="font-heading font-medium text-foreground">
+              <h4 className="font-body font-medium text-foreground">
                 Quotes to Compare ({quotes.length})
               </h4>
               <Button variant="outline" size="sm" onClick={handleAddQuotes}>
@@ -266,7 +266,7 @@ export function AIQuoteAnalyzer({ className }: AIQuoteAnalyzerProps) {
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
                 <Sparkles className="w-8 h-8 text-primary animate-pulse" />
               </div>
-              <h4 className="font-heading font-medium text-foreground mb-2">
+              <h4 className="font-body font-medium text-foreground mb-2">
                 Analyzing your quotes...
               </h4>
               <div className="space-y-2 text-sm text-muted-foreground">

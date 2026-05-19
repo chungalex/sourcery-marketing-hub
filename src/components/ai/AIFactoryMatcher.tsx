@@ -77,7 +77,7 @@ export function AIFactoryMatcher({ className, onSelectFactory }: AIFactoryMatche
             <Sparkles className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <h3 className="font-heading font-semibold text-foreground">AI Factory Matcher</h3>
+            <h3 className="font-body font-semibold text-foreground">AI Factory Matcher</h3>
             <p className="text-sm text-muted-foreground">
               Describe what you need — we'll find the best match in our network
             </p>
