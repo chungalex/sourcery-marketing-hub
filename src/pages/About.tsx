@@ -74,7 +74,7 @@ The complete infrastructure for your factory relationship. Find the right manufa
       <section className="section-padding">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="p-8 rounded-2xl bg-primary/5 border border-primary/20">
+            <div className="p-8 rounded-2xl bg-secondary/60 border border-border">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">Factory marketplace</p>

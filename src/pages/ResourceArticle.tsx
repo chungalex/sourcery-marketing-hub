@@ -472,7 +472,7 @@ export default function ResourceArticle() {
                 </div>
 
                 {/* Takeaway */}
-                <div className="mt-10 p-6 rounded-xl bg-primary/5 border border-primary/20">
+                <div className="mt-10 p-6 rounded-xl bg-secondary/60 border border-border">
                   <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-2">The takeaway</p>
                   <p className="text-foreground leading-relaxed">{article.takeaway}</p>
                 </div>

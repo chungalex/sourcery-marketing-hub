@@ -30,10 +30,10 @@
 @layer base {
   :root {
     /* ── The Surface (lit paths through the labyrinth) */
-    --background:     38 18% 97%;    /* #F8F5F1 — warm cream, not clinical white */
-    --foreground:     28 15% 10%;    /* #1E1812 — deep warm charcoal */
+    --background:     0 0% 98.5%;    /* #FAFAFA — near-white, neutral ground */
+    --foreground:     0 0% 9%;       /* #171717 — near-black, neutral */
 
-    --card:           38 18% 99%;    /* #FDFCFB — slightly lighter than background */
+    --card:           0 0% 100%;     /* #FFFFFF — pure white cards on near-white bg */
     --card-foreground: 28 15% 10%;
 
     --popover:        38 18% 99%;
@@ -44,11 +44,11 @@
     --primary-foreground: 38 18% 97%;
 
     /* ── Secondary surfaces */
-    --secondary:      32 10% 93%;    /* #EDE8E2 — warm stone */
+    --secondary:      0 0% 94%;      /* #F0F0F0 — neutral light gray */
     --secondary-foreground: 28 15% 18%;
 
-    --muted:          32 8% 90%;     /* #E6E0D8 — muted stone */
-    --muted-foreground: 28 8% 44%;   /* #7A6E64 — sandstone text */
+    --muted:          0 0% 91%;      /* #E8E8E8 — neutral muted */
+    --muted-foreground: 0 0% 45%;    /* #737373 — neutral gray text */
 
     --accent:         30 80% 38%;
     --accent-foreground: 38 18% 97%;
@@ -57,8 +57,8 @@
     --destructive-foreground: 0 0% 100%;
 
     /* ── Structure */
-    --border:         32 12% 87%;    /* #E0D8CE — warm stone border */
-    --input:          32 12% 87%;
+    --border:         0 0% 89%;      /* #E3E3E3 — neutral visible border */
+    --input:          0 0% 89%;
     --ring:           30 80% 38%;
 
     /* ── Sharp corners — infrastructure, not a consumer app */
@@ -109,8 +109,8 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "kern" 1, "liga" 1;
@@ -226,13 +226,14 @@
     @apply bg-card border border-border rounded p-4;
   }
 
-  /* ── LABYRINTH PATTERN — subtle background texture */
+  /* ── LABYRINTH PATTERN — disabled, too subtle to see, adds complexity
   .labyrinth-bg {
     background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23B86A17' stroke-width='0.3' opacity='0.08'%3E%3Cpath d='M0 20h40M20 0v40'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
   .labyrinth-bg-subtle {
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23B86A17' stroke-width='0.4' opacity='0.05'%3E%3Cpath d='M0 30h60M30 0v60M0 10h20M40 10h20M10 0v20M10 40v20M0 50h20M40 50h20M50 0v20M50 40v20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
+  End labyrinth pattern disabled */
 }
 
 /* ─── COMPONENT OVERRIDES ──────────────────────────────────────────────────── */

@@ -96,7 +96,7 @@ export function EscrowPaymentTracker({
       case "released":
         return "text-emerald-500 bg-emerald-500/10";
       case "locked":
-        return "text-primary bg-primary/10";
+        return "text-primary bg-secondary";
       case "disputed":
         return "text-destructive bg-destructive/10";
       default:
@@ -142,7 +142,7 @@ export function EscrowPaymentTracker({
             Order {orderId} • Recommended payment structure
           </p>
         </div>
-        <Badge variant="secondary" className="bg-primary/10 text-primary">
+        <Badge variant="secondary" className="bg-secondary text-primary">
           <Clock className="w-3 h-3 mr-1" />
           Payment Tracking Coming Soon
         </Badge>
@@ -162,7 +162,7 @@ export function EscrowPaymentTracker({
             ${totalReleased.toLocaleString()}
           </div>
         </div>
-        <div className="bg-primary/10 rounded-lg p-4">
+        <div className="bg-secondary rounded-lg p-4">
           <div className="text-sm text-primary mb-1">Milestone Gated</div>
           <div className="text-xl font-semibold text-primary">
             ${totalLocked.toLocaleString()}
@@ -197,7 +197,7 @@ export function EscrowPaymentTracker({
             transition={{ delay: index * 0.1 }}
             className={cn(
               "relative flex items-start gap-4 p-4 rounded-lg border transition-colors",
-              milestone.status === "locked" && "border-primary/30 bg-primary/5",
+              milestone.status === "locked" && "border-primary/30 bg-secondary/60",
               milestone.status === "released" && "border-emerald-500/30 bg-emerald-500/5",
               milestone.status === "pending" && "border-border bg-muted/30",
               milestone.status === "disputed" && "border-destructive/30 bg-destructive/5"

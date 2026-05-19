@@ -370,7 +370,7 @@ export function AIRFQGenerator({ className }: AIRFQGeneratorProps) {
               exit={{ opacity: 0, y: -20 }}
               className="py-12 text-center"
             >
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center">
                 <Sparkles className="w-8 h-8 text-primary animate-pulse" />
               </div>
               <h4 className="font-body font-medium text-foreground mb-2">

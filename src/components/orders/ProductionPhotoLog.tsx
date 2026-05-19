@@ -130,7 +130,7 @@ export function ProductionPhotoLog({ orderId, isFactory = false }: ProductionPho
                         <div className="flex items-center gap-2 mb-0.5">
                           <span className="text-xs font-semibold text-foreground capitalize">{photo.stage.replace(/_/g, " ")}</span>
                           <span className={cn("text-xs px-1.5 py-0.5 rounded-full border",
-                            photo.uploaded_by_role === "factory" ? "bg-primary/10 text-primary border-primary/20" : "bg-secondary text-muted-foreground border-border"
+                            photo.uploaded_by_role === "factory" ? "bg-secondary text-primary border-border" : "bg-secondary text-muted-foreground border-border"
                           )}>
                             {photo.uploaded_by_role}
                           </span>

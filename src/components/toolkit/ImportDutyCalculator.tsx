@@ -152,7 +152,7 @@ export function ImportDutyCalculator() {
                 <span className="text-muted-foreground font-medium">Total Duties & Taxes</span>
                 <span className="font-bold text-primary">${result.total.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between items-center py-3 bg-primary/10 rounded-lg px-3 mt-4">
+              <div className="flex justify-between items-center py-3 bg-secondary rounded-lg px-3 mt-4">
                 <span className="font-semibold">Estimated Landed Cost</span>
                 <span className="text-xl font-bold text-primary">${result.landedCost.toFixed(2)}</span>
               </div>

@@ -18,7 +18,7 @@ export default function Factories() {
         <div className="container-wide">
           <div className="max-w-3xl">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary text-primary text-sm font-medium mb-6">
                 For factories
               </div>
               <h1 className="font-body text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">

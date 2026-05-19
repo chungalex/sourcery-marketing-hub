@@ -50,7 +50,7 @@ export default function Marketplace() {
         <div className="container-wide">
           <div className="max-w-3xl">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary text-primary text-sm font-medium mb-6">
                 Factory marketplace
               </div>
               <h1 className="font-body text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
@@ -122,7 +122,7 @@ export default function Marketplace() {
                     <p className="font-semibold text-foreground">Saigon Stitch Co.</p>
                     <p className="text-xs text-muted-foreground">Ho Chi Minh City, Vietnam</p>
                   </div>
-                  <div className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                  <div className="px-3 py-1 rounded-full bg-secondary border border-border">
                     <p className="text-xs font-semibold text-primary">Verified</p>
                   </div>
                 </div>
@@ -165,7 +165,7 @@ export default function Marketplace() {
                 </div>
                 <div className="space-y-2.5">
                   {aiMatches.map((f, i) => (
-                    <div key={i} className={cn("flex items-center justify-between p-3 rounded-lg border", i === 0 ? "border-primary/30 bg-primary/5" : "border-border bg-card")}>
+                    <div key={i} className={cn("flex items-center justify-between p-3 rounded-lg border", i === 0 ? "border-primary/30 bg-secondary/60" : "border-border bg-card")}>
                       <div>
                         <p className={cn("text-sm font-medium", f.locked ? "blur-sm select-none text-foreground" : "text-foreground")}>{f.name}</p>
                         <p className="text-xs text-muted-foreground">{f.loc}</p>

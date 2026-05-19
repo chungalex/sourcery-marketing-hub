@@ -48,7 +48,7 @@ const tierConfig = {
   },
   professional: {
     label: "Pro Verified",
-    color: "bg-primary/10 text-primary border-primary/20",
+    color: "bg-secondary text-primary border-border",
     icon: ShieldCheck,
     description: "Documents and certifications verified"
   },

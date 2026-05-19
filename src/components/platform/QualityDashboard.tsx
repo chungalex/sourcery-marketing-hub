@@ -107,7 +107,7 @@ export function QualityDashboard({ orderId = "ORD-2024-001", className }: Qualit
       case "failed":
         return "bg-destructive/10 text-destructive";
       case "in-progress":
-        return "bg-primary/10 text-primary";
+        return "bg-secondary text-primary";
       case "scheduled":
         return "bg-muted text-muted-foreground";
       default:
@@ -179,7 +179,7 @@ export function QualityDashboard({ orderId = "ORD-2024-001", className }: Qualit
           <div className="text-2xl font-bold text-emerald-600">{passedInspections}</div>
           <div className="text-sm text-emerald-600">Passed</div>
         </div>
-        <div className="bg-primary/10 rounded-lg p-4 text-center">
+        <div className="bg-secondary rounded-lg p-4 text-center">
           <div className="text-2xl font-bold text-primary">{mockInspections.filter(i => i.status === "in-progress").length}</div>
           <div className="text-sm text-primary">In Progress</div>
         </div>

@@ -454,7 +454,7 @@ export default function CreateOrder() {
                       <div className={cn(
                         "flex items-center justify-center h-10 w-10 rounded-full border-2 transition-all",
                         isActive && "border-primary bg-primary text-primary-foreground",
-                        isComplete && "border-primary bg-primary/10 text-primary",
+                        isComplete && "border-primary bg-secondary text-primary",
                         !isActive && !isComplete && "border-muted bg-muted text-muted-foreground"
                       )}>
                         {isComplete ? (
@@ -564,7 +564,7 @@ export default function CreateOrder() {
                               if (!lastOrder) return null;
                               const specs = lastOrder as any;
                               return (
-                                <div className="mb-3 p-3 rounded-lg bg-primary/5 border border-primary/20 flex items-start justify-between gap-3">
+                                <div className="mb-3 p-3 rounded-lg bg-secondary/60 border border-border flex items-start justify-between gap-3">
                                   <div className="flex-1 min-w-0">
                                     <p className="text-xs font-semibold text-primary mb-0.5">Prefill from last order</p>
                                     <p className="text-xs text-muted-foreground leading-relaxed">
@@ -670,8 +670,8 @@ export default function CreateOrder() {
                               </SelectContent>
                             </Select>
                             {selectedFactory && (
-                              <div className="mt-2 p-3 rounded-lg bg-primary/5 border border-primary/20 flex items-start gap-2 sm:gap-3">
-                                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                              <div className="mt-2 p-3 rounded-lg bg-secondary/60 border border-border flex items-start gap-2 sm:gap-3">
+                                <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
                                   <Building2 className="h-4 w-4 text-primary" />
                                 </div>
                                 <div className="flex-1 min-w-0">
@@ -682,7 +682,7 @@ export default function CreateOrder() {
                                     {selectedFactory.lead_time_weeks ? ` · ${selectedFactory.lead_time_weeks} week lead time` : ""}
                                   </p>
                                   {selectedFactory.is_byof && (
-                                    <span className="inline-block text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 mt-1 font-medium">Your factory</span>
+                                    <span className="inline-block text-xs px-2 py-0.5 rounded-full bg-secondary text-primary border border-border mt-1 font-medium">Your factory</span>
                                   )}
                                 </div>
                               </div>
@@ -997,7 +997,7 @@ export default function CreateOrder() {
 
                       {/* Order value */}
                       {totalAmount > 0 && (
-                        <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl">
+                        <div className="p-4 bg-secondary/60 border border-border rounded-xl">
                           <div className="flex items-center justify-between">
                             <span className="text-sm text-muted-foreground">Order value</span>
                             <span className="text-2xl font-bold text-foreground">
@@ -1066,7 +1066,7 @@ export default function CreateOrder() {
                                 return (
                                   <div className="space-y-2">
                                     {selected && !expanded && (
-                                      <div className="p-3 rounded-lg border border-primary bg-primary/5 flex items-start justify-between gap-3">
+                                      <div className="p-3 rounded-lg border border-primary bg-secondary/60 flex items-start justify-between gap-3">
                                         <div className="flex-1">
                                           <p className="text-sm font-semibold text-foreground">{selected.label}</p>
                                           <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{selected.guidance}</p>
@@ -1080,7 +1080,7 @@ export default function CreateOrder() {
                                         type="button"
                                         onClick={() => { field.onChange(term.value); setExpanded(false); }}
                                         className={cn("w-full text-left p-3 rounded-lg border transition-all",
-                                          field.value === term.value ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/40"
+                                          field.value === term.value ? "border-primary bg-secondary/60" : "border-border bg-card hover:border-primary/40"
                                         )}
                                       >
                                         <div className="flex items-center justify-between mb-1">
@@ -1251,7 +1251,7 @@ export default function CreateOrder() {
                                 {AQL_STANDARDS.map(std => (
                                   <button key={std.value} type="button" onClick={() => field.onChange(std.value)}
                                     className={cn("text-left p-3 rounded-lg border transition-all",
-                                      field.value === std.value ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/40"
+                                      field.value === std.value ? "border-primary bg-secondary/60" : "border-border bg-card hover:border-primary/40"
                                     )}
                                   >
                                     <div className="text-sm font-semibold text-foreground mb-1">
@@ -1357,7 +1357,7 @@ export default function CreateOrder() {
                       <div className="border-t border-border pt-4">
                         <p className="text-sm font-semibold text-foreground mb-4">Order summary</p>
                         <div className="space-y-3">
-                          <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                          <div className="p-4 bg-secondary/60 border border-border rounded-lg">
                             <p className="text-lg font-bold text-foreground">{watchedValues.product_name || "Unnamed order"}</p>
                             <p className="text-xs text-muted-foreground capitalize mt-0.5">
                               {selectedFactory?.name}{watchedValues.product_category ? ` · ${watchedValues.product_category.replace(/_/g, " ")}` : ""}
@@ -1407,7 +1407,7 @@ export default function CreateOrder() {
                       />
 
                       {/* What happens next */}
-                      <div className="p-4 rounded-xl bg-primary/5 border border-primary/20">
+                      <div className="p-4 rounded-xl bg-secondary/60 border border-border">
                         <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">What happens next</p>
                         <div className="space-y-2">
                           {[

@@ -103,7 +103,7 @@ export function DisputeFiling({ orderId, orderNumber, factoryName, onFiled }: Di
                   onClick={() => setType(t)}
                   className={cn(
                     "w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors",
-                    type === t ? "border-primary bg-primary/5 text-foreground" : "border-border text-muted-foreground hover:border-primary/40"
+                    type === t ? "border-primary bg-secondary/60 text-foreground" : "border-border text-muted-foreground hover:border-primary/40"
                   )}
                 >
                   {t}

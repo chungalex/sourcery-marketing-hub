@@ -140,7 +140,7 @@ export function SupplyChainCompliance({ orderId, specifications }: SupplyChainCo
             ))}
           </div>
 
-          <div className="px-5 py-3 bg-primary/5 border-t border-border">
+          <div className="px-5 py-3 bg-secondary/60 border-t border-border">
             <p className="text-xs text-muted-foreground leading-relaxed">
               <strong className="text-foreground">Why this matters:</strong> The EU Digital Product Passport (required from 2026), UFLPA compliance, and retailer audits all require documentation you're already capturing on Clewa. This order is {pct}% compliant. Complete orders to improve your score.
             </p>

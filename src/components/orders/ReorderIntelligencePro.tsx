@@ -161,7 +161,7 @@ export function ReorderIntelligencePro({ className }: ReorderIntelligenceProProp
         className="w-full flex items-center justify-between px-5 py-4 hover:bg-secondary/30 transition-colors text-left"
       >
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
             <Sparkles className="h-4 w-4 text-primary" />
           </div>
           <div>
@@ -236,7 +236,7 @@ export function ReorderIntelligencePro({ className }: ReorderIntelligenceProProp
             );
           })}
 
-          <div className="px-5 py-3 bg-primary/5">
+          <div className="px-5 py-3 bg-secondary/60">
             <p className="text-xs text-muted-foreground leading-relaxed">
               <span className="font-medium text-foreground">How this works:</span> Clewa calculates your average lead time per factory from your order history, then estimates when to issue your next PO to hit a seasonal delivery target. The more orders you complete on Clewa, the more accurate this becomes.
             </p>

@@ -259,7 +259,7 @@ export function OnboardingWizard({
                     key={cat}
                     className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
                       selectedCategories.includes(cat)
-                        ? "border-primary bg-primary/5"
+                        ? "border-primary bg-secondary/60"
                         : "border-border hover:border-primary/50"
                     }`}
                   >
@@ -304,7 +304,7 @@ export function OnboardingWizard({
                     key={goal}
                     className={`flex items-center gap-3 p-4 rounded-lg border cursor-pointer transition-colors ${
                       selectedGoals.includes(goal)
-                        ? "border-primary bg-primary/5"
+                        ? "border-primary bg-secondary/60"
                         : "border-border hover:border-primary/50"
                     }`}
                   >

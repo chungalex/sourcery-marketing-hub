@@ -160,7 +160,7 @@ export default function Onboarding() {
                         className={cn(
                           "text-left px-3 py-2.5 rounded-xl border text-sm transition-all",
                           category === cat.value
-                            ? "border-primary bg-primary/5 text-foreground font-medium"
+                            ? "border-primary bg-secondary/60 text-foreground font-medium"
                             : "border-border bg-card text-muted-foreground hover:border-primary/40"
                         )}>
                         {cat.label}
@@ -191,7 +191,7 @@ export default function Onboarding() {
                       className={cn(
                         "w-full text-left px-4 py-3.5 rounded-xl border transition-all",
                         stage === s.value
-                          ? "border-primary bg-primary/5"
+                          ? "border-primary bg-secondary/60"
                           : "border-border bg-card hover:border-primary/40"
                       )}>
                       <p className={cn("text-sm font-medium", stage === s.value ? "text-foreground" : "text-foreground")}>{s.label}</p>
@@ -205,13 +205,13 @@ export default function Onboarding() {
                   <div className="grid grid-cols-2 gap-2">
                     <button type="button" onClick={() => setHasFactory(true)}
                       className={cn("px-4 py-3 rounded-xl border text-sm transition-all",
-                        hasFactory === true ? "border-primary bg-primary/5 text-foreground font-medium" : "border-border bg-card text-muted-foreground hover:border-primary/40"
+                        hasFactory === true ? "border-primary bg-secondary/60 text-foreground font-medium" : "border-border bg-card text-muted-foreground hover:border-primary/40"
                       )}>
                       Yes — I'll invite them
                     </button>
                     <button type="button" onClick={() => setHasFactory(false)}
                       className={cn("px-4 py-3 rounded-xl border text-sm transition-all",
-                        hasFactory === false ? "border-primary bg-primary/5 text-foreground font-medium" : "border-border bg-card text-muted-foreground hover:border-primary/40"
+                        hasFactory === false ? "border-primary bg-secondary/60 text-foreground font-medium" : "border-border bg-card text-muted-foreground hover:border-primary/40"
                       )}>
                       Not yet
                     </button>
@@ -272,7 +272,7 @@ export default function Onboarding() {
                         { icon: CheckCircle, text: "Your first order is completely free" },
                       ].map(({ icon: Icon, text }, i) => (
                         <div key={i} className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
                             <Icon className="h-4 w-4 text-primary" />
                           </div>
                           <p className="text-sm text-foreground">{text}</p>

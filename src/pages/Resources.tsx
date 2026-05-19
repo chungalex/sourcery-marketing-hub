@@ -12,7 +12,7 @@ const categories = [
     icon: BookOpen,
     label: "Production fundamentals",
     desc: "The knowledge experienced buyers have that nobody teaches first-timers.",
-    color: "text-primary bg-primary/10 border-primary/20",
+    color: "text-primary bg-secondary border-border",
     articles: [
       {
         slug: "what-is-aql",
@@ -450,7 +450,7 @@ export default function Resources() {
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <div className="flex items-start gap-4 p-6 rounded-2xl bg-card border border-border">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-secondary border border-border flex items-center justify-center flex-shrink-0">
                 <Zap className="h-5 w-5 text-primary" />
               </div>
               <div className="flex-1">

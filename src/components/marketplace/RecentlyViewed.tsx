@@ -72,7 +72,7 @@ export function RecentlyViewed({ factoryIds, allFactories, onClear, className }:
                   {factory.name}
                 </p>
               </div>
-              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors" />
+              <div className="absolute inset-0 bg-primary/0 group-hover:bg-secondary transition-colors" />
             </motion.div>
           </Link>
         ))}

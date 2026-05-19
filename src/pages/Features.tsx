@@ -208,7 +208,7 @@ export default function Features() {
                   className="p-5 rounded-xl bg-card border border-border"
                 >
                   <div className="flex items-start gap-3 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
                       <f.icon className="w-4 h-4 text-primary" />
                     </div>
                     <div>

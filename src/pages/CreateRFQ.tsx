@@ -506,7 +506,7 @@ export default function CreateRFQ() {
                     {recipients.map((r, i) => (
                       <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-secondary/50 border border-border">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
                             {r.type === "network" ? <Building2 className="h-4 w-4 text-primary" /> : <Globe className="h-4 w-4 text-muted-foreground" />}
                           </div>
                           <div>
@@ -514,7 +514,7 @@ export default function CreateRFQ() {
                             <p className="text-xs text-muted-foreground">{r.factory_email}</p>
                           </div>
                           {r.type === "network" && (
-                            <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium">Network</span>
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-primary border border-border font-medium">Network</span>
                           )}
                         </div>
                         <button onClick={() => setRecipients(prev => prev.filter((_, j) => j !== i))}
@@ -539,7 +539,7 @@ export default function CreateRFQ() {
                 )}
 
                 {addMode === "network" && (
-                  <div className="p-4 rounded-xl border border-primary/20 bg-primary/5 space-y-3">
+                  <div className="p-4 rounded-xl border border-border bg-secondary/60 space-y-3">
                     <Label>Select a factory from the Clewa network</Label>
                     {networkFactories.length === 0 ? (
                       <p className="text-sm text-muted-foreground">All network factories have been added, or none are available.</p>
@@ -564,7 +564,7 @@ export default function CreateRFQ() {
                 )}
 
                 {addMode === "external" && (
-                  <div className="p-4 rounded-xl border border-primary/20 bg-primary/5 space-y-3">
+                  <div className="p-4 rounded-xl border border-border bg-secondary/60 space-y-3">
                     <div>
                       <p className="text-sm font-semibold text-foreground mb-0.5">Add any factory by email</p>
                       <p className="text-xs text-muted-foreground">They receive the RFQ email and respond through a public link — no Clewa account needed. This works for any factory you've worked with before or found independently.</p>
@@ -621,7 +621,7 @@ export default function CreateRFQ() {
                 </div>
 
                 {/* Brief summary */}
-                <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 space-y-3">
+                <div className="p-4 rounded-xl bg-secondary/60 border border-border space-y-3">
                   <div>
                     <p className="font-semibold text-foreground">{title}</p>
                     {(productCategory || otherCategory) && (
@@ -675,7 +675,7 @@ export default function CreateRFQ() {
                   <div className="space-y-2">
                     {recipients.map((r, i) => (
                       <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-secondary/50 border border-border">
-                        <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <div className="w-7 h-7 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
                           {r.type === "network" ? <Building2 className="h-3.5 w-3.5 text-primary" /> : <Globe className="h-3.5 w-3.5 text-muted-foreground" />}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -685,7 +685,7 @@ export default function CreateRFQ() {
                         <span className={cn(
                           "text-xs px-2 py-0.5 rounded-full border font-medium",
                           r.type === "network"
-                            ? "bg-primary/10 text-primary border-primary/20"
+                            ? "bg-secondary text-primary border-border"
                             : "bg-secondary text-muted-foreground border-border"
                         )}>
                           {r.type === "network" ? "Network" : "External"}

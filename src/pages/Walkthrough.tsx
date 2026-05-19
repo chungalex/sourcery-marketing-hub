@@ -17,7 +17,7 @@ const steps = [
     description: "Browse registered manufacturers — credentials confirmed, performance tracked from every order on the platform. Describe what you need in plain language and get AI-matched results. Or skip the marketplace entirely and invite your existing factory directly.",
     note: "Free to browse. Factory names and contact on Builder.",
     tag: "Marketplace",
-    tagColor: "text-primary bg-primary/10",
+    tagColor: "text-primary bg-secondary",
     mockup: {
       type: "marketplace",
       title: "AI factory matcher",
@@ -59,7 +59,7 @@ const steps = [
     description: "The factory submits the sample with photos and measurements logged against the order. You review and either approve or request a formal revision round — with documented feedback the factory must acknowledge. The platform enforces this gate.",
     note: "Not an email. A logged, timestamped approval the whole order is built from.",
     tag: "Enforced gate",
-    tagColor: "text-primary bg-primary/10",
+    tagColor: "text-primary bg-secondary",
     mockup: {
       type: "sample",
       title: "Sample submitted — round 1",
@@ -99,7 +99,7 @@ const steps = [
     description: "The factory uploads their QC report — photos, defect counts, AQL result — into the order. Clewa walks you through a structured checklist when your goods arrive. Need a professional inspector? We point you to agencies like SGS and QIMA. The final payment is blocked until you confirm the result and release it manually.",
     note: "You never wire the final amount until this step is complete.",
     tag: "Enforced gate",
-    tagColor: "text-primary bg-primary/10",
+    tagColor: "text-primary bg-secondary",
     mockup: {
       type: "qc",
       title: "QC inspection complete",
@@ -145,7 +145,7 @@ function MarketplaceMockup({ data }: { data: any }) {
       </div>
       <div className="space-y-2">
         {data.results.map((r: any, i: number) => (
-          <div key={i} className={cn("flex items-center justify-between p-2.5 rounded-lg border text-xs", i === 0 ? "border-primary/30 bg-primary/5" : "border-border bg-card")}>
+          <div key={i} className={cn("flex items-center justify-between p-2.5 rounded-lg border text-xs", i === 0 ? "border-primary/30 bg-secondary/60" : "border-border bg-card")}>
             <div>
               <p className={cn("font-medium", !r.verified ? "blur-sm select-none" : "")}>{r.name}</p>
               <p className="text-muted-foreground">{r.loc}</p>
@@ -230,7 +230,7 @@ function RevisionMockup({ data }: { data: any }) {
           </div>
         ))}
       </div>
-      <div className="mt-3 p-2.5 rounded-lg bg-primary/5 border border-primary/20 text-xs text-primary text-center">
+      <div className="mt-3 p-2.5 rounded-lg bg-secondary/60 border border-border text-xs text-primary text-center">
         Production paused until factory acknowledges
       </div>
     </div>
@@ -481,7 +481,7 @@ export default function Walkthrough() {
                 { icon: TrendingUp, title: "FX rate alerts", body: "Currency moves while your order is open. You get an updated landed cost estimate." },
               ].map((item, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="p-5 rounded-xl bg-background border border-border">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                  <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center mb-3">
                     <item.icon className="h-4 w-4 text-primary" />
                   </div>
                   <h3 className="font-semibold text-foreground text-sm mb-1.5">{item.title}</h3>
@@ -557,7 +557,7 @@ export default function Walkthrough() {
               <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
                 <Link to={item.href} className="group block p-5 rounded-xl bg-card border border-border hover:border-primary/30 transition-all hover:-translate-y-0.5 h-full">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
                       <item.icon className="h-3.5 w-3.5 text-primary" />
                     </div>
                     <span className="text-xs font-semibold text-primary uppercase tracking-wide">{item.label}</span>

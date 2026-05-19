@@ -204,7 +204,7 @@ The only platform built for the complete factory relationship.
                 highlight: false,
               },
             ].map(tool => (
-              <div key={tool.name} className={`p-5 rounded-xl border ${tool.highlight ? "border-primary/40 bg-primary/5" : "border-border bg-card"}`}>
+              <div key={tool.name} className={`p-5 rounded-xl border ${tool.highlight ? "border-primary/40 bg-secondary/60" : "border-border bg-card"}`}>
                 <p className={`font-bold mb-1 ${tool.highlight ? "text-primary" : "text-foreground"}`}>{tool.name}</p>
                 <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{tool.for}</p>
                 <p className="text-xs font-semibold text-foreground">{tool.price}</p>

@@ -69,7 +69,7 @@ export default function Assistant() {
               <div className="flex items-center gap-2 mb-5">
                 <Sparkles className="h-4 w-4 text-primary" />
                 <span className="text-xs font-semibold text-primary uppercase tracking-wide">Production assistant</span>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">Pro</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-primary border border-border">Pro</span>
               </div>
               <h1 className="font-body text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
                 Get specific answers on your production — not generic advice.
@@ -80,7 +80,7 @@ export default function Assistant() {
               <p className="text-muted-foreground leading-relaxed max-w-xl mb-4">
                 Ask it anything: whether a quote looks right, what to say to the factory, how your timeline is tracking, what your options are when something goes wrong.
               </p>
-              <div className="flex items-start gap-2 p-3 rounded-lg bg-primary/5 border border-primary/20 max-w-xl mb-8">
+              <div className="flex items-start gap-2 p-3 rounded-lg bg-secondary/60 border border-border max-w-xl mb-8">
                 <Info className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   Use with discretion. The assistant is a well-informed starting point — always verify numbers and decisions against your own sources before acting.
@@ -153,7 +153,7 @@ export default function Assistant() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
-                  className={`p-6 rounded-2xl border ${col.muted ? "bg-card border-border" : "bg-primary/5 border-primary/20"}`}
+                  className={`p-6 rounded-2xl border ${col.muted ? "bg-card border-border" : "bg-secondary/60 border-border"}`}
                 >
                   <p className={`text-xs font-semibold uppercase tracking-wide mb-4 ${col.muted ? "text-muted-foreground" : "text-primary"}`}>
                     {col.title}
@@ -198,7 +198,7 @@ export default function Assistant() {
                 className="p-5 rounded-xl bg-card border border-border"
               >
                 <div className="flex items-center gap-2.5 mb-3">
-                  <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
                     <cap.icon className="h-3.5 w-3.5 text-primary" />
                   </div>
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{cap.stage}</span>
@@ -263,7 +263,7 @@ export default function Assistant() {
                 >
                   <div className="flex items-center justify-between mb-3">
                     <span className="font-mono text-xs text-muted-foreground">{item.num}</span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${item.primary ? "bg-primary/10 text-primary border border-primary/20" : "bg-secondary text-muted-foreground border border-border"}`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${item.primary ? "bg-secondary text-primary border border-border" : "bg-secondary text-muted-foreground border border-border"}`}>
                       {item.badge}
                     </span>
                   </div>

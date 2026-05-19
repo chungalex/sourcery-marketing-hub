@@ -67,7 +67,7 @@ function QuickAction({
     >
       <div className={cn(
         "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0",
-        urgent ? "bg-amber-500/15" : "bg-primary/10"
+        urgent ? "bg-amber-500/15" : "bg-secondary"
       )}>
         <Icon className={cn("h-5 w-5", urgent ? "text-amber-600" : "text-primary")} />
       </div>
@@ -132,7 +132,7 @@ function ProductionCheckIn({ orderId, onComplete }: { orderId: string; onComplet
               className={cn(
                 "px-3 py-2.5 rounded-xl border text-xs font-medium text-left transition-all",
                 stage === s.value 
-                  ? "border-primary bg-primary/5 text-foreground" 
+                  ? "border-primary bg-secondary/60 text-foreground" 
                   : "border-border text-muted-foreground"
               )}
             >

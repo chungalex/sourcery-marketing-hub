@@ -308,7 +308,7 @@ export function DefectReports({ orderId, totalQuantity, isFactory = false, onAct
                   <div className="flex flex-wrap gap-2">
                     {r.photo_urls.map((url, i) => (
                       <a key={i} href={url} target="_blank" rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs text-primary hover:underline border border-primary/20 rounded px-2 py-1 bg-primary/5">
+                        className="inline-flex items-center gap-1 text-xs text-primary hover:underline border border-border rounded px-2 py-1 bg-secondary/60">
                         Photo {i + 1}
                       </a>
                     ))}

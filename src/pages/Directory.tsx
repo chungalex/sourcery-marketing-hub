@@ -365,7 +365,7 @@ export default function Directory() {
               transition={{ delay: 0.3 }}
               className="mt-6 text-center"
             >
-              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm">
+              <div className="inline-flex items-center gap-2 bg-secondary text-primary px-4 py-2 rounded-full text-sm">
                 <Lock className="w-4 h-4" />
                 <span>
                   <Link to="/auth?mode=signup&redirect=/directory" className="font-medium hover:underline">

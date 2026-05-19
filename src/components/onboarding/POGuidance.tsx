@@ -33,7 +33,7 @@ export function GuidanceCard({
   if (dismissed) return null;
 
   const colors = {
-    info: "bg-primary/5 border-primary/20",
+    info: "bg-secondary/60 border-border",
     warning: "bg-amber-500/8 border-amber-400/25",
     tip: "bg-green-500/5 border-green-400/20",
   };

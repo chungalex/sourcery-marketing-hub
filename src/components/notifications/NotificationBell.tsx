@@ -106,7 +106,7 @@ export function NotificationBell() {
               const isUnread = !n.read_at;
               const inner = (
                 <div onClick={() => { if (isUnread) markRead([n.id]); setOpen(false); }}
-                  className={cn("flex gap-3 px-4 py-3 border-b border-border last:border-0 hover:bg-secondary/50 transition-colors cursor-pointer", isUnread && "bg-primary/5")}>
+                  className={cn("flex gap-3 px-4 py-3 border-b border-border last:border-0 hover:bg-secondary/50 transition-colors cursor-pointer", isUnread && "bg-secondary/60")}>
                   <div className={cn("h-2 w-2 rounded-full flex-shrink-0 mt-1.5", isUnread ? "bg-primary" : "bg-transparent")} />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-foreground leading-tight">{n.title}</p>

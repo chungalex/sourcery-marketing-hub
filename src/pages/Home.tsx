@@ -106,12 +106,10 @@ export default function Home() {
       />
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-border">
+      <section className="relative border-b border-border">
         {/* Labyrinth background texture */}
-        <div className="absolute inset-0 labyrinth-bg-subtle pointer-events-none" />
-        
         {/* Vertical thread line — left edge */}
-        <div className="absolute left-0 top-0 bottom-0 w-px bg-primary/30" />
+        <div className="absolute left-0 top-0 bottom-0 w-px bg-primary/40" />
 
         <div className="container relative py-24 md:py-32">
           <div className="max-w-3xl">
@@ -120,23 +118,22 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              {/* Thread label */}
-              <div className="flex items-center gap-3 mb-8">
-                <div className="h-px w-10 bg-primary" />
-                <span className="text-xs font-semibold text-primary uppercase tracking-widest">
-                  Factory relationship infrastructure
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-px w-6 bg-primary" />
+                <span className="text-[11px] font-semibold text-primary uppercase tracking-[0.1em]">
+                  Clewa — Factory relationship infrastructure
                 </span>
               </div>
 
               {/* Hero headline — DM Serif, mythology-first */}
-              <h1 className="text-[2.8rem] md:text-[3.75rem] font-semibold text-foreground leading-[1.04] tracking-[-0.03em] mb-6">
-                The factory relationship<br className="hidden md:block" />
-                <span className="text-primary"> infrastructure</span> your brand<br className="hidden md:block" />
-                has been missing.
+              <h1 className="text-[2.75rem] md:text-[3.5rem] font-bold text-foreground leading-[1.0] tracking-[-0.04em] mb-5">
+                Professional infrastructure<br className="hidden md:block" />
+                for your factory<br className="hidden md:block" />
+                <span className="text-primary">relationship.</span>
               </h1>
 
-              <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
-                Find factories. Verify them. Run structured orders. Protect every payment. Know what to do at every step — before you need to ask.
+              <p className="text-[1.0625rem] text-muted-foreground leading-relaxed mb-8 max-w-[30rem]">
+                Find the right manufacturer. Verify them. Run every order with structured payments, documented specs, and built-in guidance. The infrastructure serious brands use.
               </p>
 
               <div className="flex flex-wrap gap-3 mb-5">
@@ -180,7 +177,7 @@ export default function Home() {
       </section>
 
       {/* ── THREE SITUATIONS ─────────────────────────────────────────────── */}
-      <section className="section-padding border-b border-border">
+      <section className="py-16 md:py-20 border-b border-border">
         <div className="container">
 
           <motion.div
@@ -195,7 +192,7 @@ export default function Home() {
                 However you work with factories
               </span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-3">
+            <h2 className="text-3xl md:text-[2.25rem] font-bold text-foreground tracking-[-0.03em] mb-3">
               We built the infrastructure<br className="hidden md:block" /> for every part of it.
             </h2>
             <p className="text-muted-foreground max-w-lg leading-relaxed">
@@ -257,7 +254,7 @@ export default function Home() {
       </section>
 
       {/* ── THE GUIDANCE LAYER ───────────────────────────────────────────── */}
-      <section className="section-padding border-b border-border">
+      <section className="py-16 md:py-20 border-b border-border">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-16 items-start">
 
@@ -270,14 +267,11 @@ export default function Home() {
                 <div className="h-px w-8 bg-primary" />
                 <span className="text-xs font-semibold text-primary uppercase tracking-widest">The guidance layer</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4">
+              <h2 className="text-3xl md:text-[2.25rem] font-bold text-foreground tracking-[-0.03em] mb-4">
                 The thread tells you<br />what to do next.
               </h2>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                At every stage of every order, the platform surfaces what an experienced sourcing director would tell you — before you need to ask. Not in a help article. Not in a FAQ. Right there, in context, at the exact decision point.
-              </p>
               <p className="text-muted-foreground leading-relaxed">
-                Most brands learn production by making expensive mistakes. Clewa gives you the guidance that prevents them.
+                At every stage of every order, Clewa surfaces what an experienced sourcing director would tell you — before you need to ask. In context, at the exact decision point. Not in a help article. Not somewhere you have to go looking for it.
               </p>
             </motion.div>
 
@@ -321,9 +315,8 @@ export default function Home() {
       </section>
 
       {/* ── PROTECTION — dark labyrinth section ─────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-border bg-foreground">
-        <div className="absolute inset-0 labyrinth-bg pointer-events-none opacity-60" />
-        <div className="absolute left-0 top-0 bottom-0 w-px bg-thread-dark/40" />
+      <section className="relative border-b border-border bg-foreground">
+        <div className="absolute left-0 top-0 bottom-0 w-px bg-primary/40" />
 
         <div className="container relative py-20 md:py-28">
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -377,7 +370,7 @@ export default function Home() {
       </section>
 
       {/* ── INTELLIGENCE ─────────────────────────────────────────────────── */}
-      <section className="section-padding border-b border-border">
+      <section className="py-16 md:py-20 border-b border-border">
         <div className="container">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
@@ -385,7 +378,7 @@ export default function Home() {
                 <div className="h-px w-8 bg-primary" />
                 <span className="text-xs font-semibold text-primary uppercase tracking-widest">Intelligence layer</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+              <h2 className="text-3xl md:text-[2.25rem] font-bold text-foreground tracking-[-0.03em]">
                 The platform gets smarter<br className="hidden md:block" /> with every order.
               </h2>
             </div>
@@ -426,7 +419,7 @@ export default function Home() {
       </section>
 
       {/* ── TRADE TOOLS ──────────────────────────────────────────────────── */}
-      <section className="section-padding border-b border-border bg-secondary/30">
+      <section className="py-16 md:py-20 border-b border-border">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -438,7 +431,7 @@ export default function Home() {
                 <div className="h-px w-8 bg-primary" />
                 <span className="text-xs font-semibold text-primary uppercase tracking-widest">Free trade tools</span>
               </div>
-              <h2 className="text-3xl font-bold text-foreground tracking-tight mb-4">
+              <h2 className="text-3xl font-bold text-foreground tracking-[-0.03em] mb-4">
                 Know your real costs<br />before you commit.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
@@ -468,7 +461,7 @@ export default function Home() {
       </section>
 
       {/* ── FINAL CTA ────────────────────────────────────────────────────── */}
-      <section className="section-padding">
+      <section className="py-16 md:py-20">
         <div className="container max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -479,7 +472,7 @@ export default function Home() {
               <div className="h-px w-8 bg-primary" />
               <div className="h-px flex-1 bg-border" />
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4">
+            <h2 className="text-3xl md:text-[2.25rem] font-bold text-foreground tracking-[-0.03em] mb-4">
               Start where you are.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-lg">

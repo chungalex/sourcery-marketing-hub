@@ -95,7 +95,7 @@ export default function Admin() {
       <section className="section-padding">
         <div className="container-wide">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 mb-8">
-            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center">
               <Shield className="h-6 w-6 text-primary" />
             </div>
             <div>

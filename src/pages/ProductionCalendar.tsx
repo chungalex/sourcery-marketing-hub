@@ -132,7 +132,7 @@ export default function ProductionCalendar() {
                         className={cn(
                           "min-h-[80px] border-b border-r border-border p-1.5 cursor-pointer transition-colors",
                           !isSameMonth(day, currentMonth) && "bg-secondary/20",
-                          isSelected && "bg-primary/5",
+                          isSelected && "bg-secondary/60",
                           dayOrders.length > 0 && "hover:bg-secondary/50"
                         )}
                       >

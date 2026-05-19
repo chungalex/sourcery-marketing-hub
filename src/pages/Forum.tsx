@@ -12,7 +12,7 @@ const spaces = [
     icon: Users,
     label: "Founder forum",
     desc: "Brands talking to brands. Factory recommendations, production problems, market questions.",
-    color: "text-primary bg-primary/10 border-primary/20",
+    color: "text-primary bg-secondary border-border",
     threads: [
       { title: "Best denim factories in Vietnam under 500 MOQ?", replies: 12, votes: 34, tag: "Factory rec", pinned: false, time: "2d ago" },
       { title: "How do you handle spec changes mid-production?", replies: 8, votes: 21, tag: "Operations", pinned: false, time: "3d ago" },
@@ -80,7 +80,7 @@ export default function Forum() {
                     <button
                       key={s.id}
                       onClick={() => setActiveSpace(s.id)}
-                      className={`p-4 rounded-xl border text-left transition-all ${activeSpace === s.id ? "border-primary/30 bg-primary/5" : "border-border bg-card hover:border-primary/20"}`}
+                      className={`p-4 rounded-xl border text-left transition-all ${activeSpace === s.id ? "border-primary/30 bg-secondary/60" : "border-border bg-card hover:border-border"}`}
                     >
                       <div className={`w-7 h-7 rounded-lg flex items-center justify-center border mb-3 ${s.color}`}>
                         <Icon className="h-3.5 w-3.5" />
@@ -119,7 +119,7 @@ export default function Forum() {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
-                    className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/20 transition-colors cursor-pointer group"
+                    className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border hover:border-border transition-colors cursor-pointer group"
                   >
                     {/* Vote */}
                     <div className="flex flex-col items-center gap-1 flex-shrink-0">
@@ -180,7 +180,7 @@ export default function Forum() {
                       <button
                         key={s.id}
                         onClick={() => setActiveSpace(s.id)}
-                        className={`w-full flex items-center gap-3 p-2.5 rounded-lg text-left transition-colors ${activeSpace === s.id ? "bg-primary/10" : "hover:bg-secondary"}`}
+                        className={`w-full flex items-center gap-3 p-2.5 rounded-lg text-left transition-colors ${activeSpace === s.id ? "bg-secondary" : "hover:bg-secondary"}`}
                       >
                         <Icon className={`h-4 w-4 flex-shrink-0 ${activeSpace === s.id ? "text-primary" : "text-muted-foreground"}`} />
                         <div className="flex-1 min-w-0">
@@ -213,7 +213,7 @@ export default function Forum() {
               </div>
 
               {/* Resources link */}
-              <div className="bg-primary/5 border border-primary/20 rounded-xl p-5">
+              <div className="bg-secondary/60 border border-border rounded-xl p-5">
                 <p className="text-xs font-semibold text-primary mb-2">Production resources</p>
                 <p className="text-xs text-muted-foreground leading-relaxed mb-3">Before you post — check if the answer is already in the resource library.</p>
                 <Link to="/resources">

@@ -59,7 +59,7 @@ export function UpgradePrompt({ open, onClose, reason = "second_order" }: Upgrad
 
               <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{r.body}</p>
 
-              <div className="p-3 rounded-xl bg-primary/5 border border-primary/20 mb-5">
+              <div className="p-3 rounded-xl bg-secondary/60 border border-border mb-5">
                 <p className="text-sm font-medium text-foreground">{r.highlight}</p>
               </div>
 

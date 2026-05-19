@@ -211,7 +211,7 @@ export function AIQuoteAnalyzer({ className }: AIQuoteAnalyzerProps) {
                   className="flex items-center justify-between p-4 bg-muted/30 rounded-lg border border-border"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
                       <FileText className="w-5 h-5 text-primary" />
                     </div>
                     <div>
@@ -263,7 +263,7 @@ export function AIQuoteAnalyzer({ className }: AIQuoteAnalyzerProps) {
               exit={{ opacity: 0, y: -20 }}
               className="py-8 text-center"
             >
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center">
                 <Sparkles className="w-8 h-8 text-primary animate-pulse" />
               </div>
               <h4 className="font-body font-medium text-foreground mb-2">
@@ -356,7 +356,7 @@ export function AIQuoteAnalyzer({ className }: AIQuoteAnalyzerProps) {
               </div>
 
               {/* Market Comparison */}
-              <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
+              <div className="bg-secondary/60 rounded-lg p-4 border border-primary/10">
                 <div className="flex items-center gap-2 mb-3">
                   <TrendingUp className="w-4 h-4 text-primary" />
                   <span className="font-medium text-foreground">Market Comparison</span>

@@ -45,7 +45,7 @@ export function SafetyStockCalculator({ avgLeadWeeks = 14, orderId }: SafetyStoc
             </p>
           </div>
         </div>
-        <div className={`text-xs font-medium px-2 py-1 rounded-full ${isOverdue ? "bg-rose-500/10 text-rose-700" : isUrgent ? "bg-amber-500/10 text-amber-700" : "bg-primary/10 text-primary"}`}>
+        <div className={`text-xs font-medium px-2 py-1 rounded-full ${isOverdue ? "bg-rose-500/10 text-rose-700" : isUrgent ? "bg-amber-500/10 text-amber-700" : "bg-secondary text-primary"}`}>
           {isOverdue ? "Overdue" : isUrgent ? "Soon" : "On track"}
         </div>
       </button>

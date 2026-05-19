@@ -85,7 +85,7 @@ export function ProductionCountdown({
   const statusConfig = {
     critical: { bg: "border-rose-400/40 bg-rose-500/5", icon: AlertTriangle, iconColor: "text-rose-500", label: "Behind schedule", labelColor: "text-rose-700" },
     at_risk: { bg: "border-amber-400/40 bg-amber-500/5", icon: Clock, iconColor: "text-amber-500", label: "Action needed", labelColor: "text-amber-700" },
-    on_track: { bg: "border-primary/20 bg-primary/5", icon: CheckCircle, iconColor: "text-primary", label: "On track", labelColor: "text-primary" },
+    on_track: { bg: "border-border bg-secondary/60", icon: CheckCircle, iconColor: "text-primary", label: "On track", labelColor: "text-primary" },
   };
 
   const cfg = statusConfig[overallStatus];

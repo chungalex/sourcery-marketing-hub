@@ -191,7 +191,7 @@ export function RevisionRounds({ orderId, isFactory = false, onActionComplete }:
             >
               <div className="flex items-center gap-3">
                 {pendingAck && <div className="h-2 w-2 rounded-full bg-amber-500 shrink-0" />}
-                <div className="h-6 w-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">{r.round_number}</div>
+                <div className="h-6 w-6 rounded-full bg-secondary text-primary text-xs font-bold flex items-center justify-center">{r.round_number}</div>
                 <div>
                   <span className="text-sm font-medium text-foreground">Round {r.round_number}</span>
                   <span className="text-xs text-muted-foreground ml-2">{format(new Date(r.created_at), "MMM d, yyyy")}</span>

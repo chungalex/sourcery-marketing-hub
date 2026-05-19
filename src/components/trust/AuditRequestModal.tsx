@@ -182,7 +182,7 @@ export function AuditRequestModal({
                         className={cn(
                           "p-4 rounded-lg border cursor-pointer transition-all",
                           selectedType === option.type
-                            ? "border-primary bg-primary/5"
+                            ? "border-primary bg-secondary/60"
                             : "border-border hover:border-primary/50"
                         )}
                       >
@@ -305,7 +305,7 @@ export function AuditRequestModal({
 
                   {/* Pricing Info */}
                   {selectedOption.price !== "Free" && (
-                    <div className="bg-primary/5 rounded-lg p-3 border border-primary/10">
+                    <div className="bg-secondary/60 rounded-lg p-3 border border-primary/10">
                       <p className="text-sm text-muted-foreground">
                         <strong className="text-foreground">Note:</strong> Payment will be collected after 
                         the audit is confirmed. You'll receive a detailed quote based on your specific requirements.

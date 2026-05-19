@@ -260,7 +260,7 @@ Additional Notes: ${message || "None"}`;
               exit={{ opacity: 0, scale: 0.9 }}
               className="py-8 text-center"
             >
-              <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <div className="h-16 w-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-4">
                 <Check className="h-8 w-8 text-primary" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">

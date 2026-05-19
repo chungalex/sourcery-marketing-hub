@@ -138,7 +138,7 @@ export function AIFactoryMatcher({ className, onSelectFactory }: AIFactoryMatche
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
               className="py-12 text-center"
             >
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center">
                 <Sparkles className="w-8 h-8 text-primary animate-pulse" />
               </div>
               <h4 className="font-medium text-foreground mb-3">Analyzing your requirements...</h4>
@@ -182,7 +182,7 @@ export function AIFactoryMatcher({ className, onSelectFactory }: AIFactoryMatche
                       <div className="flex items-center gap-2 mb-1">
                         <h5 className="font-semibold text-foreground">{factory.name}</h5>
                         {index === 0 && (
-                          <Badge className="bg-primary/10 text-primary text-xs">
+                          <Badge className="bg-secondary text-primary text-xs">
                             <Star className="w-3 h-3 mr-1 fill-current" />Best Match
                           </Badge>
                         )}

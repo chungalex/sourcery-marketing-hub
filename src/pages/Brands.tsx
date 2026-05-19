@@ -18,7 +18,7 @@ export default function Brands() {
         <div className="container-wide">
           <div className="max-w-3xl">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary text-primary text-sm font-medium mb-6">
                 For brands
               </div>
               <h1 className="font-body text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
@@ -55,7 +55,7 @@ export default function Brands() {
           </motion.div>
           <div className="grid md:grid-cols-2 gap-5">
             {/* Marketplace half */}
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-primary/5 border-2 border-primary/30 flex flex-col">
+            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="p-8 rounded-2xl bg-secondary/60 border-2 border-primary/30 flex flex-col">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center">
                   <Search className="h-4 w-4 text-primary" />

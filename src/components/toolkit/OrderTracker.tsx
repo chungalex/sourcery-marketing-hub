@@ -142,7 +142,7 @@ export function OrderTracker({ className }: { className?: string }) {
                     onClick={() => setSelectedOrder(order)}
                     className={`p-4 rounded-xl border cursor-pointer transition-all ${
                       selectedOrder?.id === order.id
-                        ? "border-primary bg-primary/5"
+                        ? "border-primary bg-secondary/60"
                         : "border-border hover:border-primary/50"
                     }`}
                   >

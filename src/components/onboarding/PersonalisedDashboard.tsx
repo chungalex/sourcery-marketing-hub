@@ -105,8 +105,8 @@ const ROADMAPS = {
     headline: "Invite your factory. Start in 60 seconds.",
     sub: "They join free, get the full platform immediately, and you can have your first structured order running today.",
     icon: Zap,
-    color: "border-primary/30 bg-primary/5",
-    iconBg: "bg-primary/10",
+    color: "border-primary/30 bg-secondary/60",
+    iconBg: "bg-secondary",
     iconColor: "text-primary",
     primaryCta: { label: "Invite your factory now", href: "/dashboard?action=invite" },
     secondaryCta: { label: "Create first order", href: "/orders/create" },
@@ -175,9 +175,9 @@ const SITUATIONS = [
     icon: Zap,
     headline: "I have a factory I trust",
     body: "I want to bring them onto the platform and run structured orders.",
-    color: "border-primary/40 hover:border-primary hover:bg-primary/5",
+    color: "border-primary/40 hover:border-primary hover:bg-secondary/60",
     iconColor: "text-primary",
-    iconBg: "bg-primary/10",
+    iconBg: "bg-secondary",
   },
 ] as const;
 

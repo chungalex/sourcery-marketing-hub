@@ -156,7 +156,7 @@ export function SmartReorderIntelligence() {
                     "text-xs px-2 py-0.5 rounded-full border font-medium flex-shrink-0",
                     s.urgency === "overdue" && "bg-rose-500/10 text-rose-700 border-rose-400/30",
                     s.urgency === "urgent" && "bg-amber-500/10 text-amber-700 border-amber-400/30",
-                    s.urgency === "upcoming" && "bg-primary/10 text-primary border-primary/20",
+                    s.urgency === "upcoming" && "bg-secondary text-primary border-border",
                   )}>
                     {s.urgency === "overdue" ? "PO overdue" : s.urgency === "urgent" ? `${s.daysUntilPO}d to issue` : `${s.daysUntilPO}d to issue`}
                   </span>

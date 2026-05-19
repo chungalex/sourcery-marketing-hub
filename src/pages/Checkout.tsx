@@ -145,7 +145,7 @@ export default function Checkout() {
 
                 <div className="space-y-4 mb-6">
                   <div className="flex items-start gap-3">
-                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <div className="h-10 w-10 rounded-lg bg-secondary flex items-center justify-center">
                       <Building2 className="h-5 w-5 text-primary" />
                     </div>
                     <div className="flex-1">

@@ -178,7 +178,7 @@ export function ProductionAssistant({ mode, orderContext, initialQuery, classNam
       <button
         onClick={handleOpen}
         className={cn(
-          "flex items-center gap-2 px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 hover:bg-primary/15 transition-colors text-sm font-medium text-primary",
+          "flex items-center gap-2 px-3 py-2 rounded-xl bg-secondary border border-border hover:bg-primary/15 transition-colors text-sm font-medium text-primary",
           className
         )}
       >
@@ -206,7 +206,7 @@ export function ProductionAssistant({ mode, orderContext, initialQuery, classNam
             {mode === "demo" ? "Production assistant" : mode === "order" ? `Assistant — ${orderContext?.orderNumber || "order"}` : "Production assistant"}
           </span>
           {mode !== "demo" && (
-            <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">Pro</span>
+            <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-primary border border-border">Pro</span>
           )}
         </div>
         <div className="flex items-center gap-1">
@@ -236,7 +236,7 @@ export function ProductionAssistant({ mode, orderContext, initialQuery, classNam
                       <button
                         key={i}
                         onClick={() => send(s)}
-                        className="text-xs px-2.5 py-1 rounded-full bg-background border border-border hover:border-primary/40 hover:bg-primary/5 text-muted-foreground hover:text-foreground transition-colors"
+                        className="text-xs px-2.5 py-1 rounded-full bg-background border border-border hover:border-primary/40 hover:bg-secondary/60 text-muted-foreground hover:text-foreground transition-colors"
                       >
                         {s}
                       </button>

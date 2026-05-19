@@ -75,14 +75,14 @@ export function TariffCalculator() {
 
           <div className="space-y-2">
             {rows.map((c, i) => (
-              <div key={c.code} className={`flex items-center gap-3 p-3 rounded-xl border ${i === 0 ? "border-primary/30 bg-primary/5" : "border-border bg-secondary/20"}`}>
+              <div key={c.code} className={`flex items-center gap-3 p-3 rounded-xl border ${i === 0 ? "border-primary/30 bg-secondary/60" : "border-border bg-secondary/20"}`}>
                 <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center text-xs font-semibold text-muted-foreground flex-shrink-0">
                   {i + 1}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-foreground">{c.name}</span>
-                    {i === 0 && <span className="text-xs px-1.5 py-0.5 rounded bg-primary/10 text-primary font-medium">cheapest</span>}
+                    {i === 0 && <span className="text-xs px-1.5 py-0.5 rounded bg-secondary text-primary font-medium">cheapest</span>}
                     {c.code === "CN" && dest === "US" && (
                       <span className="text-xs px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-700 font-medium">145% tariff</span>
                     )}

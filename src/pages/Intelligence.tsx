@@ -16,7 +16,7 @@ export default function Intelligence() {
       <section className="section-padding border-b border-border">
         <div className="container max-w-3xl">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wide mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary text-primary text-xs font-semibold uppercase tracking-wide mb-6">
               Intelligence layer
             </div>
             <h1 className="text-4xl font-bold text-foreground leading-[1.15] mb-5">
@@ -59,7 +59,7 @@ export default function Intelligence() {
               },
             ].map(({ icon: Icon, title, body }) => (
               <div key={title} className="flex gap-4 p-5 bg-card border border-border rounded-xl">
-                <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Icon className="h-4 w-4 text-primary" />
                 </div>
                 <div>
@@ -94,7 +94,7 @@ export default function Intelligence() {
                   ["Trade & tariff analysis", "$5,000–$25,000/yr", "Trade tools — free, no login required"],
                   ["Total", "$48,000–$200,000/yr", "Clewa Builder: $588/yr"],
                 ].map(([enterprise, cost, clewa], i) => (
-                  <tr key={i} className={i === 6 ? "font-semibold bg-primary/5" : ""}>
+                  <tr key={i} className={i === 6 ? "font-semibold bg-secondary/60" : ""}>
                     <td className="px-4 py-3 text-foreground">{enterprise}</td>
                     <td className="px-4 py-3 text-muted-foreground">{cost}</td>
                     <td className="px-4 py-3 text-primary">{clewa}</td>

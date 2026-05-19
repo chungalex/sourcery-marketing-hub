@@ -128,13 +128,13 @@ export function MilestoneBuilder({ value, onChange, isPro = false, orderTotal = 
           {PRESETS.map((preset, i) => (
             <button key={preset.name} onClick={() => applyPreset(i)} className={cn(
               "w-full text-left p-3 rounded-lg border transition-colors",
-              selectedPreset === i ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"
+              selectedPreset === i ? "border-primary bg-secondary/60" : "border-border hover:border-primary/40"
             )}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 flex-wrap">
                   <p className="text-sm font-medium text-foreground">{preset.name}</p>
                   {(preset as any).recommended && (
-                    <span className="text-xs px-1.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium">Recommended</span>
+                    <span className="text-xs px-1.5 py-0.5 rounded-full bg-secondary text-primary border border-border font-medium">Recommended</span>
                   )}
                 </div>
                 {selectedPreset === i && <span className="text-xs text-primary font-medium">Selected</span>}

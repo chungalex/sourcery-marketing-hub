@@ -271,7 +271,7 @@ export default function FactoryAccept() {
                       </div>
                       {/* Tech pack quick link */}
                   {order.tech_pack_url && (
-                    <div className="p-3 rounded-lg bg-primary/5 border border-primary/20 flex items-center justify-between">
+                    <div className="p-3 rounded-lg bg-secondary/60 border border-border flex items-center justify-between">
                       <div>
                         <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-0.5">Tech pack</p>
                         <p className="text-xs text-muted-foreground">Review before accepting</p>
@@ -335,7 +335,7 @@ export default function FactoryAccept() {
 
                 {/* Actions */}
                 {isPOIssued && (
-                  <div className="bg-card border-2 border-primary/20 rounded-xl p-6 space-y-4">
+                  <div className="bg-card border-2 border-border rounded-xl p-6 space-y-4">
                     <div className="flex items-center gap-2">
                       <Building2 className="h-5 w-5 text-primary" />
                       <h2 className="text-lg font-semibold text-foreground">

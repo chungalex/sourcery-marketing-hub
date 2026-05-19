@@ -84,7 +84,7 @@ export function PricingGateModal({
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", delay: 0.1 }}
-            className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4"
+            className="h-14 w-14 rounded-full bg-secondary flex items-center justify-center mx-auto mb-4"
           >
             <Lock className="h-7 w-7 text-primary" />
           </motion.div>
@@ -132,7 +132,7 @@ export function PricingGateModal({
                 to={`/checkout?plan=${plan.name.toLowerCase()}`}
                 className={`block p-4 rounded-lg border-2 transition-all ${
                   plan.highlight
-                    ? "border-primary bg-primary/5 hover:bg-primary/10"
+                    ? "border-primary bg-secondary/60 hover:bg-secondary"
                     : "border-border hover:border-primary/50 hover:bg-secondary/50"
                 }`}
               >

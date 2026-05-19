@@ -164,7 +164,7 @@ export function LeadTimeCalculator() {
               <div className="space-y-3">
                 {result.phases.map((phase, index) => (
                   <div key={index} className="flex items-center gap-3">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-secondary text-primary text-sm font-medium">
                       {index + 1}
                     </div>
                     <div className="flex-1 flex items-center justify-between p-3 bg-background rounded-lg">
@@ -183,14 +183,14 @@ export function LeadTimeCalculator() {
             </div>
 
             <div className="flex flex-col md:flex-row gap-4">
-              <Card className="flex-1 border-primary/20 bg-primary/5">
+              <Card className="flex-1 border-border bg-secondary/60">
                 <CardContent className="p-4 text-center">
                   <Clock className="w-8 h-8 text-primary mx-auto mb-2" />
                   <p className="text-sm text-muted-foreground">Total Lead Time</p>
                   <p className="text-2xl font-bold text-primary">{result.totalDays} days</p>
                 </CardContent>
               </Card>
-              <Card className="flex-1 border-primary/20 bg-primary/5">
+              <Card className="flex-1 border-border bg-secondary/60">
                 <CardContent className="p-4 text-center">
                   <Calendar className="w-8 h-8 text-primary mx-auto mb-2" />
                   <p className="text-sm text-muted-foreground">Estimated Arrival</p>

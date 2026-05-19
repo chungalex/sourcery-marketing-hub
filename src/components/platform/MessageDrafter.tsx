@@ -141,7 +141,7 @@ The message should:
                   className={cn(
                     "text-left px-3 py-2 rounded-lg border text-xs transition-all",
                     situation === s.value
-                      ? "border-primary bg-primary/5 text-foreground font-medium"
+                      ? "border-primary bg-secondary/60 text-foreground font-medium"
                       : "border-border text-muted-foreground hover:border-primary/40"
                   )}
                 >
@@ -176,7 +176,7 @@ The message should:
                   className={cn(
                     "px-3 py-1.5 rounded-lg border text-xs capitalize transition-all",
                     tone === t
-                      ? "border-primary bg-primary/5 text-foreground font-medium"
+                      ? "border-primary bg-secondary/60 text-foreground font-medium"
                       : "border-border text-muted-foreground hover:border-primary/40"
                   )}
                 >

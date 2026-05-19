@@ -149,7 +149,7 @@ export function ChangeOrderFlow({
                   className={cn(
                     "text-left px-2.5 py-2 rounded-lg border text-xs transition-all",
                     field === f.value
-                      ? "border-primary bg-primary/5 text-foreground font-medium"
+                      ? "border-primary bg-secondary/60 text-foreground font-medium"
                       : "border-border text-muted-foreground hover:border-primary/30"
                   )}
                 >

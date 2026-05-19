@@ -146,7 +146,7 @@ export function ReorderIntelligence({ orderId, factoryId, factoryName }: Reorder
   const urgencyConfig = {
     immediate: { color: "border-rose-400/40 bg-rose-500/5", icon: AlertTriangle, iconColor: "text-rose-500", badge: "bg-rose-500/10 text-rose-700 border-rose-400/30" },
     soon: { color: "border-amber-400/40 bg-amber-500/5", icon: Clock, iconColor: "text-amber-500", badge: "bg-amber-500/10 text-amber-700 border-amber-400/30" },
-    planning: { color: "border-primary/20 bg-primary/5", icon: Sparkles, iconColor: "text-primary", badge: "bg-primary/10 text-primary border-primary/20" },
+    planning: { color: "border-border bg-secondary/60", icon: Sparkles, iconColor: "text-primary", badge: "bg-secondary text-primary border-border" },
     not_yet: { color: "border-border bg-card", icon: CheckCircle, iconColor: "text-muted-foreground", badge: "" },
   };
 

@@ -276,7 +276,7 @@ export default function ProductionIntelligencePage() {
   const signalColors = {
     critical: "bg-red-500/10 border-red-400/30 text-red-600",
     warning: "bg-amber-500/10 border-amber-400/30 text-amber-600",
-    info: "bg-primary/5 border-primary/20 text-primary",
+    info: "bg-secondary/60 border-border text-primary",
     good: "bg-green-500/5 border-green-400/20 text-green-600",
   };
 
@@ -400,7 +400,7 @@ export default function ProductionIntelligencePage() {
                 )}
               >
                 {msg.role === "assistant" && (
-                  <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mr-3 mt-0.5">
+                  <div className="w-7 h-7 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0 mr-3 mt-0.5">
                     <Sparkles className="h-3.5 w-3.5 text-primary" />
                   </div>
                 )}
@@ -430,7 +430,7 @@ export default function ProductionIntelligencePage() {
 
             {loading && (
               <div className="flex justify-start">
-                <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mr-3 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0 mr-3 mt-0.5">
                   <Sparkles className="h-3.5 w-3.5 text-primary" />
                 </div>
                 <div className="bg-card border border-border rounded-2xl rounded-tl-sm px-4 py-3">
@@ -457,7 +457,7 @@ export default function ProductionIntelligencePage() {
                       key={prompt.label}
                       type="button"
                       onClick={() => sendMessage(prompt.label)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-foreground hover:border-primary/40 hover:bg-secondary/60 transition-all"
                     >
                       <Icon className={cn("h-3 w-3", prompt.color)} />
                       {prompt.label}

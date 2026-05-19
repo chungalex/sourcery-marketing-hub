@@ -252,7 +252,7 @@ export function TechPackVersions({ orderId, isFactory = false, onActionComplete 
               onClick={() => setExpanded(isOpen ? null : v.id)}
             >
               <div className="flex items-center gap-3">
-                <div className={`h-6 w-6 rounded-full text-xs font-bold flex items-center justify-center flex-shrink-0 ${isCurrent ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"}`}>
+                <div className={`h-6 w-6 rounded-full text-xs font-bold flex items-center justify-center flex-shrink-0 ${isCurrent ? "bg-secondary text-primary" : "bg-secondary text-muted-foreground"}`}>
                   v{v.version_number}
                 </div>
                 <div>
@@ -260,7 +260,7 @@ export function TechPackVersions({ orderId, isFactory = false, onActionComplete 
                   <span className="text-xs text-muted-foreground ml-2">{format(new Date(v.created_at), "MMM d, yyyy")}</span>
                 </div>
                 {isCurrent && (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs border bg-primary/10 text-primary border-primary/20">current</span>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs border bg-secondary text-primary border-border">current</span>
                 )}
                 {acked ? (
                   <span className="inline-flex items-center gap-1 text-xs text-green-600">

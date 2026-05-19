@@ -149,13 +149,13 @@ export default function FactoryOnboarding() {
                 {step === "welcome" && (
                   <div className="text-center space-y-6">
                     {hasInvite && (
-                      <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 text-left mb-2">
+                      <div className="p-4 rounded-xl bg-secondary/60 border border-border text-left mb-2">
                         <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">You've been invited</p>
                         <p className="text-sm text-foreground font-medium">{invitingBrandName} uses Clewa to manage their production orders.</p>
                         <p className="text-xs text-muted-foreground mt-1">Once you're set up, their orders will appear in your dashboard. Takes about 5 minutes.</p>
                       </div>
                     )}
-                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 mb-2">
+                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary mb-2">
                       <Building2 className="h-7 w-7 text-primary" />
                     </div>
                     <div>

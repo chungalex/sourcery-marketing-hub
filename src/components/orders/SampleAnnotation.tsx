@@ -121,7 +121,7 @@ export function SampleAnnotation({
               className={cn(
                 "flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all",
                 placing 
-                  ? "border-primary bg-primary/5 text-primary" 
+                  ? "border-primary bg-secondary/60 text-primary" 
                   : "border-border text-muted-foreground hover:border-primary/40"
               )}
             >

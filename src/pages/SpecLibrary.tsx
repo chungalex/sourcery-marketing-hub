@@ -152,7 +152,7 @@ export default function SpecLibrary() {
                       <div>
                         <p className="text-sm font-semibold text-foreground">{spec.name}</p>
                         <div className="flex items-center gap-2 mt-0.5">
-                          {spec.category && <span className="text-xs text-primary bg-primary/10 px-2 py-0.5 rounded-full">{spec.category}</span>}
+                          {spec.category && <span className="text-xs text-primary bg-secondary px-2 py-0.5 rounded-full">{spec.category}</span>}
                           <span className="text-xs text-muted-foreground">{format(new Date(spec.created_at), "MMM d, yyyy")}</span>
                         </div>
                       </div>

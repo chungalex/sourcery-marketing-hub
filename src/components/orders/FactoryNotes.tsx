@@ -211,7 +211,7 @@ export function FactoryNotes({ factoryId, factoryName }: FactoryNotesProps) {
                       className={cn(
                         "flex items-center gap-1 px-2.5 py-1.5 rounded-lg border text-xs transition-all",
                         newCategory === cat
-                          ? "border-primary bg-primary/5 text-foreground font-medium"
+                          ? "border-primary bg-secondary/60 text-foreground font-medium"
                           : "border-border text-muted-foreground hover:border-primary/30"
                       )}
                     >

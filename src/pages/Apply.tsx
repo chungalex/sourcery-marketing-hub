@@ -351,7 +351,7 @@ export default function Apply() {
                               onClick={() => updateFormData("factoryType", type)}
                               className={`p-3 rounded-lg border-2 transition-all text-sm ${
                                 formData.factoryType === type
-                                  ? "border-primary bg-primary/5"
+                                  ? "border-primary bg-secondary/60"
                                   : "border-border hover:border-primary/50"
                               }`}
                             >
@@ -672,7 +672,7 @@ export default function Apply() {
                             formData.selectedCertifications.map((cert) => (
                               <span
                                 key={cert}
-                                className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full"
+                                className="px-2 py-1 bg-secondary text-primary text-xs rounded-full"
                               >
                                 {cert}
                               </span>

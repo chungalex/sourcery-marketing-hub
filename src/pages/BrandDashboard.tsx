@@ -350,7 +350,7 @@ export default function BrandDashboard() {
                 "bg-card border rounded-xl p-4 flex items-center gap-3",
                 stat.accent ? "border-amber-400/50 bg-amber-500/5" : "border-border"
               )}>
-                <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0", stat.accent ? "bg-amber-500/15" : "bg-primary/10")}>
+                <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0", stat.accent ? "bg-amber-500/15" : "bg-secondary")}>
                   <stat.icon className={cn("h-4 w-4", stat.accent ? "text-amber-600" : "text-primary")} />
                 </div>
                 <div>
@@ -552,14 +552,14 @@ export default function BrandDashboard() {
                   {byofFactories.map(f => (
                     <div key={f.id} className="flex items-center justify-between p-4 bg-card border border-border rounded-xl hover:border-primary/30 transition-colors">
                       <div className="flex items-center gap-3">
-                        <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <div className="h-9 w-9 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
                           <Building2 className="h-4 w-4 text-primary" />
                         </div>
                         <div>
                           <p className="text-sm font-medium text-foreground">{f.name}</p>
                           <p className="text-xs text-muted-foreground">{f.city ? `${f.city}, ` : ""}{f.country}</p>
                         </div>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium">Your factory</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-primary border border-border font-medium">Your factory</span>
                       </div>
                       <Button size="sm" variant="outline" asChild>
                         <Link to={`/orders/create?factory=${f.id}`}>Create Order</Link>
@@ -594,7 +594,7 @@ export default function BrandDashboard() {
                   <div key={inquiry.id} className="bg-card border border-border rounded-xl p-5">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <div className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
                           {inquiry.factories?.logo_url
                             ? <img src={inquiry.factories.logo_url} alt="" className="w-full h-full rounded-lg object-cover" />
                             : <Building2 className="h-4 w-4 text-primary" />}
@@ -621,7 +621,7 @@ export default function BrandDashboard() {
                       <div className="mb-3 space-y-1.5">
                         <p className="text-xs text-muted-foreground bg-secondary/50 rounded-lg p-3">{inquiry.message}</p>
                         {(inquiry as any).factory_reply && (
-                          <div className="p-3 rounded-lg bg-primary/5 border border-primary/20">
+                          <div className="p-3 rounded-lg bg-secondary/60 border border-border">
                             <p className="text-xs font-semibold text-primary mb-1">Factory replied:</p>
                             <p className="text-xs text-foreground leading-relaxed">{(inquiry as any).factory_reply}</p>
                           </div>
@@ -755,7 +755,7 @@ export default function BrandDashboard() {
                     { label: "Draft a message to my factory", prompt: "Help me draft a professional message to my factory about a production delay." },
                   ].map(({ label, prompt }) => (
                     <a key={label} href={`/assistant?q=${encodeURIComponent(prompt)}`}
-                      className="flex items-center gap-3 p-3 rounded-lg border border-border bg-secondary/30 hover:border-primary/40 hover:bg-primary/5 transition-all group text-left w-full">
+                      className="flex items-center gap-3 p-3 rounded-lg border border-border bg-secondary/30 hover:border-primary/40 hover:bg-secondary/60 transition-all group text-left w-full">
                       <ArrowRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
                       <span className="text-sm text-foreground">{label}</span>
                     </a>
@@ -851,7 +851,7 @@ export default function BrandDashboard() {
                 ].map(item => (
                   <a key={item.title} href={item.href}
                     className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card hover:border-primary/40 transition-colors group">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
                       <item.icon className="h-4 w-4 text-primary" />
                     </div>
                     <div>

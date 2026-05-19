@@ -251,7 +251,7 @@ export default function FactoryDashboard() {
                 <div className="bg-card border border-border rounded-xl p-6">
                   <div className="flex items-center justify-between mb-4">
                     <Clock className="h-5 w-5 text-muted-foreground" />
-                    {newCount > 0 && <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">{newCount} new</span>}
+                    {newCount > 0 && <span className="text-xs font-bold text-primary bg-secondary px-2 py-0.5 rounded-full">{newCount} new</span>}
                   </div>
                   <div className="text-2xl font-bold text-foreground">{inquiries.filter(i => i.status === "replied").length}</div>
                   <div className="text-sm text-muted-foreground">Replied</div>
@@ -510,10 +510,10 @@ export default function FactoryDashboard() {
                   <p className="text-muted-foreground">Brands discover factories through the Clewa directory. Make sure your profile is complete — categories, MOQ, lead time, and photos help brands find the right fit.</p>
                 </div>
               ) : inquiries.map((inquiry) => (
-                <div key={inquiry.id} className={`bg-card border rounded-xl p-6 ${inquiry.status === "new" ? "border-primary/50 bg-primary/5" : "border-border"}`}>
+                <div key={inquiry.id} className={`bg-card border rounded-xl p-6 ${inquiry.status === "new" ? "border-primary/50 bg-secondary/60" : "border-border"}`}>
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
                         <Users className="h-5 w-5 text-primary" />
                       </div>
                       <div>

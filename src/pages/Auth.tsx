@@ -241,7 +241,7 @@ for your factory relationship.
                         onClick={() => setSelectedRole("brand")}
                         className={`p-4 rounded-lg border-2 transition-all text-left ${
                           selectedRole === "brand"
-                            ? "border-primary bg-primary/5"
+                            ? "border-primary bg-secondary/60"
                             : "border-border hover:border-primary/50"
                         }`}
                       >
@@ -256,7 +256,7 @@ for your factory relationship.
                         onClick={() => setSelectedRole("factory")}
                         className={`p-4 rounded-lg border-2 transition-all text-left ${
                           selectedRole === "factory"
-                            ? "border-primary bg-primary/5"
+                            ? "border-primary bg-secondary/60"
                             : "border-border hover:border-primary/50"
                         }`}
                       >

@@ -19,7 +19,7 @@ interface StatCardProps {
   iconBgColor?: string;
 }
 
-function StatCard({ label, value, change, changeType = "neutral", icon, iconBgColor = "bg-primary/10" }: StatCardProps) {
+function StatCard({ label, value, change, changeType = "neutral", icon, iconBgColor = "bg-secondary" }: StatCardProps) {
   const changeColorClass = changeType === "positive" 
     ? "text-emerald-600" 
     : changeType === "negative" 

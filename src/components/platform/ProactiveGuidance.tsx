@@ -47,7 +47,7 @@ export function ProactiveGuidance({
 
   const colors = {
     warning: "bg-amber-500/8 border-amber-400/30",
-    action: "bg-primary/5 border-primary/25",
+    action: "bg-secondary/60 border-border",
     info: "bg-card border-border",
   };
 

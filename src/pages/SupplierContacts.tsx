@@ -122,7 +122,7 @@ export default function SupplierContacts() {
                       {ctcts.map(c => (
                         <div key={c.id} className="flex items-start justify-between p-4 bg-card border border-border rounded-xl">
                           <div className="flex items-start gap-3">
-                            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
                               <User className="h-4 w-4 text-primary" />
                             </div>
                             <div>

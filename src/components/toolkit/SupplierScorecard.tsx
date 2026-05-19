@@ -104,7 +104,7 @@ export function SupplierScorecard({ className }: { className?: string }) {
                     onClick={() => setSelectedSupplier(supplier)}
                     className={`p-4 rounded-xl border cursor-pointer transition-all ${
                       selectedSupplier?.id === supplier.id
-                        ? "border-primary bg-primary/5"
+                        ? "border-primary bg-secondary/60"
                         : "border-border hover:border-primary/50"
                     }`}
                   >

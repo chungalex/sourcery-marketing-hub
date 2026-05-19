@@ -79,7 +79,7 @@ export default function FactoryCompare() {
         <div className="flex flex-wrap gap-1">
           {(f.certifications || []).length > 0
             ? (f.certifications || []).map(c => (
-                <span key={c} className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">{c}</span>
+                <span key={c} className="text-xs px-2 py-0.5 rounded-full bg-secondary text-primary border border-border">{c}</span>
               ))
             : <span className="text-sm text-muted-foreground">—</span>}
         </div>

@@ -100,7 +100,7 @@ export function ExperienceQuiz({ onComplete, onSkip }: ExperienceQuizProps) {
         {questions.map((_, i) => (
           <div key={i} className={cn(
             "h-1 flex-1 rounded-full transition-all duration-300",
-            i < currentQ ? "bg-primary" : i === currentQ ? "bg-primary/50" : "bg-muted"
+            i < currentQ ? "bg-primary" : i === currentQ ? "bg-secondary/600" : "bg-muted"
           )} />
         ))}
       </div>
@@ -132,7 +132,7 @@ export function ExperienceQuiz({ onComplete, onSkip }: ExperienceQuizProps) {
                   className={cn(
                     "w-full text-left p-4 rounded-xl border-2 transition-all",
                     isSelected
-                      ? "border-primary bg-primary/5"
+                      ? "border-primary bg-secondary/60"
                       : "border-border bg-card hover:border-primary/40 hover:bg-secondary/30"
                   )}
                 >

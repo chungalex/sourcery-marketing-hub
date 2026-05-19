@@ -142,10 +142,10 @@ the whole category was missing.
                 className="p-6 rounded-2xl bg-card border border-border"
               >
                 <div className="flex items-start justify-between gap-4 mb-4">
-                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <div className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0">
                     <item.icon className="h-4.5 w-4.5 text-primary" style={{ width: 18, height: 18 }} />
                   </div>
-                  <span className="text-xs font-semibold text-primary bg-primary/10 px-2.5 py-1 rounded-full flex-shrink-0">{item.time}</span>
+                  <span className="text-xs font-semibold text-primary bg-secondary px-2.5 py-1 rounded-full flex-shrink-0">{item.time}</span>
                 </div>
                 <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
@@ -257,7 +257,7 @@ the whole category was missing.
       <section className="section-padding">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="grid md:grid-cols-2 gap-8 p-8 rounded-2xl bg-primary/5 border border-primary/20 items-center">
+            <div className="grid md:grid-cols-2 gap-8 p-8 rounded-2xl bg-secondary/60 border border-border items-center">
               <div>
                 <div className="flex items-center gap-2 mb-3">
                   <Search className="h-4 w-4 text-primary" />

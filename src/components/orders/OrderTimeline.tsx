@@ -123,7 +123,7 @@ export function OrderTimeline({ orderId, orderCreatedAt, events: propEvents }: O
                         "w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 z-10 border",
                         event.type === "milestone" ? "bg-green-500/10 border-green-500/20" :
                         event.type === "approval" ? "bg-blue-500/10 border-blue-400/30" :
-                        event.type === "message" ? "bg-primary/10 border-primary/20" :
+                        event.type === "message" ? "bg-secondary border-border" :
                         "bg-secondary border-border"
                       )}>
                         <Icon className={cn("h-3.5 w-3.5",

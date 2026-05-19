@@ -15,7 +15,7 @@ export function Testimonials({ className = "" }: TestimonialsProps) {
         viewport={{ once: true }}
         className="text-center p-8 rounded-xl bg-card border border-border"
       >
-        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+        <div className="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center mx-auto mb-4">
           <Sparkles className="w-6 h-6 text-primary" />
         </div>
         <h3 className="font-body text-lg font-semibold text-foreground mb-2">

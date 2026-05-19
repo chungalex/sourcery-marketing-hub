@@ -63,7 +63,7 @@ export function MarginCalculator() {
               { label: "Wholesale price", value: fmt(wholesale), sub: `${pct(wsMargin)} margin · ${fmt(contribution)} contribution`, highlight: true },
               { label: "Retail price", value: fmt(retail), sub: `Retailer margin: ${pct(rtMargin)}`, highlight: false },
             ].map(({ label, value, sub, highlight }) => (
-              <div key={label} className={`flex items-center justify-between p-3 rounded-xl border ${highlight ? "border-primary/30 bg-primary/5" : "border-border bg-secondary/20"}`}>
+              <div key={label} className={`flex items-center justify-between p-3 rounded-xl border ${highlight ? "border-primary/30 bg-secondary/60" : "border-border bg-secondary/20"}`}>
                 <div>
                   <p className="text-sm font-medium text-foreground">{label}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{sub}</p>

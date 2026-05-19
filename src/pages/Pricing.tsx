@@ -260,7 +260,7 @@ export default function Pricing() {
                     <div className={cn(
                       "rounded-xl p-5 my-5",
                       tier.id === "starter" ? "bg-blue-500/5 border border-blue-400/20" :
-                      tier.id === "growth" ? "bg-primary/5 border border-primary/20" :
+                      tier.id === "growth" ? "bg-secondary/60 border border-border" :
                       "bg-secondary/60 border border-border"
                     )}>
                       <p className="text-sm text-foreground leading-relaxed mb-3">{tier.story}</p>

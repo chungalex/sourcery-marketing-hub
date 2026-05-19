@@ -96,7 +96,7 @@ export function SampleSubmitForm({
       )}
 
       <div className="flex items-center gap-2">
-        <div className="h-6 w-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">
+        <div className="h-6 w-6 rounded-full bg-secondary text-primary text-xs font-bold flex items-center justify-center">
           {currentRound}
         </div>
         <p className="text-sm text-muted-foreground font-medium">

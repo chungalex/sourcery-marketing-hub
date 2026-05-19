@@ -156,7 +156,7 @@ export function QCOptionSelector({ value, onChange, disabled = false, className 
             onClick={() => onChange("clewa")}
             className={cn(
               "w-full text-left p-4 transition-colors",
-              value === "clewa" ? "bg-primary/5" : "bg-card hover:bg-secondary/30"
+              value === "clewa" ? "bg-secondary/60" : "bg-card hover:bg-secondary/30"
             )}
           >
             <div className="flex items-start gap-3">
@@ -170,7 +170,7 @@ export function QCOptionSelector({ value, onChange, disabled = false, className 
                 <div className="flex items-center gap-2 flex-wrap mb-0.5">
                   <span className="font-semibold text-foreground text-sm">Inspect yourself</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-700 border border-green-500/20 font-medium">No extra cost</span>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium">Guided</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-primary border border-border font-medium">Guided</span>
                 </div>
                 <p className="text-xs text-muted-foreground">Clewa walks you through a step-by-step inspection checklist when your goods arrive. No experience required.</p>
               </div>
@@ -254,7 +254,7 @@ export function QCOptionSelector({ value, onChange, disabled = false, className 
             onClick={() => onChange("byoqc")}
             className={cn(
               "w-full text-left p-4 transition-colors",
-              value === "byoqc" ? "bg-primary/5" : "bg-card hover:bg-secondary/30"
+              value === "byoqc" ? "bg-secondary/60" : "bg-card hover:bg-secondary/30"
             )}
           >
             <div className="flex items-start gap-3">
@@ -354,7 +354,7 @@ export function QCOptionSelector({ value, onChange, disabled = false, className 
             onClick={() => onChange("factory")}
             className={cn(
               "w-full text-left p-4 transition-colors",
-              value === "factory" ? "bg-primary/5" : "bg-card hover:bg-secondary/30"
+              value === "factory" ? "bg-secondary/60" : "bg-card hover:bg-secondary/30"
             )}
           >
             <div className="flex items-start gap-3">

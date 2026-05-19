@@ -391,7 +391,7 @@ export default function FactoryProfile() {
                     variant="outline"
                     size="icon"
                     onClick={handleSave}
-                    className={cn(isSaved && "bg-primary/10 border-primary text-primary")}
+                    className={cn(isSaved && "bg-secondary border-primary text-primary")}
                   >
                     <Heart className={cn("w-4 h-4", isSaved && "fill-current")} />
                   </Button>

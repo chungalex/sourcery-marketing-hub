@@ -213,7 +213,7 @@ export function SampleReviewPanel({
             className="w-full flex items-center justify-between p-4 bg-secondary/30 hover:bg-secondary/50 transition-colors text-left"
           >
             <div className="flex items-center gap-3">
-              <div className="h-6 w-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">
+              <div className="h-6 w-6 rounded-full bg-secondary text-primary text-xs font-bold flex items-center justify-center">
                 {sub.round}
               </div>
               <div>
@@ -245,7 +245,7 @@ export function SampleReviewPanel({
                         href={url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs text-primary hover:underline border border-primary/20 rounded px-2 py-1 bg-primary/5"
+                        className="inline-flex items-center gap-1 text-xs text-primary hover:underline border border-border rounded px-2 py-1 bg-secondary/60"
                       >
                         Photo {i + 1}
                         <ExternalLink className="h-3 w-3" />

@@ -417,7 +417,7 @@ export default function OrderDetail() {
                     </span>
                   )}
                   {(specs?.collection as string) && (
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-medium">
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-secondary border border-border text-primary font-medium">
                       {specs.collection as string}
                     </span>
                   )}
@@ -520,7 +520,7 @@ export default function OrderDetail() {
 
                 {/* Draft: Issue PO prompts */}
                 {isDraft && canIssuePO && (
-                  <div className="p-5 rounded-xl bg-primary/5 border-2 border-primary/20 flex items-center justify-between gap-4">
+                  <div className="p-5 rounded-xl bg-secondary/60 border-2 border-border flex items-center justify-between gap-4">
                     <div>
                       <p className="font-semibold text-foreground mb-0.5">Ready to send this PO?</p>
                       <p className="text-xs text-muted-foreground">Issues the order to {order.factories?.name} for formal acceptance.</p>
@@ -542,7 +542,7 @@ export default function OrderDetail() {
 
                 {/* Stage focus */}
                 {order.status && ORDER_STAGE_CONFIG[order.status as OrderStatus] && (
-                  <div className="bg-primary/5 border border-primary/20 rounded-xl px-4 py-3">
+                  <div className="bg-secondary/60 border border-border rounded-xl px-4 py-3">
                     <div className="flex items-start gap-2">
                       <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
                       <div>
@@ -793,7 +793,7 @@ export default function OrderDetail() {
 
                 {/* Draft: bottom Issue PO */}
                 {isDraft && (
-                  <div className="bg-card border-2 border-primary/20 rounded-xl p-6">
+                  <div className="bg-card border-2 border-border rounded-xl p-6">
                     <h2 className="text-lg font-semibold text-foreground mb-2">Ready to issue the PO?</h2>
                     <p className="text-sm text-muted-foreground mb-4">
                       Issuing the PO sends this order to the factory for review. Ensure quantity and unit price are set before proceeding.

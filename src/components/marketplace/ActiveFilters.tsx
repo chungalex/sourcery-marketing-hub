@@ -128,7 +128,7 @@ export function ActiveFilters({ filters, onFiltersChange, onReset, className }: 
       {tags.map((tag) => (
         <span
           key={tag.key}
-          className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-sm px-2.5 py-1 rounded-full"
+          className="inline-flex items-center gap-1.5 bg-secondary text-primary text-sm px-2.5 py-1 rounded-full"
         >
           {tag.label}
           <button

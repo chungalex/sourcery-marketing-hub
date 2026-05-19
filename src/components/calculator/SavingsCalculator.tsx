@@ -85,7 +85,7 @@ export function SavingsCalculator() {
       {/* Clewa cost — subscription, not percentage */}
       <div className="space-y-2">
         <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Clewa cost</p>
-        <div className="flex items-center justify-between p-3 rounded-lg bg-primary/5 border border-primary/20">
+        <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/60 border border-border">
           <div>
             <p className="text-sm text-foreground">Builder plan — flat annual subscription</p>
             <p className="text-xs text-muted-foreground">Milestone gate enforcement, sample gate, QC gating, dispute documentation, marketplace access</p>
@@ -97,7 +97,7 @@ export function SavingsCalculator() {
       {/* Net */}
       <div className={cn(
         "flex items-center justify-between p-4 rounded-xl border",
-        isPositive ? "bg-primary/5 border-primary/20" : "bg-card border-border"
+        isPositive ? "bg-secondary/60 border-border" : "bg-card border-border"
       )}>
         <div>
           <p className="text-sm font-semibold text-foreground">
