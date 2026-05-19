@@ -17,8 +17,6 @@
 ──────────────────────────────────────────────────────────────────────────── */
 
 /* ─── FONT IMPORTS ─────────────────────────────────────────────────────────── */
-@import '@fontsource/dm-serif-display/400.css';
-@import '@fontsource/dm-serif-display/400-italic.css';
 @import '@fontsource/inter/400.css';
 @import '@fontsource/inter/500.css';
 @import '@fontsource/inter/600.css';
@@ -110,7 +108,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
     font-size: 15px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -118,11 +116,11 @@
     font-feature-settings: "kern" 1, "liga" 1;
   }
 
-  /* DM Serif Display — hero headlines and section titles only */
+  /* Display — Inter bold, tight tracking. No serifs. Ever. */
   .font-display {
-    font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif;
-    font-weight: 400;
-    letter-spacing: -0.02em;
+    font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
   }
 
   /* Sharp selection color — the thread */
@@ -187,7 +185,7 @@
 
   /* ── TYPOGRAPHY SCALE */
   
-  /* Display — DM Serif, for hero H1 and major section headings */
+  /* Display scale — Inter bold, tight tracking. No serifs. */
   .text-display-xl {
     @apply font-display text-5xl md:text-6xl leading-[1.06] tracking-tight;
   }

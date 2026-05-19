@@ -19,12 +19,13 @@ export default {
     },
     extend: {
       fontFamily: {
-        // THE TWO FONTS — non-negotiable
-        display: ["DM Serif Display", "Georgia", "serif"],  // Heroes + section titles
-        body: ["Inter", "system-ui", "sans-serif"],          // Everything else
-        heading: ["Inter", "system-ui", "sans-serif"],        // Alias for body
-        sans: ["Inter", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        // ONE FONT. Inter. Always.
+        // Scale through weight + size, not personality.
+        display: ["Inter", "system-ui", "-apple-system", "Helvetica Neue", "Arial", "sans-serif"],
+        heading: ["Inter", "system-ui", "-apple-system", "Helvetica Neue", "Arial", "sans-serif"],
+        body: ["Inter", "system-ui", "-apple-system", "Helvetica Neue", "Arial", "sans-serif"],
+        sans: ["Inter", "system-ui", "-apple-system", "Helvetica Neue", "Arial", "sans-serif"],
+        mono: ["ui-monospace", "JetBrains Mono", "Fira Code", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",

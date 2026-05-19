@@ -129,22 +129,13 @@ export default function Home() {
               </div>
 
               {/* Hero headline — DM Serif, mythology-first */}
-              <h1 className="font-display text-5xl md:text-[3.5rem] text-foreground leading-[1.08] mb-7">
-                You're in the labyrinth.<br />
-                <span className="italic text-primary">Here's the thread.</span>
+              <h1 className="text-[2.8rem] md:text-[3.75rem] font-semibold text-foreground leading-[1.04] tracking-[-0.03em] mb-6">
+                The factory relationship<br className="hidden md:block" />
+                <span className="text-primary"> infrastructure</span> your brand<br className="hidden md:block" />
+                has been missing.
               </h1>
 
-              {/* The mythology — brief, specific */}
-              <div className="thread-border mb-8 max-w-2xl">
-                <p className="text-base text-muted-foreground leading-relaxed">
-                  Ariadne gave Theseus the thread to navigate the Labyrinth. Without it, he enters a complex, 
-                  opaque system and gets lost. Overseas manufacturing is the labyrinth. 
-                  Clewa gives brands the thread.
-                </p>
-              </div>
-
-              {/* The operational promise */}
-              <p className="text-lg text-foreground leading-relaxed mb-8 max-w-2xl">
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
                 Find factories. Verify them. Run structured orders. Protect every payment. Know what to do at every step — before you need to ask.
               </p>
 
@@ -204,7 +195,7 @@ export default function Home() {
                 However you work with factories
               </span>
             </div>
-            <h2 className="font-display text-3xl md:text-4xl text-foreground mb-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-3">
               We built the infrastructure<br className="hidden md:block" /> for every part of it.
             </h2>
             <p className="text-muted-foreground max-w-lg leading-relaxed">
@@ -228,7 +219,7 @@ export default function Home() {
                   {/* Number with thread */}
                   <div className="flex items-center gap-3 pt-0.5">
                     <div className="w-px h-10 bg-primary/30 flex-shrink-0" />
-                    <span className="text-3xl font-display text-primary/40 leading-none">{s.num}</span>
+                    <span className="text-3xl font-bold tracking-tight text-primary/40 leading-none">{s.num}</span>
                   </div>
 
                   {/* Situation */}
@@ -237,7 +228,7 @@ export default function Home() {
                       <Icon className="h-4 w-4 text-primary" />
                       <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{s.label}</span>
                     </div>
-                    <h3 className="font-display text-xl text-foreground mb-2">{s.headline}</h3>
+                    <h3 className="text-xl font-semibold text-foreground tracking-tight mb-2">{s.headline}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{s.body}</p>
                   </div>
 
@@ -279,7 +270,7 @@ export default function Home() {
                 <div className="h-px w-8 bg-primary" />
                 <span className="text-xs font-semibold text-primary uppercase tracking-widest">The guidance layer</span>
               </div>
-              <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4">
                 The thread tells you<br />what to do next.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
@@ -348,7 +339,7 @@ export default function Home() {
                   Payment protection
                 </span>
               </div>
-              <h2 className="font-display text-3xl md:text-4xl text-stone-50 mb-4">
+              <h2 className="font-bold tracking-tight text-3xl md:text-4xl text-stone-50 mb-4">
                 Your money never moves<br />without your approval.
               </h2>
               <p className="leading-relaxed text-stone-400 mb-4">
@@ -394,7 +385,7 @@ export default function Home() {
                 <div className="h-px w-8 bg-primary" />
                 <span className="text-xs font-semibold text-primary uppercase tracking-widest">Intelligence layer</span>
               </div>
-              <h2 className="font-display text-3xl md:text-4xl text-foreground">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
                 The platform gets smarter<br className="hidden md:block" /> with every order.
               </h2>
             </div>
@@ -421,7 +412,7 @@ export default function Home() {
               >
                 <div className="flex items-center gap-3">
                   <div className="w-px h-8 bg-primary flex-shrink-0" />
-                  <span className="font-display text-2xl text-primary">{s.n}</span>
+                  <span className="text-2xl font-bold text-primary tabular-nums">{s.n}</span>
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground">{s.l}</p>
@@ -447,7 +438,7 @@ export default function Home() {
                 <div className="h-px w-8 bg-primary" />
                 <span className="text-xs font-semibold text-primary uppercase tracking-widest">Free trade tools</span>
               </div>
-              <h2 className="font-display text-3xl text-foreground mb-4">
+              <h2 className="text-3xl font-bold text-foreground tracking-tight mb-4">
                 Know your real costs<br />before you commit.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
@@ -488,7 +479,7 @@ export default function Home() {
               <div className="h-px w-8 bg-primary" />
               <div className="h-px flex-1 bg-border" />
             </div>
-            <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4">
               Start where you are.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-lg">

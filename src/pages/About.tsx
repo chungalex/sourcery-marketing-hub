@@ -19,7 +19,7 @@ The complete infrastructure for your factory relationship. Find the right manufa
       <section className="section-padding bg-[var(--hero-gradient)]">
         <div className="container-tight">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
-            <h1 className="font-display text-4xl md:text-5xl font-normal text-foreground mb-4 leading-tight">
+            <h1 className="text-4xl font-bold tracking-tight md:text-5xl font-normal text-foreground mb-4 leading-tight">
               The thread through the labyrinth.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">

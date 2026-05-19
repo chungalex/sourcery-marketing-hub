@@ -59,7 +59,7 @@ export default function Studio() {
         <div className="container max-w-3xl">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-4">Clewa Studio</p>
-            <h1 className="font-display text-4xl md:text-5xl font-normal text-foreground mb-6 leading-tight">
+            <h1 className="text-4xl font-bold tracking-tight md:text-5xl font-normal text-foreground mb-6 leading-tight">
               3 slots. We run your production —<br className="hidden md:block" /> factory to delivery.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-2xl">
@@ -89,7 +89,7 @@ export default function Studio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-2xl md:text-3xl font-normal text-foreground mb-6">Why only 3 slots.</h2>
+            <h2 className="font-bold tracking-tight text-2xl md:text-3xl font-normal text-foreground mb-6">Why only 3 slots.</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
               We don't take volume. Every run we manage gets the same attention we give our own production. That means factory visits, direct communication with QC teams, and a person who actually cares if your goods arrive on spec. That takes time. Three slots is how many we can do without cutting corners on any of them.
             </p>
@@ -108,7 +108,7 @@ export default function Studio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-2xl md:text-3xl font-normal text-foreground mb-6">Who this is for.</h2>
+            <h2 className="font-bold tracking-tight text-2xl md:text-3xl font-normal text-foreground mb-6">Who this is for.</h2>
             <div className="space-y-3">
               {WHO_ITS_FOR.map((item, i) => (
                 <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-card border border-border">
@@ -129,7 +129,7 @@ export default function Studio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-2xl md:text-3xl font-normal text-foreground mb-8">How it works.</h2>
+            <h2 className="font-bold tracking-tight text-2xl md:text-3xl font-normal text-foreground mb-8">How it works.</h2>
             <div className="space-y-6">
               {PROCESS.map((step) => (
                 <div key={step.n} className="flex gap-5">
@@ -153,7 +153,7 @@ export default function Studio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-2xl md:text-3xl font-normal text-foreground mb-6">What we handle.</h2>
+            <h2 className="font-bold tracking-tight text-2xl md:text-3xl font-normal text-foreground mb-6">What we handle.</h2>
             <div className="grid sm:grid-cols-2 gap-3">
               {WHAT_WE_HANDLE.map((item, i) => (
                 <div key={i} className="flex items-start gap-2.5 p-3 rounded-lg bg-card border border-border">
@@ -174,7 +174,7 @@ export default function Studio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-2xl md:text-3xl font-normal text-foreground mb-2">Pricing.</h2>
+            <h2 className="font-bold tracking-tight text-2xl md:text-3xl font-normal text-foreground mb-2">Pricing.</h2>
             <p className="text-muted-foreground mb-8">Flat fee per run. No percentage of order value — we work for you, not against your margin.</p>
             <div className="grid sm:grid-cols-2 gap-4">
               {[
@@ -228,7 +228,7 @@ export default function Studio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-2xl md:text-3xl font-normal text-foreground mb-3">Apply for a slot.</h2>
+            <h2 className="font-bold tracking-tight text-2xl md:text-3xl font-normal text-foreground mb-3">Apply for a slot.</h2>
             <p className="text-muted-foreground mb-2 max-w-xl">Tell us what you're making, your quantity, and your timeline. We'll respond within 48 hours.</p>
             <p className="text-sm text-muted-foreground mb-6 max-w-xl">If it's not the right fit — wrong product category, unrealistic timeline, not enough margin — we'll tell you that too. And point you somewhere useful.</p>
             <div className="flex flex-col sm:flex-row gap-3">

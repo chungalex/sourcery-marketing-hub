@@ -161,7 +161,7 @@ export default function Features() {
         <div className="container max-w-3xl">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-6">The thread</p>
-            <h1 className="font-display text-4xl md:text-5xl font-normal text-foreground leading-[1.1] mb-6">
+            <h1 className="text-4xl font-bold tracking-tight md:text-5xl font-normal text-foreground leading-[1.1] mb-6">
               Everything your factory<br />relationship needs.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-2xl">
@@ -193,7 +193,7 @@ export default function Features() {
               className="mb-10"
             >
               <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-2">{group.category}</p>
-              <h2 className="font-display text-2xl md:text-3xl font-normal text-foreground mb-3">{group.tagline}</h2>
+              <h2 className="font-bold tracking-tight text-2xl md:text-3xl font-normal text-foreground mb-3">{group.tagline}</h2>
               <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">{group.sub}</p>
             </motion.div>
 
@@ -227,7 +227,7 @@ export default function Features() {
       {/* CTA */}
       <section className="section-padding bg-card/50">
         <div className="container max-w-3xl text-center">
-          <h2 className="font-display text-2xl md:text-3xl font-normal text-foreground mb-3">Your first order is free. No time limit.</h2>
+          <h2 className="font-bold tracking-tight text-2xl md:text-3xl font-normal text-foreground mb-3">Your first order is free. No time limit.</h2>
           <p className="text-muted-foreground mb-6 max-w-xl mx-auto">Experience the full platform on your first production run — every intelligence feature, all trade tools, complete documentation. No credit card. No expiry.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button asChild size="lg" className="gap-2">
