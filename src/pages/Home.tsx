@@ -16,75 +16,72 @@ import {
 const SITUATIONS = [
   {
     icon: Search,
-    label: "Don't have a factory yet",
+    num: "01",
+    label: "No factory yet",
     headline: "We'll find you one.",
-    body: "Registered manufacturers with verified performance scores — built from real completed orders, never self-reported. AI matching from a plain-language brief. Every step of finding, vetting, and running your first order is guided.",
+    body: "Registered manufacturers with verified performance scores — built from real completed orders, never self-reported. AI matching from a plain-language brief. Your first order, fully guided.",
     features: [
-      "Factory directory — registered manufacturers across Vietnam, Indonesia, Bangladesh",
-      "AI factory matcher — describe what you need in plain language",
-      "Multi-factory RFQ — one brief, multiple quotes, side-by-side",
-      "Due diligence checklist — every question to ask before you commit",
+      "Factory directory — Vietnam, Indonesia, Bangladesh, China",
+      "AI factory matcher — describe it, we find it",
+      "Multi-factory RFQ — one brief, multiple quotes",
+      "Due diligence checklist — every question that matters",
     ],
     cta: "Browse factories",
     href: "/directory",
-    accent: "bg-blue-500/8 border-blue-400/25",
-    check: "text-blue-500",
   },
   {
     icon: Shield,
-    label: "Have one but not fully sure",
+    num: "02",
+    label: "Have one, not sure",
     headline: "We give you the tools to be certain.",
-    body: "Factory verification, audit requests, OTIF scoring from real order data. Know exactly who you're working with before another dollar changes hands. The due diligence most brands skip — structured into the platform.",
+    body: "Verification badges, audit requests, OTIF performance scoring from real transaction data. Know exactly who you're working with before another dollar leaves your account.",
     features: [
       "Factory verification and certification checks",
-      "OTIF scoring from real completed orders — never self-reported",
-      "Audit request system — formal documentation",
-      "Dispute filing — formal mechanism with evidence trail",
+      "OTIF scores from real completed orders — never self-reported",
+      "Formal audit request system",
+      "Dispute filing with evidence trail",
     ],
-    cta: "See how verification works",
+    cta: "See verification tools",
     href: "/factories",
-    accent: "bg-amber-500/8 border-amber-400/25",
-    check: "text-amber-500",
   },
   {
     icon: Zap,
+    num: "03",
     label: "Have one you trust",
     headline: "Invite them in 60 seconds.",
-    body: "BYOF — Bring Your Own Factory. Full platform, full features, immediately. One link. They join free. Structure every order, protect every payment, document everything automatically.",
+    body: "BYOF — Bring Your Own Factory. One link. They join free. Full platform, full features, immediately. Structure every order and protect every payment from day one.",
     features: [
-      "One invite link — factory joins free, full features immediately",
-      "Guided PO creation — every field explained, every decision contextualised",
+      "One invite link — they join free, full features immediately",
+      "Guided PO creation — every decision explained",
       "Milestone-gated payments — deposit, sample gate, QC gate",
       "Intelligence activates from your first completed order",
     ],
     cta: "Start free",
     href: "/auth?mode=signup",
-    accent: "bg-primary/8 border-primary/25",
-    check: "text-primary",
   },
 ];
 
-// ─── Guidance moments ─────────────────────────────────────────────────────────
-const MOMENTS = [
+// ─── How the guidance works ───────────────────────────────────────────────────
+const GUIDANCE = [
   {
     icon: AlertTriangle,
-    when: "Before you choose a factory",
-    what: "Here are the questions experienced buyers always ask. Here's what the answers should look like — and what should concern you.",
+    stage: "Before you choose a factory",
+    text: "Here are the questions experienced buyers always ask. Here's what the answers should look like — and what should concern you.",
   },
   {
     icon: FileText,
-    when: "Before you issue the PO",
-    what: "Is your tech pack complete? Have you set your AQL standard? Your delivery window falls near Tet — have you accounted for the shutdown?",
+    stage: "Before you issue the PO",
+    text: "Is your tech pack complete? Have you agreed on AQL? Your delivery window falls near Tet — have you accounted for the shutdown?",
   },
   {
     icon: Clock,
-    when: "During production",
-    what: "Your in-line QC is overdue. At this factory's pattern, here's what that means for your delivery window. Here's what to message them today.",
+    stage: "During production",
+    text: "Your in-line QC is overdue. At this factory's pattern, here's what that means for your window. Here's the message to send today.",
   },
   {
     icon: Shield,
-    when: "At QC and payment release",
-    what: "You have 14 defects on 300 units — 4.6%. Your agreed AQL was 2.5%. Here are your three options, what each means for the relationship, and what most brands do.",
+    stage: "At QC and payment release",
+    text: "You have 14 defects on 300 units — 4.6%. Your AQL was 2.5%. Here are your three options and what each means for the relationship.",
   },
 ];
 
@@ -108,26 +105,51 @@ export default function Home() {
         canonical="/"
       />
 
-      {/* ── HERO — mythology first ──────────────────────────────────────── */}
-      <section className="section-padding border-b border-border">
-        <div className="container">
+      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden border-b border-border">
+        {/* Labyrinth background texture */}
+        <div className="absolute inset-0 labyrinth-bg-subtle pointer-events-none" />
+        
+        {/* Vertical thread line — left edge */}
+        <div className="absolute left-0 top-0 bottom-0 w-px bg-primary/30" />
+
+        <div className="container relative py-24 md:py-32">
           <div className="max-w-3xl">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-5">
-                The Clewa mythology
-              </p>
-              <h1 className="font-display text-6xl md:text-7xl font-normal text-foreground leading-[1.0] mb-7">
-                The thread.
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              {/* Thread label */}
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-px w-10 bg-primary" />
+                <span className="text-xs font-semibold text-primary uppercase tracking-widest">
+                  Factory relationship infrastructure
+                </span>
+              </div>
+
+              {/* Hero headline — DM Serif, mythology-first */}
+              <h1 className="font-display text-5xl md:text-[3.5rem] text-foreground leading-[1.08] mb-7">
+                You're in the labyrinth.<br />
+                <span className="italic text-primary">Here's the thread.</span>
               </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed mb-5 max-w-2xl font-light">
-                Every brand sourcing overseas is inside a labyrinth. The factory is weeks ahead of you. Information arrives late, filtered, incomplete. Decisions get made without visibility. You find out something is wrong in week 10.
-              </p>
-              <p className="text-xl text-foreground leading-relaxed mb-8 max-w-2xl font-medium">
-                Clewa is the thread through it — infrastructure that guides you from the first factory search to the last payment release, at every stage of every order, so you always know where you are and what comes next.
+
+              {/* The mythology — brief, specific */}
+              <div className="thread-border mb-8 max-w-2xl">
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  Ariadne gave Theseus the thread to navigate the Labyrinth. Without it, he enters a complex, 
+                  opaque system and gets lost. Overseas manufacturing is the labyrinth. 
+                  Clewa gives brands the thread.
+                </p>
+              </div>
+
+              {/* The operational promise */}
+              <p className="text-lg text-foreground leading-relaxed mb-8 max-w-2xl">
+                Find factories. Verify them. Run structured orders. Protect every payment. Know what to do at every step — before you need to ask.
               </p>
 
               <div className="flex flex-wrap gap-3 mb-5">
-                <Button asChild size="lg" className="gap-2">
+                <Button asChild size="lg" className="gap-2 thread-glow">
                   <Link to="/auth?mode=signup">
                     Start free <ArrowRight className="h-4 w-4" />
                   </Link>
@@ -140,30 +162,27 @@ export default function Home() {
               <p className="text-sm text-muted-foreground">
                 Free for your first order. No credit card. No time limit.
               </p>
-
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ── ROI STRIP ────────────────────────────────────────────────────── */}
-      <section className="border-b border-border">
+      {/* ── COST STRIP ───────────────────────────────────────────────────── */}
+      <section className="border-b border-border bg-secondary/40">
         <div className="container">
-          <div className="flex flex-wrap items-center justify-between gap-y-3 gap-x-6 py-4">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-2 py-4 text-sm">
             <div className="flex items-center gap-2">
-              <div className="h-px w-6 bg-primary flex-shrink-0" />
-              <span className="text-sm text-foreground font-semibold">$5K–$20K</span>
-              <span className="text-sm text-muted-foreground">average cost of one missed season</span>
+              <div className="h-px w-5 bg-primary flex-shrink-0" />
+              <span className="font-semibold text-foreground">$5K–$20K</span>
+              <span className="text-muted-foreground">average cost of one missed season</span>
             </div>
-            <div className="hidden sm:block w-px h-5 bg-border" />
             <div className="flex items-center gap-2">
-              <div className="h-px w-6 bg-primary flex-shrink-0" />
-              <span className="text-sm text-foreground font-semibold">$399/year</span>
-              <span className="text-sm text-muted-foreground">Clewa Growth, annually</span>
+              <div className="h-px w-5 bg-primary flex-shrink-0" />
+              <span className="font-semibold text-foreground">$399/year</span>
+              <span className="text-muted-foreground">Clewa Growth — the full intelligence layer</span>
             </div>
-            <div className="hidden sm:block w-px h-5 bg-border" />
-            <Link to="/why-clewa" className="text-sm text-primary font-semibold hover:underline flex items-center gap-1">
-              See the full cost breakdown <ArrowRight className="h-3.5 w-3.5" />
+            <Link to="/why-clewa" className="flex items-center gap-1.5 text-primary font-semibold hover:underline ml-auto">
+              Full cost breakdown <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
@@ -172,11 +191,12 @@ export default function Home() {
       {/* ── THREE SITUATIONS ─────────────────────────────────────────────── */}
       <section className="section-padding border-b border-border">
         <div className="container">
+
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-10"
+            className="mb-12"
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="h-px w-8 bg-primary" />
@@ -184,84 +204,120 @@ export default function Home() {
                 However you work with factories
               </span>
             </div>
-            <h2 className="font-display text-3xl md:text-4xl font-normal text-foreground mb-3 leading-snug">
+            <h2 className="font-display text-3xl md:text-4xl text-foreground mb-3">
               We built the infrastructure<br className="hidden md:block" /> for every part of it.
             </h2>
-            <p className="text-muted-foreground max-w-xl leading-relaxed">
-              Don't have a factory. Have one you're not sure about. Have one you trust. Whatever your situation — Clewa handles it.
+            <p className="text-muted-foreground max-w-lg leading-relaxed">
+              Three situations. One platform. Whatever yours is — Clewa handles it.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-4">
+          {/* Situations — table-like, not cards */}
+          <div className="divide-y divide-border border-t border-border">
             {SITUATIONS.map((s, i) => {
               const Icon = s.icon;
               return (
                 <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  key={s.num}
+                  initial={{ opacity: 0, x: -8 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.07 }}
-                  className={`rounded-2xl border p-6 flex flex-col ${s.accent}`}
+                  transition={{ delay: i * 0.08 }}
+                  className="group grid md:grid-cols-[80px_1fr_1fr_200px] gap-6 items-start py-8 hover:bg-secondary/30 px-4 -mx-4 transition-colors"
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-8 rounded-lg bg-background flex items-center justify-center flex-shrink-0">
-                      <Icon className={`h-4 w-4 ${s.check}`} />
-                    </div>
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{s.label}</p>
+                  {/* Number with thread */}
+                  <div className="flex items-center gap-3 pt-0.5">
+                    <div className="w-px h-10 bg-primary/30 flex-shrink-0" />
+                    <span className="text-3xl font-display text-primary/40 leading-none">{s.num}</span>
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3">{s.headline}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{s.body}</p>
-                  <div className="space-y-2 mb-5">
+
+                  {/* Situation */}
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Icon className="h-4 w-4 text-primary" />
+                      <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{s.label}</span>
+                    </div>
+                    <h3 className="font-display text-xl text-foreground mb-2">{s.headline}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{s.body}</p>
+                  </div>
+
+                  {/* Features */}
+                  <div className="space-y-2">
                     {s.features.map(f => (
                       <div key={f} className="flex items-start gap-2">
-                        <CheckCircle className={`h-3.5 w-3.5 flex-shrink-0 mt-0.5 ${s.check}`} />
-                        <span className="text-xs text-foreground leading-relaxed">{f}</span>
+                        <div className="h-px w-4 bg-primary mt-2 flex-shrink-0" />
+                        <span className="text-sm text-foreground leading-relaxed">{f}</span>
                       </div>
                     ))}
                   </div>
-                  <Button asChild variant="outline" size="sm" className="gap-1.5 w-full">
-                    <Link to={s.href}>{s.cta} <ArrowRight className="h-3.5 w-3.5" /></Link>
-                  </Button>
+
+                  {/* CTA */}
+                  <div className="flex items-start justify-end pt-1">
+                    <Button asChild variant="outline" size="sm" className="gap-1.5">
+                      <Link to={s.href}>{s.cta} <ArrowRight className="h-3.5 w-3.5" /></Link>
+                    </Button>
+                  </div>
                 </motion.div>
               );
             })}
           </div>
+
         </div>
       </section>
 
-      {/* ── GUIDANCE + PROTECTION (combined) ─────────────────────────────── */}
+      {/* ── THE GUIDANCE LAYER ───────────────────────────────────────────── */}
       <section className="section-padding border-b border-border">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-16 items-start">
 
-            {/* Guidance */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <div className="flex items-center gap-3 mb-5">
+              <div className="flex items-center gap-3 mb-4">
                 <div className="h-px w-8 bg-primary" />
-                <span className="text-xs font-semibold text-primary uppercase tracking-widest">Built-in guidance</span>
+                <span className="text-xs font-semibold text-primary uppercase tracking-widest">The guidance layer</span>
               </div>
-              <h2 className="font-display text-3xl font-normal text-foreground mb-4 leading-snug">
-                You'll never miss a step.<br />Or a beat.
+              <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
+                The thread tells you<br />what to do next.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                At every stage of every order the platform tells you what to do before you need to ask. The questions to raise, the steps in the right order, the decisions that matter and why.
+                At every stage of every order, the platform surfaces what an experienced sourcing director would tell you — before you need to ask. Not in a help article. Not in a FAQ. Right there, in context, at the exact decision point.
               </p>
-              <div className="space-y-3">
-                {MOMENTS.map(m => {
-                  const Icon = m.icon;
+              <p className="text-muted-foreground leading-relaxed">
+                Most brands learn production by making expensive mistakes. Clewa gives you the guidance that prevents them.
+              </p>
+            </motion.div>
+
+            {/* Guidance moments — thread-connected list */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="relative"
+            >
+              {/* Vertical thread line connecting all stages */}
+              <div className="absolute left-[11px] top-4 bottom-4 w-px bg-primary/20" />
+
+              <div className="space-y-0 divide-y divide-border">
+                {GUIDANCE.map((g, i) => {
+                  const Icon = g.icon;
                   return (
-                    <div key={m.when} className="flex gap-3 py-3 border-b border-border last:border-0">
-                      <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Icon className="h-3.5 w-3.5 text-primary" />
+                    <div key={g.stage} className="flex gap-4 py-5 first:pt-0 last:pb-0">
+                      {/* Thread dot */}
+                      <div className="flex flex-col items-center flex-shrink-0 pt-0.5">
+                        <div className="w-5 h-5 rounded-full border-2 border-primary bg-background flex items-center justify-center z-10">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        </div>
                       </div>
                       <div>
-                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-0.5">{m.when}</p>
-                        <p className="text-sm text-foreground leading-relaxed">{m.what}</p>
+                        <div className="flex items-center gap-2 mb-1">
+                          <Icon className="h-3.5 w-3.5 text-primary" />
+                          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{g.stage}</span>
+                        </div>
+                        <p className="text-sm text-foreground leading-relaxed italic">{g.text}</p>
                       </div>
                     </div>
                   );
@@ -269,101 +325,129 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Protection */}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROTECTION — dark labyrinth section ─────────────────────────── */}
+      <section className="relative overflow-hidden border-b border-border bg-foreground">
+        <div className="absolute inset-0 labyrinth-bg pointer-events-none opacity-60" />
+        <div className="absolute left-0 top-0 bottom-0 w-px bg-thread-dark/40" />
+
+        <div className="container relative py-20 md:py-28">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
             >
-              <div className="flex items-center gap-3 mb-5">
-                <div className="h-px w-8 bg-primary" />
-                <span className="text-xs font-semibold text-primary uppercase tracking-widest">Payment protection</span>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-px w-8 bg-thread-dark" />
+                <span className="text-xs font-semibold uppercase tracking-widest text-thread-dark">
+                  Payment protection
+                </span>
               </div>
-              <h2 className="font-display text-3xl font-normal text-foreground mb-4 leading-snug">
+              <h2 className="font-display text-3xl md:text-4xl text-stone-50 mb-4">
                 Your money never moves<br />without your approval.
               </h2>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                Every payment is milestone-gated. Sample approved before bulk starts. QC passes before final releases. Nothing moves without your confirmation — ever.
+              <p className="leading-relaxed text-stone-400 mb-4">
+                Every payment is milestone-gated. Sample approved before bulk starts. QC passes before final releases. Dispute filing if something goes wrong. Contract generation at PO stage.
               </p>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { icon: Lock, title: "Milestone gates", body: "Deposit, sample, QC. Each locked behind a verified condition." },
-                  { icon: FileText, title: "Contract generation", body: "Auto-generated at PO stage. Tied to platform-documented terms." },
-                  { icon: AlertTriangle, title: "Dispute filing", body: "Formal mechanism with evidence trail. Final payment blocked." },
-                  { icon: BarChart3, title: "Payment tracking", body: "Every release timestamped and attributed. Permanent record." },
-                ].map(({ icon: Icon, title, body }) => (
-                  <div key={title} className="border border-border rounded-xl p-4 bg-card">
-                    <Icon className="h-4 w-4 text-primary mb-3" />
-                    <p className="text-sm font-semibold text-foreground mb-1">{title}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{body}</p>
-                  </div>
-                ))}
-              </div>
+              <p className="leading-relaxed text-stone-400">
+                Clewa does not hold your funds. You pay your factory directly. But the gate enforces the sequence — nothing releases until the condition is verified and you confirm.
+              </p>
             </motion.div>
+
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { icon: Lock, title: "Milestone gates", body: "Deposit, sample approval, production, QC. Each locked behind a verified condition you confirm." },
+                { icon: FileText, title: "Contract generation", body: "Auto-generated at PO stage. Specific to this order, this factory, these agreed terms." },
+                { icon: AlertTriangle, title: "Dispute filing", body: "Formal disputes with evidence documentation. Final payment blocked until resolution." },
+                { icon: BarChart3, title: "Payment history", body: "Every release timestamped, attributed, permanently logged. The complete payment trail." },
+              ].map(({ icon: Icon, title, body }, i) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.07 }}
+                  className="border border-stone-700 rounded p-4 bg-stone-900/50"
+                >
+                  <Icon className="h-4 w-4 text-thread-dark mb-3" />
+                  <p className="text-sm font-semibold text-stone-200 mb-1.5">{title}</p>
+                  <p className="text-xs text-stone-500 leading-relaxed">{body}</p>
+                </motion.div>
+              ))}
+            </div>
 
           </div>
         </div>
       </section>
 
       {/* ── INTELLIGENCE ─────────────────────────────────────────────────── */}
-      <section className="section-padding border-b border-border bg-foreground text-background">
+      <section className="section-padding border-b border-border">
         <div className="container">
-          <div className="max-w-2xl mb-10">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-8 bg-background/30" />
-              <span className="text-xs font-semibold text-background/50 uppercase tracking-widest">Intelligence layer</span>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-px w-8 bg-primary" />
+                <span className="text-xs font-semibold text-primary uppercase tracking-widest">Intelligence layer</span>
+              </div>
+              <h2 className="font-display text-3xl md:text-4xl text-foreground">
+                The platform gets smarter<br className="hidden md:block" /> with every order.
+              </h2>
             </div>
-            <h2 className="font-display text-3xl md:text-4xl font-normal text-background mb-3 leading-snug">
-              The platform gets smarter<br className="hidden md:block" /> with every order.
-            </h2>
-            <p className="text-background/60 leading-relaxed">
-              OTIF scores. Lead time benchmarks. Safety stock calculations. Reorder intelligence. All built from your real order history — not industry averages. Not guesses.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {[
-              { n: "Week 4", l: "When you find out", sub: "Not week 10 when it's too late to fix" },
-              { n: "94%", l: "OTIF — HU LA Studios", sub: "From real production cycles in HCMC" },
-              { n: "$399", l: "Growth tier, per year", sub: "vs $10K–$30K for a sourcing agent" },
-              { n: "6 gates", l: "Auto-calculated", sub: "Backward from your delivery date" },
-            ].map((s, i) => (
-              <motion.div
-                key={s.n}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
-                className="border border-background/10 rounded-xl p-5"
-              >
-                <p className="text-3xl font-bold text-background mb-1">{s.n}</p>
-                <p className="text-xs font-semibold text-background mb-1">{s.l}</p>
-                <p className="text-xs text-background/50 leading-relaxed">{s.sub}</p>
-              </motion.div>
-            ))}
-          </div>
-          <div className="mt-6">
-            <Link to="/intelligence" className="text-sm text-background/60 hover:text-background flex items-center gap-1.5 w-fit">
+            <Link to="/intelligence" className="flex items-center gap-1.5 text-sm text-primary font-semibold hover:underline flex-shrink-0">
               Open the intelligence workspace <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
+
+          {/* Stats — no cards, just ruled rows */}
+          <div className="divide-y divide-border border-t border-b border-border">
+            {[
+              { n: "Week 4", l: "When you find out something is wrong", sub: "Not week 10, when it's too late to fix it." },
+              { n: "94%", l: "OTIF — HU LA Studios, Ho Chi Minh City", sub: "From real production cycles. Not claimed. Calculated." },
+              { n: "$399", l: "Growth tier, billed annually", sub: "vs $10,000–$30,000/year for a human sourcing agent doing the same job." },
+              { n: "6 gates", l: "Auto-calculated from your delivery date", sub: "Backward scheduling. Nike's method. Yours for $49/month." },
+            ].map((s, i) => (
+              <motion.div
+                key={s.n}
+                initial={{ opacity: 0, x: -8 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="grid md:grid-cols-[120px_1fr_auto] gap-4 items-center py-5"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-px h-8 bg-primary flex-shrink-0" />
+                  <span className="font-display text-2xl text-primary">{s.n}</span>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{s.l}</p>
+                  <p className="text-sm text-muted-foreground">{s.sub}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
         </div>
       </section>
 
       {/* ── TRADE TOOLS ──────────────────────────────────────────────────── */}
-      <section className="section-padding border-b border-border">
+      <section className="section-padding border-b border-border bg-secondary/30">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <div className="flex items-center gap-3 mb-5">
+              <div className="flex items-center gap-3 mb-4">
                 <div className="h-px w-8 bg-primary" />
                 <span className="text-xs font-semibold text-primary uppercase tracking-widest">Free trade tools</span>
               </div>
-              <h2 className="font-display text-3xl font-normal text-foreground mb-4 leading-snug">
+              <h2 className="font-display text-3xl text-foreground mb-4">
                 Know your real costs<br />before you commit.
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
@@ -373,6 +457,7 @@ export default function Home() {
                 <Link to="/trade-tools">Open trade tools <ArrowRight className="h-4 w-4" /></Link>
               </Button>
             </motion.div>
+
             <div className="grid grid-cols-2 gap-3">
               {[
                 { icon: Globe, title: "Tariff calculator", body: "Vietnam vs China — real dollar savings on your specific order" },
@@ -380,7 +465,7 @@ export default function Home() {
                 { icon: FileText, title: "HTS code lookup", body: "15 apparel categories · US, UK, EU duty rates" },
                 { icon: BarChart3, title: "FTA guide", body: "CPTPP, EVFTA, VKFTA — who qualifies and what it saves" },
               ].map(({ icon: Icon, title, body }) => (
-                <div key={title} className="border border-border rounded-xl p-4 bg-card">
+                <div key={title} className="border border-border rounded p-4 bg-card">
                   <Icon className="h-4 w-4 text-primary mb-3" />
                   <p className="text-sm font-semibold text-foreground mb-1">{title}</p>
                   <p className="text-xs text-muted-foreground leading-relaxed">{body}</p>
@@ -395,21 +480,22 @@ export default function Home() {
       <section className="section-padding">
         <div className="container max-w-2xl">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-8 bg-primary" />
+              <div className="h-px flex-1 bg-border" />
             </div>
-            <h2 className="font-display text-3xl md:text-4xl font-normal text-foreground mb-4 leading-snug">
+            <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
               Start where you are.
             </h2>
-            <p className="text-muted-foreground leading-relaxed mb-8">
-              Whatever your factory situation — Clewa handles it. Free for your first order. The full platform available from day one.
+            <p className="text-muted-foreground leading-relaxed mb-8 max-w-lg">
+              Whatever your factory situation — Clewa handles it. Free for your first order. The full platform available from day one. The thread is here whenever you need it.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button asChild size="lg" className="gap-2">
+              <Button asChild size="lg" className="gap-2 thread-glow">
                 <Link to="/auth?mode=signup">Get started free <ArrowRight className="h-4 w-4" /></Link>
               </Button>
               <Button asChild variant="outline" size="lg">
