@@ -12,145 +12,121 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "1.5rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      padding: "1.25rem",
+      screens: { "2xl": "1400px" },
     },
     extend: {
       fontFamily: {
-        // ONE FONT. Inter. Always.
-        // Scale through weight + size, not personality.
-        display: ["Inter", "system-ui", "-apple-system", "Helvetica Neue", "Arial", "sans-serif"],
+        sans:    ["Inter", "system-ui", "-apple-system", "Helvetica Neue", "Arial", "sans-serif"],
+        body:    ["Inter", "system-ui", "-apple-system", "Helvetica Neue", "Arial", "sans-serif"],
         heading: ["Inter", "system-ui", "-apple-system", "Helvetica Neue", "Arial", "sans-serif"],
-        body: ["Inter", "system-ui", "-apple-system", "Helvetica Neue", "Arial", "sans-serif"],
-        sans: ["Inter", "system-ui", "-apple-system", "Helvetica Neue", "Arial", "sans-serif"],
-        mono: ["ui-monospace", "JetBrains Mono", "Fira Code", "monospace"],
+        display: ["Inter", "system-ui", "-apple-system", "Helvetica Neue", "Arial", "sans-serif"],
+        mono:    ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "monospace"],
+      },
+      fontSize: {
+        "2xs": ["11px", { lineHeight: "16px", letterSpacing: "0.02em" }],
+        xs:    ["12px", { lineHeight: "16px" }],
+        sm:    ["13px", { lineHeight: "20px" }],
+        base:  ["14px", { lineHeight: "20px" }],
+        md:    ["15px", { lineHeight: "22px" }],
+        lg:    ["16px", { lineHeight: "24px" }],
+        xl:    ["18px", { lineHeight: "26px" }],
+        "2xl": ["20px", { lineHeight: "28px" }],
+        "3xl": ["24px", { lineHeight: "30px" }],
+        "4xl": ["30px", { lineHeight: "36px" }],
+        "5xl": ["36px", { lineHeight: "40px" }],
+        "6xl": ["44px", { lineHeight: "48px" }],
+        "7xl": ["52px", { lineHeight: "56px" }],
       },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
+        border:     "hsl(var(--border))",
+        input:      "hsl(var(--input))",
+        ring:       "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT:    "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
+          DEFAULT:    "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
+          DEFAULT:    "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
+          DEFAULT:    "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
+          DEFAULT:    "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
+          DEFAULT:    "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
+          DEFAULT:    "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Thread color tokens — amber at different strengths
-        thread: {
-          DEFAULT: "hsl(30 80% 38%)",
-          light: "hsl(30 80% 38% / 0.12)",
-          dark: "hsl(34 85% 52%)",
-        },
-        // Labyrinth tones — the darkness being navigated
-        labyrinth: {
-          DEFAULT: "hsl(28 18% 8%)",
-          mid: "hsl(28 15% 11%)",
-          light: "hsl(28 12% 16%)",
-        },
-        // Surface tones — the lit paths
-        stone: {
-          50: "hsl(38 18% 97%)",
-          100: "hsl(38 18% 93%)",
-          200: "hsl(32 12% 87%)",
-          300: "hsl(32 10% 78%)",
-          400: "hsl(28 8% 62%)",
-          500: "hsl(28 8% 44%)",
-        },
         sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background, var(--background)))",
-          foreground: "hsl(var(--sidebar-foreground, var(--foreground)))",
-          primary: "hsl(var(--sidebar-primary, var(--primary)))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground, var(--primary-foreground)))",
-          accent: "hsl(var(--sidebar-accent, var(--secondary)))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground, var(--secondary-foreground)))",
-          border: "hsl(var(--sidebar-border, var(--border)))",
-          ring: "hsl(var(--sidebar-ring, var(--ring)))",
+          DEFAULT:              "hsl(var(--sidebar-background))",
+          foreground:           "hsl(var(--sidebar-foreground))",
+          primary:              "hsl(var(--sidebar-primary))",
+          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
+          accent:               "hsl(var(--sidebar-accent))",
+          "accent-foreground":  "hsl(var(--sidebar-accent-foreground))",
+          border:               "hsl(var(--sidebar-border))",
+          ring:                 "hsl(var(--sidebar-ring))",
         },
       },
       borderRadius: {
-        // Sharp corners — infrastructure, not consumer
-        lg: "0.375rem",   // 6px
-        md: "0.25rem",    // 4px  
-        sm: "0.125rem",   // 2px
-        xl: "0.5rem",     // 8px — max
-        "2xl": "0.5rem",  // 8px — same as xl, nothing rounder
-        full: "9999px",   // pill only
+        none: "0",
+        sm:   "2px",
+        DEFAULT: "6px",
+        md:   "6px",
+        lg:   "8px",
+        xl:   "10px",
+        "2xl":"12px",
+        full: "9999px",
       },
-      // Thread-based spacing additions
-      spacing: {
-        "thread": "0.0625rem", // 1px — the thread itself
+      boxShadow: {
+        sm:   "0 1px 2px rgba(0,0,0,0.05)",
+        DEFAULT: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
+        md:   "0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04)",
+        lg:   "0 8px 16px rgba(0,0,0,0.06), 0 4px 8px rgba(0,0,0,0.04)",
       },
       keyframes: {
-        // Thread pulse — for critical alerts
-        "thread-pulse": {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.4" },
-        },
-        // Subtle entry animation
         "fade-up": {
-          from: { opacity: "0", transform: "translateY(12px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
+          from: { opacity: "0", transform: "translateY(8px)" },
+          to:   { opacity: "1", transform: "translateY(0)" },
         },
         "fade-in": {
           from: { opacity: "0" },
-          to: { opacity: "1" },
+          to:   { opacity: "1" },
         },
         "accordion-down": {
           from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          to:   { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          to:   { height: "0" },
         },
       },
       animation: {
-        "thread-pulse": "thread-pulse 2s ease-in-out infinite",
-        "fade-up": "fade-up 0.4s ease-out",
-        "fade-in": "fade-in 0.3s ease-out",
+        "fade-up":        "fade-up 0.3s ease-out",
+        "fade-in":        "fade-in 0.2s ease-out",
         "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
-      typography: {
-        DEFAULT: {
-          css: {
-            maxWidth: "72ch",
-            color: "hsl(var(--foreground))",
-            a: {
-              color: "hsl(var(--primary))",
-              textDecoration: "underline",
-              textDecorationColor: "hsl(var(--border))",
-            },
-          },
-        },
+        "accordion-up":   "accordion-up 0.2s ease-out",
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+  ],
 } satisfies Config;
