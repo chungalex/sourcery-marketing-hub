@@ -493,52 +493,8 @@ export default function BrandDashboard() {
                   );
                 })
               ) : (
-                <div className="py-8 space-y-4">
-                  {/* Personalised roadmap based on factory situation */}
+                <div className="py-4">
                   {user && <PersonalisedDashboard userId={user.id} />}
-                  <div className="p-5 rounded-xl bg-card border border-border">
-                    <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-3">How Clewa works</p>
-                    <div className="space-y-4">
-                      {[
-                        {
-                          num: "01",
-                          title: "Connect your factory",
-                          body: "Invite your factory — they get a free account and can start reviewing orders immediately. Or pick one from our network if you're still sourcing.",
-                          action: "Invite a factory →",
-                          href: "/dashboard?action=invite",
-                        },
-                        {
-                          num: "02",
-                          title: "Create a structured PO",
-                          body: "Every order documents the agreed price, delivery window, QC standard, and payment milestones. Both sides confirm before anything moves.",
-                          action: "Start your first order — free →",
-                          href: "/orders/create",
-                        },
-                        {
-                          num: "03",
-                          title: "Issue the PO to your factory",
-                          body: "Issue the PO when terms are final. The factory confirms. From there — sampling, revisions, QC, payments — all tracked on the same record.",
-                          action: null,
-                          href: null,
-                        },
-                      ].map((step, i) => (
-                        <div key={i} className="flex gap-4 items-start">
-                          <span className="font-mono text-sm font-bold text-primary/40 flex-shrink-0 mt-0.5 w-6">{step.num}</span>
-                          <div className="flex-1">
-                            <p className="text-sm font-semibold text-foreground mb-0.5">{step.title}</p>
-                            <p className="text-xs text-muted-foreground leading-relaxed mb-1">{step.body}</p>
-                            {step.action && step.href && (
-                              <Link to={step.href} className="text-xs text-primary hover:underline font-medium">{step.action}</Link>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button asChild className="flex-1"><Link to="/orders/create"><Package className="mr-2 h-4 w-4" />Start your first order</Link></Button>
-                    <Button variant="outline" asChild><Link to="/directory"><Search className="mr-2 h-4 w-4" />Find a factory</Link></Button>
-                  </div>
                 </div>
               )}
             </TabsContent>

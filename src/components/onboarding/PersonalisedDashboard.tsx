@@ -8,12 +8,12 @@ import { cn } from "@/lib/utils";
 // ── Roadmap steps per situation ───────────────────────────────────────────────
 const ROADMAPS = {
   no_factory: {
-    headline: "Let's find your factory.",
+    headline: "Find your factory.",
     sub: "You're in the right place. Here's the exact sequence — every step explained, nothing skipped.",
     icon: Search,
-    color: "border-blue-400/30 bg-blue-500/5",
-    iconBg: "bg-blue-500/10",
-    iconColor: "text-blue-600",
+    color: "border-border bg-card",
+    iconBg: "bg-secondary",
+    iconColor: "text-primary",
     primaryCta: { label: "Browse registered factories", href: "/directory" },
     secondaryCta: { label: "Try AI factory matching", href: "/dashboard?tab=tools" },
     steps: [
@@ -58,9 +58,9 @@ const ROADMAPS = {
     headline: "Let's make sure you can trust them.",
     sub: "You don't need to walk away. You need the right information and the right protection. Here's how to get both.",
     icon: Shield,
-    color: "border-amber-400/30 bg-amber-500/5",
-    iconBg: "bg-amber-500/10",
-    iconColor: "text-amber-600",
+    color: "border-border bg-card",
+    iconBg: "bg-secondary",
+    iconColor: "text-primary",
     primaryCta: { label: "Invite your factory to Clewa", href: "/dashboard?action=invite" },
     secondaryCta: { label: "Open due diligence checklist", href: "/dashboard?tab=tools" },
     steps: [
@@ -155,7 +155,7 @@ const SITUATIONS = [
   {
     id: "no_factory",
     icon: Search,
-    headline: "I don't have a factory yet",
+    headline: "No factory yet",
     body: "I'm looking for a manufacturer for my product.",
     color: "border-blue-400/40 hover:border-blue-400 hover:bg-blue-500/5",
     iconColor: "text-blue-600",
@@ -173,7 +173,7 @@ const SITUATIONS = [
   {
     id: "have_factory",
     icon: Zap,
-    headline: "I have a factory I trust",
+    headline: "Have one I trust",
     body: "I want to bring them onto the platform and run structured orders.",
     color: "border-primary/40 hover:border-primary hover:bg-secondary/60",
     iconColor: "text-primary",
@@ -237,8 +237,9 @@ export function PersonalisedDashboard({ userId }: PersonalisedDashboardProps) {
     return (
       <div className="bg-card border border-border rounded-2xl p-6 mb-6">
         <div className="mb-5">
-          <h2 className="text-lg font-semibold text-foreground mb-1">What's your factory situation right now?</h2>
-          <p className="text-sm text-muted-foreground">Your answer shapes everything — your roadmap, your first action, what the platform prioritises for you.</p>
+          <div className="label-with-thread mb-3">Getting started</div>
+          <h2 className="text-xl font-bold tracking-[-0.02em] text-foreground mb-1.5">What's your factory situation?</h2>
+          <p className="text-sm text-muted-foreground">Your dashboard, roadmap, and first steps are built around this.</p>
         </div>
         <div className="grid gap-3 sm:grid-cols-3">
           {SITUATIONS.map(s => {
@@ -284,7 +285,7 @@ export function PersonalisedDashboard({ userId }: PersonalisedDashboardProps) {
 
   // ── Roadmap ───────────────────────────────────────────────────────────────
   return (
-    <div className={cn("rounded-2xl border mb-5 overflow-hidden", roadmap.color)}>
+    <div className={cn("rounded-lg border mb-5 overflow-hidden border-border bg-card", roadmap.color)}>
       {/* Header */}
       <button
         type="button"
