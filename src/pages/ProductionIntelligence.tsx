@@ -201,7 +201,15 @@ export default function ProductionIntelligencePage() {
     let openingMessage = "";
 
     if (activeOrders.length === 0) {
-      openingMessage = `No active orders running yet. When you have orders in production, I'll watch every gate, flag every risk, and tell you what to do before you need to ask.\n\nFor now — what are you working on? I can help you think through factory selection, pricing, your first order structure, or anything else production-related.`;
+      openingMessage = `No active orders yet — but here is what this workspace does when they are running.
+
+When your first order is in production, I will tell you things like:
+
+"Your in-line QC is 3 days overdue. At this factory's pattern, here is what that means for your delivery window — and the message to send today."
+
+"Final payment was requested but your QC report hasn't been uploaded. Don't release until it is."
+
+Until then — I can help you think through your factory search, your first PO structure, or anything else production-related. What are you working on?`;
     } else if (critical.length > 0) {
       openingMessage = `${critical.length === 1 ? "One thing" : `${critical.length} things`} need your attention right now.\n\n${critical.map(s => `**${s.orderNumber}** (${s.factoryName}) — ${s.message}`).join("\n")}\n\nWhere do you want to start?`;
     } else {

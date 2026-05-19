@@ -161,7 +161,7 @@ function RFQList({ userId }: { userId?: string }) {
   if (rfqs.length === 0) return (
     <div className="text-center py-12 bg-card border border-dashed border-border rounded-xl">
       <FileText className="h-8 w-8 mx-auto text-muted-foreground mb-3" />
-      <p className="text-sm font-semibold text-foreground mb-1">No RFQs yet</p>
+      <p className="text-sm font-semibold text-foreground mb-1">No quotes sent yet</p>
       <p className="text-xs text-muted-foreground mb-4">Send a product brief to multiple factories and compare quotes.</p>
       <a href="/rfq/create"><Button size="sm">Create your first RFQ</Button></a>
     </div>

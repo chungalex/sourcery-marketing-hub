@@ -88,8 +88,8 @@ export default function Auth() {
         navigate(redirectTo, { replace: true });
       }
     } catch (err) {
-      console.error("Auth: sign in failed", err);
-      toast.error("Sign in is taking too long. Please try again.");
+      console.error("Something went wrong. Please try again.", err);
+      toast.error("This is taking a while. Please try again.");
     } finally {
       if (isMountedRef.current) setIsLoading(false);
     }
@@ -121,8 +121,8 @@ export default function Auth() {
         toast.success("Account created! Please check your email to confirm.");
       }
     } catch (err) {
-      console.error("Auth: sign up failed", err);
-      toast.error("Sign up is taking too long. Please try again.");
+      console.error("Something went wrong. Please try again.", err);
+      toast.error("This is taking a while. Please try again.");
     } finally {
       if (isMountedRef.current) setIsLoading(false);
     }
@@ -141,12 +141,41 @@ export default function Auth() {
   return (
     <Layout>
       <SEO 
-        title="Sign In | Clewa" 
+        title="Sign in to Clewa" 
         description="Access your Clewa account to connect with registered manufacturers or manage your factory profile."
       />
       
-      <section className="section-padding min-h-[80vh] flex items-center">
-        <div className="container-tight">
+      <section className="min-h-[calc(100vh-64px)] flex">
+        {/* Left panel — desktop only */}
+        <div className="hidden lg:flex flex-col justify-between w-[44%] bg-foreground p-12 border-r border-border">
+          <div>
+            <div className="flex items-center gap-2.5 mb-12">
+              <div className="h-px w-5 bg-primary flex-shrink-0" />
+              <span className="text-[11px] font-semibold text-primary uppercase tracking-[0.08em]">Clewa</span>
+            </div>
+            <h2 className="text-[2rem] font-bold tracking-[-0.04em] leading-[1.1] text-white mb-4">
+              Run your factory<br />relationship like<br />a business.
+            </h2>
+            <p className="text-sm text-white/60 leading-relaxed max-w-xs">
+              Structured orders. Milestone payments. Built-in guidance at every step. The professional infrastructure for your factory relationship.
+            </p>
+          </div>
+          <div className="space-y-3">
+            {[
+              "Free for your first order",
+              "No credit card required",
+              "Your factory joins free",
+            ].map(item => (
+              <div key={item} className="flex items-center gap-2.5">
+                <div className="h-px w-4 bg-primary flex-shrink-0" />
+                <span className="text-sm text-white/70">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Right panel — the form */}
+        <div className="flex-1 flex items-center justify-center p-8">
+        <div className="w-full max-w-sm">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -344,6 +373,7 @@ for your factory relationship.
               </Tabs>
             </div>
           </motion.div>
+        </div>
         </div>
       </section>
     </Layout>

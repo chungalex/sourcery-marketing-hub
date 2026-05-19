@@ -493,7 +493,7 @@ export default function CreateOrder() {
                 transition={{ duration: 0.3 }}
               >
                 <div className="bg-card border border-border rounded-xl p-4 sm:p-6 md:p-8">
-                  {/* Step 1: Product & Factory */}
+                  {/* Step 1 — Product & Factory */}
                   {currentStep === 1 && (
                     <div className="space-y-6">
                       <div>
@@ -695,7 +695,7 @@ export default function CreateOrder() {
                                           </div>
                   )}
 
-                  {/* Step 2: Specifications */}
+                  {/* Step 2 — Tech Pack & Specs */}
                   {currentStep === 2 && (
                     <div className="space-y-6">
                       <div>
@@ -912,7 +912,7 @@ export default function CreateOrder() {
                     </div>
                   )}
 
-                  {/* Step 3: Commercial Terms */}
+                  {/* Step 3 — Pricing & Delivery */}
                   {currentStep === 3 && (
                     <div className="space-y-6">
                       <div>
@@ -1043,6 +1043,11 @@ export default function CreateOrder() {
                         )}
                       />
 
+                      {/* Incoterms */}
+                      {/* Context before the confusing options */}
+                      <p className="text-xs text-muted-foreground mb-3 p-3 bg-secondary rounded-md">
+                        <strong className="text-foreground">Shipping terms:</strong> For first orders from Vietnam, choose FOB — your factory handles delivery to the port, you arrange the rest.
+                      </p>
                       {/* Incoterms */}
                       <TooltipProvider>
                         <FormField
@@ -1213,7 +1218,7 @@ export default function CreateOrder() {
                     </div>
                   )}
 
-                  {/* Step 4: Quality, Compliance & Review */}
+                  {/* Step 4 — Quality & Confirm */}
                   {currentStep === 4 && (
                     <div className="space-y-6">
                       <div>
