@@ -16,7 +16,7 @@ const whyPoints = [
 ];
 
 const aiMatches = [
-  { name: "HU LA Studios", loc: "Vietnam", match: "Top match", locked: false },
+  { name: "Saigon Stitch Co.", loc: "Vietnam", match: "Top match", locked: false },
   { name: "████████ Co.", loc: "Vietnam", match: "Strong match", locked: true },
   { name: "████████ Ltd.", loc: "Portugal", match: "Good match", locked: true },
 ];
@@ -119,7 +119,7 @@ export default function Marketplace() {
                 <div className="flex items-center justify-between mb-5">
                   <div>
                     <p className="text-xs text-muted-foreground mb-0.5">Factory profile</p>
-                    <p className="font-semibold text-foreground">HU LA Studios</p>
+                    <p className="font-semibold text-foreground">Saigon Stitch Co.</p>
                     <p className="text-xs text-muted-foreground">Ho Chi Minh City, Vietnam</p>
                   </div>
                   <div className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20">

@@ -23,7 +23,7 @@ const steps = [
       title: "AI factory matcher",
       input: "Premium denim outerwear, 300–500 units, Vietnam preferred, 12-week lead time",
       results: [
-        { name: "HU LA Studios", loc: "Ho Chi Minh City, Vietnam", badge: "Top match", verified: true },
+        { name: "Saigon Stitch Co.", loc: "Ho Chi Minh City, Vietnam", badge: "Top match", verified: true },
         { name: "████████ Co.", loc: "Vietnam", badge: "Strong match", verified: false },
         { name: "████████ Ltd.", loc: "Portugal", badge: "Good match", verified: false },
       ],
@@ -63,7 +63,7 @@ const steps = [
     mockup: {
       type: "sample",
       title: "Sample submitted — round 1",
-      factoryNote: "HU LA Studios uploaded 4 photos and measurements. Awaiting approval.",
+      factoryNote: "Saigon Stitch Co. uploaded 4 photos and measurements. Awaiting approval.",
       items: [
         { label: "Chest", spec: "52cm", actual: "52cm", pass: true },
         { label: "Waist", spec: "46cm", actual: "46cm", pass: true },

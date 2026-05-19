@@ -28,7 +28,7 @@ const spaces = [
     desc: "Factories announcing capacity, capabilities, and connecting with brands directly.",
     color: "text-amber-700 bg-amber-500/10 border-amber-400/30",
     threads: [
-      { title: "HU LA Studios — denim and woven outerwear, HCMC", replies: 4, votes: 22, tag: "Capacity", pinned: true, time: "1d ago" },
+      { title: "Saigon Stitch Co. — denim and woven outerwear, HCMC", replies: 4, votes: 22, tag: "Capacity", pinned: true, time: "1d ago" },
       { title: "Looking for premium knitwear brands — 200 MOQ", replies: 7, votes: 15, tag: "Looking for brands", pinned: false, time: "3d ago" },
       { title: "We handle rush orders — current capacity this month", replies: 2, votes: 9, tag: "Rush", pinned: false, time: "5d ago" },
     ],

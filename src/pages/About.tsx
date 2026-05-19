@@ -23,7 +23,7 @@ The complete infrastructure for your factory relationship. Find the right manufa
               The thread through the labyrinth.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              We run HU LA Studios — a garment factory in Ho Chi Minh City — and OKIO Denim, a brand that sources from Vietnam. We've been on both sides of the same order. Every feature exists because we encountered the problem it solves.
+              We've been on both sides of the same order — operating a garment factory in Ho Chi Minh City and running a brand that sources from Vietnam. Every feature on Clewa exists because we encountered the problem it solves.
             </p>
           </motion.div>
         </div>

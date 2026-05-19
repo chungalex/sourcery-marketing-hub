@@ -113,25 +113,17 @@ export default function Home() {
         <div className="container">
           <div className="max-w-3xl">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-
-              {/* Thread motif */}
-              <div className="flex items-center gap-3 mb-8">
-                <div className="h-px w-12 bg-primary" />
-                <span className="text-xs font-semibold text-primary uppercase tracking-widest">
-                  Factory relationship infrastructure
-                </span>
-              </div>
-
-              <h1 className="font-display text-5xl md:text-[3.75rem] font-normal text-foreground leading-[1.08] tracking-tight mb-7">
-                You're in the labyrinth.<br className="hidden md:block" />
-                Here's the thread.
-              </h1>
-
-              <p className="text-lg text-muted-foreground leading-relaxed mb-3 max-w-2xl">
-                Overseas manufacturing is complex, opaque, and full of invisible risks. Most brands find out something is wrong in week 10. Clewa tells you in week 4 — and structures every order so you have leverage when it matters.
+              <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-5">
+                The Clewa mythology
               </p>
-              <p className="text-lg text-foreground leading-relaxed mb-8 max-w-2xl font-medium">
-                Find factories. Verify them. Run structured orders. Protect every payment. Know what to do at every step.
+              <h1 className="font-display text-6xl md:text-7xl font-normal text-foreground leading-[1.0] mb-7">
+                The thread.
+              </h1>
+              <p className="text-xl text-muted-foreground leading-relaxed mb-5 max-w-2xl font-light">
+                Every brand sourcing overseas is inside a labyrinth. The factory is weeks ahead of you. Information arrives late, filtered, incomplete. Decisions get made without visibility. You find out something is wrong in week 10.
+              </p>
+              <p className="text-xl text-foreground leading-relaxed mb-8 max-w-2xl font-medium">
+                Clewa is the thread through it — infrastructure that guides you from the first factory search to the last payment release, at every stage of every order, so you always know where you are and what comes next.
               </p>
 
               <div className="flex flex-wrap gap-3 mb-5">

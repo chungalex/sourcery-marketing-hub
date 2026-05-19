@@ -572,7 +572,7 @@ export default function CreateRFQ() {
                     <div className="grid grid-cols-2 gap-3">
                       <div className="space-y-1.5">
                         <Label>Factory name</Label>
-                        <Input value={externalName} onChange={e => setExternalName(e.target.value)} placeholder="e.g. HU LA Studios" />
+                        <Input value={externalName} onChange={e => setExternalName(e.target.value)} placeholder="e.g. Saigon Stitch Co." />
                       </div>
                       <div className="space-y-1.5">
                         <Label>Email address</Label>

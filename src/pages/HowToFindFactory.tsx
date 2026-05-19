@@ -73,7 +73,7 @@ export default function HowToFindFactory() {
             How to find a factory for your clothing brand.
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Written by the team behind HU LA Studios and OKIO Denim. We manufacture and we source. This is what actually works.
+            Written by the Clewa team. We've operated on both sides of the factory relationship — manufacturing in Vietnam and sourcing from it. This is what actually works.
           </p>
         </div>
       </section>

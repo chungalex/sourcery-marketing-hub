@@ -40,7 +40,7 @@ export default function Intelligence() {
               {
                 icon: TrendingUp,
                 title: "Reorder intelligence — from your actual history",
-                body: "Not a generic 14-week assumption. Your lead time with HU LA Studios is calculated from every order you've run through them. The more orders, the more accurate. After 5 orders, the system knows your lead time variance, your seasonal patterns, and your factory's busy periods.",
+                body: "Not a generic 14-week assumption. Your lead time with each factory is calculated from every order you've run through them. The more orders, the more accurate. After 5 orders, the system knows your lead time variance, your seasonal patterns, and your factory's busy periods.",
               },
               {
                 icon: Star,

@@ -201,7 +201,7 @@ export function TechPackVersions({ orderId, isFactory = false, onActionComplete 
           <div className="space-y-1">
             <Label className="text-xs">File name</Label>
             <Input
-              placeholder={`e.g. OKIO-SS25-TechPack-v${versions.length + 1}.pdf`}
+              placeholder={`e.g. TechPack-SS26-v${versions.length + 1}.pdf`}
               value={fileName}
               onChange={e => setFileName(e.target.value)}
               className="text-sm"

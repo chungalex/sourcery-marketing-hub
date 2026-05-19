@@ -63,7 +63,7 @@ export default function Studio() {
               3 slots. We run your production —<br className="hidden md:block" /> factory to delivery.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-4 max-w-2xl">
-              We run HU LA Studios — a garment factory in Ho Chi Minh City. We run OKIO Denim — a brand that sources from Vietnam. We've been on both sides of the same order. That's not a line. It's why this service exists.
+              We've operated on both sides of the same order — as a factory and as a brand sourcing from Vietnam. We know what the relationship looks like from inside the production floor. That's not a line. It's why this service exists.
             </p>
             <p className="text-base text-foreground leading-relaxed mb-8 max-w-2xl">
               When something goes wrong in a production run — and something always does — the person managing it matters. We know what a factory's body language means at week 6. We know when "it's fine" isn't fine. We know how to hold leverage without burning the relationship.

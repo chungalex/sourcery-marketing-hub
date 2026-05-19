@@ -146,7 +146,7 @@ export default function Onboarding() {
                   <Input
                     value={brandName}
                     onChange={e => setBrandName(e.target.value)}
-                    placeholder="e.g. OKIO Denim"
+                    placeholder="e.g. Meridian Label"
                     autoFocus
                     onKeyDown={e => e.key === "Enter" && brandName.trim() && handleNext(2)}
                   />
@@ -248,7 +248,7 @@ export default function Onboarding() {
                       <div className="space-y-3">
                         <div className="space-y-2">
                           <label className="text-sm font-medium text-foreground">Factory name</label>
-                          <Input value={factoryName} onChange={e => setFactoryName(e.target.value)} placeholder="e.g. HU LA Studios" />
+                          <Input value={factoryName} onChange={e => setFactoryName(e.target.value)} placeholder="e.g. Saigon Stitch Co." />
                         </div>
                         <div className="space-y-2">
                           <label className="text-sm font-medium text-foreground">Email address</label>

@@ -123,7 +123,7 @@ export default function Factories() {
                 OTIF stands for On-Time In-Full — the percentage of orders you deliver on schedule and at the agreed quantity. Walmart charges factories 3% of invoice value for every OTIF failure. On Clewa, your OTIF score is calculated from every completed order and is visible to every brand browsing the directory. You can't buy a better score. You earn it through real orders.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                HU LA Studios — our production studio in Ho Chi Minh City — was the first factory on the platform. Every OKIO Denim order runs through Clewa. Their OTIF score is built from real production cycles, not claims.
+                Every OTIF score on Clewa is built from real production cycles, not factory-reported claims. The scores compound in accuracy with every completed order — meaning the platform gets more useful the more you use it.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Factories with high scores get featured placement in search results and priority matching in the AI matcher — meaning more brands see your profile first.

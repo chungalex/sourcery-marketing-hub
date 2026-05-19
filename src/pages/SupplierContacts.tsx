@@ -81,7 +81,7 @@ export default function SupplierContacts() {
               <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-border rounded-xl p-5 mb-6 space-y-4">
                 <div className="grid sm:grid-cols-2 gap-3">
                   {[
-                    { key: "factory_name", label: "Factory name", placeholder: "HU LA Studios" },
+                    { key: "factory_name", label: "Factory name", placeholder: "Saigon Stitch Co." },
                     { key: "name", label: "Contact name", placeholder: "Nguyen Van A" },
                     { key: "role", label: "Role", placeholder: "Production Manager" },
                     { key: "email", label: "Email", placeholder: "contact@factory.com" },

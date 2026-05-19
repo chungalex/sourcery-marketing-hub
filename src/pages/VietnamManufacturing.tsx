@@ -92,7 +92,7 @@ export default function VietnamManufacturing() {
           <div className="p-6 rounded-2xl bg-card border border-border">
             <h2 className="text-xl font-bold text-foreground mb-2">Built by people in Vietnam</h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              We run HU LA Studios — a garment factory in Ho Chi Minh City — and OKIO Denim, a brand that sources from Vietnam. Clewa was built because we couldn't find software that worked for how production actually runs here.
+              We've been on both sides of this — operating a garment factory in Ho Chi Minh City and running a brand that sources from Vietnam. Clewa was built because we couldn't find software that worked for how production actually runs here.
             </p>
             <Button asChild>
               <Link to="/about">About Clewa →</Link>
