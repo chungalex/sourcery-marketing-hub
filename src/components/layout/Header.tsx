@@ -12,9 +12,10 @@ import { cn } from "@/lib/utils";
 
 // Marketing nav — shown to logged-out users
 const marketingNav = [
-  { label: "How it works", href: "/how-it-works" },
+  { label: "Features", href: "/features" },
   { label: "Pricing", href: "/pricing" },
   { label: "Trade tools", href: "/trade-tools" },
+  { label: "Studio", href: "/studio" },
 ];
 
 // Secondary nav items accessible via mobile menu
@@ -29,8 +30,10 @@ const marketingNavSecondary = [
 // App nav — shown to logged-in brands
 const brandAppNav = [
   { label: "Orders", href: "/dashboard", icon: Package },
-  { label: "Factories", href: "/directory", icon: Search },
   { label: "Intelligence", href: "/intelligence", icon: Sparkles },
+  { label: "Factories", href: "/directory", icon: Search },
+  { label: "Analytics", href: "/analytics", icon: BarChart2 },
+  { label: "Compliance", href: "/compliance", icon: Shield },
   { label: "Resources", href: "/resources", icon: BookOpen },
 ];
 
@@ -84,9 +87,9 @@ export function Header() {
   return (
     <>
       <header className={cn(
-        "sticky top-0 left-0 right-0 z-50 transition-colors duration-200",
+        "sticky top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
-          ? "bg-background/95 backdrop-blur-md border-b border-border"
+          ? "bg-background/90 backdrop-blur-lg border-b border-border shadow-sm"
           : "bg-background border-b border-border"
       )}>
         <div className="container-wide">
@@ -94,10 +97,10 @@ export function Header() {
 
             {/* Logo */}
             <Link to={isLoggedIn ? dashboardHref : "/"} className="flex items-center gap-2 flex-shrink-0">
-              <div className="flex items-center gap-2">
-                <div className="h-px w-5 bg-primary flex-shrink-0" />
-                <span className="font-bold text-[15px] tracking-[-0.02em] text-foreground">Clewa</span>
+              <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
+                <span className="text-primary-foreground font-heading font-bold text-base">S</span>
               </div>
+              <span className="font-heading font-semibold text-lg text-foreground">Clewa</span>
               {isBrand && (
                 <span className="hidden sm:block text-xs text-muted-foreground font-normal ml-1">/ Brand</span>
               )}
@@ -115,10 +118,10 @@ export function Header() {
                     key={item.href}
                     to={item.href}
                     className={cn(
-                      "flex items-center gap-1.5 px-3 py-2 text-sm transition-colors rounded-md",
+                      "flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg transition-colors",
                       isActive(item.href)
-                        ? "text-foreground bg-secondary font-medium"
-                        : "text-muted-foreground hover:text-foreground hover:bg-secondary/60 font-normal"
+                        ? "text-foreground bg-muted"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                     )}
                   >
                     <item.icon className="h-3.5 w-3.5" />
@@ -135,8 +138,8 @@ export function Header() {
                       className={cn(
                         "px-3 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap",
                         location.pathname === item.href
-                          ? "text-foreground bg-secondary font-medium"
-                          : "text-muted-foreground hover:text-foreground hover:bg-secondary/60 font-normal"
+                          ? "text-foreground bg-muted"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                       )}
                     >
                       {item.label}
@@ -247,7 +250,7 @@ export function Header() {
                       to={item.href}
                       className={cn(
                         "flex items-center gap-2 px-4 py-3 text-sm font-medium rounded-lg transition-colors",
-                        isActive(item.href) ? "text-foreground bg-secondary font-medium" : "text-muted-foreground hover:text-foreground hover:bg-secondary/60 font-normal"
+                        isActive(item.href) ? "text-foreground bg-muted" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                       )}
                     >
                       <item.icon className="h-4 w-4" />
@@ -277,7 +280,7 @@ export function Header() {
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={cn(
                         "px-4 py-3 text-sm font-medium rounded-lg transition-colors",
-                        location.pathname === item.href ? "text-foreground bg-secondary font-medium" : "text-muted-foreground hover:text-foreground hover:bg-secondary/60 font-normal"
+                        location.pathname === item.href ? "text-foreground bg-muted" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                       )}
                     >
                       {item.label}

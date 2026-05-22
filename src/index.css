@@ -1,23 +1,9 @@
-/* ─── CLEWA DESIGN SYSTEM v3 ──────────────────────────────────────────────────
-   
-   Philosophy: Linear meets Stripe. Precise, confident, infrastructure.
-   One accent color (amber). Everything else neutral.
-   Typography does the work — weight, scale, tracking. Not personality fonts.
-   
-   Color logic:
-   - Background: #FAFAFA (neutral near-white — not cream, not pure white)
-   - Cards: #FFFFFF (pure white, lifts off background)
-   - Foreground: #0A0A0A (near-black — confident, not warm)
-   - Primary: #AE6013 (amber — the only color in the system, used sparingly)
-   - Border: #E5E5E5 (visible but not heavy)
-   - Muted text: #6B7280 (gray-500 — readable, not invisible)
-   
-──────────────────────────────────────────────────────────────────────────── */
-
+@import '@fontsource/outfit/400.css';
+@import '@fontsource/outfit/500.css';
+@import '@fontsource/outfit/600.css';
+@import '@fontsource/outfit/700.css';
 @import '@fontsource/inter/400.css';
 @import '@fontsource/inter/500.css';
-@import '@fontsource/inter/600.css';
-@import '@fontsource/inter/700.css';
 
 @tailwind base;
 @tailwind components;
@@ -25,156 +11,165 @@
 
 @layer base {
   :root {
-    --background:        0 0% 98%;       /* #FAFAFA */
-    --foreground:        0 0% 4%;        /* #0A0A0A */
+    /* Option A — same warmth, more authority */
+    --background: 0 0% 98.5%;    /* #FAFAFA — neutral near-white */
+    --foreground: 0 0% 7%;        /* #121212 — near-black */
 
-    --card:              0 0% 100%;      /* #FFFFFF */
-    --card-foreground:   0 0% 4%;
+    --card: 0 0% 100%;            /* #FFFFFF */
+    --card-foreground: 30 12% 8%;
 
-    --popover:           0 0% 100%;
-    --popover-foreground: 0 0% 4%;
+    --popover: 40 20% 98%;
+    --popover-foreground: 30 12% 8%;
 
-    --primary:           30 80% 37%;     /* #AE6013 amber */
-    --primary-foreground: 0 0% 100%;
+    /* Darker copper — from 52% to 38% lightness */
+    --primary: 30 75% 36%;        /* #A85F12 — confident amber */
+    --primary-foreground: 40 20% 98%;
 
-    --secondary:         0 0% 96%;       /* #F5F5F5 */
-    --secondary-foreground: 0 0% 9%;
+    --secondary: 35 10% 92%;
+    --secondary-foreground: 30 12% 18%;
 
-    --muted:             0 0% 96%;
-    --muted-foreground:  0 0% 42%;       /* #6B6B6B — readable */
+    --muted: 35 8% 90%;
+    --muted-foreground: 0 0% 42%; /* readable gray */
 
-    --accent:            0 0% 96%;
-    --accent-foreground: 0 0% 9%;
+    --accent: 28 60% 38%;
+    --accent-foreground: 40 20% 98%;
 
-    --destructive:       0 72% 51%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border:            0 0% 90%;       /* #E5E5E5 */
-    --input:             0 0% 90%;
-    --ring:              30 80% 37%;
+    --border: 0 0% 89%;           /* #E3E3E3 */
+    --input: 0 0% 89%;
+    --ring: 28 60% 38%;
 
-    --radius:            0.375rem;       /* 6px — sharp but not harsh */
+    --radius: 0.5rem;
+
+    /* Custom tokens */
+    --hero-gradient: linear-gradient(135deg, hsl(40 20% 98%) 0%, hsl(35 15% 94%) 100%);
+    --card-shadow: 0 1px 3px 0 hsl(30 12% 8% / 0.05), 0 1px 2px -1px hsl(30 12% 8% / 0.05);
+    --card-shadow-lg: 0 10px 40px -10px hsl(30 12% 8% / 0.12);
+    --glow: 0 0 60px hsl(28 60% 38% / 0.12);
 
     /* Sidebar */
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 4%;
-    --sidebar-primary:    30 80% 37%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent:     0 0% 96%;
-    --sidebar-accent-foreground: 0 0% 9%;
-    --sidebar-border:     0 0% 90%;
-    --sidebar-ring:       30 80% 37%;
+    --sidebar-background: 40 15% 97%;
+    --sidebar-foreground: 30 12% 18%;
+    --sidebar-primary: 28 60% 38%;
+    --sidebar-primary-foreground: 40 20% 98%;
+    --sidebar-accent: 35 10% 92%;
+    --sidebar-accent-foreground: 30 12% 18%;
+    --sidebar-border: 35 12% 86%;
+    --sidebar-ring: 28 60% 38%;
   }
 
   .dark {
-    --background:        0 0% 5%;        /* #0D0D0D */
-    --foreground:        0 0% 96%;       /* #F5F5F5 */
-    --card:              0 0% 8%;
-    --card-foreground:   0 0% 96%;
-    --popover:           0 0% 8%;
-    --popover-foreground: 0 0% 96%;
-    --primary:           30 80% 52%;     /* lighter amber on dark */
-    --primary-foreground: 0 0% 4%;
-    --secondary:         0 0% 12%;
-    --secondary-foreground: 0 0% 80%;
-    --muted:             0 0% 12%;
-    --muted-foreground:  0 0% 55%;
-    --accent:            0 0% 12%;
-    --accent-foreground: 0 0% 96%;
-    --destructive:       0 72% 51%;
+    --background: 30 10% 7%;
+    --foreground: 40 15% 95%;
+
+    --card: 30 10% 10%;
+    --card-foreground: 40 15% 95%;
+
+    --popover: 30 10% 7%;
+    --popover-foreground: 40 15% 95%;
+
+    --primary: 28 60% 52%;
+    --primary-foreground: 30 10% 7%;
+
+    --secondary: 30 8% 16%;
+    --secondary-foreground: 40 15% 90%;
+
+    --muted: 30 8% 16%;
+    --muted-foreground: 35 10% 55%;
+
+    --accent: 28 60% 52%;
+    --accent-foreground: 30 10% 7%;
+
+    --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border:            0 0% 15%;
-    --input:             0 0% 15%;
-    --ring:              30 80% 52%;
+
+    --border: 30 8% 18%;
+    --input: 30 8% 18%;
+    --ring: 28 60% 52%;
+
+    --sidebar-background: 30 10% 9%;
+    --sidebar-foreground: 40 15% 90%;
+    --sidebar-primary: 28 60% 52%;
+    --sidebar-primary-foreground: 30 10% 7%;
+    --sidebar-accent: 30 8% 16%;
+    --sidebar-accent-foreground: 40 15% 90%;
+    --sidebar-border: 30 8% 18%;
+    --sidebar-ring: 28 60% 52%;
   }
 }
 
 @layer base {
-  * { @apply border-border box-border; }
-  
+  * {
+    @apply border-border;
+  }
+
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
     font-size: 14px;
-    line-height: 1.5;
-    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
   }
 
-  ::selection {
-    background-color: hsl(30 80% 37% / 0.12);
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', system-ui, sans-serif;
   }
 }
 
-/* ─── DESIGN SYSTEM COMPONENTS ───────────────────────────────────────────── */
 @layer components {
-
-  /* The thread — horizontal amber line before section labels */
-  /* Usage: <div class="label-with-thread">Label text</div> */
-  .label-with-thread {
-    @apply flex items-center gap-2.5 text-[11px] font-semibold text-primary uppercase tracking-[0.08em];
-  }
-  .label-with-thread::before {
-    content: '';
-    @apply block h-px w-6 bg-primary flex-shrink-0;
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70;
   }
 
-  /* Container system */
-  .container      { @apply px-5 mx-auto max-w-6xl; }
-  .container-sm   { @apply px-5 mx-auto max-w-3xl; }
-  .container-lg   { @apply px-5 mx-auto max-w-7xl; }
-
-  /* Section padding */
-  .section        { @apply py-16 md:py-24; }
-  .section-sm     { @apply py-10 md:py-14; }
-
-  /* ── CARD SYSTEM
-     Three levels. Use the right one.
-     .card-base — bordered, no background lift (for lists, rows)
-     .card-surface — white card on gray bg (for interactive units)
-     .card-inset — for content inside an existing card
-  */
-  .card-base    { @apply border border-border rounded-md; }
-  .card-surface { @apply bg-card border border-border rounded-md shadow-sm; }
-  .card-inset   { @apply bg-secondary/50 border border-border rounded; }
-
-  /* ── AMBER ACCENT — sparingly, meaningfully
-     Only use amber for: icons that indicate a primary action,
-     the thread line motif, and active/selected states.
-     NEVER as a background wash.
-  */
-  .amber-dot {
-    @apply w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0;
+  .section-padding {
+    @apply py-20 md:py-28 lg:py-32;
   }
 
-  /* ── STATUS BADGES */
-  .badge-neutral  { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-secondary text-muted-foreground border border-border; }
-  .badge-amber    { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-700 border border-amber-200; }
-  .badge-green    { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-green-50 text-green-700 border border-green-200; }
-  .badge-red      { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-red-50 text-red-700 border border-red-200; }
-  .badge-blue     { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-blue-50 text-blue-700 border border-blue-200; }
+  .container-tight {
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
 
-  /* ── DIVIDER */
-  .divider { @apply h-px w-full bg-border; }
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
 
-  /* ── PROSE for marketing copy */
-  .prose-marketing h1 { @apply text-[2.75rem] md:text-[3.25rem] font-bold tracking-[-0.04em] leading-[1.05] text-foreground; }
-  .prose-marketing h2 { @apply text-[1.75rem] md:text-[2.25rem] font-bold tracking-[-0.03em] leading-[1.1] text-foreground; }
-  .prose-marketing h3 { @apply text-lg font-semibold tracking-[-0.01em] text-foreground; }
-  .prose-marketing p  { @apply text-sm text-muted-foreground leading-relaxed; }
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
 }
 
-/* ─── UTILITY OVERRIDES ──────────────────────────────────────────────────── */
-@layer utilities {
-  /* Tighter tracking for headings */
-  .tracking-display { letter-spacing: -0.04em; }
-  .tracking-heading { letter-spacing: -0.025em; }
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  /* Subtle elevation for interactive cards */
-  .shadow-card { box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06); }
-  .shadow-card-hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04); }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-  /* Amber ring for focus states on primary interactive elements */
-  .ring-amber { @apply ring-2 ring-primary ring-offset-2; }
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom selection */
+::selection {
+  background: hsl(28 55% 52% / 0.2);
+  color: hsl(30 10% 12%);
 }

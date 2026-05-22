@@ -80,9 +80,9 @@ export default function Home() {
       />
 
       {/* ─── HERO ──────────────────────────────────────────────────────── */}
-      <section className="border-b border-border bg-background">
-        <div className="container">
-          <div className="py-20 md:py-28 max-w-2xl">
+      <section className="section-padding border-b border-border">
+        <div className="container-wide">
+          <div className="max-w-2xl">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -146,7 +146,7 @@ export default function Home() {
       </div>
 
       {/* ─── THREE SITUATIONS ──────────────────────────────────────────── */}
-      <section className="section border-b border-border">
+      <section className="section-padding border-b border-border">
         <div className="container">
 
           <motion.div
@@ -212,7 +212,7 @@ export default function Home() {
       </section>
 
       {/* ─── GUIDANCE ──────────────────────────────────────────────────── */}
-      <section className="section border-b border-border">
+      <section className="section-padding border-b border-border">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
 
@@ -262,7 +262,7 @@ export default function Home() {
       </section>
 
       {/* ─── PROTECTION — dark ─────────────────────────────────────────── */}
-      <section className="section border-b border-border bg-foreground">
+      <section className="section-padding border-b border-border bg-foreground">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
 
@@ -313,7 +313,7 @@ export default function Home() {
       </section>
 
       {/* ─── INTELLIGENCE ──────────────────────────────────────────────── */}
-      <section className="section border-b border-border">
+      <section className="section-padding border-b border-border">
         <div className="container">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
@@ -347,7 +347,7 @@ export default function Home() {
       </section>
 
       {/* ─── TRADE TOOLS ───────────────────────────────────────────────── */}
-      <section className="section border-b border-border bg-secondary/30">
+      <section className="section-padding border-b border-border">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div
@@ -386,7 +386,7 @@ export default function Home() {
       </section>
 
       {/* ─── CTA ───────────────────────────────────────────────────────── */}
-      <section className="section">
+      <section className="section-padding">
         <div className="container max-w-xl">
           <motion.div
             initial={{ opacity: 0, y: 8 }}

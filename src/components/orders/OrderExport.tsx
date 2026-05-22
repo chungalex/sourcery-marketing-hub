@@ -99,7 +99,7 @@ export function OrderExport({ order, isPro = false }: OrderExportProps) {
   </div>
 </div>
 
-<div class="section">
+<div class="section-padding">
   <div class="section-title">Order details</div>
   <div class="grid">
     <div class="field"><label>Factory</label><p>${order.factories?.name || "—"}</p></div>
@@ -113,7 +113,7 @@ export function OrderExport({ order, isPro = false }: OrderExportProps) {
 </div>
 
 ${(revisions as any[])?.length > 0 ? `
-<div class="section">
+<div class="section-padding">
   <div class="section-title">Revision rounds (${(revisions as any[]).length})</div>
   ${(revisions as any[]).map((r: any) => `
     <div class="revision-row">
@@ -123,7 +123,7 @@ ${(revisions as any[])?.length > 0 ? `
 </div>` : ""}
 
 ${(defects as any[])?.length > 0 ? `
-<div class="section">
+<div class="section-padding">
   <div class="section-title">Defect reports (${(defects as any[]).length})</div>
   ${(defects as any[]).map((d: any) => `
     <div class="defect-row">
@@ -133,7 +133,7 @@ ${(defects as any[])?.length > 0 ? `
 </div>` : ""}
 
 ${(messages as any[])?.length > 0 ? `
-<div class="section">
+<div class="section-padding">
   <div class="section-title">Message log (${(messages as any[]).length} messages)</div>
   ${(messages as any[]).map((m: any) => `
     <div class="message-row">
