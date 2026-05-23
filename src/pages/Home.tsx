@@ -17,7 +17,7 @@ const SITUATIONS = [
   {
     icon: Search,
     num: "01",
-    tag: "No factory yet",
+    tag: "Source — No factory yet",
     headline: "We'll find you one.",
     body: "Registered manufacturers with OTIF scores from real completed orders. AI matching from a plain-language brief. Every question answered before you commit.",
     features: ["Factory directory — Vietnam, Indonesia, Bangladesh", "AI factory matcher", "Multi-factory RFQ", "Due diligence checklist"],
@@ -27,7 +27,7 @@ const SITUATIONS = [
   {
     icon: Shield,
     num: "02",
-    tag: "Have one, not sure",
+    tag: "Operate — Have one, not sure",
     headline: "We give you certainty.",
     body: "Verification, audit requests, OTIF scoring from real transaction data. Know exactly who you're working with. Before another dollar leaves.",
     features: ["Factory verification", "OTIF from real orders — never claimed", "Audit request system", "Dispute filing"],
@@ -37,7 +37,7 @@ const SITUATIONS = [
   {
     icon: Zap,
     num: "03",
-    tag: "Have one you trust",
+    tag: "Grow — Have one you trust",
     headline: "Invite them in 60 seconds.",
     body: "BYOF — Bring Your Own Factory. One link. They join free. Structure every order, protect every payment, document everything from day one.",
     features: ["One invite link — full features immediately", "Guided PO creation", "Milestone-gated payments", "Intelligence from your first order"],
@@ -55,7 +55,7 @@ const GUIDANCE_MOMENTS = [
 
 const STATS = [
   { value: "Week 4",  label: "When you find out",        sub: "Not week 10 — when it's too late" },
-  { value: "94%",     label: "OTIF — HU LA Studios",     sub: "From real cycles. Not claimed." },
+  { value: "94%",     label: "On-time in-full rate",     sub: "From completed orders. Not claimed." },
   { value: "$399",    label: "Growth, per year",          sub: "vs $10–30K for a sourcing agent" },
   { value: "3 gates", label: "Deposit · Sample · QC",     sub: "Nothing moves without your confirm" },
 ];
@@ -100,8 +100,8 @@ export default function Home() {
               </h1>
 
               {/* Sub */}
-              <p className="text-[15px] text-muted-foreground leading-relaxed max-w-[28rem] mb-8">
-                Find manufacturers. Verify them. Structure every order with milestone payments, documented specs, and built-in guidance at every step.
+              <p className="text-[15px] text-muted-foreground leading-relaxed max-w-[28rem] mb-6">
+                Source your first factory. Operate every order with professional structure and payment protection. Grow the data that makes every future decision smarter.
               </p>
 
               {/* CTAs */}
@@ -130,7 +130,7 @@ export default function Home() {
           <div className="flex items-center gap-8 py-3 overflow-x-auto scrollbar-none text-xs text-muted-foreground whitespace-nowrap">
             <span className="flex items-center gap-1.5">
               <div className="h-px w-4 bg-primary flex-shrink-0" />
-              <span><strong className="text-foreground font-semibold">$5K–$20K</strong> avg cost of a missed season</span>
+              <span><strong className="text-foreground font-semibold">$5K–$20K</strong> — average cost of one missed season</span>
             </span>
             <span className="text-border">·</span>
             <span className="flex items-center gap-1.5">

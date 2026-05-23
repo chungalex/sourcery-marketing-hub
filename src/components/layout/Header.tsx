@@ -12,19 +12,19 @@ import { cn } from "@/lib/utils";
 
 // Marketing nav — shown to logged-out users
 const marketingNav = [
-  { label: "Features", href: "/features" },
+  { label: "Source", href: "/features#source" },
+  { label: "Operate", href: "/features#operate" },
+  { label: "Grow", href: "/features#grow" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Trade tools", href: "/trade-tools" },
-  { label: "Studio", href: "/studio" },
 ];
 
 // Secondary nav items accessible via mobile menu
 const marketingNavSecondary = [
-  { label: "Intelligence", href: "/intelligence" },
   { label: "How it works", href: "/how-it-works" },
+  { label: "Trade tools", href: "/trade-tools" },
   { label: "Why Clewa", href: "/why-clewa" },
-  { label: "Case studies", href: "/case-studies" },
   { label: "FAQ", href: "/faq" },
+  { label: "For factories", href: "/factories" },
 ];
 
 // App nav — shown to logged-in brands
@@ -98,7 +98,7 @@ export function Header() {
             {/* Logo */}
             <Link to={isLoggedIn ? dashboardHref : "/"} className="flex items-center gap-2 flex-shrink-0">
               <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-heading font-bold text-base">S</span>
+                <span className="text-primary-foreground font-heading font-bold text-base">C</span>
               </div>
               <span className="font-heading font-semibold text-lg text-foreground">Clewa</span>
               {isBrand && (

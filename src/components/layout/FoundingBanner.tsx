@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { X, Users } from "lucide-react";
+import { X, Zap } from "lucide-react";
 
 export function FoundingBanner() {
   const [dismissed, setDismissed] = useState(() =>
@@ -15,23 +15,24 @@ export function FoundingBanner() {
   };
 
   return (
-    <div className="bg-primary text-primary-foreground">
+    <div className="bg-foreground text-background">
       <div className="container-wide py-2.5 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2 text-sm">
-          <Users className="h-4 w-4 flex-shrink-0" />
-          <span>
-            <strong>Founding member offer:</strong> Lock in Builder at $299/year forever — only 5 spots.{" "}
-            <Link to="/pricing#founding" className="underline underline-offset-2 hover:no-underline font-medium">
-              See the offer →
+          <Zap className="h-3.5 w-3.5 flex-shrink-0 text-primary" />
+          <span className="text-background/90">
+            <strong className="text-background">Founding member offer:</strong>{" "}
+            Lock in Growth at $399/year — price guaranteed forever.{" "}
+            <Link to="/pricing" className="underline underline-offset-2 hover:no-underline font-medium text-primary">
+              5 spots remaining →
             </Link>
           </span>
         </div>
         <button
           onClick={dismiss}
-          className="flex-shrink-0 p-1 rounded hover:bg-primary-foreground/20 transition-colors"
+          className="flex-shrink-0 p-1 rounded hover:bg-background/10 transition-colors"
           aria-label="Dismiss"
         >
-          <X className="h-4 w-4" />
+          <X className="h-4 w-4 text-background/60" />
         </button>
       </div>
     </div>

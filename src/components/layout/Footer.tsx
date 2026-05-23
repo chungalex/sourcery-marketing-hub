@@ -49,7 +49,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-              The thread through your manufacturing labyrinth. Find factories, run structured orders, protect every payment. The infrastructure the whole category was missing.lity on every order.
+              The thread through your manufacturing labyrinth. Find factories, run structured orders, protect every payment. The infrastructure the whole category was missing.
             </p>
             <Newsletter variant="compact" />
           </div>
